@@ -1,5 +1,12 @@
 # Women in Tech Social!
 
+## Design
+
+* [API design](docs/apis.md)
+* [Data model](docs/data-model.md)
+* [GHI](docs/ghi.md)
+* [Integrations](docs/integrations.md)
+
 Team Members:
 * Amanda Kiehm
 * Allisha Rectspat
