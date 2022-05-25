@@ -31,15 +31,20 @@ These may include (but are not limited to):
 
 ## Functionality
 
-* Live feed
-* Job board
-* Profile sign-up / log-in
-* Conference, meet-up and event board
-* Search feature(event, profile, conference, jobs, companies, location, time) or sort by a tags or newest to oldest
-* Direct message
-* Forum page & comments (annonymous comments will be available)
-* Tips - blog, 
-* Mentorship / sponsorship / scholarship
+## Must Have Features:
+* User accounts (profile, signup, log-in), messaging, followers - personal or business account
+* Company info and reviews
+* Mentorship / sponsorship / scholarship section
+* Job board - query data from Indeed/Glassdoor or other source
+* Conference/meetup/event section - query from event API
+* Forum for users to post and comment
+
+* (To come later) Personalized Live Feed (homepage) 
+* Site search
+
+## Nice to Haves: 
 * Newsletter
-* Following/subscription (number of followers will be hidden to public)
-* Company info & reviews
+* Following/follower capability
+
+
+![Image](WiTSocial_DDD.png)
