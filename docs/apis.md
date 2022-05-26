@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## Education: Scholarship & Mentorship
 
 * **Method**: POST, GET, DELETE, PUT
@@ -69,7 +68,7 @@ POST/GET /education/scholarship - gets a list of all available scholarships. Pos
 GET /education/scholarship/scholarship_id - gets a specific scholarship.
 DELETE a scholarship - able to delete a scholarship from the database.
 UPDATE a scholarship - update a scholarship based on id.
-=======
+
 ## Jobs
 
 * **Method**:  `GET`, `DELETE`, `PUT`,
@@ -222,4 +221,3 @@ POST a review - uses the incoming company name, employment duration, salary, ben
 GET company reviews - shows a list of all reviews for a specific company
 DELETE a review - able to delete a review
 UPDATE a review - update a review
->>>>>>> main
