@@ -2,13 +2,15 @@
 
 ## Users
 
-| Name     | Type   | Unique | Optional |
-| -------- | ------ | ------ | -------- |
-| username | string | yes    | no       |
-| email    | string | yes    | no       |
-| fullname | string | no     | no       |
-| location | string | no     | yes      |
-| role     | string | no     | no       |
+| Name      | Type   | Unique | Optional |
+| --------- | ------ | ------ | -------- |
+| username  | string | yes    | no       |
+| password  | string | yes    | no       |
+| email     | string | yes    | no       |
+| fullname  | string | no     | no       |
+| location  | string | no     | yes      |
+| role      | string | no     | yes      |
+| photo URL | string | no     | no       |
 
 The `Users` entity contains the data about a user account
 with personalized information.
@@ -91,18 +93,32 @@ with personalized information.
 | Qualification | string | no     | no       |
 | Date Posted   | Int    | no     | yes      |
 
-## Events & Conference
+## Events & Conferences
 
 | Name        | Type   | Unique | Optional |
 | ----------- | ------ | ------ | -------- |
 | name        | string | yes    | no       |
-| location    | string | yes    | no       |
-| dates       | string | no     | no       |
-| description | string | no     | yes      |
-| photo URL   | string | no     | no       |
-| photo URL   | string | no     | no       |
-| photo URL   | string | no     | no       |
-| photo URL   | string | no     | no       |
+| location    | string | no     | no       |
+| dates       | int    | no     | no       |
+| description | string | no     | no       |
+| photo_url   | string | no     | no       |
+| event_url   | string | yes    | no       |
+| userVO      | string | yes    | no       |
 
-The `Users` entity contains the data about a user account
-with personalized information.
+The `Events & Conferences` entity contains the data about events, conferences, and meetups.
+
+## Company Reviews
+
+| Name                | Type   | Unique | Optional |
+| ------------------- | ------ | ------ | -------- |
+| company_name        | string | yes    | no       |
+| employment_duration | int    | no     | no       |
+| salary              | int    | no     | no       |
+| benefits            | string | no     | yes      |
+| role                | string | no     | no       |
+| location            | string | no     | no       |
+| ratings             | int    | no     | no       |
+| review              | string | no     | no       |
+| userVO              | string | yes    | no       |
+
+The `Company Reviews` entity contains the data where users can rate and review companies with the option of anonymity.
