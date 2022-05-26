@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## Education: Scholarship & Mentorship
 
 * **Method**: POST, GET, DELETE, PUT
@@ -6,7 +5,7 @@
 
 Input:
 
-json
+```json
 {
     "username": str,
     "job_title": str,
@@ -15,11 +14,11 @@ json
     "availability": str,
     "has_mentee": bool
 }
-
+```
 
 Output:
 
-json
+```json
 {
     "id": int,
     "username": str,
@@ -29,13 +28,13 @@ json
     "availability": str,
     "has_mentee": bool
 }
+```
 
-
-POST/GET /education/mentorship - gets a list of all offerings for mentorship. 
+* POST/GET /education/mentorship - gets a list of all offerings for mentorship. 
 Post creates a new offering for mentorship to users.
-GET /education/mentorship/mentorship_id - gets a specific mentorship id.
-DELETE a mentorship - able to delete a mentorship from the database.
-UPDATE a mentorship. - update a mentorship. The has_mentee bool will be updated to True when the offered mentorship has a mentee.
+* GET /education/mentorship/mentorship_id - gets a specific mentorship id.
+* DELETE a mentorship - able to delete a mentorship from the database.
+* UPDATE a mentorship. - update a mentorship. The has_mentee bool will be updated to True when the offered mentorship has a mentee.
 
 
 * **Method**: POST, GET, DELETE, PUT
@@ -43,7 +42,7 @@ UPDATE a mentorship. - update a mentorship. The has_mentee bool will be updated 
 
 Input:
 
-json
+```json
 {
     "name": str,
     "location": str,
@@ -51,11 +50,11 @@ json
     "organization": str,
     "organization_url": str
 }
-
+```
 
 Output:
 
-json
+```json
 {
     "name": str,
     "location": str,
@@ -63,13 +62,13 @@ json
     "organization": str,
     "organization_url": str
 }
+```
 
+* POST/GET /education/scholarship - gets a list of all available scholarships. Post creates a new scholarship instance.
+* GET /education/scholarship/scholarship_id - gets a specific scholarship.
+* DELETE a scholarship - able to delete a scholarship from the database.
+* UPDATE a scholarship - update a scholarship based on id.
 
-POST/GET /education/scholarship - gets a list of all available scholarships. Post creates a new scholarship instance.
-GET /education/scholarship/scholarship_id - gets a specific scholarship.
-DELETE a scholarship - able to delete a scholarship from the database.
-UPDATE a scholarship - update a scholarship based on id.
-=======
 ## Jobs
 
 * **Method**:  `GET`, `DELETE`, `PUT`,
@@ -101,10 +100,9 @@ Output:
 }
 ```
 
-GET uses the incoming job id to query the data for the job post. Then, it saves the name, city, company type, email, location, job type, salary, qualifcations to database. It returns all of the data
-with the new database id. We plan on using a third party api to get job board information. 
-DELETE an Job - able to delete an Job from database
-UPDATE an Job - Update an Job
+* GET uses the incoming job id to query the data for the job post. Then, it saves the name, city, company type, email, location, job type, salary, qualifcations to database. It returns all of the data with the new database id. We plan on using a third party api to get job board information. 
+* DELETE an Job - able to delete an Job from database
+* UPDATE an Job - Update an Job
 
 ## User
 
@@ -137,15 +135,13 @@ Output:
     "location" : string ,
     "Role " : string ,
     "Photo" : string
-
-    
 }
 ```
-POST creates a new User uses the incoming json 
+* POST creates a new User uses the incoming json 
 data to create a entry into the database that saves the name, username, password, email, fullname, location, role and photo.  It returns all of the data with the new database id.
-GET retrieves incoming data from the database about the users/user that already exist in the database. 
-DELETE an User - able to delete an User from database
-UPDATE an User - Update an User
+* GET retrieves incoming data from the database about the users/user that already exist in the database. 
+* DELETE an User - able to delete an User from database
+* UPDATE an User - Update an User
 
 ## Events
 
@@ -177,9 +173,9 @@ Output:
 }
 ```
 
-POST/GET events/an event - gets incoming data from third party event API(possibly eventbrite) to query events and show a list of events. Also gets event by id and shows event details. Then, it saves the name, location, dates, description, and event url to the database and returns it with a new database id.
-DELETE an event - able to delete an event from database
-UPDATE an event - update an event
+* POST/GET events/an event - gets incoming data from third party event API(possibly eventbrite) to query events and show a list of events. Also gets event by id and shows event details. Then, it saves the name, location, dates, description, and event url to the database and returns it with a new database id.
+* DELETE an event - able to delete an event from database
+* UPDATE an event - update an event
 
 
 
@@ -218,8 +214,7 @@ Output:
 }
 ```
 
-POST a review - uses the incoming company name, employment duration, salary, benefits, role, location, ratings, and review data to create a new review. Then it saves that data to the database and returns it with a new database id.
-GET company reviews - shows a list of all reviews for a specific company
-DELETE a review - able to delete a review
-UPDATE a review - update a review
->>>>>>> main
+* POST a review - uses the incoming company name, employment duration, salary, benefits, role, location, ratings, and review data to create a new review. Then it saves that data to the database and returns it with a new database id.
+* GET company reviews - shows a list of all reviews for a specific company
+* DELETE a review - able to delete a review
+* UPDATE a review - update a review

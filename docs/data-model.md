@@ -44,18 +44,6 @@ with personalized information.
 
 
 
-
-
-| Name | Type | Unique | Optional |
-|-|-|-|-|
-| username | string | yes | no |
-| email | string | yes | no |
-| fullname | string | no | no |
-| location | string | no | yes |
-| role | string | no | no |
-
-
-
 ## Jobs
 
 | Company Name | Type | Unique | Optional |
