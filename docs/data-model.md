@@ -5,7 +5,7 @@
 | Name      | Type   | Unique | Optional |
 | --------- | ------ | ------ | -------- |
 | username  | string | yes    | no       |
-| password  | string | yes    | no       |
+| password  | string | no    | no       |
 | email     | string | yes    | no       |
 | fullname  | string | no     | no       |
 | location  | string | no     | yes      |
@@ -78,7 +78,10 @@ with personalized information.
 | ---- | ---- | ------ | -------- |
 
 | uservo | string | yes | no |
+| job_title | string | no | no |
 | description | string | no | no |
+| availability | string | no | no |
+| has_mentee | bool | no | no |
 
 ## Jobs
 

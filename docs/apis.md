@@ -73,8 +73,6 @@ Output:
 - **Method**: `GET`, `DELETE`, `PUT`,
 - **Path**: /api/Jobs, /api/Jobs/{job_id}
 
-## Events & Conferences
-
 Input:
 
 ```json
