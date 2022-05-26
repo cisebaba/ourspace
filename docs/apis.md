@@ -11,7 +11,7 @@ json
     "job_title": str,
     "location": str,
     "description": str,
-    "availability" str,
+    "availability": str,
     "has_mentee": bool
 }
 
@@ -25,15 +25,15 @@ json
     "job_title": str,
     "location": str,
     "description": str,
-    "availability" str,
+    "availability": str,
     "has_mentee": bool
 }
 
 
 POST/GET /education/mentorship - gets a list of all offerings for mentorship. 
 Post creates a new offering for mentorship to users.
-GET /education/mentorship/mentorship_id - gets a specific mentorship id
-DELETE a mentorship - able to delete a mentorship from the database
+GET /education/mentorship/mentorship_id - gets a specific mentorship id.
+DELETE a mentorship - able to delete a mentorship from the database.
 UPDATE a mentorship. - update a mentorship. The has_mentee bool will be updated to True when the offered mentorship has a mentee.
 
 
@@ -65,6 +65,6 @@ json
 
 
 POST/GET /education/scholarship - gets a list of all available scholarships. Post creates a new scholarship instance.
-GET /education/scholarship/scholarship_id - gets a specific scholarship
+GET /education/scholarship/scholarship_id - gets a specific scholarship.
 DELETE a scholarship - able to delete a scholarship from the database.
-UPDATE a scholarship - update a scholarship
+UPDATE a scholarship - update a scholarship based on id.
