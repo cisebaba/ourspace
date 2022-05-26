@@ -7,6 +7,9 @@
 * [GHI](docs/ghi.md)
 * [Integrations](docs/integrations.md)
 
+## Architecture
+![Image](WiTSocial_DDD.png)
+
 Team Members:
 * Amanda Kiehm
 * Allisha Rectspat
@@ -47,4 +50,3 @@ These may include (but are not limited to):
 * Following/follower capability
 
 
-![Image](WiTSocial_DDD.png)

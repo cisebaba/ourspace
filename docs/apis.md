@@ -1,18 +1,18 @@
 ## Education: Scholarship & Mentorship
 
-* **Method**: POST, GET, DELETE, PUT
-* **Path**: /api/education/mentorship, /api/education/mentorship/{mentorship_id}
+- **Method**: POST, GET, DELETE, PUT
+- **Path**: /api/education/mentorship, /api/education/mentorship/{mentorship_id}
 
 Input:
 
 ```json
 {
-    "username": str,
-    "job_title": str,
-    "location": str,
-    "description": str,
-    "availability": str,
-    "has_mentee": bool
+"username": str,
+"job_title": str,
+"location": str,
+"description": str,
+"availability": str,
+"has_mentee": bool
 }
 ```
 
@@ -20,13 +20,13 @@ Output:
 
 ```json
 {
-    "id": int,
-    "username": str,
-    "job_title": str,
-    "location": str,
-    "description": str,
-    "availability": str,
-    "has_mentee": bool
+"id": int,
+"username": str,
+"job_title": str,
+"location": str,
+"description": str,
+"availability": str,
+"has_mentee": bool
 }
 ```
 
@@ -36,19 +36,18 @@ Post creates a new offering for mentorship to users.
 * DELETE a mentorship - able to delete a mentorship from the database.
 * UPDATE a mentorship. - update a mentorship. The has_mentee bool will be updated to True when the offered mentorship has a mentee.
 
-
-* **Method**: POST, GET, DELETE, PUT
-* **Path**: /api/education/scholarship, /api/education/scholarship/{scholarship_id}
+- **Method**: POST, GET, DELETE, PUT
+- **Path**: /api/education/scholarship, /api/education/scholarship/{scholarship_id}
 
 Input:
 
 ```json
 {
-    "name": str,
-    "location": str,
-    "description": str,
-    "organization": str,
-    "organization_url": str
+"name": str,
+"location": str,
+"description": str,
+"organization": str,
+"organization_url": str
 }
 ```
 
@@ -56,11 +55,11 @@ Output:
 
 ```json
 {
-    "name": str,
-    "location": str,
-    "description": str,
-    "organization": str,
-    "organization_url": str
+"name": str,
+"location": str,
+"description": str,
+"organization": str,
+"organization_url": str
 }
 ```
 
@@ -71,15 +70,16 @@ Output:
 
 ## Jobs
 
-* **Method**:  `GET`, `DELETE`, `PUT`,
-* **Path**: /api/Jobs, /api/Jobs/{job_id}
+- **Method**: `GET`, `DELETE`, `PUT`,
+- **Path**: /api/Jobs, /api/Jobs/{job_id}
+
 ## Events & Conferences
 
 Input:
 
 ```json
 {
-    "Job Id" : int 
+    "Job Id" : int
 
 }
 ```
@@ -89,14 +89,14 @@ Output:
 ```json
 {
     "Job Id" : int,
-    "Company Name" : string, 
+    "Company Name" : string,
     "Company Type"  : string ,
     "email" : string,
     "location" : string ,
     "Job Type " : string ,
     "Salary" : int ,
     "Qualification" : string ,
-    "Date Posted" : Int 
+    "Date Posted" : Int
 }
 ```
 
@@ -106,15 +106,15 @@ Output:
 
 ## User
 
-* **Method**:  `POST`,`GET`, `DELETE`, `PUT`
-* **Path**: /api/user, /api/user/{user_id}
+- **Method**: `POST`,`GET`, `DELETE`, `PUT`
+- **Path**: /api/user, /api/user/{user_id}
 
 Input:
 
 ```json
 {
     "Id" : int,
-    "Username" : string, 
+    "Username" : string,
     "email"  : string ,
     "Fullname" : string,
     "location" : string ,
@@ -128,7 +128,7 @@ Output:
 ```json
 {
     "Id" : int,
-    "Username" : string, 
+    "Username" : string,
     "Password" : string,
     "email"  : string ,
     "Fullname" : string,
@@ -145,9 +145,9 @@ data to create a entry into the database that saves the name, username, password
 
 ## Events
 
-* **Method**: POST, GET, DELETE, PUT
-* **Path**: /api/events, /api/events/{event_id}
-Input:
+- **Method**: POST, GET, DELETE, PUT
+- **Path**: /api/events, /api/events/{event_id}
+  Input:
 
 ```json
 {
@@ -159,10 +159,11 @@ Input:
 
 }
 ```
+
 Output:
 
 ```json
-{   
+{
     "id": int,
     "name": str,
     "location": str,
@@ -177,12 +178,10 @@ Output:
 * DELETE an event - able to delete an event from database
 * UPDATE an event - update an event
 
-
-
 ## Company Reviews
 
-* **Method**: POST, GET, DELETE, PUT
-* **Path**: /api/reviews, /api/reviews/{company_id}
+- **Method**: POST, GET, DELETE, PUT
+- **Path**: /api/reviews, /api/reviews/{company_id}
 
 Input:
 
@@ -218,3 +217,125 @@ Output:
 * GET company reviews - shows a list of all reviews for a specific company
 * DELETE a review - able to delete a review
 * UPDATE a review - update a review
+
+
+## Forum Post
+
+- **Method**: POST, GET, DELETE, PUT
+- **Path**: /api/forum/, /api/forum/{forum_id}
+
+Input:
+
+```json
+{
+"title": str,
+"text": str,
+"author": str,
+"userVO": str \*\* unsure about where/how to keep info about who posted
+
+}
+```
+
+Output:
+
+```json
+{
+"title": str,
+"text": str,
+"datetime": int,
+"author": str,
+"userVO": str,
+"upvotes": int
+}
+```
+
+POST/GET/forum - this displays and allows authorized users to post a title and text, and the author (which can be anonymous). When there is a post, there is an automated datetime stamp that is displayed.
+DELETE a forum post - able to delete an forum post from database
+UPDATE a forum post - update an forum post
+
+## Forum Comment
+
+- **Method**: POST, GET, DELETE, PUT
+- **Path**: /api/forum/comment, /api/forum/comment{comment_id}
+
+Input:
+
+```json
+{
+"text": str,
+"post_id": int,
+"author": str,
+"userVO" str,
+}
+```
+
+Output:
+
+```json
+{
+"text": str,
+"post_id": int,
+"datetime": int,
+"author": str,
+"userVO": str,
+"upvotes": int
+}
+```
+
+POST/GET/forum - this displays and allows authorized users to post a comment on a post, and the author (which can be anonymous). When there is a comment, there is an automated datetime stamp.
+DELETE a forum comment - able to delete an forum post from database
+UPDATE a forum comment - update an forum post
+
+## Forum Post Upvote
+
+- **Method**: POST, GET, DELETE
+- **Path**: /api/{forum_id}/upvote
+
+Input:
+
+```json
+{
+"upvote": int,
+"post_id": int,
+}
+```
+
+Output:
+
+```json
+{
+"upvote": int,
+"post_id": int,
+}
+```
+
+POST/GET/forum - users can click to upvote on a post, which will add to the upvote counter.
+DELETE a forum comment - able to delete upvote from database
+
+## Forum Post or Comment Upvote
+
+- **Method**: POST, GET, DELETE
+- **Path**: /api/{forum_id}/comment{id}
+
+Input:
+
+```json
+{
+"upvote": int,
+"post_id": int,
+"comment_id": int,
+}
+```
+
+Output:
+
+```json
+{
+"upvote": int,
+"post_id": int,
+"comment_id": int,
+}
+```
+
+POST/GET/forum - this allows people to upvote a comment related to a specific post, which helps the most popular rise to the top. Users will click to add an upvote to the counter
+DELETE a forum comment upvote- able to delete an upvote from database
