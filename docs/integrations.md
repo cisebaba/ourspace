@@ -6,3 +6,4 @@ data from third-party sources:
 * Weather data by ZIP code
 * Job data from Glassdoor/Indeed/other
 * Possibly conference data (Meetup/Eventbrite/other)
+* Location (React Hook)
