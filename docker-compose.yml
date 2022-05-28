@@ -1,0 +1,16 @@
+# volumes:
+#   women_tech:
+#     external: true
+# services:
+#   react:
+#     image: node:lts-bullseye
+#     command: /bin/bash run.sh
+#     working_dir: /app
+#     volumes:
+#       - ./ghi/app:/app
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       HOST_OS: ${OS}
+#       NODE_ENV: development
+#       HOST: "0.0.0.0"
