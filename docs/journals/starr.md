@@ -7,7 +7,8 @@
 
 # June 1, 2022
 Features/Issues Worked On :
-* We as a group set up an additional layer of security on git by setting up additional branches on git . 
+* We as a group set up an additional layer of security on git by setting up additional branches on git. 
+* I worked with Amanda and Cise to set up conference/events 
 Reflection :
 * 
 Ah-Ha Moment :
