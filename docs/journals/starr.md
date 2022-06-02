@@ -5,6 +5,28 @@
 * A reflection on any design conversations that you had
 * At least one ah-ha! moment that you had during your coding, however small
 
+# June 2, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>
+        I worked with Cise and Allisha on conference/events
+        </li> 
+    </ul> 
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
+
+
 # June 1, 2022
 <ul>
 <li> Features/Issues Worked On : </li>
