@@ -2,18 +2,18 @@ volumes:
   ourspace:
     external: true
 services:
-  react:
-    image: node:lts-bullseye
-    command: /bin/bash run.sh # runs run.sh file, change script in package.json
-    working_dir: /app
-    volumes:
-      - ./ghi/app:/app
-    ports:
-      - "3000:3000"
-    environment:
-      HOST_OS: ${OS}
-      NODE_ENV: development
-      HOST: "0.0.0.0"
+  # react:
+  #   image: node:lts-bullseye
+  #   command: /bin/bash run.sh # runs run.sh file, change script in package.json
+  #   working_dir: /app
+  #   volumes:
+  #     - ./ghi/app:/app
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     HOST_OS: ${OS}
+  #     NODE_ENV: development
+  #     HOST: "0.0.0.0"
   events:
     build:
       context: ./events/api
@@ -22,12 +22,12 @@ services:
       - "8000:8000"
     volumes:
       - ./events/api:/app
-    environment:
-      #host is the name of the service running pgsequal
-      PGHOST: db
-      PGDATABASE: ourspace
-      PGUSER: ourspace
-      PGPASSWORD: ourspace
+    # environment:
+    #   #host is the name of the service running pgsequal
+    #   PGHOST: db
+    #   PGDATABASE: ourspace
+    #   PGUSER: ourspace
+    #   PGPASSWORD: ourspace
   db:
     image: postgres:14.2-bullseye
     volumes:
