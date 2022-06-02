@@ -1,16 +1,19 @@
 ## June 1, 2022
 
-We used a random generator to make teams and distribute the tasks for today. worked on dividing up tasks for the day, with one group ( Rachael and I ) working on the events microservice and one group (Starr, Cise, and Amanda) working on the jobs microservice. I added to our google docs sheet a couple of things that we need to implement into our project at some point, such as continuous integration and continuous deployment (CI / CD) and creating unit tests. We had some issues with GitLab and got help from instructors to set up branches in GitLab and merging.
+Our team used a random generator to split up teams and distribute the tasks for today. We worked on dividing up tasks for the day, with one group ( Rachael and I ) working on the jobs microservice and one group (Starr, Cise, and Amanda) working on the events microservice. 
 
-accessed adzuna job api - struggles
+I added to our google docs sheet a couple of things that we need to implement into our project at some point, such as continuous integration and continuous deployment (CI / CD) and creating unit tests. We had some issues with git merging and GitLab and got help from instructors to set up branches in GitLab. 
 
+Rachael and I looked for a jobs listing API that was quite difficult to find but eventually found a good one from Adzuna. We were able to get an API key and an app ID to access the API. We took turns sharing our screens and coding. I found out that this API didn't need a token especially one that doesn't expire every hour which is great! We added the jobs service to the docker yaml file and created a Docker dev file for jobs microservice. We wrote a poller to access the Adzuna API job listings and added the url to our poller with specific queries. Our dev team came together at the end of the day to talk about our progress for today and make a list of plans for tomorrow, which I added to our google doc.
+
+Notes through project realtime:
+
+Accessed Adzuna job api - struggles
 
 1. done - add to docker yaml file for jobs
 2. done - create jobs microservice 
-3. write poller? - find way to FASTAPI way not django/poller
-figure out what to filter
+3. done - write poller?
 
-came together at end of day
 
 ## May 31, 2022
 
