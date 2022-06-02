@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-9yifj+8t0(jg60ol2fu+zexysh$w(fj!yx9b&@%%sj3#qpxf&$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'events_app.apps.EventsAppConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
