@@ -8,11 +8,11 @@
 # June 1, 2022
 Features/Issues Worked On :
 * We as a group set up an additional layer of security on git by setting up additional branches on git. 
-* I worked with Amanda and Cise to set up conference/events 
+* I worked with Amanda and Cise to set up conference/events but we ran into a lot of issues trying to set up the APIs. 
 Reflection :
-* 
+* Finding an api that is formatted the way we want and is currently being maintained proved difficult. We also ran into issues when considering how we wanted to store this information in our database. We ultimately decided it might be best to allow people to manually put in the data as a string and then call an external api on the frontend to Query match in order to eventually filter events. This will allow us to move forward and potentially work around some of the data integration issues when using a third party api. 
 Ah-Ha Moment :
-* 
+* I realized the benefits to having your data stored on the backend and not stored in the frontend/browser. By utilizing the backend you increase security and also reduce the load your webpage has on a users computer.
 
 # May 31, 2022
 Features/Issues Worked On :
