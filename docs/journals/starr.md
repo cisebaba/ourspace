@@ -6,10 +6,11 @@
 * At least one ah-ha! moment that you had during your coding, however small
 
 # June 1, 2022
-<ol>
+<ul>
 <li> Features/Issues Worked On : </li>
-* We as a group set up an additional layer of security on git by setting up additional branches on git. 
-* I worked with Amanda and Cise to set up conference/events but we ran into a lot of issues trying to set up the APIs. <br>
+<ul>
+<li>We as a group set up an additional layer of security on git by setting up additional branches on git. </li>
+<li> I worked with Amanda and Cise to set up conference/events but we ran into a lot of issues trying to set up the APIs. </li> <br>
 <li> Reflection : </li>
 * Finding an api that is formatted the way we want and is currently being maintained proved difficult. We also ran into issues when considering how we wanted to store this information in our database. We ultimately decided it might be best to allow people to manually put in the data as a string and then call an external api on the frontend to Query match in order to eventually filter events. This will allow us to move forward and potentially work around some of the data integration issues when using a third party api. <br>
 <li> Ah-Ha Moment : </li>
