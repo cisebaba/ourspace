@@ -9,6 +9,14 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 1, 2022
+
+Added Jobs directory, found external API for job listings, got keys, put keys in env to hide, made poller in jobs/poller.py, made jobs/dockerfile.dev that runs poller, refactored docker-compose.yml
+
+We weren't sure how to poll without adding a back end, and with python requests it ended up being really easy! We didn't need a backend/fastapi/psycopg at all.
+
+There are so many ways to do everything! And getting access to external api's are way more complicated than I originally realized.
+
 ## May 31, 2022
 
 Today we configured our app's docker-compose.yml file, requirements and dockerfile and got our project hooked up to docker successfully. We decided to use Django for the events microservice. We also have an official name!

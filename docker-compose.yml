@@ -14,6 +14,19 @@ services:
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"
+  jobs:
+    build:
+      context: ./jobs/api
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./jobs/api:/app
+    environment:
+      PGHOST: db
+      PGDATABASE: ourspace
+      PGUSER: ourspace
+      PGPASSWORD: ourspace
   events:
     build:
       context: ./events/api
