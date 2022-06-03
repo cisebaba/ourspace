@@ -1,3 +1,11 @@
+## June 2, 2022
+
+Today, our team switched around some group members. I worked on the events microservice today with Starr and Cise. We were having some issues with parsing for location city and state data. We had some instruction that really helped us and taught us about implementing json data. Instead of using an external API for location data, we decided to create our own json file filled with location data to use for our events microservice. We were having a bit of trouble with the formatting of the data but eventually figured it out.
+
+We learned how to use the manage.py loaddata command to load our data from the json file into our microservice and have it actually parse data from there. Once we got that working, we started to think about whether we should include city data right now or hold off on it. 
+
+We were able to successfully finish the events microservice back-end - models, views, and urls! We were able to GET, POST, PUT, AND DELETE locations and location details, as well as events and event details! We decided to not use an external API for event data right now and just have a post feature. We also decided on having a default picture set when creating an event if a user doesn't upload a picture url, but if they do, they're uploaded picture does display instead of the default picture. 
+
 ## June 1, 2022
 
 Our team used a random generator to split up teams and distribute the tasks for today. We worked on dividing up tasks for the day, with one group ( Rachael and I ) working on the jobs microservice and one group (Starr, Cise, and Amanda) working on the events microservice. 
