@@ -11,6 +11,7 @@ function Nav() {
         <div>
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <NavLink className="dropdown-item" to="events/new" role="button">Events Form</NavLink>
+            <NavLink className="dropdown-item" to="events" role="button">Events</NavLink>
         </ul>
         </div>
       </div>

@@ -6,12 +6,14 @@ function EventForm() {
         starts : "",
         ends : "",
         description: "",
-        location: ""
+        locations: "",
+        locations: []
     })
     const [stateLoc, setStateLoc] = useState({
         name: "",
         city:"",
-        state:""
+        state:"",
+        state: []
 
     })
     const [successfulSubmit, setSuccessfulSubmit] = useState(false);
@@ -41,7 +43,8 @@ function EventForm() {
             starts : "",
             ends : "",
             description: "",
-            location: "",
+            locations: "",
+            locations: [],
         });
         setSuccessfulSubmit(true);
         }
@@ -113,15 +116,35 @@ function EventForm() {
                         className="form-control" />
                         <label htmlFor="description">Description</label>
                     </div>
+                    <div className="form-floating mb-3">
+                        <input onChange={handleChangeLoc} 
+                        value={stateLoc.name} 
+                        placeholder="name-venue" 
+                        required type="text" 
+                        name="name-venue" 
+                        id="name-venue" 
+                        className="form-control" />
+                        <label htmlFor="name-venue">Venue</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                        <input onChange={handleChangeLoc} 
+                        value={stateLoc.city} 
+                        placeholder="name-city" 
+                        required type="text" 
+                        name="name-city" 
+                        id="name-city" 
+                        className="form-control" />
+                        <label htmlFor="name-city">City</label>
+                    </div>
                     <div className="mb-3">
-                        {/* <select onChange={handleChangeTechnician} value={state.technician} required name="technician" id="technician" className="form-select">
-                        <option value="">Choose a Location</option>
-                        state.technicians.map(tech => {
+                        <select onChange={handleChangeLoc} value={stateLoc.state} required name="state" id="state" className="form-select">
+                        <option value="">Choose a State</option>
+                        {stateEvent.locations.map(location => {
                             return (
-                            <option key={tech.id} value={tech.id}>{tech.name}</option>
+                            <option key={location.states.id} value={location.id}>{location.name}</option>
                             )
-                        })
-                        </select> */}
+                         })}
+                        </select>
                     </div>
                     {/* <div className="form-floating mb-3">
                         <input onChange={handleChangeReason} value={state.reason} placeholder="reason" required type="text" name="reason" id="reason" className="form-control" />
