@@ -69,12 +69,35 @@ def api_list_events(request):
             safe=False, 
         )
 
-def api_show_event(request,pk):
-    event = Event.objects.get(id=pk)
-    return JsonResponse(
-        {"event": event}, 
-        encoder=EventDetailEncoder,
-        safe=False,
+@require_http_methods(["DELETE", "GET", "PUT"])
+def api_show_event(request, pk):
+    if request.method == "GET":
+        event = Event.objects.get(id=pk)
+        return JsonResponse(
+            event,
+            encoder=EventDetailEncoder,
+            safe=False,
+        )
+    elif request.method == "DELETE":
+        count, _ = Event.objects.filter(id=pk).delete()
+        return JsonResponse({"deleted": count > 0})
+    else:
+        content = json.loads(request.body)
+        try:
+            if "state" in content:
+                state = State.objects.get(abbreviation=content["state"])
+                content["state"] = state
+        except State.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid state abbreviation"},
+                status=400,
+            )
+        Event.objects.filter(id=pk).update(**content)
+        event = Event.objects.get(id=pk)
+        return JsonResponse(
+            event,
+            encoder=EventDetailEncoder,
+            safe=False,
         )
 
 
@@ -137,6 +160,7 @@ def api_show_location(request, pk):
             encoder=LocationDetailEncoder,
             safe=False,
         )
+
 @require_http_methods(["GET"])
 def api_list_states(request):
     states = State.objects.all()

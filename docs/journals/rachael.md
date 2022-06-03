@@ -9,6 +9,14 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 2, 2022
+
+Amanda and I worked on connecting our .env file to parts of our app that needed it. We worked in a react a bit, and set up react-router-dom, but ultimately decided it would be best to reconfigure how we are polling our external api. We will change our poller.py to FastApi/psycopg with a postgreSQL database. We got our SQL table configured and ready for our external api job listing data.
+
+We decided because of our limited number of daily calls allowed to our external api, we will store data in a PostgreSQL database, and make one call a day.
+
+Yesterday I was totally anti-database for our external api and today it became very necessary!!
+
 ## June 1, 2022
 
 Added Jobs directory, found external API for job listings, got keys, put keys in env to hide, made poller in jobs/poller.py, made jobs/dockerfile.dev that runs poller, refactored docker-compose.yml
