@@ -1,6 +1,7 @@
  ## Jun 1,2022
  We used group generator and I stayed at the same microservice with Starr and Allisha. We worked on a json file how to load the data of states and cities implement with with django. We got help from Mitch and figured how to load the json data to database. We made the Location & Events api CRUD done. 
- 
+ I had to go to a networking meeting and left 1 hour early.
+
  ## Jun 1,2022
  We divided to groups after figuring git issues about our branches. I was with Amanda and Starr working on events microservice. We spend most of our time on how should the Location Entity get the data from. It was a long research and discussion. We created our models I've jumped into the views to finish at least events part. 
  After stepped away I had my AHA! moment about npm installing us states suggestion which came from Starr. We were thinking about how could we attach it with the api and out Location entity. While spending so much time on the same think, I can't expand my perspective but finally got the logic in the way of thinking backwards. As we handled the forms it is gonna create a state and the state will mount it with api and post will handle adding into database. Looking forward to try it tomorrow! 
