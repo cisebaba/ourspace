@@ -27,6 +27,8 @@ services:
       PGDATABASE: ourspace
       PGUSER: ourspace
       PGPASSWORD: ourspace
+      ADZUNA_API_KEY: ${ADZUNA_API_KEY}
+      ADZUNA_APP_ID: ${ADZUNA_APP_ID}
   events:
     build:
       context: ./events/api
@@ -50,8 +52,9 @@ services:
       - ourspace:/var/lib/postgresql/data
     environment:
       #for the superuser of postgres instance- must be same as above
+      # Password for the postgres superuser
+      # See 01-create-databases.sql for the name/password
+      #   for the user of the application database
       POSTGRES_PASSWORD: ourspace
-      POSTGRES_USER: ourspace
-      POSTGRES_DB: ourspace
     ports:
       - "15432:5432"
