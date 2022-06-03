@@ -10,17 +10,22 @@
 <li> Features/Issues Worked On : </li>
     <ul>
         <li>
-        I worked with Cise and Allisha on conference/events
+        I worked with Cise and Allisha on conference/events, we decided to ditch the idea of using an api for location information because we couldn't find one that was being maintained. Instead we created a JSON file to hold our data. 
+        </li> 
+        <li>
+        I worked with Allisha on conference/events. We finished the views and updated the create location model to have a default photo if the user doesn't provide one. The backend for conference/events is done!
         </li> 
     </ul> 
 <li> Reflection : </li>
     <ul>
         <li> 
+        I learned a lot about how to store data on the backend and then load that data into your container. We are considering creating a cities Json file to store data but for now are leaving that field up to the user to define. 
         </li> 
     </ul>
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
+        I have issues with commas at least once during every project and today was that day! I couldn't figure out why my data wouldn't load into my docker container and I kept getting a 'Deserialization Error Problem installing Fixture' which turned out to be because of a rouge comma in the json.py file. 
         </li>
     </ul>
 </ul>
