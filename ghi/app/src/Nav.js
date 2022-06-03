@@ -10,7 +10,7 @@ function Nav() {
         </button>
         <div>
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <NavLink className="dropdown-item" to="manufacturers" role="button">Manufacturer List</NavLink>
+            <NavLink className="dropdown-item" to="events/new" role="button">Events Form</NavLink>
         </ul>
         </div>
       </div>

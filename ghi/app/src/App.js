@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Nav from './Nav';
 // import ListJobs from './JobsPage';
-import EventForm from './Events/EventForm.js';
+import EventForm from './Events/CreateEventForm.js';
 import MainPage from './MainPage';
 
 // Still working on JobsPage - not functioning yet
