@@ -1,4 +1,4 @@
-import React, { useState } from 'react' ;
+import React, { useState, useEffect } from 'react' ;
 
 function EventForm() {
     const [stateEvent, setStateEvent ] = useState({
@@ -6,22 +6,33 @@ function EventForm() {
         starts : "",
         ends : "",
         description: "",
-        locations: "",
-        locations: []
+        locations: ""
     })
     const [stateLoc, setStateLoc] = useState({
-        name: "",
+        venue: "",
         city:"",
-        state:"",
-        state: []
-
+        state:""
     })
+    const [stateStates, setStateStates] = useState([])
     const [successfulSubmit, setSuccessfulSubmit] = useState(false);
     
     // if the submission was successful, a message appears
     let formClasses = "";
     let alertClasses = "alert alert-success d-none mb-3";
     let alertContainerClasses = "d-none";
+
+    useEffect(() => {
+        const getStatesData = async () => {
+            const statesResponse = await fetch(
+                "http://localhost:8000/api/states/"
+            );
+            const statesData = await statesResponse.json();
+            //console.log(statesData.states)
+            setStateStates(statesData.states)
+        };
+
+        getStatesData();
+    }, []) ;
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -36,6 +47,7 @@ function EventForm() {
             }
         };
         const response = await fetch(eventsUrl, fetchConfig );
+        console.log(response)
 
         if (response.ok) {
             setStateEvent({
@@ -49,6 +61,8 @@ function EventForm() {
         setSuccessfulSubmit(true);
         }
     } ;
+
+    
     
     const handleChange = event => {
         const value = event.target.value ;
@@ -118,30 +132,30 @@ function EventForm() {
                     </div>
                     <div className="form-floating mb-3">
                         <input onChange={handleChangeLoc} 
-                        value={stateLoc.name} 
-                        placeholder="name-venue" 
+                        value={stateLoc.venue} 
+                        placeholder="venue" 
                         required type="text" 
-                        name="name-venue" 
-                        id="name-venue" 
+                        name="venue" 
+                        id="venue" 
                         className="form-control" />
-                        <label htmlFor="name-venue">Venue</label>
+                        <label htmlFor="venue">Venue</label>
                     </div>
                     <div className="form-floating mb-3">
                         <input onChange={handleChangeLoc} 
                         value={stateLoc.city} 
-                        placeholder="name-city" 
+                        placeholder="city" 
                         required type="text" 
-                        name="name-city" 
-                        id="name-city" 
+                        name="city" 
+                        id="city" 
                         className="form-control" />
-                        <label htmlFor="name-city">City</label>
+                        <label htmlFor="city">City</label>
                     </div>
                     <div className="mb-3">
-                        <select onChange={handleChangeLoc} value={stateLoc.state} required name="state" id="state" className="form-select">
+                        <select onChange={handleChangeLoc} value={stateLoc.locations} required name="state" id="state" className="form-select">
                         <option value="">Choose a State</option>
-                        {stateEvent.locations.map(location => {
+                        {stateStates.map(state => {
                             return (
-                            <option key={location.states.id} value={location.id}>{location.name}</option>
+                            <option key={state.name} value={state.name}>{state.name}</option>
                             )
                          })}
                         </select>
