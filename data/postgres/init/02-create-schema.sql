@@ -1,9 +1,8 @@
 \connect ourspace
 
 CREATE TABLE jobs (
-    id INTEGER NOT NULL PRIMARY KEY,
+    id BIGINT NOT NULL PRIMARY KEY,
     created TIMESTAMP NOT NULL,
-    contract_time VARCHAR(20),
     city VARCHAR(200),
     state VARCHAR(50),
     title VARCHAR(200),

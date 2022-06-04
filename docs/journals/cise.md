@@ -1,3 +1,12 @@
+ ## Jun 3,2022
+Today we worked on the front-ent events. I thought it would be easy because we did the similar things in conference go app but creating an application from 0 to 1 makes you to know and take care of every single details like we learned load data yesterday. I am very happy to create a front-end with React hooks.
+as I user I feel like if we are not getting a lot of informative details it is not necessary to jump into page. so I thought people can click the details and the event card expand and show the details. My group team like the idea. 
+Playing around UseState and UseEffect was fun and productive. Our list is working. In the form i realized we missed the point of Location and State has their own entities and can't only fetch it from events URL. My next goal is figure that out and make the form work.  
+
+ ## Jun 2,2022
+ We used group generator and I stayed at the same microservice with Starr and Allisha. We worked on a json file how to load the data of states and cities implement with with django. We got help from Mitch and figured how to load the json data to database. We made the Location & Events api CRUD done. 
+ I had to go to a networking meeting and left 1 hour early.
+
  ## Jun 1,2022
  We divided to groups after figuring git issues about our branches. I was with Amanda and Starr working on events microservice. We spend most of our time on how should the Location Entity get the data from. It was a long research and discussion. We created our models I've jumped into the views to finish at least events part. 
  After stepped away I had my AHA! moment about npm installing us states suggestion which came from Starr. We were thinking about how could we attach it with the api and out Location entity. While spending so much time on the same think, I can't expand my perspective but finally got the logic in the way of thinking backwards. As we handled the forms it is gonna create a state and the state will mount it with api and post will handle adding into database. Looking forward to try it tomorrow! 

@@ -1,3 +1,11 @@
+## June 3, 2022
+
+Today, we stayed with our same group (me, Cise, and Starr). Since we finished the back-end portion of the events microservice yesterday, our focus for today was front-end!
+
+We created an event form and an events list page. We decided on not making an events detail page and just have it be able to expand when you want to see the details of an event. We also want to change the layout to a card layout instead of a table layout.
+
+We were able to get the states dropdown list working on the event form!! I used React hooks today and learned so much about them and useState and useEffect. We were having some trouble trying to get the location data integrated with the events but with some instruction, we were able to figure it out. We also had an issue with a file that we no longer had but kept popping up as an error and the solution was just to rebuild our docker image! Our event form doesn't submit still, but we did great work on front-end today and will start working on that on Monday.
+
 ## June 2, 2022
 
 Today, our team switched around some group members. I worked on the events microservice today with Starr and Cise. We were having some issues with parsing for location city and state data. We had some instruction that really helped us and taught us about implementing json data. Instead of using an external API for location data, we decided to create our own json file filled with location data to use for our events microservice. We were having a bit of trouble with the formatting of the data but eventually figured it out.

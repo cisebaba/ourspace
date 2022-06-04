@@ -49,7 +49,7 @@ def api_list_events(request):
         print(Event)
         return JsonResponse(
             {"events": events},
-            encoder=EventListEncoder,
+            encoder=EventDetailEncoder,
         )
     else:
         content = json.loads(request.body)
