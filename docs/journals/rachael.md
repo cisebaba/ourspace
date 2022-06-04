@@ -9,6 +9,14 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 3, 2022
+
+Amanda and I built out our back end!! We stopped auto polling our external api every minute and are calling manually using python "requests" and the command line for now. We succesfully inserted that data into our sql database using psycopg, and set up PGAdmin to help see our data. We are beginning with FastAPI now.
+
+Our decision to make a database for the external data seems to be working out! We were intentional about what data to store and what our plans are to "release"??? older data.
+
+My ah-ha! is getting clarity on what fastapi and psycopg's capabilities are, and realizing you can combine them with other python tools like requests all in the same file. Learning so many things separately makes their compatibility seem like an ah-ha sometimes!
+
 ## June 2, 2022
 
 Amanda and I worked on connecting our .env file to parts of our app that needed it. We worked in a react a bit, and set up react-router-dom, but ultimately decided it would be best to reconfigure how we are polling our external api. We will change our poller.py to FastApi/psycopg with a postgreSQL database. We got our SQL table configured and ready for our external api job listing data.

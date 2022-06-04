@@ -4,7 +4,7 @@ Today, we stayed with our same group (me, Cise, and Starr). Since we finished th
 
 We created an event form and an events list page. We decided on not making an events detail page and just have it be able to expand when you want to see the details of an event. We also want to change the layout to a card layout instead of a table layout.
 
-We were able to get the states dropdown list working on the event form!! I used React hooks today and learned so much about them and useState and useEffect. We were having some trouble trying to get the location data integrated with the events but with some instruction, we were able to figure it out. We also had an issue with a file that we no longer had but kept popping up as an error and the solution was just to rebuild our docker image! Our event form doesn't submit still, but we did great on front-end today and will start working on that on Monday.
+We were able to get the states dropdown list working on the event form!! I used React hooks today and learned so much about them and useState and useEffect. We were having some trouble trying to get the location data integrated with the events but with some instruction, we were able to figure it out. We also had an issue with a file that we no longer had but kept popping up as an error and the solution was just to rebuild our docker image! Our event form doesn't submit still, but we did great work on front-end today and will start working on that on Monday.
 
 ## June 2, 2022
 
