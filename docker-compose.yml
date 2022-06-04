@@ -1,6 +1,8 @@
 volumes:
   ourspace:
     external: true
+  pg-admin:
+    external: true
 services:
   react:
     image: node:lts-bullseye
@@ -59,3 +61,13 @@ services:
       POSTGRES_PASSWORD: ourspace
     ports:
       - "15432:5432"
+  pg-admin:
+    image: dpage/pgadmin4
+    volumes:
+      - pg-admin:/var/lib/pgadmin
+    ports:
+      - 8082:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ourspace@example.com
+      PGADMIN_DEFAULT_PASSWORD: ourspace
+      PGADMIN_DISABLE_POSTFIX: 1
