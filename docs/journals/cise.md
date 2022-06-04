@@ -1,4 +1,9 @@
- ## Jun 1,2022
+ ## Jun 3,2022
+Today we worked on the front-ent events. I thought it would be easy because we did the similar things in conference go app but creating an application from 0 to 1 makes you to know and take care of every single details like we learned load data yesterday. I am very happy to create a front-end with React hooks.
+as I user I feel like if we are not getting a lot of informative details it is not necessary to jump into page. so I thought people can click the details and the event card expand and show the details. My group team like the idea. 
+Playing around UseState and UseEffect was fun and productive. Our list is working. In the form i realized we missed the point of Location and State has their own entities and can't only fetch it from events URL. My next goal is figure that out and make the form work.  
+
+ ## Jun 2,2022
  We used group generator and I stayed at the same microservice with Starr and Allisha. We worked on a json file how to load the data of states and cities implement with with django. We got help from Mitch and figured how to load the json data to database. We made the Location & Events api CRUD done. 
  I had to go to a networking meeting and left 1 hour early.
 
