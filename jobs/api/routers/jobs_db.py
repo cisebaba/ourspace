@@ -16,10 +16,7 @@ ADZUNA_APP_ID = os.environ["ADZUNA_APP_ID"]
 response = requests.get(f"https://api.adzuna.com/v1/api/jobs/us/search/1?app_id={ADZUNA_APP_ID}&app_key={ADZUNA_API_KEY}&what=software&max_days_old=30&sort_by=date")
 content = json.loads(response.content)
 
-
-
 jobs = content["results"]
-
 
 with psycopg.connect("dbname=ourspace user=ourspace") as conn:
     with conn.cursor() as cur:
@@ -27,7 +24,6 @@ with psycopg.connect("dbname=ourspace user=ourspace") as conn:
             try: 
                 cur.execute("""
                     INSERT INTO jobs (id, created, city, state, title, company, description)
-                    WHERE id NOT IN (SELECT id FROM jobs)
                     VALUES (%s, %s, %s, %s, %s, %s, %s);
                     """,
                     [job["id"], job["created"], job["location"]["area"][3],
@@ -36,7 +32,6 @@ with psycopg.connect("dbname=ourspace user=ourspace") as conn:
             except IndexError:
                 cur.execute("""
                     INSERT INTO jobs (id, created, city, state, title, company, description) 
-                    WHERE id NOT IN (SELECT id FROM jobs)
                     VALUES (%s, %s, %s, %s, %s, %s, %s);
                     """,
                     [job["id"], job["created"], job["location"]["area"][2],
@@ -46,3 +41,9 @@ with psycopg.connect("dbname=ourspace user=ourspace") as conn:
             cur.execute("SELECT * FROM jobs")
 
             conn.commit()
+
+
+
+# Need to figure out how to prevent dup ids from inserting 
+# w/o error - below sql statement causes error in insert
+# WHERE id NOT IN (SELECT id FROM jobs)
