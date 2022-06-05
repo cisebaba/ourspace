@@ -1,3 +1,11 @@
+# June 3, 2022
+Today I worked on:
+* Our team kept the same pairs today since both teams were mid-stream with working on each respective microservice. Rachael and I continued to work on the back-end for the Jobs microservice.
+
+We updated our jobs table schema after learning that not all of the data coming from our 3rd party API was in the same shape. We set up pg-admin to have a nice GUI for viewing our tables and schema. We implemented the psycopg3 Python module to sync data from our API to our database. We also worked on setting up FastAPI to retrieve data from the data base when a GET request is made. This part is not fully returning the data in the right shape, but I think we are close to being successful with this. 
+
+Overall, I learned a lot today about using psycopg, FastAPI, and pg-admin! It was really exciting to see the jobs data being populated in the database in the way that we wanted.
+
 # June 2, 2022
 
 Today I worked on:
