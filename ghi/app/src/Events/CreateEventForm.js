@@ -6,20 +6,25 @@ function EventForm() {
         starts : "",
         ends : "",
         description: "",
-        locations: ""
+        location:"",
+        location: {
+            name:"",
+            city:"",
+            state:""
+        }
     })
-    const [stateLoc, setStateLoc] = useState({
-        venue: "",
-        city:"",
-        state:""
-    })
+    // const [stateLoc, setStateLoc] = useState({
+    //     venue: "",
+    //     city:"",
+    //     state:""
+    // })
     const [stateStates, setStateStates] = useState([])
-    const [successfulSubmit, setSuccessfulSubmit] = useState(false);
+    // const [successfulSubmit, setSuccessfulSubmit] = useState(false);
     
     // if the submission was successful, a message appears
-    let formClasses = "";
-    let alertClasses = "alert alert-success d-none mb-3";
-    let alertContainerClasses = "d-none";
+    // let formClasses = "";
+    // let alertClasses = "alert alert-success d-none mb-3";
+    // let alertContainerClasses = "d-none";
 
     useEffect(() => {
         const getStatesData = async () => {
@@ -65,15 +70,18 @@ function EventForm() {
             starts : "",
             ends : "",
             description: "",
-            locations: "",
-            locations: [],
+            location: {
+                name:"",
+                city:"",
+                state:""
+            }
         });
             // setStateLoc({
             //     venue: "",
             //     city:"",
             //     state:""
             // });
-        setSuccessfulSubmit(true);
+        // setSuccessfulSubmit(true);
         }
         
     } ;
@@ -87,19 +95,19 @@ function EventForm() {
             [event.target.name]: value,
         })
     };
-    const handleChangeLoc = event=> {
-        const value = event.target.value;
-        setStateLoc({
-            ...stateLoc,
-            [event.target.name]:value,
-        })
-    }
+    // const handleChangeLoc = event=> {
+    //     const value = event.target.value;
+    //     setStateLoc({
+    //         ...stateLoc,
+    //         [event.target.name]:value,
+    //     })
+    // }
 
-    if (successfulSubmit) {
-        formClasses = "d-none";
-        alertClasses = "alert alert-success mb-3";
-        alertContainerClasses = "";
-      }
+    // if (successfulSubmit) {
+    //     formClasses = "d-none";
+    //     alertClasses = "alert alert-success mb-3";
+    //     alertContainerClasses = "";
+    //   }
 
     return (
         <div className="row">
@@ -147,8 +155,8 @@ function EventForm() {
                         <label htmlFor="description">Description</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={handleChangeLoc} 
-                        value={stateLoc.venue} 
+                        <input onChange={handleChange} 
+                        value={stateEvent.location.name} 
                         placeholder="venue" 
                         required type="text" 
                         name="venue" 
@@ -157,8 +165,8 @@ function EventForm() {
                         <label htmlFor="venue">Venue</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={handleChangeLoc} 
-                        value={stateLoc.city} 
+                        <input onChange={handleChange} 
+                        value={stateEvent.location.city} 
                         placeholder="city" 
                         required type="text" 
                         name="city" 
@@ -167,7 +175,7 @@ function EventForm() {
                         <label htmlFor="city">City</label>
                     </div>
                     <div className="mb-3">
-                        <select onChange={handleChangeLoc} value={stateLoc.locations} required name="state" id="state" className="form-select">
+                        <select onChange={handleChange} value={stateEvent.location.state} required name="state" id="state" className="form-select">
                         <option value="">Choose a State</option>
                         {stateStates.map(state => {
                             return (
