@@ -37,19 +37,29 @@ function EventForm() {
     const handleSubmit = async event => {
         event.preventDefault();
         const data = stateEvent ;
+        // const dataLoc = stateLoc;
 
         const eventsUrl = "http://localhost:8000/api/events/" ;
-        const fetchConfig = {
+        const fetchConfigEvent = {
             method: "POST", 
             body: JSON.stringify(data), 
             headers : {
                 "Content-Type" : "application/json",
             }
         };
-        const response = await fetch(eventsUrl, fetchConfig );
+        // const locationUrl = "http://localhost:8000/api/locations/"
+        // const fetchConfig = {
+        //     method: "POST", 
+        //     body: JSON.stringify(dataLoc), 
+        //     headers : {
+        //         "Content-Type" : "application/json",
+        //     }
+        // };
+        // const responseLoc = await fetch(locationUrl, fetchConfig);
+        const response = await fetch(eventsUrl, fetchConfigEvent );
         console.log(response)
 
-        if (response.ok) {
+        if (response.ok){
             setStateEvent({
             name : "",
             starts : "",
@@ -58,8 +68,14 @@ function EventForm() {
             locations: "",
             locations: [],
         });
+            // setStateLoc({
+            //     venue: "",
+            //     city:"",
+            //     state:""
+            // });
         setSuccessfulSubmit(true);
         }
+        
     } ;
 
     
