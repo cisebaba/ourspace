@@ -7,7 +7,8 @@ CREATE TABLE jobs (
     state VARCHAR(50),
     title VARCHAR(200),
     company VARCHAR(250),
-    description TEXT
+    description TEXT,
+    redirect_url VARCHAR(1000)
 );
 
 ALTER TABLE jobs OWNER TO ourspace;
