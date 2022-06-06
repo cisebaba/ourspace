@@ -16,19 +16,21 @@ class Job(BaseModel):
     title: str
     company: str
     description: str
+    redirect_url: str
 
 
 class JobList(BaseModel):
     __root__: List[Job]
 
 
-@router.get("/api/jobs/list", response_model = JobList)
+
+@router.get("/api/jobs/list/", response_model = JobList)
 def jobs_list():
     with psycopg.connect("dbname=ourspace user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT id, created, city, state, title, company, description
+                SELECT id, created, city, state, title, company, description, redirect_url
                 FROM jobs
                 LIMIT 100
                 """,
@@ -43,10 +45,9 @@ def jobs_list():
                     "state": row[3],
                     "title": row[4],
                     "company": row[5],
-                    "description": row[6]
+                    "description": row[6],
+                    "redirect_url": row[7]
                 }
                 
                 ds.append(d)
             return ds
-             
-
