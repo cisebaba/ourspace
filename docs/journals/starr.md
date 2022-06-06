@@ -5,6 +5,49 @@
 * A reflection on any design conversations that you had
 * At least one ah-ha! moment that you had during your coding, however small
 
+# June 6, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul> 
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
+
+# June 3, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li> 
+         I worked with Cise and Allisha on the frontend for the conference/events. We created a page that lists all the events and a page with a form to create an event. We spent a long time trying to get the states drop down to work and we were successful. The forms page does not yet actually create a new event.  
+        </li> 
+    </ul> 
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        I learned a lot about how react hooks work and the difference between class based and function based components. 
+        </li> 
+    </ul>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        We kept running into an error that there was an issue with a file that we renamed but the error was showing the orginal file name. We deleted the file and rebuilt it and then it dawned on us that we needed to rebuild the docker container because when docker orginally created the image it did so with a very specific file layout and wasn't recongizing our changes. The error went away after we rebuilt the image.
+        </li>
+    </ul>
+</ul>
+
+
 # June 2, 2022
 <ul>
 <li> Features/Issues Worked On : </li>
