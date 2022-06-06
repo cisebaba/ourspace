@@ -6,18 +6,14 @@ function EventForm() {
         starts : "",
         ends : "",
         description: "",
-        location:"",
+        // location:"",
         location: {
             name:"",
             city:"",
             state:""
         }
     })
-    // const [stateLoc, setStateLoc] = useState({
-    //     venue: "",
-    //     city:"",
-    //     state:""
-    // })
+  
     const [stateStates, setStateStates] = useState([])
     // const [successfulSubmit, setSuccessfulSubmit] = useState(false);
     
@@ -52,17 +48,8 @@ function EventForm() {
                 "Content-Type" : "application/json",
             }
         };
-        // const locationUrl = "http://localhost:8000/api/locations/"
-        // const fetchConfig = {
-        //     method: "POST", 
-        //     body: JSON.stringify(dataLoc), 
-        //     headers : {
-        //         "Content-Type" : "application/json",
-        //     }
-        // };
-        // const responseLoc = await fetch(locationUrl, fetchConfig);
         const response = await fetch(eventsUrl, fetchConfigEvent );
-        console.log(response)
+        // console.log(response)
 
         if (response.ok){
             setStateEvent({
@@ -70,17 +57,13 @@ function EventForm() {
             starts : "",
             ends : "",
             description: "",
+            // location:""
             location: {
                 name:"",
                 city:"",
                 state:""
             }
-        });
-            // setStateLoc({
-            //     venue: "",
-            //     city:"",
-            //     state:""
-            // });
+            });
         // setSuccessfulSubmit(true);
         }
         
@@ -89,20 +72,21 @@ function EventForm() {
     
     
     const handleChange = event => {
+
         const value = event.target.value ;
         setStateEvent({
             ...stateEvent,
             [event.target.name]: value,
         })
+        // const { name, value } = event.target;
+        // setStateEvent((stateEvent) => {
+        //     return {
+        //     ...stateEvent,
+        //     [name]: value,
+        //     };
+        // });
     };
-    // const handleChangeLoc = event=> {
-    //     const value = event.target.value;
-    //     setStateLoc({
-    //         ...stateLoc,
-    //         [event.target.name]:value,
-    //     })
-    // }
-
+   
     // if (successfulSubmit) {
     //     formClasses = "d-none";
     //     alertClasses = "alert alert-success mb-3";
@@ -175,7 +159,7 @@ function EventForm() {
                         <label htmlFor="city">City</label>
                     </div>
                     <div className="mb-3">
-                        <select onChange={handleChange} value={stateEvent.location.state} required name="state" id="state" className="form-select">
+                        <select onChange={handleChange} value={stateEvent.state} required name="state" id="state" className="form-select">
                         <option value="">Choose a State</option>
                         {stateStates.map(state => {
                             return (
@@ -195,6 +179,6 @@ function EventForm() {
         </div>
                 
     )
-}
+};
 
 export default EventForm;
