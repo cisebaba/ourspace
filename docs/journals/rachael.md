@@ -9,6 +9,10 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 4, 2022
+
+Amanda and I separately worked on cleaning up the logic in the jobs_db and the jobs_api file. We got them both working! However, I still haven't figured out how to automate the poller with fastapi.
+
 ## June 3, 2022
 
 Amanda and I built out our back end!! We stopped auto polling our external api every minute and are calling manually using python "requests" and the command line for now. We succesfully inserted that data into our sql database using psycopg, and set up PGAdmin to help see our data. We are beginning with FastAPI now.
