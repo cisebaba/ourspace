@@ -59,6 +59,10 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
+CORS_ALLOW_CREDENTIALS = True
+DJWTO_CSRF = False
+DJWTO_IAT_CLAIM = False
+DJWTO_JTI_CLAIM = False
 
 ROOT_URLCONF = 'events.urls'
 

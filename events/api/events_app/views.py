@@ -1,3 +1,4 @@
+import djwto.authentication as auth
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
@@ -61,12 +62,12 @@ def api_list_events(request):
                 {"message": "Invalid location id"},
                 status=400,
             )
-        
+
         event = Event.objects.create(**content)
         return JsonResponse(
-            event, 
-            encoder=EventDetailEncoder, 
-            safe=False, 
+            event,
+            encoder=EventDetailEncoder,
+            safe=False,
         )
 
 @require_http_methods(["DELETE", "GET", "PUT"])
@@ -173,3 +174,8 @@ def api_list_states(request):
         }
         state_list.append(state)
     return JsonResponse({"states": state_list})
+
+
+@auth.jwt_login_required
+def protected_view(request):
+    return JsonResponse({"payload": request.payload})
