@@ -4,7 +4,9 @@ import psycopg
 from pydantic import BaseModel
 from typing import List
 
+
 router = APIRouter()
+
 
 class Job(BaseModel):
     id: int
@@ -15,6 +17,7 @@ class Job(BaseModel):
     company: str
     description: str
     redirect_url: str
+
 
 class JobList(BaseModel):
     __root__: List[Job]
@@ -48,8 +51,3 @@ def jobs_list():
                 
                 ds.append(d)
             return ds
-            
-
-
-        
-
