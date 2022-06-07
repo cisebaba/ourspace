@@ -9,6 +9,14 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 6, 2022
+
+Amanda and I worked on automating our poller in jobs_db, and doing initial formatting on the list of jobs in react.
+
+Our group as a whole discussed our strategy to use fastapi and postgreSQL going forward, and hopefully adding mongodb where it makes sense.
+
+One "&" in Dockerfile.dev instead of "&&" allows 2 bash commands to run in parallel!
+
 ## June 4, 2022
 
 Amanda and I separately worked on cleaning up the logic in the jobs_db and the jobs_api file. We got them both working! However, I still haven't figured out how to automate the poller with fastapi.
