@@ -68,8 +68,10 @@ def api_list_events(request):
                     {"message": "Invalid state abbreviation"},
                     status=400,
                 )
+            
             location = Location.objects.create(**content["location"])
             content["location"] = location
+        print(content , " after location")
         event = Event.objects.create(**content)
         return JsonResponse(
             event, 
