@@ -6,6 +6,22 @@ function EventForm() {
         starts : "",
         ends : "",
         description: "",
+<<<<<<< HEAD
+        location: {
+            name: "",
+            city: "",
+            state: ""
+        }
+    })
+    // const [stateLoc, setStateLoc] = useState({
+    //     venue: "",
+    //     city:"",
+    //     state:""
+    // })
+    const [stateStates, setStateStates] = useState([])
+    const [stateLoc, setStateLoc] = useState([])
+    const [successfulSubmit, setSuccessfulSubmit] = useState(false);
+=======
         // location:"",
         location_name:"",
         location_city:"",
@@ -15,6 +31,7 @@ function EventForm() {
   
     const [stateStates, setStateStates] = useState([])
     // const [successfulSubmit, setSuccessfulSubmit] = useState(false);
+>>>>>>> main
     
     // if the submission was successful, a message appears
     // let formClasses = "";
@@ -33,6 +50,20 @@ function EventForm() {
 
         getStatesData();
     }, []) ;
+
+    useEffect(() => {
+        const getLocData = async () => {
+            const locResponse = await fetch(
+                "http://localhost:8000/api/locations/"
+            );
+            const locData = await locResponse.json();
+            //console.log(statesData.states)
+            setStateLoc(locData.locations)
+        };
+
+        getLocData();
+    }, []) ;
+
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -60,8 +91,22 @@ function EventForm() {
                 "Content-Type" : "application/json",
             }
         };
+<<<<<<< HEAD
+
+        const locationsUrl = "http://localhost:8000/api/locations/"
+        const fetchConfig = {
+            method: "POST", 
+            body: JSON.stringify(data), 
+            headers : {
+                "Content-Type" : "application/json",
+            }
+        };
+        const response = await fetch(locationsUrl, eventsUrl, fetchConfigEvent, fetchConfig );
+        console.log(response)
+=======
         const response = await fetch(eventsUrl, fetchConfigEvent );
         // console.log(response)
+>>>>>>> main
 
         if (response.ok){
             setStateEvent({
@@ -69,6 +114,20 @@ function EventForm() {
             starts : "",
             ends : "",
             description: "",
+<<<<<<< HEAD
+            location: {
+                name: "",
+                city: "",
+                state: ""
+            }
+        });
+            // setStateLoc({
+            //     venue: "",
+            //     city:"",
+            //     state:""
+            // });
+        setSuccessfulSubmit(true);
+=======
             // location:""
             location: {
                 name:"",
@@ -77,6 +136,7 @@ function EventForm() {
             }
             });
         // setSuccessfulSubmit(true);
+>>>>>>> main
         }
         
     } ;
@@ -92,12 +152,28 @@ function EventForm() {
         })
         
     };
+<<<<<<< HEAD
+    // const handleChangeLoc = event=> {
+    //     const value = event.target.value;
+    //     setStateLoc({
+    //         ...stateLoc,
+    //         [event.target.name]:value,
+    //     })
+    // }
+
+    if (successfulSubmit) {
+        formClasses = "d-none";
+        alertClasses = "alert alert-success mb-3";
+        alertContainerClasses = "";
+      }
+=======
    
     // if (successfulSubmit) {
     //     formClasses = "d-none";
     //     alertClasses = "alert alert-success mb-3";
     //     alertContainerClasses = "";
     //   }
+>>>>>>> main
 
     return (
         <div className="row">
@@ -152,7 +228,7 @@ function EventForm() {
                         name="location_name" 
                         id="venue" 
                         className="form-control" />
-                        <label htmlFor="venue">Venue</label>
+                        <label htmlFor="name">Venue</label>
                     </div>
                     <div className="form-floating mb-3">
                         <input onChange={handleChange} 

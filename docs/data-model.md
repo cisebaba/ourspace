@@ -82,8 +82,8 @@ with personalized information.
 
 | Name         | Type     | Unique | Optional |
 | ------------ | -------- | ------ | -------- |
-| username     | ref_user | yes    | no       |
-| job_title    | string   | no     | no       |
+| mentor_username | ref_user | no  | no       |
+| mentee_username | ref_user | no  | no       |
 | description  | string   | no     | no       |
 | availability | string   | no     | no       |
 | booked       | bool     | no     | no       |
