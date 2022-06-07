@@ -1,8 +1,7 @@
 from fastapi import FastAPI
-from routers import jobs_api
+from routers import forum_api
 from fastapi.middleware.cors import CORSMiddleware
 import os
-
 
 app = FastAPI()
 
@@ -19,6 +18,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(jobs_api.router)
-
-
+app.include_router(forum_api.router)

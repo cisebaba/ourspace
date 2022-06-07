@@ -18,6 +18,7 @@ class LocationDetailEncoder(ModelEncoder):
         "name",
         "city",
         "picture_url",
+        "state",
     ]
 
     def get_extra_data(self, o):
@@ -39,9 +40,10 @@ class EventDetailEncoder(ModelEncoder):
         "location",
     ]
     encoders = {
-        "location": LocationListEncoder(),
+        "location": LocationDetailEncoder(),
     }
-
+    # def get_extra_data(self, o):
+    #     return {"location": o.location.name}
 @require_http_methods(["GET","POST"])
 def api_list_events(request):
     if request.method=="GET":
@@ -66,14 +68,59 @@ def api_list_events(request):
                     {"message": "Invalid state abbreviation"},
                     status=400,
                 )
+            
             location = Location.objects.create(**content["location"])
             content["location"] = location
+        print(content , " after location")
         event = Event.objects.create(**content)
         return JsonResponse(
             event, 
             encoder=EventDetailEncoder, 
             safe=False, 
         )
+# @require_http_methods(["GET","POST"])
+# def api_list_events(request):
+#     if request.method=="GET":
+#         events = Event.objects.all()
+#         print(Event)
+#         return JsonResponse(
+#             {"events": events},
+#             encoder=EventDetailEncoder,
+#         )
+#     else:
+#         content = json.loads(request.body)
+#         print(content["location"])
+        
+#         try:
+#             location = Location.objects.get(name=content["location"]["name"])
+#             content["location"] = location
+#         except Location.DoesNotExist:
+#                 # content["location"] = json.loads(request.body)
+
+#                 try:
+#                     state = State.objects.get(abbreviation=content["location"]["state"])
+#                     content["location"]["state"] = state
+#                 except State.DoesNotExist:
+#                     return JsonResponse(
+#                         {"message": "Invalid state abbreviation"},
+#                         status=400,
+#                     )
+
+#                 # photo = get_photo(content["city"], content["state"].abbreviation)
+#                 # content.update(photo)
+#                 location = Location.objects.create(content["location"])
+#                 return JsonResponse(
+#                     location,
+#                     encoder=LocationDetailEncoder,
+#                     safe=False,
+#                 )
+        
+#         event = Event.objects.create(**content)
+#         return JsonResponse(
+#             event, 
+#             encoder=EventDetailEncoder, 
+#             safe=False, 
+#         )
 
 @require_http_methods(["DELETE", "GET", "PUT"])
 def api_show_event(request, pk):
