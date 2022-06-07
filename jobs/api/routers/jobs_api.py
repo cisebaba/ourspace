@@ -4,7 +4,9 @@ import psycopg
 from pydantic import BaseModel
 from typing import List
 
+
 router = APIRouter()
+
 
 class Job(BaseModel):
     id: int
@@ -16,10 +18,11 @@ class Job(BaseModel):
     description: str
     redirect_url: str
 
+
 class JobList(BaseModel):
     __root__: List[Job]
 
-#fields = id, created, city, state, title, company, description
+
 
 @router.get("/api/jobs/list/", response_model = JobList)
 def jobs_list():
@@ -48,9 +51,3 @@ def jobs_list():
                 
                 ds.append(d)
             return ds
-            
-### NEED TO FIGURE OUT HOW TO RETURN A DICT. SOME ISSUE WITH MODELS ABOVE
-
-        
-
-#created, city, state, title, company, description
