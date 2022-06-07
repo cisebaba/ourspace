@@ -1,6 +1,7 @@
  ## Jun 6,2022
  We worked with Allisha and Starr the form from we left last week. I tried some experimental thinks like 2 hooks for one location and for one event to handleSubmit for both of them together. I thought we could handle it on the front-end but couldn't figured (at least I tried). I knew what we have to do and made my on point questions ready. After quick meeting with our group we jumped into working on the same thing with Mitch and he said we can handle two posts in one post view. I had my AHA moment in there and figured the code to some point. Thanks God Allisha love to play around and improved my code and made it work! 
  Since we know how the data type looks like when we get the list from the backend. We created the states and saw how hard the nested structures would be! Thanks Curtis to helping and showing us how to handle nested data submission on the front-end! This microservice took more time than we expect but I learned new things! 
+ We spend our night with Amanda settle the Menthorship microservice database and docker file and planing the UI/UX. We planned to create FAST API on the back-end for this microservice. 
  
  ## Jun 3,2022
 Today we worked on the front-ent events. I thought it would be easy because we did the similar things in conference go app but creating an application from 0 to 1 makes you to know and take care of every single details like we learned load data yesterday. I am very happy to create a front-end with React hooks.
