@@ -17,6 +17,19 @@ services:
       NODE_ENV: development
       HOST: "0.0.0.0"
       REACT_APP_API_HOST: http://localhost:8000
+  forum:
+    build:
+      context: ./forum/api
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8090:8000"
+    volumes:
+      - ./forum/api:/app
+    environment:
+      PGHOST: db
+      PGDATABASE: ourspace
+      PGUSER: ourspace
+      PGPASSWORD: ourspace
   jobs:
     build:
       context: ./jobs/api
