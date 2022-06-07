@@ -1,3 +1,13 @@
+To do:
+Company reviews:
+    DONE-Add to docker yaml
+    DONE-Make directory
+    DONE-Make dockerfile.dev
+    -FASTAPI
+    -make react front-end
+    DONE-make excalidraw
+
+
 ## June 6, 2022
 
 Today we officially finished back-end for the events microservice! We had some issues with the format of the data we wanted so we had to change one of our views but now it works and the back-end is officially done for that microservice!
