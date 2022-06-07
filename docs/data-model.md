@@ -27,21 +27,24 @@ with personalized information.
 
 ## Post
 
-| Name        | Type            | Unique | Optional |
-| ----------- | --------------- | ------ | -------- |
-| title       | string          | no     | no       |
-| description | string          | no     | no       |
-| author      | ref_user        | yes    | no       |
-| timeposted  | int             | no     | no       |
-| upvotes     | ref_upvote_post | no     | yes      |
+| Name       | Type            | Unique | Optional |
+| ---------- | --------------- | ------ | -------- |
+| id         | int             | yes    | no       |
+| title      | string          | no     | no       |
+| text       | string          | no     | no       |
+| author     | ref_user        | yes    | no       |
+| timeposted | int             | no     | no       |
+| upvotes    | ref_upvote_post | no     | yes      |
 
 ## Comment
 
-| Name      | Type               | Unique | Optional |
-| --------- | ------------------ | ------ | -------- |
-| text      | string             | no     | no       |
-| commenter | ref_user           | yes    | no       |
-| upvotes   | ref_upvote_comment | no     | yes      |
+| Name       | Type               | Unique | Optional |
+| ---------- | ------------------ | ------ | -------- |
+| comment_id | int                | yes    | no       |
+| post_id    | ref_post_id        | yes    | no       |
+| text       | string             | no     | no       |
+| commenter  | ref_user           | yes    | no       |
+| upvotes    | ref_upvote_comment | no     | yes      |
 
 ## UserVO
 
@@ -79,8 +82,8 @@ with personalized information.
 
 | Name         | Type     | Unique | Optional |
 | ------------ | -------- | ------ | -------- |
-| username     | ref_user | yes    | no       |
-| job_title    | string   | no     | no       |
+| mentor_username | ref_user | no  | no       |
+| mentee_username | ref_user | no  | no       |
 | description  | string   | no     | no       |
 | availability | string   | no     | no       |
 | booked       | bool     | no     | no       |

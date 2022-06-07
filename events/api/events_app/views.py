@@ -183,6 +183,7 @@ def api_list_locations(request):
             safe=False,
         )
 
+
 @require_http_methods(["DELETE", "GET", "PUT"])
 def api_show_location(request, pk):
     if request.method == "GET":
