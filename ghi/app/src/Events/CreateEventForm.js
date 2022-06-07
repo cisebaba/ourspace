@@ -6,20 +6,20 @@ function EventForm() {
         starts : "",
         ends : "",
         description: "",
-        locations: ""
+        // location:"",
+        location_name:"",
+        location_city:"",
+        location_state:"",
+        
     })
-    const [stateLoc, setStateLoc] = useState({
-        venue: "",
-        city:"",
-        state:""
-    })
+  
     const [stateStates, setStateStates] = useState([])
-    const [successfulSubmit, setSuccessfulSubmit] = useState(false);
+    // const [successfulSubmit, setSuccessfulSubmit] = useState(false);
     
     // if the submission was successful, a message appears
-    let formClasses = "";
-    let alertClasses = "alert alert-success d-none mb-3";
-    let alertContainerClasses = "d-none";
+    // let formClasses = "";
+    // let alertClasses = "alert alert-success d-none mb-3";
+    // let alertContainerClasses = "d-none";
 
     useEffect(() => {
         const getStatesData = async () => {
@@ -37,27 +37,31 @@ function EventForm() {
     const handleSubmit = async event => {
         event.preventDefault();
         const data = stateEvent ;
+        const new_data = {
+            name : data.name,
+            starts : data.starts,
+            ends : data.ends,
+            description: data.description,
+            location: {
+                name:data.location_name,
+                city: data.location_city,
+                state: data.location_state,
+            }
+        }
+        console.log(new_data)
         // const dataLoc = stateLoc;
 
         const eventsUrl = "http://localhost:8000/api/events/" ;
         const fetchConfigEvent = {
             method: "POST", 
-            body: JSON.stringify(data), 
+            body: JSON.stringify(new_data), 
+            credentials:"include",
             headers : {
                 "Content-Type" : "application/json",
             }
         };
-        // const locationUrl = "http://localhost:8000/api/locations/"
-        // const fetchConfig = {
-        //     method: "POST", 
-        //     body: JSON.stringify(dataLoc), 
-        //     headers : {
-        //         "Content-Type" : "application/json",
-        //     }
-        // };
-        // const responseLoc = await fetch(locationUrl, fetchConfig);
         const response = await fetch(eventsUrl, fetchConfigEvent );
-        console.log(response)
+        // console.log(response)
 
         if (response.ok){
             setStateEvent({
@@ -65,15 +69,14 @@ function EventForm() {
             starts : "",
             ends : "",
             description: "",
-            locations: "",
-            locations: [],
-        });
-            // setStateLoc({
-            //     venue: "",
-            //     city:"",
-            //     state:""
-            // });
-        setSuccessfulSubmit(true);
+            // location:""
+            location: {
+                name:"",
+                city:"",
+                state:""
+            }
+            });
+        // setSuccessfulSubmit(true);
         }
         
     } ;
@@ -81,25 +84,20 @@ function EventForm() {
     
     
     const handleChange = event => {
+
         const value = event.target.value ;
         setStateEvent({
             ...stateEvent,
             [event.target.name]: value,
         })
+        
     };
-    const handleChangeLoc = event=> {
-        const value = event.target.value;
-        setStateLoc({
-            ...stateLoc,
-            [event.target.name]:value,
-        })
-    }
-
-    if (successfulSubmit) {
-        formClasses = "d-none";
-        alertClasses = "alert alert-success mb-3";
-        alertContainerClasses = "";
-      }
+   
+    // if (successfulSubmit) {
+    //     formClasses = "d-none";
+    //     alertClasses = "alert alert-success mb-3";
+    //     alertContainerClasses = "";
+    //   }
 
     return (
         <div className="row">
@@ -147,31 +145,31 @@ function EventForm() {
                         <label htmlFor="description">Description</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={handleChangeLoc} 
-                        value={stateLoc.venue} 
+                        <input onChange={handleChange} 
+                        value={stateEvent.location_name} 
                         placeholder="venue" 
                         required type="text" 
-                        name="venue" 
+                        name="location_name" 
                         id="venue" 
                         className="form-control" />
                         <label htmlFor="venue">Venue</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={handleChangeLoc} 
-                        value={stateLoc.city} 
+                        <input onChange={handleChange} 
+                        value={stateEvent.location_city} 
                         placeholder="city" 
                         required type="text" 
-                        name="city" 
+                        name="location_city" 
                         id="city" 
                         className="form-control" />
                         <label htmlFor="city">City</label>
                     </div>
                     <div className="mb-3">
-                        <select onChange={handleChangeLoc} value={stateLoc.locations} required name="state" id="state" className="form-select">
+                        <select onChange={handleChange} value={stateEvent.location_state} required name="location_state" id="state" className="form-select">
                         <option value="">Choose a State</option>
                         {stateStates.map(state => {
                             return (
-                            <option key={state.name} value={state.name}>{state.name}</option>
+                            <option key={state.name} value={state.abbreviation}>{state.name}</option>
                             )
                          })}
                         </select>
@@ -187,6 +185,6 @@ function EventForm() {
         </div>
                 
     )
-}
+};
 
 export default EventForm;

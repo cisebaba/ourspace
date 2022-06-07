@@ -37,16 +37,18 @@ These may include (but are not limited to):
 ## Must Have Features:
 * User accounts (profile, signup, log-in), messaging, followers - personal or business account
 * Company info and reviews
-* Mentorship / sponsorship / scholarship section
 * Job board - query data from Indeed/Glassdoor or other source
 * Conference/meetup/event section - query from event API
 * Forum for users to post and comment
+* Mentorship / sponsorship / scholarship section
 
 * (To come later) Personalized Live Feed (homepage) 
-* Site search
 
 ## Nice to Haves: 
+* Site search
 * Newsletter
 * Following/follower capability
+
+
 
 

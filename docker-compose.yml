@@ -45,6 +45,19 @@ services:
       PGPASSWORD: ourspace
       ADZUNA_API_KEY: ${ADZUNA_API_KEY}
       ADZUNA_APP_ID: ${ADZUNA_APP_ID}
+  mentorship:
+    build:
+      context: ./mentorship/api
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8050:8000"
+    volumes:
+      - ./mentorship/api:/app
+    environment:
+      PGHOST: db
+      PGDATABASE: ourspace
+      PGUSER: ourspace
+      PGPASSWORD: ourspace
   events:
     build:
       context: ./events/api
