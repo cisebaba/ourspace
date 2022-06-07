@@ -1,7 +1,21 @@
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 function Nav(props) {
   const { token } = props;
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    async function getMe() {
+      const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/users/me`;
+      const response = await fetch(url, { credentials: 'include' });
+      if (response.ok) {
+        const user = await response.json();
+        setUser(user);
+      }
+    }
+    getMe();
+  });
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -17,7 +31,7 @@ function Nav(props) {
             { token ?
               <>
                 {/* Whatever you want to show when people are logged in */}
-                <NavLink className="dropdown-item" to="/logout" role="button">Logout</NavLink>
+                <NavLink className="dropdown-item" to="/logout" role="button">Logout {user.username}</NavLink>
               </>:
               <>
                 <NavLink className="dropdown-item" to="/login" role="button">Login</NavLink>

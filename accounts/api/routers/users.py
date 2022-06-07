@@ -6,7 +6,8 @@ from jose import JWTError, jwt, jws, JWSError
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from typing import Optional
-import json
+from json.decoder import JSONDecodeError
+import uuid
 import os
 
 SECRET_KEY = os.environ["SECRET_KEY"]
@@ -70,7 +71,12 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
         expire = datetime.utcnow() + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
-    to_encode.update({"exp": expire})
+    to_encode.update({
+        "exp": expire,
+        "iat": datetime.utcnow(),
+        "iss": "our-space",
+        "jti": str(uuid.uuid4()),
+    })
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
@@ -86,14 +92,14 @@ async def get_current_user(
         headers={"WWW-Authenticate": "Bearer"},
     )
     token = bearer_token
-    if not token and cookie_token:
-        token = json.loads(cookie_token)
     try:
+        if not token and cookie_token:
+            token = cookie_token
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username = payload.get("sub")
         if username is None:
             raise credentials_exception
-    except (JWTError, AttributeError):
+    except (JWTError, AttributeError, JSONDecodeError) as e:
         raise credentials_exception
     user = repo.get_user(username)
     if user is None:
@@ -102,8 +108,8 @@ async def get_current_user(
 
 
 async def get_current_active_user(current_user: User = Depends(get_current_user)):
-    if current_user.disabled:
-        raise HTTPException(status_code=400, detail="Inactive user")
+    # if current_user.disabled:
+    #     raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
 
@@ -118,7 +124,12 @@ async def login_for_access_token(response: Response, request: Request, form_data
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user["username"]},
+        data={
+            "sub": user["username"],
+            "user": {k: v
+                     for k, v in user.items()
+                     if k != "username" and not "password" in k}
+        },
         expires_delta=access_token_expires,
     )
     token = {"access_token": access_token, "token_type": "bearer"}
