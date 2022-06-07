@@ -23,5 +23,21 @@ CREATE TABLE users (
     
 );
 
+CREATE TABLE mentorship(
+    id SERIAL NOT NULL PRIMARY KEY,
+    job_title VARCHAR(200) NOT NULL,
+    description TEXT NOT NULL,
+    availability VARCHAR(500) NOT NULL,
+    booked BOOLEAN,
+    CONSTRAINT mentor_username
+        FOREIGN KEY(username)
+        REFERENCES users(username),
+    CONSTRAINT mentee_username
+        FOREIGN KEY(username)
+        REFERENCES users(username)
+);
+
+
 ALTER TABLE jobs OWNER TO ourspace;
 ALTER TABLE users OWNER TO ourspace;
+ALTER TABLE mentorship OWNER TO ourspace;
