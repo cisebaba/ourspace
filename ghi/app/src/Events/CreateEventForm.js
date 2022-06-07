@@ -34,20 +34,6 @@ function EventForm() {
         getStatesData();
     }, []) ;
 
-    // useEffect(() => {
-    //     const getLocData = async () => {
-    //         const locResponse = await fetch(
-    //             "http://localhost:8000/api/locations/"
-    //         );
-    //         const locData = await locResponse.json();
-    //         //console.log(statesData.states)
-    //         setStateLoc(locData.locations)
-    //     };
-
-    //     getLocData();
-    // }, []) ;
-
-
     const handleSubmit = async event => {
         event.preventDefault();
         const data = stateEvent ;
@@ -104,7 +90,6 @@ function EventForm() {
             ...stateEvent,
             [event.target.name]: value,
         })
-        console.log(stateEvent)
         
     };
    
@@ -167,7 +152,7 @@ function EventForm() {
                         name="location_name" 
                         id="venue" 
                         className="form-control" />
-                        <label htmlFor="name">Venue</label>
+                        <label htmlFor="venue">Venue</label>
                     </div>
                     <div className="form-floating mb-3">
                         <input onChange={handleChange} 
