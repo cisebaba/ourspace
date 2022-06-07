@@ -4,7 +4,6 @@ import sys
 import time
 import json
 import requests
-import uvicorn
 
 
 sys.path.append("")
