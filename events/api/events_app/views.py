@@ -53,15 +53,21 @@ def api_list_events(request):
         )
     else:
         content = json.loads(request.body)
+        print(content)
         try:
-            location = Location.objects.get(id=content["location"])
+            location = Location.objects.get(name=content["location"]["name"])
             content["location"] = location
         except Location.DoesNotExist:
-            return JsonResponse(
-                {"message": "Invalid location id"},
-                status=400,
-            )
-        
+            try:
+                state = State.objects.get(abbreviation=content["location"]["state"])
+                content["location"]["state"] = state
+            except State.DoesNotExist:
+                return JsonResponse(
+                    {"message": "Invalid state abbreviation"},
+                    status=400,
+                )
+            location = Location.objects.create(**content["location"])
+            content["location"] = location
         event = Event.objects.create(**content)
         return JsonResponse(
             event, 
@@ -129,6 +135,7 @@ def api_list_locations(request):
             encoder=LocationDetailEncoder,
             safe=False,
         )
+
 
 @require_http_methods(["DELETE", "GET", "PUT"])
 def api_show_location(request, pk):

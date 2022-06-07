@@ -1,3 +1,11 @@
+## June 6, 2022
+
+Today we officially finished back-end for the events microservice! We had some issues with the format of the data we wanted so we had to change one of our views but now it works and the back-end is officially done for that microservice!
+
+We spent SO MUCH TIME on the front-end for our create event form today. But we did finish the form to create an event. I learned so much today about nesting data and flattening/formatting and unflattening/unformatting data! I think I was on the right track but reorganizing our data never came to my mind so when Curtis showed us that, it was really helpful and I think it will come in handy in the future. The other half of our team showed us how to make a table and their FastAPI views for the jobs microservice.
+
+We spent the end of the day deciding what to do and how to spend the rest of our time on the project. We came up with a plan to split up the microservices and front-end for the microservices individually so we can get more work done.
+
 ## June 3, 2022
 
 Today, we stayed with our same group (me, Cise, and Starr). Since we finished the back-end portion of the events microservice yesterday, our focus for today was front-end!
