@@ -1,4 +1,4 @@
-\connect ourspace
+\connect jobs
 
 CREATE TABLE jobs (
     id BIGINT NOT NULL PRIMARY KEY,
@@ -10,6 +10,10 @@ CREATE TABLE jobs (
     description TEXT,
     redirect_url VARCHAR(1000)
 );
+
+ALTER TABLE jobs OWNER TO ourspace;
+
+\connect accounts
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -23,7 +27,9 @@ CREATE TABLE users (
     role VARCHAR(50)
 );
 
--- FORUM TABLES
+ALTER TABLE users OWNER TO ourspace;
+
+\connect forum
 
 CREATE TABLE post (
     post_id SERIAL PRIMARY KEY,
@@ -43,15 +49,24 @@ CREATE TABLE comment (
     --upvotes -- foreign key to upvotes
 );
 
+ALTER TABLE post OWNER TO ourspace;
+ALTER TABLE comment OWNER TO ourspace;
+
+\connect mentorship
+
 CREATE TABLE mentorship(
     id SERIAL NOT NULL PRIMARY KEY,
     job_title VARCHAR(200) NOT NULL,
     description TEXT NOT NULL,
     availability VARCHAR(500) NOT NULL,
     booked BOOLEAN,
-    mentor_username VARCHAR(100) references users(username),
-    mentee_username VARCHAR(100) references users(username)
+    mentor_username VARCHAR(100),
+    mentee_username VARCHAR(100) 
 );
+
+ALTER TABLE mentorship OWNER TO ourspace;
+
+\connect reviews
 
 CREATE TABLE reviews(
     id SERIAL NOT NULL PRIMARY KEY,
@@ -64,13 +79,8 @@ CREATE TABLE reviews(
     flexibility INT NOT NULL
 );
 
-
-
-ALTER TABLE jobs OWNER TO ourspace;
-ALTER TABLE users OWNER TO ourspace;
-ALTER TABLE post OWNER TO ourspace;
 ALTER TABLE reviews OWNER TO ourspace;
-ALTER TABLE comment OWNER TO ourspace;
-ALTER TABLE mentorship OWNER TO ourspace;
+
+
 
 

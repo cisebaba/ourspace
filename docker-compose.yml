@@ -28,7 +28,11 @@ services:
     volumes:
       - ./accounts/api:/app
     environment:
-        SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
+      PGHOST: db #server that rdbms is running on- same for all
+      PGDATABASE: accounts
+      PGUSER: ourspace
+      PGPASSWORD: ourspace
+      SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
       #host is the name of the service running pgsequal
   reviews:
     build:
@@ -40,7 +44,7 @@ services:
       - ./reviews/api:/app
     environment:
       PGHOST: db
-      PGDATABASE: ourspace
+      PGDATABASE: reviews
       PGUSER: ourspace
       PGPASSWORD: ourspace
       DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
@@ -55,7 +59,7 @@ services:
       - ./forum/api:/app
     environment:
       PGHOST: db
-      PGDATABASE: ourspace
+      PGDATABASE: forum
       PGUSER: ourspace
       PGPASSWORD: ourspace
       DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
@@ -70,7 +74,7 @@ services:
       - ./jobs/api:/app
     environment:
       PGHOST: db
-      PGDATABASE: ourspace
+      PGDATABASE: jobs
       PGUSER: ourspace
       PGPASSWORD: ourspace
       ADZUNA_API_KEY: ${ADZUNA_API_KEY}
@@ -87,7 +91,7 @@ services:
       - ./mentorship/api:/app
     environment:
       PGHOST: db
-      PGDATABASE: ourspace
+      PGDATABASE: mentorship
       PGUSER: ourspace
       PGPASSWORD: ourspace
       DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
@@ -103,7 +107,7 @@ services:
     environment:
       #host is the name of the service running pgsequal
       PGHOST: db
-      PGDATABASE: ourspace
+      PGDATABASE: events
       PGUSER: ourspace
       PGPASSWORD: ourspace
       DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
