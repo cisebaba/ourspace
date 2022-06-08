@@ -5,11 +5,51 @@
 * A reflection on any design conversations that you had
 * At least one ah-ha! moment that you had during your coding, however small
 
+# June 8, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        </li> 
+    </ul> 
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
+# June 7, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li> 
+        I worked on the company reviews microservice with Allisha. We decided to use a postgres database to handle our data so we set that up. 
+        </li> 
+    </ul> 
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
 # June 6, 2022
 <ul>
 <li> Features/Issues Worked On : </li>
     <ul>
         <li> 
+        I worked with Cise and Allisha on the frontend for the conference/events. We ended up having to reconfigure some our views to handle the creation of a new location while creating a new event. We also learned a lot about nesting data and how to format our form on the frontend. 
         </li> 
     </ul> 
 <li> Reflection : </li>
