@@ -20,11 +20,8 @@ CREATE TABLE users (
     username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(500) NOT NULL, 
     email VARCHAR(200) NOT NULL UNIQUE, 
-    firstname VARCHAR(200) NOT NULL, 
-    lastname VARCHAR(200) NOT NULL,
-    city VARCHAR(200),
-    state VARCHAR(50),
-    role VARCHAR(50)
+    firstname VARCHAR(200), 
+    lastname VARCHAR(200)
 );
 
 ALTER TABLE users OWNER TO ourspace;

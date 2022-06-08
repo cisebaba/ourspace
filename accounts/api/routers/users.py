@@ -37,14 +37,16 @@ class User(BaseModel):
     id: int
     username: str
     email: str | None = None
-    full_name: str | None = None
+    firstname: str | None = None
+    lastname: str | None = None
     disabled: bool | None = None
 
 
 class UserSignUp(BaseModel):
     username: str
     email: str | None = None
-    full_name: str | None = None
+    firstname: str | None = None
+    lastname: str | None = None
     disabled: bool | None = None
     password: str
 
