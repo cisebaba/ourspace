@@ -49,17 +49,28 @@ CREATE TABLE mentorship(
     description TEXT NOT NULL,
     availability VARCHAR(500) NOT NULL,
     booked BOOLEAN,
-    CONSTRAINT mentor_username
-        FOREIGN KEY(username)
-        REFERENCES users(username),
-    CONSTRAINT mentee_username
-        FOREIGN KEY(username)
-        REFERENCES users(username)
+    mentor_username VARCHAR(100) references users(username),
+    mentee_username VARCHAR(100) references users(username)
 );
+
+CREATE TABLE reviews(
+    id SERIAL NOT NULL PRIMARY KEY,
+    company_name VARCHAR(200) NOT NULL,
+    rating INT NOT NULL,
+    salary INT NOT NULL,
+    diversity INT NOT NULL,
+    balance INT NOT NULL,
+    parental_leave INT NOT NULL,
+    flexibility INT NOT NULL
+);
+
 
 
 ALTER TABLE jobs OWNER TO ourspace;
 ALTER TABLE users OWNER TO ourspace;
-ALTER TABLE mentorship OWNER TO ourspace;
 ALTER TABLE post OWNER TO ourspace;
+ALTER TABLE reviews OWNER TO ourspace;
+ALTER TABLE comment OWNER TO ourspace;
+ALTER TABLE mentorship OWNER TO ourspace;
+
 

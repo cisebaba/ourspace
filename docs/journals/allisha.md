@@ -1,3 +1,19 @@
+## June 7, 2022
+
+Today, me and Starr grouped up to work on the company reviews microservice. We added the service to the docker yaml file, made a directory, and created a Dockerfile.dev for reviews. We created a table schema in our postgres database and got setup pgadmin for the reviews microservice! We haven't really touched the database so it was a great experience! We created a kind of DDD for the microservice before starting to actually dive in so that we can get a visual and get a roadmap of where we're going while building this microservice out. We had some issues with a git merge last night and it gave us an issue with our create event form which was working fine yesterday. But with the help from a SEIR, I created a temporary branch to test things out, which I've never done before and definitely think that that will come in handy in the future! We need to create our fastAPI API endpoints tomorrow and work on the react front-end for reviews. I think we're on a good track to MVP despite all the issues! I also created some issues on our GitLab issues board, which I'm getting more used to using.
+
+To do:
+Company reviews:
+    DONE-Add to docker yaml
+    DONE-Make directory
+    DONE-Make dockerfile.dev
+    -FASTAPI
+    -make react front-end
+    DONE-make sql database table for reviews
+    DONE-setup pgadmin for reviews
+    DONE-make excalidraw
+
+
 ## June 6, 2022
 
 Today we officially finished back-end for the events microservice! We had some issues with the format of the data we wanted so we had to change one of our views but now it works and the back-end is officially done for that microservice!
