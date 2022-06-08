@@ -1,3 +1,19 @@
+# June 7, 2022
+Today I worked on:
+* Cise and I worked on the backend for the mentorship microservice today and last night. 
+
+We got the new service spun up in Docker, created our PostgreSQL table schema, and got our GET and POST requests working with FastAPI. I had some issues with Docker today that we had to overcome, but we still managed to get a lot done! We still need to handle the PUT and DELETE requests and do a bit of frontend work, and then the mentorship microservice will be in a good state for our MVP. 
+
+My aha moment today was learning how much issues with Docker can slow down progress! That really halted things. But besides that, getting the POST request working with our database was super exciting. I am learning a lot more about FastAPI and some of the pros and cons of using it vs. Django.
+
+# June 6, 2022
+Today I worked on:
+* We stayed in the same pairs to complete the microservices that we were working on. Rachael and I continued working on the Jobs backend and frontend. 
+
+We finished the Jobs API backend by updating the amount of time our poller ran and adding a URL field to our database schema. We got our FastAPI request to return the right data in the right shape upon making a GET request. We also worked on the React frontend for this service and got all of our jobs data from our database to display nicely in a list of cards using Bootstrap. Afterwards, we synced back up with the larger group to work on an issue with a POST request in the events microservice. We got this piece working with some outside help.
+
+It was fun working more with React hooks within functional components! My aha moment today was learning how careful we need to be when using nested data structures within React functional components. This was much harder to work with than I realized!
+
 # June 3, 2022
 Today I worked on:
 * Our team kept the same pairs today since both teams were mid-stream with working on each respective microservice. Rachael and I continued to work on the back-end for the Jobs microservice.

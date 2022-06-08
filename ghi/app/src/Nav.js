@@ -20,8 +20,18 @@ function Nav(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">OurSpace</NavLink>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <NavLink className="navbar-brand" to="/">
+          OurSpace
+        </NavLink>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
         <div>
@@ -32,6 +42,7 @@ function Nav(props) {
               <>
                 {/* Whatever you want to show when people are logged in */}
                 <NavLink className="dropdown-item" to="/logout" role="button">Logout {user.username}</NavLink>
+
               </>:
               <>
                 <NavLink className="dropdown-item" to="/login" role="button">Login</NavLink>
@@ -39,10 +50,21 @@ function Nav(props) {
               </>
             }
         </ul>
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <NavLink className="dropdown-item" to="jobs" role="button">
+              Jobs
+            </NavLink>
+            <NavLink className="dropdown-item" to="posts" role="button">
+              Forum
+            </NavLink>
+            <NavLink className="dropdown-item" to="posts/new" role="button">
+              New Post
+            </NavLink>
+          </ul>
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
 export default Nav;

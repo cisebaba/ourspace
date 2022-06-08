@@ -9,6 +9,9 @@ import Login from './Auth/Login';
 import Signup from './Auth/Signup';
 import Logout from './Auth/Logout';
 import { useToken } from './authApi';
+import JobsList from "./Jobs/JobsList";
+import PostsList from "./Forum/ListPosts";
+import PostForm from "./Forum/CreatePostForm";
 
 // Still working on JobsPage - not functioning yet
 
@@ -26,6 +29,9 @@ function App() {
             <Route path="signup" element={<Signup token={token} signup={signup} />} />
             <Route path="events" index element={<EventsList />} />
             <Route path = "events/new" element={<EventForm token={token}/>} />
+            <Route path="jobs" element={<JobsList />} />
+            <Route path="posts" element={<PostsList />} />
+            <Route path="posts/new" element={<PostForm />} />
         </Routes>
       </BrowserRouter>
     </>
