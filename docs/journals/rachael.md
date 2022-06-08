@@ -9,6 +9,14 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 7, 2022
+
+Today I got the forum microservice connected to docker, built database tables for posts and comments, got fastapi endpoints set up for post get/post, and set up a very simplistic react front-end for post list and post form.
+
+Design-wise we refined our mvp goals so we won't be crunched for time at the end.
+
+My ah-ha was help from Mitch setting up the pydantic models so the post api endpoint would work.
+
 ## June 6, 2022
 
 Amanda and I worked on automating our poller in jobs_db, and doing initial formatting on the list of jobs in react.

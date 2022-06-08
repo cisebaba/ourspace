@@ -16,7 +16,20 @@ services:
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"
+      REACT_APP_ACCOUNTS_HOST: http://localhost:9000
+      REACT_APP_EVENTS_HOST: http://localhost:8000
       REACT_APP_API_HOST: http://localhost:8000
+  accounts:
+    build:
+      context: ./accounts/api
+      dockerfile: Dockerfile.dev
+    ports:
+      - "9000:8000"
+    volumes:
+      - ./accounts/api:/app
+    environment:
+        SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
+      #host is the name of the service running pgsequal
   reviews:
     build:
       context: ./reviews/api
@@ -30,6 +43,8 @@ services:
       PGDATABASE: ourspace
       PGUSER: ourspace
       PGPASSWORD: ourspace
+      DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
+
   forum:
     build:
       context: ./forum/api
@@ -43,6 +58,8 @@ services:
       PGDATABASE: ourspace
       PGUSER: ourspace
       PGPASSWORD: ourspace
+      DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
+
   jobs:
     build:
       context: ./jobs/api
@@ -58,6 +75,8 @@ services:
       PGPASSWORD: ourspace
       ADZUNA_API_KEY: ${ADZUNA_API_KEY}
       ADZUNA_APP_ID: ${ADZUNA_APP_ID}
+      DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
+
   mentorship:
     build:
       context: ./mentorship/api
@@ -71,6 +90,8 @@ services:
       PGDATABASE: ourspace
       PGUSER: ourspace
       PGPASSWORD: ourspace
+      DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
+
   events:
     build:
       context: ./events/api
@@ -85,6 +106,7 @@ services:
       PGDATABASE: ourspace
       PGUSER: ourspace
       PGPASSWORD: ourspace
+      DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
   db:
     image: postgres:14.2-bullseye
     volumes:

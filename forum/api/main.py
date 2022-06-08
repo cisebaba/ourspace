@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import forum_api
+from routers import forum_api, comments
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
@@ -19,3 +19,4 @@ app.add_middleware(
 )
 
 app.include_router(forum_api.router)
+app.include_router(comments.router)
