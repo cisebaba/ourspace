@@ -3,4 +3,9 @@
 
 CREATE USER ourspace WITH LOGIN PASSWORD 'ourspace';
 
-CREATE DATABASE ourspace WITH OWNER ourspace;
+CREATE DATABASE accounts WITH OWNER ourspace;
+CREATE DATABASE reviews WITH OWNER ourspace;
+CREATE DATABASE jobs WITH OWNER ourspace;
+CREATE DATABASE events WITH OWNER ourspace;
+CREATE DATABASE forum WITH OWNER ourspace;
+CREATE DATABASE mentorship WITH OWNER ourspace;
