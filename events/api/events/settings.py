@@ -25,14 +25,14 @@ SECRET_KEY = 'django-insecure-9yifj+8t0(jg60ol2fu+zexysh$w(fj!yx9b&@%%sj3#qpxf&$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["localhost", "http://localhost:3000"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'events_app.apps.EventsAppConfig',
-    "corsheaders",
+    'corsheaders',
     'djwto',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,11 +56,18 @@ MIDDLEWARE = [
 #     "http://localhost:3000",
 # ]
 
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = ("http://localhost:3000")
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     
 ]
 CORS_ALLOW_CREDENTIALS = True
+DJWTO_CSRF = False
+DJWTO_IAT_CLAIM = False
+DJWTO_JTI_CLAIM = False
+
 ROOT_URLCONF = 'events.urls'
 
 TEMPLATES = [

@@ -1,12 +1,10 @@
 from fastapi import FastAPI
+from routers import reviews
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
 
-from routers import users
-
 app = FastAPI()
-
 
 origins = [
     "http://localhost:3000",
@@ -21,4 +19,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(users.router)
+app.include_router(reviews.router)
+
+

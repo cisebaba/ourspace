@@ -37,7 +37,8 @@ CREATE TABLE post (
 CREATE TABLE comment (
     comment_id SERIAL PRIMARY KEY,
     post_id int references post(post_id), --foreign key
-    text VARCHAR(5000)
+    text VARCHAR(5000),
+    created_on TIMESTAMP
     --commenter -- foreign key to userid
     --upvotes -- foreign key to upvotes
 );
@@ -52,10 +53,23 @@ CREATE TABLE mentorship(
     mentee_username VARCHAR(100) references users(username)
 );
 
+CREATE TABLE reviews(
+    id SERIAL NOT NULL PRIMARY KEY,
+    company_name VARCHAR(200) NOT NULL,
+    rating INT NOT NULL,
+    salary INT NOT NULL,
+    diversity INT NOT NULL,
+    balance INT NOT NULL,
+    parental_leave INT NOT NULL,
+    flexibility INT NOT NULL
+);
+
+
 
 ALTER TABLE jobs OWNER TO ourspace;
 ALTER TABLE users OWNER TO ourspace;
 ALTER TABLE post OWNER TO ourspace;
+ALTER TABLE reviews OWNER TO ourspace;
 ALTER TABLE comment OWNER TO ourspace;
 ALTER TABLE mentorship OWNER TO ourspace;
 
