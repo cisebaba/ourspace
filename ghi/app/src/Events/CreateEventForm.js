@@ -14,8 +14,8 @@ function EventForm() {
     })
   
     const [stateStates, setStateStates] = useState([])
-    // const [successfulSubmit, setSuccessfulSubmit] = useState(false);
-    
+    //const [successfulSubmit, setSuccessfulSubmit] = useState(false);
+
     // if the submission was successful, a message appears
     // let formClasses = "";
     // let alertClasses = "alert alert-success d-none mb-3";
@@ -81,8 +81,8 @@ function EventForm() {
         
     } ;
 
-    
-    
+
+
     const handleChange = event => {
 
         const value = event.target.value ;
@@ -106,18 +106,18 @@ function EventForm() {
                 <h1>Create an Event!</h1>
                 <form onSubmit={handleSubmit} id="create-form">
                     <div className="form-floating mb-3">
-                        <input onChange={handleChange} 
-                        value={stateEvent.name} 
-                        placeholder="name" 
-                        required type="text" 
-                        name="name" 
-                        id="event_name" 
+                        <input onChange={handleChange}
+                        value={stateEvent.name}
+                        placeholder="name"
+                        required type="text"
+                        name="name"
+                        id="event_name"
                         className="form-control" />
                         <label htmlFor="name"> Event Name</label>
                     </div>
                     <div className="form-floating mb-3">
                         <input onChange={handleChange}
-                        value={stateEvent.starts} 
+                        value={stateEvent.starts}
                         placeholder="starts"
                         required type="datetime-local"
                         name="starts"
@@ -126,21 +126,21 @@ function EventForm() {
                         <label htmlFor="starts">Starts</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={handleChange} 
-                        value={stateEvent.ends} 
-                        placeholder="ends" 
-                        required type="datetime-local" 
-                        name="ends" id="event_ends" 
+                        <input onChange={handleChange}
+                        value={stateEvent.ends}
+                        placeholder="ends"
+                        required type="datetime-local"
+                        name="ends" id="event_ends"
                         className="form-control" />
                         <label htmlFor="ends">Ends</label>
                     </div>
                     <div className="form-floating mb-3">
-                        <input onChange={handleChange} 
-                        value={stateEvent.description} 
-                        placeholder="description" 
-                        required type="text" 
-                        name="description" 
-                        id="description" 
+                        <input onChange={handleChange}
+                        value={stateEvent.description}
+                        placeholder="description"
+                        required type="text"
+                        name="description"
+                        id="description"
                         className="form-control" />
                         <label htmlFor="description">Description</label>
                     </div>
@@ -183,7 +183,6 @@ function EventForm() {
             </div>
             </div>
         </div>
-                
     )
 };
 

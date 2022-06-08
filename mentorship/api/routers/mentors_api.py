@@ -24,8 +24,9 @@ class MentorshipOut(BaseModel):
     # mentor_username: str
     # mentee_username: str
 
-# class JobList(BaseModel):
-#     __root__: List[Job]
+
+class MentorshipList(BaseModel):
+    __root__: List[MentorshipOut]
 
 
 
@@ -76,21 +77,42 @@ def mentorship_post(mentorship: MentorshipIn):
 #     return rows_to_custom_game(rows)
 
 
-# @router.get(
-#     "/api/postgres/custom-games/{custom_game_id}",
-#     response_model=Union[CustomGameOut, ErrorMessage],
+@router.get(
+    "/api/mentorship/",
+    response_model=MentorshipList,
 #     responses={
 #         200: {"model": CustomGameOut},
 #         404: {"model": ErrorMessage},
 #     },
-# )
-# def create_custom_game(
-#     custom_game_id: int,
-#     response: Response,
-#     query=Depends(CustomGameQueries),
-# ):
-#     rows = query.get_custom_game(custom_game_id)
-#     if len(rows) == 0:
-#         response.status_code = status.HTTP_404_NOT_FOUND
-#         return {"message": "Custom game not found"}
-#     return rows_to_custom_game(rows)
+)
+def mentor_list():
+     with psycopg.connect("dbname=ourspace user=ourspace") as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                select m.id, m.job_title, m.description, m.availability, m.booked
+                from mentorship m
+            """
+            )
+            # results = []
+            # for row in cur.fetchall():
+            #     record = {}
+            #     for i, column in enumerate(cur.description):
+            #         record[column.name] = row[i]
+            #     results.append(record)
+            # return results
+
+            ds = []
+            for row in cur.fetchall():
+                d = {
+                    "id": row[0],
+                    "job_title":row[1],
+                    "description": row[2],
+                    "availability": row[3],
+                    "booked": row[4],
+                }
+                
+                ds.append(d)
+            return ds
+
+
