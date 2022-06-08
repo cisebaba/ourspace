@@ -10,6 +10,8 @@
 <li> Features/Issues Worked On : </li>
     <ul>
         <li>  
+        We worked on the users stuff as a group today. We ended up separating the tables for each feature into their own databases. 
+        We also decided to change the table for user and have a separate profile table to hold specific user information that isn't just the username/password. 
         </li> 
     </ul> 
 <li> Reflection : </li>
