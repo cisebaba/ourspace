@@ -124,7 +124,10 @@ The `Events & Conferences` entity contains the data about events, conferences, a
 | company_name   | string       | no     | no       |
 | salary         | int          | no     | no       |
 | rating         | int          | no     | no       |
-| diversity????         | int          | no     | no       |
+| diversity      | int          | no     | no       |
+| balance        | int          | no     | no       |
+| parental_leave | int          | no     | no       |
+| flexibility    | int          | no     | no       |
 | userVO         | reference to | yes    | no       |
 
 The `Company Reviews` entity contains the data where users can rate and review companies with the option of anonymity.
