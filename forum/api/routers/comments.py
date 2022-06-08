@@ -45,3 +45,27 @@ def get_comments(post_id: int):
 
                 ds.append(d)
             return ds
+
+@router.post("/api/post/{post_id}/comments/", response_model = Comment)
+def new_comment(post_id: int, Comment: CommentIn):
+     with psycopg.connect("dbname=ourspace user=ourspace") as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                INSERT INTO comment (comment_id, text, created_on, post_id)
+                VALUES (DEFAULT, %s, CURRENT_TIMESTAMP, %s)
+                RETURNING comment_id, text, created_on, post_id
+                """,
+                [Comment.text, post_id]
+            )
+            conn.commit()
+
+            new_comment = cur.fetchone()
+
+            return {
+                "comment_id": new_comment[0],
+                "text": new_comment[1],
+                "created_on": new_comment[2],
+                "post_id": new_comment[3]
+            }
+            
