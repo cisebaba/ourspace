@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react' ;
 
 function EventForm() {
     const [stateEvent, setStateEvent ] = useState({
@@ -20,6 +20,19 @@ function EventForm() {
     // let formClasses = "";
     // let alertClasses = "alert alert-success d-none mb-3";
     // let alertContainerClasses = "d-none";
+
+    useEffect(() => {
+        const getStatesData = async () => {
+            const statesResponse = await fetch(
+                "http://localhost:8000/api/states/"
+            );
+            const statesData = await statesResponse.json();
+            //console.log(statesData.states)
+            setStateStates(statesData.states)
+        };
+
+        getStatesData();
+    }, []) ;
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -165,12 +178,13 @@ function EventForm() {
                         <input onChange={handleChangeReason} value={state.reason} placeholder="reason" required type="text" name="reason" id="reason" className="form-control" />
                         <label htmlFor="reason">Purpose of Visit</label>
                     </div> */}
-            <button className="btn btn-primary">Add</button>
-          </form>
+                    <button className="btn btn-primary">Add</button>
+                </form>
+            </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
-}
+                
+    )
+};
 
 export default EventForm;
