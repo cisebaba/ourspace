@@ -1,6 +1,7 @@
 ### Education: Scholarship & Mentorship
 
 ## Mentorship
+
 - **Method**: POST, GET, DELETE, PUT
 - **Path**: /api/education/mentorship, /api/education/mentorship/{mentorship_id}
 
@@ -13,7 +14,7 @@ Input:
 "location": str,
 "description": str,
 "availability": str,
-"booked": bool, 
+"booked": bool,
 "email": str
 }
 ```
@@ -33,13 +34,14 @@ Output:
 }
 ```
 
-* POST/GET /education/mentorship - gets a list of all offerings for mentorship. 
-Post creates a new offering for mentorship to users.
-* GET /education/mentorship/mentorship_id - gets a specific mentorship id.
-* DELETE a mentorship - able to delete a mentorship from the database.
-* UPDATE a mentorship.
+- POST/GET /education/mentorship - gets a list of all offerings for mentorship.
+  Post creates a new offering for mentorship to users.
+- GET /education/mentorship/mentorship_id - gets a specific mentorship id.
+- DELETE a mentorship - able to delete a mentorship from the database.
+- UPDATE a mentorship.
 
 ## Scholarship
+
 - **Method**: POST, GET, DELETE, PUT
 - **Path**: /api/education/scholarship, /api/education/scholarship/{scholarship_id}
 
@@ -67,10 +69,10 @@ Output:
 }
 ```
 
-* POST/GET /education/scholarship - gets a list of all available scholarships. Post creates a new scholarship instance.
-* GET /education/scholarship/scholarship_id - gets a specific scholarship.
-* DELETE a scholarship - able to delete a scholarship from the database.
-* UPDATE a scholarship - update a scholarship based on id.
+- POST/GET /education/scholarship - gets a list of all available scholarships. Post creates a new scholarship instance.
+- GET /education/scholarship/scholarship_id - gets a specific scholarship.
+- DELETE a scholarship - able to delete a scholarship from the database.
+- UPDATE a scholarship - update a scholarship based on id.
 
 ## Jobs
 
@@ -102,9 +104,9 @@ Output:
 }
 ```
 
-* GET uses the incoming job id to query the data for the job post. Then, it saves the name, city, company type, email, location, job type, salary, qualifcations to database. It returns all of the data with the new database id. We plan on using a third party api to get job board information. 
-* DELETE an Job - able to delete an Job from database
-* UPDATE an Job - Update an Job
+- GET uses the incoming job id to query the data for the job post. Then, it saves the name, city, company type, email, location, job type, salary, qualifcations to database. It returns all of the data with the new database id. We plan on using a third party api to get job board information.
+- DELETE an Job - able to delete an Job from database
+- UPDATE an Job - Update an Job
 
 ## User
 
@@ -139,11 +141,12 @@ Output:
     "photo" : string
 }
 ```
-* POST creates a new User uses the incoming json 
-data to create a entry into the database that saves the name, username, password, email, fullname, location, role and photo.  It returns all of the data with the new database id.
-* GET retrieves incoming data from the database about the users/user that already exist in the database. 
-* DELETE an User - able to delete an User from database
-* UPDATE an User - Update an User
+
+- POST creates a new User uses the incoming json
+  data to create a entry into the database that saves the name, username, password, email, fullname, location, role and photo. It returns all of the data with the new database id.
+- GET retrieves incoming data from the database about the users/user that already exist in the database.
+- DELETE an User - able to delete an User from database
+- UPDATE an User - Update an User
 
 ## Location
 
@@ -201,9 +204,9 @@ Output:
 }
 ```
 
-* POST/GET events/an event - gets incoming data from third party event API(possibly eventbrite) to query events and show a list of events. Also gets event by id and shows event details. Then, it saves the name, location, dates, description, and event url to the database and returns it with a new database id.
-* DELETE an event - able to delete an event from database
-* UPDATE an event - update an event
+- POST/GET events/an event - gets incoming data from third party event API(possibly eventbrite) to query events and show a list of events. Also gets event by id and shows event details. Then, it saves the name, location, dates, description, and event url to the database and returns it with a new database id.
+- DELETE an event - able to delete an event from database
+- UPDATE an event - update an event
 
 ## Company Reviews
 
@@ -240,16 +243,15 @@ Output:
 }
 ```
 
-* POST a review - uses the incoming company name, employment duration, salary, benefits, role, location, rating, and review data to create a new review. Then it saves that data to the database and returns it with a new database id.
-* GET company reviews - shows a list of all reviews for a specific company
-* DELETE a review - able to delete a review
-* UPDATE a review - update a review
-
+- POST a review - uses the incoming company name, employment duration, salary, benefits, role, location, rating, and review data to create a new review. Then it saves that data to the database and returns it with a new database id.
+- GET company reviews - shows a list of all reviews for a specific company
+- DELETE a review - able to delete a review
+- UPDATE a review - update a review
 
 ## Forum Post
 
 - **Method**: POST, GET, DELETE, PUT
-- **Path**: /api/forum/, /api/forum/{forum_id}
+- **Path**: /api/posts/, /api/post/{post_id}
 
 Input:
 
@@ -281,7 +283,7 @@ UPDATE a forum post - update an forum post
 ## Forum Comment
 
 - **Method**: POST, GET, DELETE, PUT
-- **Path**: /api/forum/comment, /api/forum/comment{comment_id}
+- **Path**: /api/post/{post_id}/comments, /api/post/{post_id}/comment{comment_id}
 
 Input:
 
@@ -306,8 +308,8 @@ Output:
 ```
 
 POST/GET/forum - this displays and allows authorized users to post a comment on a post, and the author (which can be anonymous). When there is a comment, there is an automated datetime stamp.
-DELETE a forum comment - able to delete an forum post from database
-UPDATE a forum comment - update an forum post
+DELETE a post comment - able to delete an forum post from database
+UPDATE a post comment - update an forum post
 
 ## Forum Post Upvote
 
@@ -360,4 +362,3 @@ Output:
 
 POST/forum - this allows people to upvote a comment related to a specific post, which helps the most popular rise to the top. Users will click to add an upvote to the counter
 DELETE a forum comment upvote- able to delete an upvote from database
-

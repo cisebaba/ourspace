@@ -32,6 +32,9 @@ function Nav() {
             <NavLink className="dropdown-item" to="posts" role="button">
               Forum
             </NavLink>
+            <NavLink className="dropdown-item" to="posts/new" role="button">
+              New Post
+            </NavLink>
           </ul>
         </div>
       </div>

@@ -37,7 +37,8 @@ CREATE TABLE post (
 CREATE TABLE comment (
     comment_id SERIAL PRIMARY KEY,
     post_id int references post(post_id), --foreign key
-    text VARCHAR(5000)
+    text VARCHAR(5000),
+    created_on TIMESTAMP
     --commenter -- foreign key to userid
     --upvotes -- foreign key to upvotes
 );
@@ -61,3 +62,4 @@ ALTER TABLE jobs OWNER TO ourspace;
 ALTER TABLE users OWNER TO ourspace;
 ALTER TABLE mentorship OWNER TO ourspace;
 ALTER TABLE post OWNER TO ourspace;
+
