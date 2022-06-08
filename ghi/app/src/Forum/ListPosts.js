@@ -19,12 +19,13 @@ function PostsList() {
           <div key={post.post_id} className="card mb-3 shadow">
             <div className="card-body">
               <h5 className="card-title">{post.title}</h5>
+              <h6 className="card-subtitle mb-2 text-muted">
+                Created on:&nbsp;
+                {new Date(post.created_on).toLocaleDateString()}
+              </h6>
               <p className="card-text">{post.text}</p>
             </div>
-            <div className="card-footer">
-              Created on:&nbsp;
-              {new Date(post.created_on).toLocaleDateString()}
-            </div>
+            <div className="card-footer">Comments</div>
           </div>
         );
       })}
