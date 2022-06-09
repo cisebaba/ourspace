@@ -9,6 +9,7 @@ router = APIRouter()
 
 
 class Review(BaseModel):
+    id: int
     company_name: str
     rating: int
     salary: int
@@ -18,6 +19,15 @@ class Review(BaseModel):
     flexibility: int
 
 class ReviewIn(BaseModel):
+    company_name: str
+    rating: int
+    salary: int
+    diversity: int
+    balance: int
+    parental_leave: int
+    flexibility: int
+
+class ReviewOut(BaseModel):
     company_name: str
     rating: int
     salary: int
@@ -45,88 +55,54 @@ def new_review(Review: ReviewIn):
                 """
                 INSERT INTO reviews (company_name, rating, salary, diversity, 
                     balance, parental_leave, flexibility)
-                VALUES (%s, INT, INT, INT, INT, INT, INT )
-                RETURNING company_name, rating, salary, diversity, 
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                RETURNING id, company_name, rating, salary, diversity, 
                     balance, parental_leave, flexibility
                 """, 
-                [Review.company_name, Review.rating, Review.salary,
-                Review.diversity, Review.balance, Review.parental_leave,
-                Review.flexibility]
+                [Review.company_name,
+                Review.rating, Review.salary,Review.diversity, Review.balance, Review.parental_leave, Review.flexibility]
             )
 
             conn.commit()
             
-            new_review = cur.fetchall()
+            new_review = cur.fetchone()
 
             return {
-                "company_name": new_review[0],
-		        "rating": new_review[1],
-		        "salary": new_review[2],
-		        "diversity": new_review[3],
-                "balance" : new_review[4],
-                "parental_leave": new_review[5],
-                "flexibility": new_review[6]
+                "id": new_review[0],
+                "company_name": new_review[1],
+		        "rating": new_review[2],
+		        "salary": new_review[3],
+		        "diversity": new_review[4],
+                "balance" : new_review[5],
+                "parental_leave": new_review[6],
+                "flexibility": new_review[7]
             }
 
 
 @router.get("/api/reviews/", response_model = ReviewList)
-def posts_list(Review: ReviewIn):
+def reviews_list():
     with psycopg.connect("dbname=reviews user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                INSERT INTO reviews (company_name, rating, salary, diversity, 
-                    balance, parental_leave, flexibility)
-                VALUES ( %s, INT, 0, 0, 0, 0, 0 )
-                RETURNING company_name, rating, salary, diversity, 
-                    balance, parental_leave, flexibility
-                """, [Review.company_name]
+                SELECT r.id, r.company_name, r.rating, r.salary, r.diversity, 
+                r.balance, r.parental_leave, r.flexibility
+                FROM reviews as r
+                """
             )
 
             ds = []
             for row in cur.fetchall():
                 d = {
-                    "company_name": row[0],
-		            "rating": row[1],
-		            "salary": row[2],
-		            "diversity": row[3],
-                    "balance" : row[4],
-                    "parental_leave": row[5],
-                    "flexibility": row[6]
+                    "id": row[0],
+                    "company_name": row[1],
+		            "rating": row[2],
+		            "salary": row[3],
+		            "diversity": row[4],
+                    "balance" : row[5],
+                    "parental_leave": row[6],
+                    "flexibility": row[7]
                 }
 
                 ds.append(d)
             return ds
-
-# @router.get(
-#     "/api/post/{post_id}", 
-#     response_model=Post,
-#     responses={404: {"model": Message}},
-# )
-# def get_post(post_id: int, response:Response):
-#     with psycopg.connect() as conn:
-#         with conn.cursor() as cur:
-#             cur.execute(
-#                 """
-#                 SELECT post_id, title, text, created_on
-#                 FROM post
-#                 WHERE post_id = %s
-#             """,
-#                 [post_id],
-#             )
-#             row = cur.fetchone()
-#             if row is None:
-#                 response.status_code = status.HTTP_404_NOT_FOUND
-#                 return {"message": "Review not found"}
-#             detail = {
-#                 "company_name": new_review[0],
-# 		        "rating": new_review[1],
-# 		        "salary": new_review[2],
-# 		        "diversity": new_review[3],
-#                 "balance" : new_review[4],
-#                 "parental_leave": new_review[5],
-#                 "flexibility": new_review[6]
-#             }
-#             return detail
-
-

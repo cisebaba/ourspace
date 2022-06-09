@@ -1,3 +1,5 @@
+POST AND GET ROUTERS DONE FOR REVIEWS
+
 ## June 8, 2022
 
 Today was a little different than the other days. We got our users authentication setup from Curtis so our entire group took some time to look through it together to understand it in depth. We also had a huge realization that all of our microservices were sharing the same database! So we split it all up so that every microservice has its own database to pull from. Then, me and Starr broke off into our own pair again and started working on the API endpoints for the reviews microservice. We ran into a few issues with a file not being found but once we figured that out, we were able to test our routers. We almost have our POST router working but the VALUES in the SQL query is giving us a hard time. We get errors about the type of value and we ran out of time today so we're going to continue tomorrow, but we are super close!!
