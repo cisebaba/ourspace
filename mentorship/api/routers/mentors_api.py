@@ -29,17 +29,20 @@ class MentorshipList(BaseModel):
     __root__: List[MentorshipOut]
 
 
+class ErrorMessage(BaseModel):
+    message: str
+
+
 
 @router.post(
     "/api/mentorship/", 
     response_model = MentorshipOut,
-    # responses={
-    #     200: {"model": "Request ok"},
-    #     500: {"model": "ErrorMessage"},
-    # },
+    responses={
+        500: {"model": ErrorMessage},
+    },
     )
 def mentorship_post(mentorship: MentorshipIn):
-    with psycopg.connect("dbname=ourspace user=ourspace") as conn:
+    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute(
@@ -66,13 +69,12 @@ def mentorship_post(mentorship: MentorshipIn):
 @router.get(
     "/api/mentorship/",
     response_model=MentorshipList,
-#     responses={
-#         200: {"model": CustomGameOut},
-#         404: {"model": ErrorMessage},
-#     },
+    responses={
+        404: {"model": ErrorMessage},
+    },
 )
-def mentor_list():
-     with psycopg.connect("dbname=ourspace user=ourspace") as conn:
+def mentorship_list():
+     with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
@@ -80,13 +82,6 @@ def mentor_list():
                 from mentorship m
             """
             )
-            # results = []
-            # for row in cur.fetchall():
-            #     record = {}
-            #     for i, column in enumerate(cur.description):
-            #         record[column.name] = row[i]
-            #     results.append(record)
-            # return results
 
             ds = []
             for row in cur.fetchall():
@@ -97,8 +92,63 @@ def mentor_list():
                     "availability": row[3],
                     "booked": row[4],
                 }
-                
                 ds.append(d)
+
             return ds
+
+
+@router.get(
+    "/api/mentorship/{mentorship_id}",
+    response_model=MentorshipOut,
+    responses={404: {"model": ErrorMessage}},
+)
+def get_mentorship(mentorship_id: int):
+    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                f"""
+                SELECT m.id, m.job_title, m.description, m.availability, m.booked
+                FROM mentorship m
+                WHERE id = %s
+            """,
+                [mentorship_id],
+            )
+            row = cur.fetchone()
+            if row is None:
+                response.status_code = status.HTTP_404_NOT_FOUND
+                return {"message": "Mentorship not found"}
+            record = {}
+            for i, column in enumerate(cur.description):
+                record[column.name] = row[i]
+            return record
+
+
+@router.put(
+    "/api/mentorship/{mentorship_id}",
+    response_model=MentorshipOut,
+    responses={404: {"model": ErrorMessage}},
+)
+def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, response: Response):
+    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with conn.cursor() as cur:
+            try:
+                cur.execute(
+                    """
+                    UPDATE mentorship
+                    SET job_title, description, availability, booked = %s, %s, %s, %s
+                    WHERE id = %s;
+                """,
+                    [mentorship.job_title, mentorship.description, mentorship.availability, mentorship.booked, mentorship_id],
+                )
+            except Exception as e:
+                return e
+
+            conn.commit()
+    #getting not a valid dict error on put 
+            
+            return get_mentorship(mentorship_id)
+            
+
+
 
 
