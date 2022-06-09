@@ -23,7 +23,6 @@ function App() {
       <Nav token={token} />
         <Routes>
           <Route path="/" element={<MainPage />} />
-          {/* <Route path="/" element={<ListJobs />} /> */}
             <Route path="logout" element={<Logout logout={logout} />} />
             <Route path="login" element={<Login token={token} login={login} />} />
             <Route path="signup" element={<Signup token={token} signup={signup} />} />

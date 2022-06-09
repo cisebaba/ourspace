@@ -63,20 +63,6 @@ def mentorship_post(mentorship: MentorshipIn):
 
 
 
-
-# @router.post(
-#     "/api/postgres/custom-games",
-#     response_model=Union[CustomGameOut, ErrorMessage],
-#     responses={
-#         200: {"model": CustomGameOut},
-#         500: {"model": ErrorMessage},
-#     },
-# )
-# def create_custom_game(query=Depends(CustomGameQueries)):
-#     rows = query.create()
-#     return rows_to_custom_game(rows)
-
-
 @router.get(
     "/api/mentorship/",
     response_model=MentorshipList,

@@ -24,7 +24,17 @@ CREATE TABLE users (
     lastname VARCHAR(200)
 );
 
+CREATE TABLE profile (
+    id SERIAL PRIMARY KEY,
+    city VARCHAR(200),
+    state VARCHAR(50),
+    role VARCHAR(50),
+    userid INT REFERENCES users(id)
+);
+
 ALTER TABLE users OWNER TO ourspace;
+ALTER TABLE profile OWNER TO ourspace;
+
 
 \connect forum
 
