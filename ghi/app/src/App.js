@@ -12,6 +12,8 @@ import { useToken } from './authApi';
 import JobsList from "./Jobs/JobsList";
 import PostsList from "./Forum/ListPosts";
 import PostForm from "./Forum/CreatePostForm";
+import ReviewsForm from './Reviews/ReviewsForm';
+import ReviewsList from './Reviews/ReviewsList';
 
 // Still working on JobsPage - not functioning yet
 
@@ -31,6 +33,9 @@ function App() {
             <Route path="jobs" element={<JobsList />} />
             <Route path="posts" element={<PostsList />} />
             <Route path="posts/new" element={<PostForm />} />
+            <Route path="reviews/new" element={<ReviewsForm />} />
+            <Route path="reviews" element={<ReviewsList />} />
+
         </Routes>
       </BrowserRouter>
     </>
