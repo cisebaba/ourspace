@@ -28,11 +28,11 @@ class MentorshipOut(BaseModel):
 class MentorshipList(BaseModel):
     __root__: List[MentorshipOut]
 
-
 class ErrorMessage(BaseModel):
     message: str
 
-
+class Message(BaseModel):
+    message: str
 
 @router.post(
     "/api/mentorship/", 
@@ -73,7 +73,7 @@ def mentorship_post(mentorship: MentorshipIn):
         404: {"model": ErrorMessage},
     },
 )
-def mentorship_list():
+def mentor_list():
      with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
@@ -95,7 +95,6 @@ def mentorship_list():
                 ds.append(d)
 
             return ds
-
 
 @router.get(
     "/api/mentorship/{mentorship_id}",
@@ -122,7 +121,6 @@ def get_mentorship(mentorship_id: int):
                 record[column.name] = row[i]
             return record
 
-
 @router.put(
     "/api/mentorship/{mentorship_id}",
     response_model=MentorshipOut,
@@ -135,7 +133,7 @@ def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, response: Re
                 cur.execute(
                     """
                     UPDATE mentorship
-                    SET job_title, description, availability, booked = %s, %s, %s, %s
+                    SET job_title = %s, description = %s, availability = %s, booked = %s
                     WHERE id = %s;
                 """,
                     [mentorship.job_title, mentorship.description, mentorship.availability, mentorship.booked, mentorship_id],
@@ -147,8 +145,28 @@ def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, response: Re
     #getting not a valid dict error on put 
             
             return get_mentorship(mentorship_id)
-            
 
-
-
-
+@router.delete(
+    "/api/mentorship/{mentorship_id}",
+    response_model=Message,
+    responses={404: {"model": ErrorMessage}},
+)
+def remove_mentorship(mentorship_id: int, response: Response):
+    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with conn.cursor() as cur:
+            try:
+                cur.execute(
+                    """
+                    DELETE FROM mentorship
+                    WHERE id = %s;
+                """,
+                    [mentorship_id],
+                )
+                return {
+                    "message": "Success",
+                }
+            except psycopg.errors.ForeignKeyViolation:
+                response.status_code = status.HTTP_400_BAD_REQUEST
+                return {
+                    "message": "Cannot delete category because it has clues",
+                }
