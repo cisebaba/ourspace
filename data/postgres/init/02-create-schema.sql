@@ -20,14 +20,21 @@ CREATE TABLE users (
     username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(500) NOT NULL, 
     email VARCHAR(200) NOT NULL UNIQUE, 
-    firstname VARCHAR(200) NOT NULL, 
-    lastname VARCHAR(200) NOT NULL,
+    firstname VARCHAR(200), 
+    lastname VARCHAR(200)
+);
+
+CREATE TABLE profile (
+    id SERIAL PRIMARY KEY,
     city VARCHAR(200),
     state VARCHAR(50),
-    role VARCHAR(50)
+    role VARCHAR(50),
+    userid INT REFERENCES users(id)
 );
 
 ALTER TABLE users OWNER TO ourspace;
+ALTER TABLE profile OWNER TO ourspace;
+
 
 \connect forum
 

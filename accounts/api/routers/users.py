@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from db import DuplicateAccount
 from db import AccountsQueries
 from fastapi import Depends, HTTPException, status, Response, Cookie, APIRouter, Request
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -37,14 +38,16 @@ class User(BaseModel):
     id: int
     username: str
     email: str | None = None
-    full_name: str | None = None
+    firstname: str | None = None
+    lastname: str | None = None
     disabled: bool | None = None
 
 
 class UserSignUp(BaseModel):
     username: str
     email: str | None = None
-    full_name: str | None = None
+    firstname: str | None = None
+    lastname: str | None = None
     disabled: bool | None = None
     password: str
 
@@ -60,7 +63,7 @@ def authenticate_user(repo: AccountsQueries, username: str, password: str):
     user = repo.get_user(username)
     if not user:
         return False
-    if not verify_password(password, user["hashed_password"]):
+    if not verify_password(password, user["password"]):
         return False
     return user
 
@@ -156,9 +159,14 @@ async def get_token(request: Request):
 
 
 @router.post("/api/users")
-async def signup(user: UserSignUp, repo: AccountsQueries = Depends()):
+async def signup(user: UserSignUp, response: Response, repo: AccountsQueries = Depends()):
     hashed_password = pwd_context.hash(user.password)
-    repo.create_user(user.username, hashed_password, user.email)
+    try:
+        repo.create_user(user.username, hashed_password, user.email)
+        return user
+    except DuplicateAccount:
+        response.status_code = status.HTTP_409_CONFLICT
+        return {"detail": "Can't have a duplicate account"}
 
 
 @router.get("/users/me", response_model=User, responses={200: {"model": User}, 400: {"model": HttpError}, 401: {"model": HttpError}})
