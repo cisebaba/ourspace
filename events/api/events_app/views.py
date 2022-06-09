@@ -56,22 +56,22 @@ def api_list_events(request):
         )
     else:
         content = json.loads(request.body)
-        print(content)
+        print(content["location"])
+        # try:
+            # location = Location.objects.get(name=content["location"]["name"])
+            # content["location"] = location
+        # except Location.DoesNotExist:
         try:
-            location = Location.objects.get(name=content["location"]["name"])
-            content["location"] = location
-        except Location.DoesNotExist:
-            try:
-                state = State.objects.get(abbreviation=content["location"]["state"])
-                content["location"]["state"] = state
-            except State.DoesNotExist:
-                return JsonResponse(
-                    {"message": "Invalid state abbreviation"},
-                    status=400,
-                )
-            
-            location = Location.objects.create(**content["location"])
-            content["location"] = location
+            state = State.objects.get(abbreviation=content["location"]["state"])
+            content["location"]["state"] = state
+        except State.DoesNotExist:
+            return JsonResponse(
+                {"message": "Invalid state abbreviation"},
+                status=400,
+            )
+        
+        location = Location.objects.create(**content["location"])
+        content["location"] = location
         print(content , " after location")
         event = Event.objects.create(**content)
         return JsonResponse(
