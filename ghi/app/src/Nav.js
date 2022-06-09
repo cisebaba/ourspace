@@ -15,7 +15,7 @@ function Nav(props) {
       }
     }
     getMe();
-  });
+  },[user.id]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -65,6 +65,9 @@ function Nav(props) {
             </NavLink>
             <NavLink className="dropdown-item" to="reviews" role="button">
               Reviews
+              </NavLink>
+            <NavLink className="dropdown-item" to="mentorship/new" role="button">
+              Mentorship
             </NavLink>
           </ul>
         </div>

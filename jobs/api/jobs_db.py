@@ -26,7 +26,7 @@ def get_and_save_jobs():
     jobs = content["results"]
 
 
-    with psycopg.connect("dbname=ourspace user=ourspace") as conn:
+    with psycopg.connect("dbname=jobs user=ourspace") as conn:
         with conn.cursor() as cur:
             for job in jobs:
                 if len(job["location"]["area"])>=3:

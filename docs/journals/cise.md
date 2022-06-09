@@ -1,5 +1,9 @@
 
 ## Jun 8,2022
+We started to the accounts part with my team. We made a plan about how to implement with the other microservices. We created our table but looked like instead of creating different microservices we added all the databases in the same table and ended up creating monolith accidently. Thanks Curtis! he helped give us a walk through for separating tables. 
+We skimmed through the FASTApi's on the accounts microservice and tried to understand how we are gonna handle the authorization. After that we worked on the GET & POST request on new user database. 
+After the class I jumped into Create Event and fixed the errors on (after submission refreshing the states and it was not creating location if it was exist.)
+Today was my AHA moment day! again(Thanks Curtis!)When we were fixing things on database all the steps lightened me and understand why we could use foreign key on the other tables. 
 
 ## Jun 7,2022
 Amanda and I worked on the mentorship microservice (left from the other night)
