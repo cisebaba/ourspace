@@ -27,7 +27,7 @@ router = APIRouter()
 
 @router.get("/api/posts/", response_model = PostList)
 def posts_list():
-    with psycopg.connect("dbname=ourspace user=ourspace") as conn:
+    with psycopg.connect("dbname=forum user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
@@ -81,7 +81,7 @@ def get_post(post_id: int, response:Response):
 
 @router.post("/api/posts/", response_model = Post)
 def new_post(Post: PostIn):
-    with psycopg.connect("dbname=ourspace user=ourspace") as conn:
+    with psycopg.connect("dbname=forum user=ourspace") as conn:
         with conn.cursor() as cur:
             
             cur.execute(

@@ -26,7 +26,7 @@ class JobList(BaseModel):
 
 @router.get("/api/jobs/list/", response_model = JobList)
 def jobs_list():
-    with psycopg.connect("dbname=ourspace user=ourspace") as conn:
+    with psycopg.connect("dbname=jobs user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
