@@ -28,7 +28,11 @@ class MentorshipOut(BaseModel):
 class MentorshipList(BaseModel):
     __root__: List[MentorshipOut]
 
+class ErrorMessage(BaseModel):
+    message: str
 
+class Message(BaseModel):
+    message: str
 
 @router.post(
     "/api/mentorship/", 
@@ -39,7 +43,7 @@ class MentorshipList(BaseModel):
     # },
     )
 def mentorship_post(mentorship: MentorshipIn):
-    with psycopg.connect("dbname=ourspace user=ourspace") as conn:
+    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute(
@@ -72,7 +76,7 @@ def mentorship_post(mentorship: MentorshipIn):
 #     },
 )
 def mentor_list():
-     with psycopg.connect("dbname=ourspace user=ourspace") as conn:
+     with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
@@ -101,4 +105,77 @@ def mentor_list():
                 ds.append(d)
             return ds
 
+@router.get(
+    "/api/mentorship/{mentorship_id}",
+    response_model=MentorshipOut,
+    responses={404: {"model": ErrorMessage}},
+)
+def get_mentorship(mentorship_id: int):
+    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                f"""
+                SELECT m.id, m.job_title, m.description, m.availability, m.booked
+                FROM mentorship m
+                WHERE id = %s
+            """,
+                [mentorship_id],
+            )
+            row = cur.fetchone()
+            if row is None:
+                response.status_code = status.HTTP_404_NOT_FOUND
+                return {"message": "Mentorship not found"}
+            record = {}
+            for i, column in enumerate(cur.description):
+                record[column.name] = row[i]
+            return record
 
+@router.put(
+    "/api/mentorship/{mentorship_id}",
+    response_model=MentorshipOut,
+    responses={404: {"model": ErrorMessage}},
+)
+def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, response: Response):
+    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with conn.cursor() as cur:
+            try:
+                cur.execute(
+                    """
+                    UPDATE mentorship
+                    SET job_title = %s, description = %s, availability = %s, booked = %s
+                    WHERE id = %s;
+                """,
+                    [mentorship.job_title, mentorship.description, mentorship.availability, mentorship.booked, mentorship_id],
+                )
+            except Exception as e:
+                return e
+
+            conn.commit()
+    #getting not a valid dict error on put 
+            
+            return get_mentorship(mentorship_id)
+
+@router.delete(
+    "/api/mentorship/{mentorship_id}",
+    response_model=Message,
+    responses={404: {"model": ErrorMessage}},
+)
+def remove_mentorship(mentorship_id: int, response: Response):
+    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with conn.cursor() as cur:
+            try:
+                cur.execute(
+                    """
+                    DELETE FROM mentorship
+                    WHERE id = %s;
+                """,
+                    [mentorship_id],
+                )
+                return {
+                    "message": "Success",
+                }
+            except psycopg.errors.ForeignKeyViolation:
+                response.status_code = status.HTTP_400_BAD_REQUEST
+                return {
+                    "message": "Cannot delete category because it has clues",
+                }
