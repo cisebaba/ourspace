@@ -47,10 +47,9 @@ class Message(BaseModel):
 @router.post(
     "/api/mentorship/", 
     response_model = MentorshipOut,
-    # responses={
-    #     200: {"model": "Request ok"},
-    #     500: {"model": "ErrorMessage"},
-    # },
+    responses={
+        500: {"model": ErrorMessage},
+    },
     )
 def mentorship_post(mentorship: MentorshipIn):
     with psycopg.connect("dbname=mentorship user=ourspace") as conn:
@@ -80,11 +79,9 @@ def mentorship_post(mentorship: MentorshipIn):
 @router.get(
     "/api/mentorship/",
     response_model=MentorshipList,
-#     responses={
-#         200: {"model": CustomGameOut},
-#         404: {"model": ErrorMessage},
-#     },
-
+    responses={
+        404: {"model": ErrorMessage},
+    },
 )
 
 def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
@@ -102,13 +99,6 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
                 from mentorship m
             """
             )
-            # results = []
-            # for row in cur.fetchall():
-            #     record = {}
-            #     for i, column in enumerate(cur.description):
-            #         record[column.name] = row[i]
-            #     results.append(record)
-            # return results
 
             ds = []
             for row in cur.fetchall():
@@ -119,8 +109,8 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
                     "availability": row[3],
                     "booked": row[4],
                 }
-                
                 ds.append(d)
+
             return ds
 
 @router.get(
