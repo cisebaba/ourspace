@@ -1,0 +1,57 @@
+diff --git a/mentorship/api/requirements.txt b/mentorship/api/requirements.txt
+index fa3fff7..cd9d164 100644
+--- a/mentorship/api/requirements.txt
++++ b/mentorship/api/requirements.txt
+@@ -12,3 +12,4 @@ pycodestyle==2.8.0
+ pyflakes==2.4.0
+ requests==2.27.1
+ sqlparse==0.4.2
++python-jose[cryptography]==3.2.0
+diff --git a/mentorship/api/routers/mentors_api.py b/mentorship/api/routers/mentors_api.py
+index c7dca72..1e55c6e 100644
+--- a/mentorship/api/routers/mentors_api.py
++++ b/mentorship/api/routers/mentors_api.py
+@@ -1,13 +1,23 @@
+ from datetime import datetime
+-from fastapi import APIRouter, Response, status
++from fastapi import APIRouter, Response, status, Depends,HTTPException
+ import psycopg
+ from pydantic import BaseModel
+ from typing import List
++from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
++import os
++from jose import jwt
+ 
+ 
++oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
+ router = APIRouter()
++SECRET_KEY = os.environ["SECRET_KEY"]
++ALGORITHM = "HS256"
+ 
+-
++credentials_exception = HTTPException(
++        status_code=status.HTTP_401_UNAUTHORIZED,
++        detail="Invalid authentication credentials",
++        headers={"WWW-Authenticate": "Bearer"},
++    )
+ class MentorshipIn(BaseModel):
+     job_title: str
+     description: str
+@@ -74,8 +84,16 @@ def mentorship_post(mentorship: MentorshipIn):
+ #         200: {"model": CustomGameOut},
+ #         404: {"model": ErrorMessage},
+ #     },
++
+ )
+-def mentor_list():
++
++def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
++     print(bearer_token)
++     if bearer_token is None:
++         raise credentials_exception
++     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
++     username = payload.get("sub")
++     print(username)
+      with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+         with conn.cursor() as cur:
+             cur.execute(

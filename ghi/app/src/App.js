@@ -12,6 +12,9 @@ import { useToken } from './authApi';
 import JobsList from "./Jobs/JobsList";
 import PostsList from "./Forum/ListPosts";
 import PostForm from "./Forum/CreatePostForm";
+import ReviewsForm from './Reviews/ReviewsForm';
+import ReviewsList from './Reviews/ReviewsList';
+import MentorForm from './Mentorship/MentorForm';
 
 // Still working on JobsPage - not functioning yet
 
@@ -23,6 +26,7 @@ function App() {
       <Nav token={token} />
         <Routes>
           <Route path="/" element={<MainPage />} />
+            <Route path ="mentorship/new" element={<MentorForm token={token}/>}/>
             <Route path="logout" element={<Logout logout={logout} />} />
             <Route path="login" element={<Login token={token} login={login} />} />
             <Route path="signup" element={<Signup token={token} signup={signup} />} />
@@ -31,6 +35,9 @@ function App() {
             <Route path="jobs" element={<JobsList />} />
             <Route path="posts" element={<PostsList />} />
             <Route path="posts/new" element={<PostForm />} />
+            <Route path="reviews/new" element={<ReviewsForm />} />
+            <Route path="reviews" element={<ReviewsList />} />
+
         </Routes>
       </BrowserRouter>
     </>
