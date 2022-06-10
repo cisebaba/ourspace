@@ -1,8 +1,22 @@
 from datetime import datetime
-from fastapi import APIRouter, Response, status, Form
+from fastapi import APIRouter, Response, status, Depends, HTTPException
 import psycopg
 from pydantic import BaseModel
 from typing import List
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+import os
+from jose import jwt
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
+router = APIRouter()
+SECRET_KEY = os.environ["SECRET_KEY"]
+ALGORITHM = "HS256"
+
+credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid authentication credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
 
 class Post(BaseModel):
     post_id: int
@@ -26,7 +40,12 @@ class Message(BaseModel):
 router = APIRouter()
 
 @router.get("/api/posts/", response_model = PostList)
-def posts_list():
+def posts_list(bearer_token: str = Depends(oauth2_scheme)):
+    if bearer_token is None:
+         raise credentials_exception
+    payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
+    username = payload.get("sub")
+    print(username)
     with psycopg.connect("dbname=forum user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
@@ -49,7 +68,7 @@ def posts_list():
             return ds
 
 @router.get(
-    "/api/post/{post_id}", 
+    "/api/posts/{post_id}", 
     response_model=Post,
     responses={404: {"model": Message}},
 )

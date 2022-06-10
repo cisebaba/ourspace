@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 function Nav(props) {
   const { token } = props;
@@ -8,7 +8,7 @@ function Nav(props) {
   useEffect(() => {
     async function getMe() {
       const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/users/me`;
-      const response = await fetch(url, { credentials: 'include' });
+      const response = await fetch(url, { credentials: "include" });
       if (response.ok) {
         const user = await response.json();
         setUser(user);
@@ -35,26 +35,36 @@ function Nav(props) {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div>
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <NavLink className="dropdown-item" to="events/new" role="button">Events Form</NavLink>
-            <NavLink className="dropdown-item" end to="events" role="button">Events</NavLink>
-            { token ?
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <NavLink className="dropdown-item" to="events/new" role="button">
+              Events Form
+            </NavLink>
+            <NavLink className="dropdown-item" end to="events" role="button">
+              Events
+            </NavLink>
+            {token ? (
               <>
                 {/* Whatever you want to show when people are logged in */}
-                <NavLink className="dropdown-item" to="/logout" role="button">Logout {user.username}</NavLink>
-
-              </>:
-              <>
-                <NavLink className="dropdown-item" to="/login" role="button">Login</NavLink>
-                <NavLink className="dropdown-item" to="/signup" role="button">Signup</NavLink>
+                <NavLink className="dropdown-item" to="/logout" role="button">
+                  Logout {user.username}
+                </NavLink>
               </>
-            }
-        </ul>
+            ) : (
+              <>
+                <NavLink className="dropdown-item" to="/login" role="button">
+                  Login
+                </NavLink>
+                <NavLink className="dropdown-item" to="/signup" role="button">
+                  Signup
+                </NavLink>
+              </>
+            )}
+          </ul>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <NavLink className="dropdown-item" to="jobs" role="button">
               Jobs
             </NavLink>
-            <NavLink className="dropdown-item" to="posts" role="button">
+            <NavLink className="dropdown-item" to="forum" role="button">
               Forum
             </NavLink>
             <NavLink className="dropdown-item" to="posts/new" role="button">
