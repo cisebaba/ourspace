@@ -7,11 +7,12 @@
 
 # June 10, 2022
 <ul>
-<li> **Features/Issues Worked On : </li>
+<li> Features/Issues Worked On : </li>
     <ul>
         <li>  
         </li> 
     </ul> 
+    ***
 <li> Reflection : </li>
     <ul>
         <li> 
