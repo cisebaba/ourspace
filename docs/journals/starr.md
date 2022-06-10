@@ -16,16 +16,14 @@
 <li> Reflection : </li>
     <ul>
         <li> 
-        We spent a lot of time trying to figure out why our insert functions were not working on the back end when wanting to put in the value of a integer. Eventually we figured out using %s worked which surprised me because I orginally thought that reserved for strings and that you were supposed to us %d for integers. 
-
-        There was a sad moment when I was talking to Chris about the database and getting our averages to display on the frontend. What I orginally wanted to to do was get all the data from the frontend and then send it through the following functions to average it and then display it on the screen. I was not thinking about the constraints of this slowing down the frontend and how to handle the possibility of two different people posting reviews at the same time and that causing the average to be out of date for one or both parties. I am looking into handling the averaging capacity on the backend.
+        We spent a lot of time trying to figure out why our insert functions were not working on the back end when wanting to put in the value of a integer. Eventually we figured out using %s worked which surprised me because I orginally thought that reserved for strings and that you were supposed to us %d for integers. There was a sad moment when I was talking to Chris about the database and getting our averages to display on the frontend. What I orginally wanted to to do was get all the data from the frontend and then send it through the following functions to average it and then display it on the screen. I was not thinking about the constraints of this slowing down the frontend and how to handle the possibility of two different people posting reviews at the same time and that causing the average to be out of date for one or both parties. I am looking into handling the averaging capacity on the backend.
         </li> 
     </ul>
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
         My Ah-ha momement was thinking through how to write some functions to handle the data, sort it and then average it the way I wanted. We unfourtently are not going to be using this code but I am very proud of myself for thinking through this problem and writing working code that could handle it. It felt like my very own leetcode problem! 
-        ```nano` 
+        ``` 
         function getValues(data, key){
         let values = [] ;
             for (let i = 0; i < data.length ; i++){
