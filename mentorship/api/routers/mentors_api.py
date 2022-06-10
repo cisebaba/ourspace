@@ -1,13 +1,23 @@
 from datetime import datetime
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter, Response, status, Depends,HTTPException
 import psycopg
 from pydantic import BaseModel
 from typing import List
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+import os
+from jose import jwt
 
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
 router = APIRouter()
+SECRET_KEY = os.environ["SECRET_KEY"]
+ALGORITHM = "HS256"
 
-
+credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid authentication credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
 class MentorshipIn(BaseModel):
     job_title: str
     description: str
@@ -73,7 +83,14 @@ def mentorship_post(mentorship: MentorshipIn):
         404: {"model": ErrorMessage},
     },
 )
-def mentor_list():
+
+def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
+     print(bearer_token)
+     if bearer_token is None:
+         raise credentials_exception
+     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
+     username = payload.get("sub")
+     print(username)
      with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(

@@ -49,7 +49,7 @@ def posts_list():
             return ds
 
 @router.get(
-    "/api/post/{post_id}", 
+    "/api/posts/{post_id}", 
     response_model=Post,
     responses={404: {"model": Message}},
 )
