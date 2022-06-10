@@ -1,3 +1,7 @@
+## June 9, 2022
+
+I feel like we made a lot of progress today! Me and Starr are still working on the reviews microservice BUT we got the back-end to work! So the API endpoints for POST and GET are done. We also worked on the reviews front-end. The design we are trying to accomplish consist of a list and a form in one page. It was a little complicated so we decided to make a separate form and list file for now and refactor it later. We also included this cool star rating feature. It doesn't currently have functionality yet but it adds a little cool thing to our project! We also made the functions to be able to calculate the average rating for a review. We still need to be able to calculate all the reviews for a single company but we're getting closer. The API endpoint for GET wasn't working because the SQL query were setup as a POST request instead of GET. We got the POST endpoint working using %s for all the values, which we thought was interesting because they are set up as integers, but the only way it worked was as %s. It also saved in the database as an integer so that's good for now. 
+
 POST AND GET ROUTERS DONE FOR REVIEWS
 REVIEWS LIST PAGE W/ STAR RATING(NOT WORKING) DONE
 REVIEWS FORM PAGE - 

@@ -19,7 +19,7 @@ class CommentList(BaseModel):
 
 router = APIRouter()
 
-@router.get("/api/post/{post_id}/comments/", response_model = CommentList)
+@router.get("/api/posts/{post_id}/comment/", response_model = CommentList)
 def get_comments(post_id: int):
      with psycopg.connect("dbname=forum user=ourspace") as conn:
         with conn.cursor() as cur:
@@ -46,7 +46,7 @@ def get_comments(post_id: int):
                 ds.append(d)
             return ds
 
-@router.post("/api/post/{post_id}/comments/", response_model = Comment)
+@router.post("/api/posts/{post_id}/comment/", response_model = Comment)
 def new_comment(post_id: int, Comment: CommentIn):
      with psycopg.connect("dbname=forum user=ourspace") as conn:
         with conn.cursor() as cur:
