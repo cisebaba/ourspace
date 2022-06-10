@@ -5,6 +5,27 @@
 * A reflection on any design conversations that you had
 * At least one ah-ha! moment that you had during your coding, however small
 
+# June 10, 2022
+<ul>
+<li> **Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        </li> 
+    </ul> 
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
+
+
 # June 9, 2022
 <ul>
 <li> Features/Issues Worked On : </li>
