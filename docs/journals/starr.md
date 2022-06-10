@@ -12,11 +12,13 @@
         <li>  
         </li> 
     </ul> 
+    <br></br>
 <li> Reflection : </li>
     <ul>
         <li> 
         </li> 
     </ul>
+    <br></br>
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
@@ -41,6 +43,7 @@
         We spent a lot of time trying to figure out why our insert functions were not working on the back end when wanting to put in the value of a integer. Eventually we figured out using %s worked which surprised me because I orginally thought that reserved for strings and that you were supposed to us %d for integers. There was a sad moment when I was talking to Chris about the database and getting our averages to display on the frontend. What I orginally wanted to to do was get all the data from the frontend and then send it through the following functions to average it and then display it on the screen. I was not thinking about the constraints of this slowing down the frontend and how to handle the possibility of two different people posting reviews at the same time and that causing the average to be out of date for one or both parties. I am looking into handling the averaging capacity on the backend.
         </li> 
     </ul>
+    <br></br>
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
@@ -130,12 +133,14 @@
          I worked with Cise and Allisha on the frontend for the conference/events. We created a page that lists all the events and a page with a form to create an event. We spent a long time trying to get the states drop down to work and we were successful. The forms page does not yet actually create a new event.  
         </li> 
     </ul> 
+    <br></br>
 <li> Reflection : </li>
     <ul>
         <li> 
         I learned a lot about how react hooks work and the difference between class based and function based components. 
         </li> 
     </ul>
+    <br></br>
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
@@ -156,12 +161,14 @@
         I worked with Allisha on conference/events. We finished the views and updated the create location model to have a default photo if the user doesn't provide one. The backend for conference/events is done!
         </li> 
     </ul> 
+    <br></br>
 <li> Reflection : </li>
     <ul>
         <li> 
         I learned a lot about how to store data on the backend and then load that data into your container. We are considering creating a cities Json file to store data but for now are leaving that field up to the user to define. 
         </li> 
     </ul>
+    <br></br>
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
@@ -183,12 +190,14 @@
         I worked with Amanda and Cise to set up conference/events but we ran into a lot of issues trying to set up the APIs. 
         </li> 
     </ul> 
+    <br></br>
 <li> Reflection : </li>
     <ul>
         <li> 
         Finding an api that is formatted the way we want and is currently being maintained proved difficult. We also ran into issues when considering how we wanted to store this information in our database. We ultimately decided it might be best to allow people to manually put in the data as a string and then call an external api on the frontend to Query match in order to eventually filter events. This will allow us to move forward and potentially work around some of the data integration issues when using a third party api.
         </li> 
     </ul>
+    <br></br>
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
@@ -205,12 +214,14 @@
         We worked together today to decided on a website name of OurSpace, finish setting up docker, made a django project/application for events and set up our frontend application using react. 
         </li> 
     </ul> 
+    <br></br>
 <li> Reflection : </li>
     <ul>
         <li> 
         Some challenges from today was setting up the docker files and making sure our react application was using the volume we wanted. We ultimately figured it out and was overall a great learning experience.
         </li> 
     </ul>
+    <br></br>
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
@@ -227,12 +238,14 @@
         Our Team spent most of today working together to make some final decisions on the application architecture and implementing changes based on the feedback we received from Chris and Curtis.
         </li> 
     </ul> 
+    <br></br>
 <li> Reflection : </li>
     <ul>
         <li> 
         Some highlights of discussion were the importance of utilizing a ubiquitous language. Deciding that we are going to try to use both MongoDB and a Relational database. We are leaning more towards trying to use react to build the bulk of the application. We also identified some potential roadblocks surrounding the implementation of some of our features such as Upvoting and execution of the mentorship page.
         </li> 
     </ul>
+    <br></br>
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
