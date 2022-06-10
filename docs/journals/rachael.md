@@ -9,6 +9,22 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 9, 2022
+
+Today I worked on adding comments and seeing lists of comments with posts in react. Curtis helped me with react and hooks and I learned a lot!
+
+I made a lot of decisions about how many "components" to make and how small to break things down in react.
+
+My ah ha! is that React is very circular and it is quite confusing at the moment, but I think eventually I'll really enjoy it.
+
+## June 8, 2022
+
+Today I worked on some react for forum posts. With Cise and Amanda, we finished the SQL queries for user login and sign up with help from Curtis.
+
+We are wondering how to add profile information separate from login/auth, and thinking about what polling of user data is necessary.
+
+My ah-ha! is: I can't believe how complicated authentication and login is!!
+
 ## June 7, 2022
 
 Today I got the forum microservice connected to docker, built database tables for posts and comments, got fastapi endpoints set up for post get/post, and set up a very simplistic react front-end for post list and post form.
