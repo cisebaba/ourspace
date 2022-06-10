@@ -1,6 +1,10 @@
 
+## Jun 9,2022
+Our fist goal was as soon as finishing mentorhip backend jumping into frontend. Amanda did some delete and put endpoints prep from the other night but couldn't made it run. We looked over it together and solved the problem! my approach was comparing the delete and put with FastApi docs and trivia-game-clues file. I am happy that we didn't have spend hours on these. 
+I knew that it is not gonna be easy to implement the user authorization to the microservices since we didn't know how to handle it without polling user information. (Thanks god we have Curtis!) After a demonstration of handling it on the frontend and backend. I had my couple AHA on the mentorship. It is much more make sense if why we don't have to poll the user data since we are not letting people to reach the features for "users only" part. I feel more comfortable with JWT and cookies. 
+
 ## Jun 8,2022
-We started to the accounts part with my team. We made a plan about how to implement with the other microservices. We created our table but looked like instead of creating different microservices we added all the databases in the same table and ended up creating monolith accidently. Thanks Curtis! he helped give us a walk through for separating tables. 
+We started to the accounts part with my team. We made a plan about how to implement user & authorization with the other microservices. We created our table but looked like instead of creating different microservices we added all the databases in the same table and ended up creating monolith accidently. Thanks Curtis! he helped give us a walk through for separating tables. 
 We skimmed through the FASTApi's on the accounts microservice and tried to understand how we are gonna handle the authorization. After that we worked on the GET & POST request on new user database. 
 After the class I jumped into Create Event and fixed the errors on (after submission refreshing the states and it was not creating location if it was exist.)
 Today was my AHA moment day! again(Thanks Curtis!)When we were fixing things on database all the steps lightened me and understand why we could use foreign key on the other tables. 
