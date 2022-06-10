@@ -10,11 +10,12 @@ function CommentForm() {
   });
 
   const params = useParams();
-  console.log(params);
+  console.log("params", params);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = stateComment;
+    console.log("data", data);
     const new_comment = {
       comment_id: data.comment_id,
       text: data.text,
@@ -22,15 +23,14 @@ function CommentForm() {
       post_id: data.post_id,
     };
 
-    console.log(new_comment);
-
     const commentsUrl = `http://localhost:8090/api/posts/${params.post_id}/comment/`;
+    console.log("commentsUrl", commentsUrl);
     const fetchConfigEvent = {
       method: "POST",
       body: JSON.stringify(new_comment),
       credentials: "include",
       headers: {
-        "Content-Type": "application",
+        "Content-Type": "application/json",
       },
     };
     const response = await fetch(commentsUrl, fetchConfigEvent);

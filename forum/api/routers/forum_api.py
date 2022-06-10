@@ -1,8 +1,21 @@
 from datetime import datetime
-from fastapi import APIRouter, Response, status, Form
+from fastapi import APIRouter, Response, status, Depends, HTTPException
 import psycopg
 from pydantic import BaseModel
 from typing import List
+import os
+from jose import jwt
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
+router = APIRouter()
+SECRET_KEY = os.environ["SECRET_KEY"]
+ALGORITHM = "HS256"
+
+credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid authentication credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+)
 
 class Post(BaseModel):
     post_id: int

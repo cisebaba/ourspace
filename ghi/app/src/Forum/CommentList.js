@@ -30,7 +30,7 @@ const CommentList = () => {
   useEffect(() => {
     const getCommentsData = async () => {
       const commentsResponse = await fetch(
-        `http://localhost:8090/api/posts/${params.post_id}/comments/`
+        `http://localhost:8090/api/posts/${params.post_id}/comment/`
       );
       const commentsData = await commentsResponse.json();
       setCommentList(commentsData);
