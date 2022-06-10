@@ -10,7 +10,6 @@ function EventForm() {
         location_name:"",
         location_city:"",
         location_state:"",
-        
     })
   
     const [stateStates, setStateStates] = useState([])
@@ -65,16 +64,14 @@ function EventForm() {
 
         if (response.ok){
             setStateEvent({
-            name : "",
-            starts : "",
-            ends : "",
-            description: "",
-            // location:""
-            location: {
-                name:"",
-                city:"",
-                state:""
-            }
+                name : "",
+                starts : "",
+                ends : "",
+                description: "",
+                // location:"",
+                location_name:"",
+                location_city:"",
+                location_state:"",
             });
         // setSuccessfulSubmit(true);
         }
@@ -165,7 +162,11 @@ function EventForm() {
                         <label htmlFor="city">City</label>
                     </div>
                     <div className="mb-3">
-                        <select onChange={handleChange} value={stateEvent.location_state} required name="location_state" id="state" className="form-select">
+                        <select onChange={handleChange} 
+                        value={stateEvent.location_state} 
+                        required name="location_state" 
+                        id="state" 
+                        className="form-select">
                         <option value="">Choose a State</option>
                         {stateStates.map(state => {
                             return (

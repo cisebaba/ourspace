@@ -1,3 +1,11 @@
+# June 8, 2022
+Today I worked on:
+* We met as a full group to review the authentication branch and talk about how to implement it with the other parts of our application.
+
+After reviewing the code to better understand the user authentication FastAPI endpoints, we had a lot of discussion about how the user database should be organized within the larger app. We realized that technically, our services were constructed as a monolith because our tables were all within the same database! We split out most of our tables into separate databases so they are now true microservices. Afterwards, Rachael, Cise, and I worked on the accounts microservice and got the GET and POST requests working with our new user database. 
+
+My aha moment today was realizing that we had actually built a monolith for our services! I definitely have a better understanding now on what defines a true microservice. It was really exciting to see all of our new databases and tables in pgAdmin. I also feel like I understand the code in the accounts microservice a little better now in terms of how it is handling the session, token, and user info. 
+
 # June 7, 2022
 Today I worked on:
 * Cise and I worked on the backend for the mentorship microservice today and last night. 

@@ -1,3 +1,15 @@
+
+## Jun 8,2022
+We started to the accounts part with my team. We made a plan about how to implement with the other microservices. We created our table but looked like instead of creating different microservices we added all the databases in the same table and ended up creating monolith accidently. Thanks Curtis! he helped give us a walk through for separating tables. 
+We skimmed through the FASTApi's on the accounts microservice and tried to understand how we are gonna handle the authorization. After that we worked on the GET & POST request on new user database. 
+After the class I jumped into Create Event and fixed the errors on (after submission refreshing the states and it was not creating location if it was exist.)
+Today was my AHA moment day! again(Thanks Curtis!)When we were fixing things on database all the steps lightened me and understand why we could use foreign key on the other tables. 
+
+## Jun 7,2022
+Amanda and I worked on the mentorship microservice (left from the other night)
+We make that microservice working on Docker container and figured fast api GET & POST working. I had spend some time on unknown issues on Docker and tables but figured them out eventually.
+It is super nice to my progress on postgres and FastAPI. I am getting like to work on API more than Django. My AHA moment was in general settle the backend as an ongoing container. 
+
  ## Jun 6,2022
  We worked with Allisha and Starr the form from we left last week. I tried some experimental thinks like 2 hooks for one location and for one event to handleSubmit for both of them together. I thought we could handle it on the front-end but couldn't figured (at least I tried). I knew what we have to do and made my on point questions ready. After quick meeting with our group we jumped into working on the same thing with Mitch and he said we can handle two posts in one post view. I had my AHA moment in there and figured the code to some point. Thanks God Allisha love to play around and improved my code and made it work! 
  Since we know how the data type looks like when we get the list from the backend. We created the states and saw how hard the nested structures would be! Thanks Curtis to helping and showing us how to handle nested data submission on the front-end! This microservice took more time than we expect but I learned new things! 
