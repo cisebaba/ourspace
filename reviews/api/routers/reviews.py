@@ -27,6 +27,7 @@ class ReviewIn(BaseModel):
     parental_leave: int
     flexibility: int
 
+
 class ReviewOut(BaseModel):
     company_name: str
     rating: int
@@ -35,11 +36,12 @@ class ReviewOut(BaseModel):
     balance: int
     parental_leave: int
     flexibility: int
+    average_rating: int
 
 
 
 class ReviewList(BaseModel):
-    __root__: List[Review]
+    __root__: List[ReviewOut]
 
 
 
@@ -85,23 +87,30 @@ def reviews_list():
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT r.id, r.company_name, r.rating, r.salary, r.diversity, 
-                r.balance, r.parental_leave, r.flexibility
-                FROM reviews as r
+                SELECT r.company_name
+                    , ROUND(AVG(r.rating), 0) average_rating
+                    , ROUND(AVG(r.salary), 0) salary_average
+                    , ROUND(AVG(r.diversity), 0) diversity_average
+                    , ROUND(AVG(r.balance), 0) balance_average
+                    , ROUND(AVG(r.parental_leave), 0) parental_leave_average
+                    , ROUND(AVG(r.flexibility), 0) flexibility_average
+                FROM reviews as r 
+                GROUP BY r.company_name
                 """
             )
 
             ds = []
             for row in cur.fetchall():
                 d = {
-                    "id": row[0],
-                    "company_name": row[1],
-		            "rating": row[2],
-		            "salary": row[3],
-		            "diversity": row[4],
-                    "balance" : row[5],
-                    "parental_leave": row[6],
-                    "flexibility": row[7]
+                    #"id": row[0],
+                    "company_name": row[0],
+		            "average_rating": row[1], ### average for overall rating for company
+		            "salary_average": row[2], ### average rating for salary (?? about database)
+		            "diversity_average": row[3], ### average for diversity 
+                    "balance_average" : row[4],
+                    "parental_leave_average": row[5],
+                    "flexibility_average": row[6],
+                    #"average_rating": row[8]
                 }
 
                 ds.append(d)
