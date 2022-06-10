@@ -12,7 +12,6 @@
         <li>  
         </li> 
     </ul> 
-    <p></p>
 <li> Reflection : </li>
     <ul>
         <li> 
@@ -35,6 +34,7 @@
         I worked with Allisha today on the reviews feature. We fixed some errors in our SQL and started working on the frontend. We got some stars for the rating feature to show up on the screen so that was super exciting. We also started thinking about how to average the ratings. I wrote a few functions to handle this but after talking with Chris learned that it would be better to do this on the backend with aggregate functions. 
         </li> 
     </ul> 
+  <br></br>
 <li> Reflection : </li>
     <ul>
         <li> 
