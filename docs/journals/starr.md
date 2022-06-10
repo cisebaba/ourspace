@@ -22,8 +22,9 @@
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
-        My Ah-ha momement was thinking through how to write some functions to handle the data, sort it and then average it the way I wanted. We unfourtently are not going to be using this code but I am very proud of myself for thinking through this problem and writing working code that could handle it. It felt like my very own leetcode problem! 
-        ``` js
+        My Ah-ha moment was thinking through how to write some functions to handle the data, sort it and then average it the way I wanted. We unfortunately are not going to be using this code but I am very proud of myself for thinking through this problem and writing working code that could handle it. It felt like my very own leetcode problem! 
+        ``` 
+        NEED TO FIGURE OUT HOW TO FORMAT CODE IN MARKDOWN
         function getValues(data, key){
         let values = [] ;
             for (let i = 0; i < data.length ; i++){
