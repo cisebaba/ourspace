@@ -5,11 +5,86 @@
 * A reflection on any design conversations that you had
 * At least one ah-ha! moment that you had during your coding, however small
 
+# June 9, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        I worked with Allisha today on the reviews feature. We fixed some errors in our SQL and started working on the frontend. We got some stars for the rating feature to show up on the screen so that was super exciting. We also started thinking about how to average the ratings. I wrote a few functions to handle this but after talking with Chris learned that it would be better to do this on the backend with aggregate functions. 
+        </li> 
+    </ul> 
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        We spent a lot of time trying to figure out why our insert functions were not working on the back end when wanting to put in the value of a integer. Eventually we figured out using %s worked which surprised me because I orginally thought that reserved for strings and that you were supposed to us %d for integers. There was a sad moment when I was talking to Chris about the database and getting our averages to display on the frontend. What I orginally wanted to to do was get all the data from the frontend and then send it through the following functions to average it and then display it on the screen. I was not thinking about the constraints of this slowing down the frontend and how to handle the possibility of two different people posting reviews at the same time and that causing the average to be out of date for one or both parties. I am looking into handling the averaging capacity on the backend.
+        </li> 
+    </ul>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        My Ah-ha moment was thinking through how to write some functions to handle the data, sort it and then average it the way I wanted. We unfortunately are not going to be using this code but I am very proud of myself for thinking through this problem and writing working code that could handle it. It felt like my very own leetcode problem! 
+        ``` 
+        NEED TO FIGURE OUT HOW TO FORMAT CODE IN MARKDOWN
+        function getValues(data, key){
+        let values = [] ;
+            for (let i = 0; i < data.length ; i++){
+                if(data[i].hasOwnProperty(key)){ 
+                    values.push(data[i][key]);
+                } 
+            }
+            return values
+        }
+        ```
+   
+</ul>
+
+# June 8, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        We worked on the users stuff as a group today. We ended up separating the tables for each feature into their own databases. 
+        We also decided to change the table for user and have a separate profile table to hold specific user information that isn't just the username/password. 
+        </li> 
+    </ul> 
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
+# June 7, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li> 
+        I worked on the company reviews microservice with Allisha. We decided to use a postgres database to handle our data so we set that up. 
+        </li> 
+    </ul> 
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
 # June 6, 2022
 <ul>
 <li> Features/Issues Worked On : </li>
     <ul>
         <li> 
+        I worked with Cise and Allisha on the frontend for the conference/events. We ended up having to reconfigure some our views to handle the creation of a new location while creating a new event. We also learned a lot about nesting data and how to format our form on the frontend. 
         </li> 
     </ul> 
 <li> Reflection : </li>
