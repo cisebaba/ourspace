@@ -9,6 +9,14 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 10, 2022
+
+Today I worked on fixing the comment form- it's all set! It still needs a redirect though. Then Amanda kindly showed me what she learned about user auth stuff and how to add auth stuff to our api endpoints. We started adding that to forum and mentorship.
+
+I heard from another team about their design decisions regarding where to perform average functions.
+
+My ah-ha! is again, how crazy complex auth is!!
+
 ## June 9, 2022
 
 Today I worked on adding comments and seeing lists of comments with posts in react. Curtis helped me with react and hooks and I learned a lot!

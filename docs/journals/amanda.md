@@ -1,3 +1,11 @@
+# June 9, 2022
+Today I worked on:
+* Cise and I worked on the PUT and DELETE endpoints for the mentorship microservice and determined our plan for hooking in the user information with this microservice. 
+
+We learned a ton today about authentication and how the bearer token is made available when users are authenticated. We started setting up our mentorship front end with help from Curtis and Shawn. We have it so that a user must be logged in first to access this section of the website. We still need to add the username into our SQL query on the backend but I think we are in good shape with this service. 
+
+My aha moment was learning more about the bearer token and how the user data gets passed around. I also had a small aha when making our PUT request work, in the way the SQL statement needed to be to work. 
+
 # June 8, 2022
 Today I worked on:
 * We met as a full group to review the authentication branch and talk about how to implement it with the other parts of our application.

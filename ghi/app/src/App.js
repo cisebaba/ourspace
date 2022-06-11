@@ -18,8 +18,6 @@ import CommentForm from "./Forum/Forms/CommentForm";
 import ReviewsList from "./Reviews/ReviewsList";
 import MentorForm from "./Mentorship/MentorForm";
 
-// Still working on JobsPage - not functioning yet
-
 function App() {
   const [token, login, logout, signup] = useToken();
   return (

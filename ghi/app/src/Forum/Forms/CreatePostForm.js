@@ -11,6 +11,7 @@ function PostForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = statePost;
+    console.log("dataforpost", data);
     const new_post = {
       post_id: data.post_id,
       title: data.title,

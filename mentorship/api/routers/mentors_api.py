@@ -18,6 +18,7 @@ credentials_exception = HTTPException(
         detail="Invalid authentication credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+
 class MentorshipIn(BaseModel):
     job_title: str
     description: str
