@@ -38,10 +38,18 @@ class ReviewOut(BaseModel):
     flexibility: int
     average_rating: int
 
+class AverageOut(BaseModel):
+    company_name: str
+    average_rating: int
+    salary_average: int
+    diversity_average: int
+    balance_average : int
+    parental_leave_average: int
+    flexibility_average: int
 
 
 class ReviewList(BaseModel):
-    __root__: List[ReviewOut]
+    __root__: List[AverageOut]
 
 
 
@@ -110,7 +118,7 @@ def reviews_list():
                     "balance_average" : row[4],
                     "parental_leave_average": row[5],
                     "flexibility_average": row[6],
-                    #"average_rating": row[8]
+                    
                 }
 
                 ds.append(d)
