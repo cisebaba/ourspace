@@ -1,4 +1,9 @@
 
+## Jun 10,2022
+Today, I've started to work o Profile backend alone. My first goal was adding firstname and lastname on the signup page. After a log demonstration with Curtis the other was helped me to understand the concept of authorization so it didn't take long time to figure it out. Our project time was limited so couldn't finish and test the profile backend but it is ready to test drive. 
+While I was working on the Profile, some questions appeared in my mind. We decided to keep sign-up page simple and make the profile in a different table. The profile table has the references from userid, firstname, lastname. The other microservices are planing to filter the data by the user's role or location. Since the authentication set up helped the microservices to get the username without polling, I feel like we should keep it one single table on the users information form and get rid off the unnecessary polling step. 
+I'll keep working on that after groups decision.
+
 ## Jun 9,2022
 Our fist goal was as soon as finishing mentorhip backend jumping into frontend. Amanda did some delete and put endpoints prep from the other night but couldn't made it run. We looked over it together and solved the problem! my approach was comparing the delete and put with FastApi docs and trivia-game-clues file. I am happy that we didn't have spend hours on these. 
 I knew that it is not gonna be easy to implement the user authorization to the microservices since we didn't know how to handle it without polling user information. (Thanks god we have Curtis!) After a demonstration of handling it on the frontend and backend. I had my couple AHA on the mentorship. It is much more make sense if why we don't have to poll the user data since we are not letting people to reach the features for "users only" part. I feel more comfortable with JWT and cookies. 

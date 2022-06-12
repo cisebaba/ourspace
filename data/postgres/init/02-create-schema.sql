@@ -26,6 +26,8 @@ CREATE TABLE users (
 
 CREATE TABLE profile (
     id SERIAL PRIMARY KEY,
+    firstname VARCHAR(200) REFERENCES users(firstname), 
+    lastname VARCHAR(200) REFERENCES users(lastname),
     city VARCHAR(200),
     state VARCHAR(50),
     role VARCHAR(50),

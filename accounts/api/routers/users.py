@@ -162,7 +162,7 @@ async def get_token(request: Request):
 async def signup(user: UserSignUp, response: Response, repo: AccountsQueries = Depends()):
     hashed_password = pwd_context.hash(user.password)
     try:
-        repo.create_user(user.username, hashed_password, user.email)
+        repo.create_user(user.username,user.firstname, user.lastname, hashed_password, user.email)
         return user
     except DuplicateAccount:
         response.status_code = status.HTTP_409_CONFLICT
