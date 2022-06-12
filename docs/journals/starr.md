@@ -27,7 +27,7 @@
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
-        One of my big ah-ha moments today was just finally feeling like I understand how to use group by and pgAdmin.
+        One of my big ah-ha moments today was just finally feeling like I understand how to use group by and pgAdmin. I also learned that the reason %s worked instead of %d is because the 
         </li>
     </ul>
 </ul>
