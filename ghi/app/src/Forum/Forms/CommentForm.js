@@ -1,39 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
-function PostForm() {
-  const [statePost, setStatePost] = useState({
-    post_id: "",
-    title: "",
+function CommentForm(props) {
+  const token = props.token;
+  const [stateComment, setStateComment] = useState({
+    comment_id: "",
     text: "",
     created_on: "",
+    post_id: "",
   });
+
+  const params = useParams();
+  console.log("params", params);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = statePost;
-    const new_post = {
-      post_id: data.post_id,
-      title: data.title,
+    const data = stateComment;
+    console.log("data", data);
+    const new_comment = {
+      comment_id: data.comment_id,
       text: data.text,
       created_on: data.created_on,
+      post_id: data.post_id,
     };
 
-    console.log(new_post);
-
-    const postsUrl = "http://localhost:8090/api/posts/";
+    const commentsUrl = `http://localhost:8090/api/posts/${params.post_id}/comment/`;
+    console.log("commentsUrl", commentsUrl);
     const fetchConfigEvent = {
       method: "POST",
-      body: JSON.stringify(new_post),
+      body: JSON.stringify(new_comment),
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
     };
-    const response = await fetch(postsUrl, fetchConfigEvent);
+    const response = await fetch(commentsUrl, fetchConfigEvent);
 
     if (response.ok) {
-      setStatePost({
-        post_id: "",
+      setStateComment({
+        comment_id: "",
         title: "",
         text: "",
         created_on: "",
@@ -43,8 +49,8 @@ function PostForm() {
 
   const handleChange = (event) => {
     const value = event.target.value;
-    setStatePost({
-      ...statePost,
+    setStateComment({
+      ...stateComment,
       [event.target.name]: value,
     });
   };
@@ -53,25 +59,12 @@ function PostForm() {
     <div className="row">
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
-          <h1>Create a Post</h1>
+          <h1>Add a Comment</h1>
           <form onSubmit={handleSubmit} id="create-form">
             <div className="form-floating mb-3">
               <input
                 onChange={handleChange}
-                value={statePost.title}
-                placeholder="title"
-                required
-                type="text"
-                name="title"
-                id="title"
-                className="form-control"
-              />
-              <label htmlFor="name"> Post Title</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                onChange={handleChange}
-                value={statePost.text}
+                value={stateComment.text}
                 placeholder="text"
                 required
                 type="text"
@@ -79,7 +72,7 @@ function PostForm() {
                 id="text"
                 className="form-control"
               />
-              <label htmlFor="text">Text</label>
+              <label htmlFor="name">Comment</label>
             </div>
             <button className="btn btn-primary">Submit</button>
           </form>
@@ -89,4 +82,4 @@ function PostForm() {
   );
 }
 
-export default PostForm;
+export default CommentForm;

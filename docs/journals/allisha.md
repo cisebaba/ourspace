@@ -1,3 +1,19 @@
+## June 10, 2022
+
+Okay change of plans. Starr talked with Chris yesterday and he told us that it was best practice for us to handle our calculations of the ratings in the back-end instead of the front-end depending on the size of the database.
+
+Taking care of the calculation in the back-end in a SQL query was much better and much more interesting than doing it in the front-end. Shawn helped us with setting up our SQL query and how to format it and use GROUP BY clauses. He also showed how helpful it is to practice running queries in pgadmin. I remember we learned about it awhile ago but actually using it to figure out how we're inputting and getting data from our schema was super helpful! I learned that whatever you have in SELECT, it needs to be in a GROUP BY clause UNLESS its in an aggregated function, which will be helpful to remember next time I write a SQL query. 
+
+
+## June 9, 2022
+
+I feel like we made a lot of progress today! Me and Starr are still working on the reviews microservice BUT we got the back-end to work! So the API endpoints for POST and GET are done. We also worked on the reviews front-end. The design we are trying to accomplish consist of a list and a form in one page. It was a little complicated so we decided to make a separate form and list file for now and refactor it later. We also included this cool star rating feature. It doesn't currently have functionality yet but it adds a little cool thing to our project! We also made the functions to be able to calculate the average rating for a review. We still need to be able to calculate all the reviews for a single company but we're getting closer. The API endpoint for GET wasn't working because the SQL query were setup as a POST request instead of GET. We got the POST endpoint working using %s for all the values, which we thought was interesting because they are set up as integers, but the only way it worked was as %s. It also saved in the database as an integer so that's good for now. 
+
+POST AND GET ROUTERS DONE FOR REVIEWS
+REVIEWS LIST PAGE W/ STAR RATING(NOT WORKING) DONE
+REVIEWS FORM PAGE - 
+NEED TO NEST TOGETHER FORM AND LIST ON ONE PAGE
+
 ## June 8, 2022
 
 Today was a little different than the other days. We got our users authentication setup from Curtis so our entire group took some time to look through it together to understand it in depth. We also had a huge realization that all of our microservices were sharing the same database! So we split it all up so that every microservice has its own database to pull from. Then, me and Starr broke off into our own pair again and started working on the API endpoints for the reviews microservice. We ran into a few issues with a file not being found but once we figured that out, we were able to test our routers. We almost have our POST router working but the VALUES in the SQL query is giving us a hard time. We get errors about the type of value and we ran out of time today so we're going to continue tomorrow, but we are super close!!

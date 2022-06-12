@@ -9,6 +9,36 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 11, 2022
+
+Spent a bit connecting auth stuff to forum posts and comments. Ran into a lot of issues because of incomplete understanding of what needed to be included on the front end, but eventually got there. Insomnia post still being weird but works in react so oh well?
+
+My ah-ha! is that when you make a change in react - sometimes exiting the browser and reloading helps make the change!!
+
+## June 10, 2022
+
+Today I worked on fixing the comment form- it's all set! It still needs a redirect though. Then Amanda kindly showed me what she learned about user auth stuff and how to add auth stuff to our api endpoints. We started adding that to forum and mentorship.
+
+I heard from another team about their design decisions regarding where to perform average functions.
+
+My ah-ha! is again, how crazy complex auth is!!
+
+## June 9, 2022
+
+Today I worked on adding comments and seeing lists of comments with posts in react. Curtis helped me with react and hooks and I learned a lot!
+
+I made a lot of decisions about how many "components" to make and how small to break things down in react.
+
+My ah ha! is that React is very circular and it is quite confusing at the moment, but I think eventually I'll really enjoy it.
+
+## June 8, 2022
+
+Today I worked on some react for forum posts. With Cise and Amanda, we finished the SQL queries for user login and sign up with help from Curtis.
+
+We are wondering how to add profile information separate from login/auth, and thinking about what polling of user data is necessary.
+
+My ah-ha! is: I can't believe how complicated authentication and login is!!
+
 ## June 7, 2022
 
 Today I got the forum microservice connected to docker, built database tables for posts and comments, got fastapi endpoints set up for post get/post, and set up a very simplistic react front-end for post list and post form.

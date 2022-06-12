@@ -1,3 +1,21 @@
+# June 10, 2022
+Today I worked on:
+* Me and Rachael walked each other through the updates we've made over the last few days in the forum microservice and the mentorship microservice, and worked on getting the forum microservice hooked in with the account authorization piece. 
+
+First, we worked through an issue with POSTing new comments through the React frontend. The issue ended up being a typo! This was a good exercise in debugging. Next, I walked her through the changes we made in the mentorship microservice to require users to be authenticated. We made similar changes in the forum section so that part also now requires users to be authorized before being able to see the list of forum posts. Last, we also worked on updating the SQL queries in the mentorship service so the mentor username appears when someone makes a new post to offer mentor services. We hit an issue with the PUT request that still needs to be worked out. 
+
+I am continuing to learn more about React hooks as well as user authentication. My aha was realizing how simple the change was to the SQL queries to get the username. I thought this was going to be way harder to accomplish than it was!
+
+
+# June 9, 2022
+Today I worked on:
+* Cise and I worked on the PUT and DELETE endpoints for the mentorship microservice and determined our plan for hooking in the user information with this microservice. 
+
+We learned a ton today about authentication and how the bearer token is made available when users are authenticated. We started setting up our mentorship front end with help from Curtis and Shawn. We have it so that a user must be logged in first to access this section of the website. We still need to add the username into our SQL query on the backend but I think we are in good shape with this service. 
+
+My aha moment was learning more about the bearer token and how the user data gets passed around. I also had a small aha when making our PUT request work, in the way the SQL statement needed to be to work. 
+
+
 # June 8, 2022
 Today I worked on:
 * We met as a full group to review the authentication branch and talk about how to implement it with the other parts of our application.
@@ -5,6 +23,7 @@ Today I worked on:
 After reviewing the code to better understand the user authentication FastAPI endpoints, we had a lot of discussion about how the user database should be organized within the larger app. We realized that technically, our services were constructed as a monolith because our tables were all within the same database! We split out most of our tables into separate databases so they are now true microservices. Afterwards, Rachael, Cise, and I worked on the accounts microservice and got the GET and POST requests working with our new user database. 
 
 My aha moment today was realizing that we had actually built a monolith for our services! I definitely have a better understanding now on what defines a true microservice. It was really exciting to see all of our new databases and tables in pgAdmin. I also feel like I understand the code in the accounts microservice a little better now in terms of how it is handling the session, token, and user info. 
+
 
 # June 7, 2022
 Today I worked on:
@@ -14,6 +33,7 @@ We got the new service spun up in Docker, created our PostgreSQL table schema, a
 
 My aha moment today was learning how much issues with Docker can slow down progress! That really halted things. But besides that, getting the POST request working with our database was super exciting. I am learning a lot more about FastAPI and some of the pros and cons of using it vs. Django.
 
+
 # June 6, 2022
 Today I worked on:
 * We stayed in the same pairs to complete the microservices that we were working on. Rachael and I continued working on the Jobs backend and frontend. 
@@ -22,6 +42,7 @@ We finished the Jobs API backend by updating the amount of time our poller ran a
 
 It was fun working more with React hooks within functional components! My aha moment today was learning how careful we need to be when using nested data structures within React functional components. This was much harder to work with than I realized!
 
+
 # June 3, 2022
 Today I worked on:
 * Our team kept the same pairs today since both teams were mid-stream with working on each respective microservice. Rachael and I continued to work on the back-end for the Jobs microservice.
@@ -29,6 +50,7 @@ Today I worked on:
 We updated our jobs table schema after learning that not all of the data coming from our 3rd party API was in the same shape. We set up pg-admin to have a nice GUI for viewing our tables and schema. We implemented the psycopg3 Python module to sync data from our API to our database. We also worked on setting up FastAPI to retrieve data from the data base when a GET request is made. This part is not fully returning the data in the right shape, but I think we are close to being successful with this. 
 
 Overall, I learned a lot today about using psycopg, FastAPI, and pg-admin! It was really exciting to see the jobs data being populated in the database in the way that we wanted.
+
 
 # June 2, 2022
 
@@ -39,6 +61,7 @@ We set up a PostgreSQL RDBMS and created our table for jobs data. We also worked
 
 I actually had several aha moments today. I learned a lot about the different ways that environment variables are set, and how they need to be imported in different ways into Python and JavaScript files. I learned more about polling APIs for 3rd party data and the impact that query limits has! Last, I learned how to set up and initialize the PostgreSQL database! This was a big win.
 
+
 # June 1, 2022
 
 Today I worked on: 
@@ -48,6 +71,7 @@ We finished writing the models for the Events microservice and started working o
 
 Takeaways or lessons learned from today are: Agree upon our definition of the MVP. We need to find away to not get so bogged down in small details and push forward to have working software initially. I also learned a lot about the different considerations for where data is stored - whether it's in our database, the front end, or an outside data source. 
 
+
 # May 31, 2022
 
 Today I worked on: 
@@ -56,6 +80,7 @@ Today I worked on:
 As a group, we voted on the list of App names we had brainstormed and we landed on: OurSpace. We also came to a consensus on using the Events microservice on our starting point and getting the Django project and app set up for building that out. We worked on the docker-compose YAML file and created and successfully ran our Docker image. We discussed our next steps and organizing our group into pairs (one 2-person and one 3-person pair, to start). Last, we updated our GitLab project name and settings based on our final app name. 
 
 It was a big win to get the Docker containers orchestrated correctly. I learned more today about the process for creating a React app from scratch and how to hook it into Docker. 
+
 
 ## May 27, 2022
 

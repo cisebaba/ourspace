@@ -1,5 +1,5 @@
 from datetime import datetime
-from fastapi import APIRouter, Response, status, Depends,HTTPException
+from fastapi import APIRouter, Response, status, Depends, HTTPException
 import psycopg
 from pydantic import BaseModel
 from typing import List
@@ -18,6 +18,7 @@ credentials_exception = HTTPException(
         detail="Invalid authentication credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+
 class MentorshipIn(BaseModel):
     job_title: str
     description: str
@@ -31,7 +32,7 @@ class MentorshipOut(BaseModel):
     description: str
     availability: str
     booked: bool
-    # mentor_username: str
+    mentor_username: str
     # mentee_username: str
 
 
@@ -51,17 +52,21 @@ class Message(BaseModel):
         500: {"model": ErrorMessage},
     },
     )
-def mentorship_post(mentorship: MentorshipIn):
+def mentorship_post(mentorship: MentorshipIn, bearer_token: str = Depends(oauth2_scheme)):
+    if bearer_token is None:
+        raise credentials_exception
+    payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
+    username = payload.get("sub")
     with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute(
                     """
-                    INSERT INTO mentorship (job_title, description, availability, booked)
-                    VALUES (%s, %s, %s, false)
-                    RETURNING id, job_title, description, availability, booked
+                    INSERT INTO mentorship (job_title, description, availability, booked, mentor_username)
+                    VALUES (%s, %s, %s, false, %s)
+                    RETURNING id, job_title, description, availability, booked, mentor_username
                     """,
-                    [mentorship.job_title, mentorship.description, mentorship.availability],
+                    [mentorship.job_title, mentorship.description, mentorship.availability, username],
                 )
             except psycopg.errors.UniqueViolation:
                 response.status_code = status.HTTP_409_CONFLICT
@@ -84,18 +89,15 @@ def mentorship_post(mentorship: MentorshipIn):
     },
 )
 
-def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
-     print(bearer_token)
+def mentor_list(bearer_token: str = Depends(oauth2_scheme)):
      if bearer_token is None:
          raise credentials_exception
-     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
-     username = payload.get("sub")
-     print(username)
+
      with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                select m.id, m.job_title, m.description, m.availability, m.booked
+                select m.id, m.job_title, m.description, m.availability, m.booked, m.mentor_username
                 from mentorship m
             """
             )
@@ -108,6 +110,7 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
                     "description": row[2],
                     "availability": row[3],
                     "booked": row[4],
+                    "mentor_username": str(row[5])
                 }
                 ds.append(d)
 
@@ -118,12 +121,16 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
     response_model=MentorshipOut,
     responses={404: {"model": ErrorMessage}},
 )
-def get_mentorship(mentorship_id: int):
+def get_mentorship(mentorship_id: int, bearer_token: str = Depends(oauth2_scheme)):
+    if bearer_token is None:
+        raise credentials_exception
+    payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
+    username = payload.get("sub")
     with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 f"""
-                SELECT m.id, m.job_title, m.description, m.availability, m.booked
+                SELECT m.id, m.job_title, m.description, m.availability, m.booked, m.mentor_username
                 FROM mentorship m
                 WHERE id = %s
             """,
@@ -133,17 +140,28 @@ def get_mentorship(mentorship_id: int):
             if row is None:
                 response.status_code = status.HTTP_404_NOT_FOUND
                 return {"message": "Mentorship not found"}
-            record = {}
-            for i, column in enumerate(cur.description):
-                record[column.name] = row[i]
+            record = {
+                "id": row[0],
+                "job_title":row[1],
+                "description": row[2],
+                "availability": row[3],
+                "booked": row[4],
+                "mentor_username": str(row[5])
+            }
+            
             return record
+
 
 @router.put(
     "/api/mentorship/{mentorship_id}",
     response_model=MentorshipOut,
     responses={404: {"model": ErrorMessage}},
 )
-def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, response: Response):
+def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, response: Response, bearer_token: str = Depends(oauth2_scheme)):
+    if bearer_token is None:
+        raise credentials_exception
+    payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
+    username = payload.get("sub")
     with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             try:
@@ -158,10 +176,11 @@ def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, response: Re
             except Exception as e:
                 return e
 
-            conn.commit()
-    #getting not a valid dict error on put 
-            
+            conn.commit()            
             return get_mentorship(mentorship_id)
+            #Should mentor username be able to change upon PUT? Probably not... 
+            #AttributeError: 'Depends' object has no attribute 'rsplit'
+
 
 @router.delete(
     "/api/mentorship/{mentorship_id}",

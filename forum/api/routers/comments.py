@@ -1,8 +1,22 @@
 from datetime import datetime
-from fastapi import APIRouter, Response, status, Form
+from fastapi import APIRouter, Response, status, Depends, HTTPException
 import psycopg
 from pydantic import BaseModel
 from typing import List
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+import os
+from jose import jwt
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
+router = APIRouter()
+SECRET_KEY = os.environ["SECRET_KEY"]
+ALGORITHM = "HS256"
+
+credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid authentication credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
 
 class Comment(BaseModel):
     comment_id: int
@@ -19,9 +33,14 @@ class CommentList(BaseModel):
 
 router = APIRouter()
 
-@router.get("/api/post/{post_id}/comments/", response_model = CommentList)
-def get_comments(post_id: int):
-     with psycopg.connect("dbname=forum user=ourspace") as conn:
+@router.get("/api/posts/{post_id}/comment/", response_model = CommentList)
+def get_comments(post_id: int, bearer_token: str = Depends(oauth2_scheme),):
+    if bearer_token is None:
+        raise credentials_exception
+    payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
+    username = payload.get("sub")
+    print(username)
+    with psycopg.connect("dbname=forum user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
@@ -46,9 +65,14 @@ def get_comments(post_id: int):
                 ds.append(d)
             return ds
 
-@router.post("/api/post/{post_id}/comments/", response_model = Comment)
-def new_comment(post_id: int, Comment: CommentIn):
-     with psycopg.connect("dbname=forum user=ourspace") as conn:
+@router.post("/api/posts/{post_id}/comment/", response_model = Comment)
+def new_comment(post_id: int, Comment: CommentIn, bearer_token: str = Depends(oauth2_scheme),):
+    if bearer_token is None:
+        raise credentials_exception
+    payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
+    username = payload.get("sub")
+    print(username)
+    with psycopg.connect("dbname=forum user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """

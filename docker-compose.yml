@@ -47,7 +47,7 @@ services:
       PGDATABASE: reviews
       PGUSER: ourspace
       PGPASSWORD: ourspace
-      DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
+      SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
 
   forum:
     build:
@@ -62,8 +62,7 @@ services:
       PGDATABASE: forum
       PGUSER: ourspace
       PGPASSWORD: ourspace
-      DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
-
+      SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
   jobs:
     build:
       context: ./jobs/api
@@ -79,8 +78,7 @@ services:
       PGPASSWORD: ourspace
       ADZUNA_API_KEY: ${ADZUNA_API_KEY}
       ADZUNA_APP_ID: ${ADZUNA_APP_ID}
-      DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
-
+      SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
   mentorship:
     build:
       context: ./mentorship/api
@@ -94,7 +92,6 @@ services:
       PGDATABASE: mentorship
       PGUSER: ourspace
       PGPASSWORD: ourspace
-      DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
       SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
 
   events:
