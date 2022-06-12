@@ -47,7 +47,7 @@ const PostDetail = (props) => {
   return (
     <>
       <PostDetailBody post={postDetail} />
-      <CommentList />
+      <CommentList token={token} />
     </>
   );
 };

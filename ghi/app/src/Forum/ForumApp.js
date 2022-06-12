@@ -2,11 +2,12 @@ import React from "react";
 import PostsList from "./ListPosts/ListPosts";
 
 //pass in currentuserid at some point??
-const ForumApp = () => {
+const ForumApp = (props) => {
+  const token = props.token;
   return (
     <div>
       <h1>OurForum</h1>
-      <PostsList />
+      <PostsList token={token} />
     </div>
   );
 };

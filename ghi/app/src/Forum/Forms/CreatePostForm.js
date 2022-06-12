@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-function PostForm() {
+function PostForm(props) {
+  const token = props.token;
   const [statePost, setStatePost] = useState({
     post_id: "",
     title: "",
@@ -28,6 +29,7 @@ function PostForm() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
     };
     const response = await fetch(postsUrl, fetchConfigEvent);

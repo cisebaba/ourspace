@@ -7,6 +7,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import os
 from jose import jwt
 
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
 router = APIRouter()
 SECRET_KEY = os.environ["SECRET_KEY"]
@@ -37,7 +38,6 @@ class PostList(BaseModel):
 class Message(BaseModel):
     message:str
 
-router = APIRouter()
 
 @router.get("/api/posts/", response_model = PostList)
 def posts_list(bearer_token: str = Depends(oauth2_scheme),):

@@ -24,7 +24,7 @@ function PostsList(props) {
     <div className="col">
       <h3>Posts</h3>
       {posts.map((post) => {
-        return <PostListDetail key={post.post_id} post={post} />;
+        return <PostListDetail key={post.post_id} post={post} token={token} />;
       })}
     </div>
   );

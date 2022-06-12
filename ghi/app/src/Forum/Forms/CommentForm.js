@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-function CommentForm() {
+function CommentForm(props) {
+  const token = props.token;
   const [stateComment, setStateComment] = useState({
     comment_id: "",
     text: "",
@@ -31,6 +32,7 @@ function CommentForm() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
     };
     const response = await fetch(commentsUrl, fetchConfigEvent);

@@ -63,17 +63,10 @@ function ReviewsList() {
               {/* figure out the logic for rating!! */}
               {/* <h5 className="card-text">Overall Average Rating: {review.rating}{Star}</h5> */}
               <div></div>
-              <h5 className="card-text">Average Salary: {review.salary_average}</h5>
+              <h5 className="card-text">
+                Average Salary: {review.salary_average}
+              </h5>
               <div></div>
-<<<<<<< HEAD
-              <p className="card-text">Diversity: {review.diversity_average}{Star}</p>
-              <div></div>
-              <p className="card-text">Balance: {review.balance_average}{Star}</p>
-              <div></div>
-              <p className="card-text">Parental Leave: {review.parental_leave_average}{Star}</p>
-              <div></div>
-              <p className="card-text">Flexibility: {review.flexibility_average}{Star}</p>
-=======
               <p className="card-text">
                 Diversity: {review.diversity}
                 {Star}
@@ -93,7 +86,6 @@ function ReviewsList() {
                 Flexibility: {review.flexibility}
                 {Star}
               </p>
->>>>>>> main
             </div>
             <div className="card-footer"></div>
           </div>
