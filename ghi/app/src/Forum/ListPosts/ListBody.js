@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 const PostListBody = ({ post }) => {
   return (

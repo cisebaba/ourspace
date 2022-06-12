@@ -41,11 +41,11 @@ function App() {
           {/* MENTORSHIP */}
           <Route path="mentorship/new" element={<MentorForm token={token} />} />
           {/* FORUM */}
-          <Route path="forum" element={<ForumApp />} />
-          <Route path="posts/:post_id" element={<PostDetail />} />
+          <Route path="forum" element={<ForumApp token={token} />} />
+          <Route path="posts/:post_id" element={<PostDetail token={token} />} />
           <Route path="posts/:post_id/comment/form" element={<CommentForm />} />
-          <Route path="posts" element={<PostsList />} />
-          <Route path="posts/new" element={<PostForm />} />
+          <Route path="posts" element={<PostsList token={token} />} />
+          <Route path="posts/new" element={<PostForm token={token} />} />
           {/* REVIEWS */}
           {/* <Route path="reviews/new" element={<ReviewsForm />} />
           <Route path="reviews" element={<ReviewsList />} /> */}

@@ -20,14 +20,20 @@ const PostDetailBody = ({ post }) => {
   );
 };
 
-const PostDetail = () => {
+const PostDetail = (props) => {
+  const token = props.token;
   const params = useParams();
   const [postDetail, setPostDetail] = useState(null);
 
   useEffect(() => {
     const getPostsData = async () => {
       const postsResponse = await fetch(
-        `http://localhost:8090/api/posts/${params.post_id}`
+        `http://localhost:8090/api/posts/${params.post_id}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
       );
       const postsData = await postsResponse.json();
       setPostDetail(postsData);

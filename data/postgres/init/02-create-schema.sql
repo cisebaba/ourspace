@@ -42,17 +42,17 @@ CREATE TABLE post (
     post_id SERIAL PRIMARY KEY,
     title VARCHAR, 
     text TEXT,
-    created_on TIMESTAMP
+    created_on TIMESTAMP,
+    author VARCHAR(100)
     --upvotes --foreign key to upvotes
-    --author -- foreign key to userid
 );
 
 CREATE TABLE comment (
     comment_id SERIAL PRIMARY KEY,
     post_id int references post(post_id), --foreign key
     text VARCHAR(5000),
-    created_on TIMESTAMP
-    --commenter -- foreign key to userid
+    created_on TIMESTAMP,
+    commenter VARCHAR(100)
     --upvotes -- foreign key to upvotes
 );
 

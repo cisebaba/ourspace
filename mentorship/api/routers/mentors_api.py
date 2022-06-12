@@ -1,5 +1,5 @@
 from datetime import datetime
-from fastapi import APIRouter, Response, status, Depends,HTTPException
+from fastapi import APIRouter, Response, status, Depends, HTTPException
 import psycopg
 from pydantic import BaseModel
 from typing import List
