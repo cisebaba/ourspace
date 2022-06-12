@@ -15,7 +15,7 @@ import ForumApp from "./Forum/ForumApp";
 import PostDetail from "./Forum/PostDetail";
 import CommentForm from "./Forum/Forms/CommentForm";
 // import ReviewsForm from "./Reviews/ReviewsForm";
-// import ReviewsList from "./Reviews/ReviewsList";
+import ReviewsList from "./Reviews/ReviewsList";
 import MentorForm from "./Mentorship/MentorForm";
 
 function App() {
@@ -47,12 +47,12 @@ function App() {
           <Route path="posts" element={<PostsList token={token} />} />
           <Route path="posts/new" element={<PostForm token={token} />} />
           {/* REVIEWS */}
-          {/* <Route path="reviews/new" element={<ReviewsForm />} />
-          <Route path="reviews" element={<ReviewsList />} /> */}
+          {/* <Route path="reviews/new" element={<ReviewsForm />} /> */}
+          <Route path="reviews" element={<ReviewsList />} /> 
         </Routes>
       </BrowserRouter>
     </>
   );
 }
 
-export default App;
+export default App
