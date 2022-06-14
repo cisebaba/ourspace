@@ -30,7 +30,7 @@ class AccountsQueries:
                             "password": user[5]
                         }
 
-    def create_user(self, username: str, hashed_password: str, email: str = None):
+    def create_user(self, username: str, firstname: str, lastname: str, hashed_password: str, email: str = None):
         # TODO: Replace the body of this method with real SQL
         # It MUST return a dictionary that contains the user
         # data NOT a row. Like:
@@ -40,11 +40,11 @@ class AccountsQueries:
                 try:
                     cur.execute(
                         """
-                        INSERT INTO users (username, password, email)
-                        VALUES (%s, %s, %s)
-                        RETURNING username, password, email
+                        INSERT INTO users (username, firstname,lastname,password, email)
+                        VALUES (%s, %s, %s, %s, %s)
+                        RETURNING username,firstname,lastname, password, email
                         """,
-                        [username, hashed_password, email],
+                        [username, firstname, lastname, hashed_password, email],
                     )
                 except psycopg.errors.UniqueViolation:
                     raise DuplicateAccount()               
