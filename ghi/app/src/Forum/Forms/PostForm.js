@@ -7,6 +7,7 @@ function PostForm(props) {
     title: "",
     text: "",
     created_on: "",
+    author: "",
   });
 
   const handleSubmit = async (event) => {
@@ -18,6 +19,7 @@ function PostForm(props) {
       title: data.title,
       text: data.text,
       created_on: data.created_on,
+      author: data.author,
     };
 
     console.log(new_post);
@@ -40,6 +42,7 @@ function PostForm(props) {
         title: "",
         text: "",
         created_on: "",
+        author: "",
       });
     }
   };

@@ -1,5 +1,5 @@
 import React from "react";
-import PostsList from "./ListPosts/ListPosts";
+import PostsList from "./PostsList/PostsList";
 
 //pass in currentuserid at some point??
 const ForumApp = (props) => {

@@ -8,6 +8,7 @@ function CommentForm(props) {
     text: "",
     created_on: "",
     post_id: "",
+    commenter: "",
   });
 
   const params = useParams();
@@ -22,6 +23,7 @@ function CommentForm(props) {
       text: data.text,
       created_on: data.created_on,
       post_id: data.post_id,
+      commenter: data.commenter,
     };
 
     const commentsUrl = `http://localhost:8090/api/posts/${params.post_id}/comment/`;
@@ -43,6 +45,7 @@ function CommentForm(props) {
         title: "",
         text: "",
         created_on: "",
+        commenter: "",
       });
     }
   };
