@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from typing import List
 from .users import User
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+# from .api import get_weather
 import os
 from jose import jwt
 
@@ -97,11 +98,14 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                select p.id, p.city, p.state, p.role
+                select p.id, p.city, p.state, p.role, users.id
                 from profile p
+                INNER JOIN users ON (users.id = p.userid)
+                WHERE p.id = %s;
             """
             )
-
+# INNER JOIN categories ON (categories.id = c.category_id)
+#                 WHERE c.id = %s;
             ds = []
             for row in cur.fetchall():
                 d = {
@@ -110,6 +114,7 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
                     "description": row[2],
                     "availability": row[3],
                     "booked": row[4],
+                    "userid":row[5]
                 }
                 ds.append(d)
 

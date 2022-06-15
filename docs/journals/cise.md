@@ -1,4 +1,9 @@
 
+## Jun 13,2022
+Users are going to add their location so why don't we show the weather on their profile page. Like we did on the conference-go app out external weather api was unlimited. I've set some things up on the account directory. I think that will be a good thing to show people how the weather is in their location. It is not working yet but shouldn't be that hard. 
+After meeting with Curtis I feel more clear on the attaching tables in the same schema. I used Inner Join to join tables via userid . That was great practice to work on the databases. 
+
+
 ## Jun 10,2022
 Today, I've started to work o Profile backend alone. My first goal was adding firstname and lastname on the signup page. After a log demonstration with Curtis the other was helped me to understand the concept of authorization so it didn't take long time to figure it out. Our project time was limited so couldn't finish and test the profile backend but it is ready to test drive. 
 While I was working on the Profile, some questions appeared in my mind. We decided to keep sign-up page simple and make the profile in a different table. The profile table has the references from userid, firstname, lastname. The other microservices are planing to filter the data by the user's role or location. Since the authentication set up helped the microservices to get the username without polling, I feel like we should keep it one single table on the users information form and get rid off the unnecessary polling step. 
