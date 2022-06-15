@@ -23,14 +23,20 @@ const CommentListBody = ({ comments }) => {
   );
 };
 
-const CommentList = () => {
+const CommentList = (props) => {
+  const token = props.token;
   const params = useParams();
   const [commentList, setCommentList] = useState(null);
 
   useEffect(() => {
     const getCommentsData = async () => {
       const commentsResponse = await fetch(
-        `http://localhost:8090/api/posts/${params.post_id}/comment/`
+        `http://localhost:8090/api/posts/${params.post_id}/comment/`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
       );
       const commentsData = await commentsResponse.json();
       setCommentList(commentsData);
@@ -40,7 +46,7 @@ const CommentList = () => {
   if (commentList === null) {
     return "loading";
   }
-  return <CommentListBody comments={commentList} />;
+  return <CommentListBody comments={commentList} token={token} />;
 };
 
 export default CommentList;

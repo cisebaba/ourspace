@@ -10,18 +10,24 @@
 <li> Features/Issues Worked On : </li>
     <ul>
         <li>  
+        I worked with Allisha today to write some SQL to handle calculating the averages. This took us a little while to figure out but was a great learning experience because I learned a lot about using pgAdmin and had a pretty enlightening conversation with Chris and Jeff about how to use the Group By method. 
         </li> 
+        <li>
+        I couldn't stop thinking about wanting our data to display on the front end on our list reviews page so after mandatory fun I worked on fixing that problem and it turned out to be due to naming conventions and needing to update our models. I ended up creating a reviews class that had the "throw away" data names so I could fetch them and then send them to the front end. After that It was super easy to get the page to render what I wanted. Now I really want to figure out how to map over the star component in order to display the averages in the form of stars on the screen. I also want to get the form working. 
+        </li>
     </ul> 
     <br></br>
 <li> Reflection : </li>
     <ul>
         <li> 
+        I am really glad we decided to let the backend handle the averaging of our data rather than trying to do it all in the frontend because it is so much more efficient to do it in the backend. Although I am sad to delete all the code I worked on yesterday writing javascript functions to average our data I am glad I learned a better way to do it by using aggregate functions.
         </li> 
     </ul>
     <br></br>
 <li> Ah-Ha Moment : </li>
     <ul>
         <li>
+        One of my big ah-ha moments today was just finally feeling like I understand how to use group by and pgAdmin.
         </li>
     </ul>
 </ul>

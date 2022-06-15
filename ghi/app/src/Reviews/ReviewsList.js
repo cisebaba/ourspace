@@ -63,7 +63,9 @@ function ReviewsList() {
               {/* figure out the logic for rating!! */}
               {/* <h5 className="card-text">Overall Average Rating: {review.rating}{Star}</h5> */}
               <div></div>
-              <h5 className="card-text">Average Salary: {review.salary_average}</h5>
+              <h5 className="card-text">
+                Average Salary: {review.salary_average}
+              </h5>
               <div></div>
               <p className="card-text">
                 Diversity: {review.diversity}

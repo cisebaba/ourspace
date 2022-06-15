@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 
-function PostForm() {
+function PostForm(props) {
+  const token = props.token;
   const [statePost, setStatePost] = useState({
     post_id: "",
     title: "",
     text: "",
     created_on: "",
+    author: "",
   });
 
   const handleSubmit = async (event) => {
@@ -17,6 +19,7 @@ function PostForm() {
       title: data.title,
       text: data.text,
       created_on: data.created_on,
+      author: data.author,
     };
 
     console.log(new_post);
@@ -28,6 +31,7 @@ function PostForm() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
     };
     const response = await fetch(postsUrl, fetchConfigEvent);
@@ -38,6 +42,7 @@ function PostForm() {
         title: "",
         text: "",
         created_on: "",
+        author: "",
       });
     }
   };

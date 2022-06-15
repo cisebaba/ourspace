@@ -9,8 +9,8 @@ import Signup from "./Auth/Signup";
 import Logout from "./Auth/Logout";
 import { useToken } from "./authApi";
 import JobsList from "./Jobs/JobsList";
-import PostsList from "./Forum/ListPosts/ListPosts";
-import PostForm from "./Forum/Forms/CreatePostForm";
+import PostsList from "./Forum/PostsList/PostsList";
+import PostForm from "./Forum/Forms/PostForm";
 import ForumApp from "./Forum/ForumApp";
 import PostDetail from "./Forum/PostDetail";
 import CommentForm from "./Forum/Forms/CommentForm";
@@ -42,18 +42,21 @@ function App() {
           {/* MENTORSHIP */}
           <Route path="mentorship" element={<MentorList token={token} />} />
           {/* FORUM */}
-          <Route path="forum" element={<ForumApp />} />
-          <Route path="posts/:post_id" element={<PostDetail />} />
-          <Route path="posts/:post_id/comment/form" element={<CommentForm />} />
-          <Route path="posts" element={<PostsList />} />
-          <Route path="posts/new" element={<PostForm />} />
+          <Route path="forum" element={<ForumApp token={token} />} />
+          <Route path="posts/:post_id" element={<PostDetail token={token} />} />
+          <Route
+            path="posts/:post_id/comment/form"
+            element={<CommentForm token={token} />}
+          />
+          <Route path="posts" element={<PostsList token={token} />} />
+          <Route path="posts/new" element={<PostForm token={token} />} />
           {/* REVIEWS */}
           {/* <Route path="reviews/new" element={<ReviewsForm />} /> */}
-          <Route path="reviews" element={<ReviewsList />} /> 
+          {/* <Route path="reviews" element={<ReviewsList />} /> */}
         </Routes>
       </BrowserRouter>
     </>
   );
 }
 
-export default App
+export default App;
