@@ -16,7 +16,8 @@ import PostDetail from "./Forum/PostDetail";
 import CommentForm from "./Forum/Forms/CommentForm";
 // import ReviewsForm from "./Reviews/ReviewsForm";
 import ReviewsList from "./Reviews/ReviewsList";
-import MentorForm from "./Mentorship/MentorForm";
+// import MentorForm from "./Mentorship/MentorForm";
+import MentorList from "./Mentorship/MentorList";
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -39,7 +40,7 @@ function App() {
           {/* JOBS */}
           <Route path="jobs" element={<JobsList />} />
           {/* MENTORSHIP */}
-          <Route path="mentorship/new" element={<MentorForm token={token} />} />
+          <Route path="mentorship" element={<MentorList token={token} />} />
           {/* FORUM */}
           <Route path="forum" element={<ForumApp />} />
           <Route path="posts/:post_id" element={<PostDetail />} />
