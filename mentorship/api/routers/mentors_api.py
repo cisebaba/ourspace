@@ -2,7 +2,7 @@ from datetime import datetime
 from fastapi import APIRouter, Response, status, Depends, HTTPException
 import psycopg
 from pydantic import BaseModel
-from typing import List
+from typing import List, Union
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import os
 from jose import jwt
@@ -33,17 +33,20 @@ class MentorshipOut(BaseModel):
     availability: str
     booked: bool
     mentor_username: str
-    # mentee_username: str
+    mentee_username: Union[str, None]
 
 
 class MentorshipList(BaseModel):
     __root__: List[MentorshipOut]
 
+
 class ErrorMessage(BaseModel):
     message: str
 
+
 class Message(BaseModel):
     message: str
+
 
 @router.post(
     "/api/mentorship/", 
@@ -62,9 +65,9 @@ def mentorship_post(mentorship: MentorshipIn, bearer_token: str = Depends(oauth2
             try:
                 cur.execute(
                     """
-                    INSERT INTO mentorship (job_title, description, availability, booked, mentor_username)
-                    VALUES (%s, %s, %s, false, %s)
-                    RETURNING id, job_title, description, availability, booked, mentor_username
+                    INSERT INTO mentorship (job_title, description, availability, booked, mentor_username, mentee_username)
+                    VALUES (%s, %s, %s, false, %s, null)
+                    RETURNING id, job_title, description, availability, booked, mentor_username, mentee_username
                     """,
                     [mentorship.job_title, mentorship.description, mentorship.availability, username],
                 )
@@ -97,7 +100,8 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme)):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                select m.id, m.job_title, m.description, m.availability, m.booked, m.mentor_username
+                select m.id, m.job_title, m.description, m.availability, m.booked, 
+                    m.mentor_username, m.mentee_username
                 from mentorship m
             """
             )
@@ -110,11 +114,13 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme)):
                     "description": row[2],
                     "availability": row[3],
                     "booked": row[4],
-                    "mentor_username": str(row[5])
+                    "mentor_username": str(row[5]),
+                    "mentee_username": str(row[6])
                 }
                 ds.append(d)
 
             return ds
+
 
 @router.get(
     "/api/mentorship/{mentorship_id}",
@@ -124,13 +130,12 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme)):
 def get_mentorship(mentorship_id: int, bearer_token: str = Depends(oauth2_scheme)):
     if bearer_token is None:
         raise credentials_exception
-    payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
-    username = payload.get("sub")
     with psycopg.connect("dbname=mentorship user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 f"""
-                SELECT m.id, m.job_title, m.description, m.availability, m.booked, m.mentor_username
+                SELECT m.id, m.job_title, m.description, m.availability, m.booked,
+                    m.mentor_username, m.mentee_username
                 FROM mentorship m
                 WHERE id = %s
             """,
@@ -146,7 +151,8 @@ def get_mentorship(mentorship_id: int, bearer_token: str = Depends(oauth2_scheme
                 "description": row[2],
                 "availability": row[3],
                 "booked": row[4],
-                "mentor_username": str(row[5])
+                "mentor_username": str(row[5]),
+                "mentee_username": str(row[6])
             }
             
             return record
@@ -157,7 +163,7 @@ def get_mentorship(mentorship_id: int, bearer_token: str = Depends(oauth2_scheme
     response_model=MentorshipOut,
     responses={404: {"model": ErrorMessage}},
 )
-def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, response: Response, bearer_token: str = Depends(oauth2_scheme)):
+def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, bearer_token: str = Depends(oauth2_scheme)):
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -168,18 +174,16 @@ def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, response: Re
                 cur.execute(
                     """
                     UPDATE mentorship
-                    SET job_title = %s, description = %s, availability = %s, booked = %s
+                    SET job_title = %s, description = %s, availability = %s, booked = %s, mentee_username = %s
                     WHERE id = %s;
                 """,
-                    [mentorship.job_title, mentorship.description, mentorship.availability, mentorship.booked, mentorship_id],
+                    [mentorship.job_title, mentorship.description, mentorship.availability, mentorship.booked, username, mentorship_id],
                 )
             except Exception as e:
                 return e
 
             conn.commit()            
             return get_mentorship(mentorship_id)
-            #Should mentor username be able to change upon PUT? Probably not... 
-            #AttributeError: 'Depends' object has no attribute 'rsplit'
 
 
 @router.delete(
@@ -204,5 +208,5 @@ def remove_mentorship(mentorship_id: int, response: Response):
             except psycopg.errors.ForeignKeyViolation:
                 response.status_code = status.HTTP_400_BAD_REQUEST
                 return {
-                    "message": "Cannot delete category because it has clues",
+                    "message": "Cannot delete mentorship",
                 }
