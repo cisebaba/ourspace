@@ -25,7 +25,7 @@ class Post(BaseModel):
     text: str
     created_on: datetime
     author: str
-    # upvotes
+    upvote_count: int
 
 class PostIn(BaseModel):
     title: str
@@ -51,7 +51,8 @@ def posts_list(bearer_token: str = Depends(oauth2_scheme),):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT post_id, title, text, created_on, author
+                SELECT post_id, title, text, created_on, author,
+                (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count
                 FROM post
                 """,
             )
@@ -63,7 +64,8 @@ def posts_list(bearer_token: str = Depends(oauth2_scheme),):
                     "title":row[1],
                     "text":row[2],
                     "created_on":row[3],
-                    "author": str(row[4])
+                    "author": str(row[4]), 
+                    "upvote_count": row[5]
                 }
 
                 ds.append(d)
@@ -85,7 +87,8 @@ def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT post_id, title, text, created_on, author 
+                SELECT post_id, title, text, created_on, author, 
+                (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count
                 FROM post
                 WHERE post_id = %s
             """,
@@ -100,7 +103,8 @@ def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2
                 "title":row[1],
                 "text":row[2],
                 "created_on":row[3], 
-                "author": str(row[4])
+                "author": str(row[4]), 
+                "upvote_count": row[5]
             }
             return detail
 
@@ -136,5 +140,6 @@ def new_post(Post: PostIn, bearer_token: str = Depends(oauth2_scheme)):
 		        "title": new_post[1],
 		        "text": new_post[2],
 		        "created_on": new_post[3],
-                "author": new_post[4]
+                "author": new_post[4],
+                "upvote_count": 0
             }

@@ -52,6 +52,7 @@ class UserSignUp(BaseModel):
     password: str
 
 
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
