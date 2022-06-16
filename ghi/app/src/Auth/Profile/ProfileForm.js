@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 
 function ProfileForm(props) {
     const token = props.token;
@@ -9,27 +9,30 @@ function ProfileForm(props) {
         role: ""
     });
 
-    const [stateStates, setStateStates] = useState([])
-    useEffect(() => {
-        const getStatesData = async () => {
-            const statesResponse = await fetch(
-                "http://localhost:8000/api/states/"
-            );
-            const statesData = await statesResponse.json();
-            setStateStates(statesData.states)
-        };
+    // const [stateStates, setStateStates] = useState([])
+    // useEffect(() => {
+    //     const getStatesData = async () => {
+    //         const statesResponse = await fetch(
+    //             "http://localhost:8000/api/states/"
+    //         );
+    //         const statesData = await statesResponse.json();
+    //         setStateStates(statesData.states)
+    //     };
 
-        getStatesData();
-    }, []) ;
+    //     getStatesData();
+    // }, []) ;
 
   const handleSubmit = async e => {
     e.preventDefault();
     const data = stateProfile;
+    console.log(data)
     const profileUrl = "http://localhost:9000/api/profile/new/" ;
         const fetchConfigProfile = {
             method: "POST", 
             body: JSON.stringify(data), 
+            credentials: "include",
             headers : {
+                "Content-Type": "application/json",
                 authorization:`Bearer ${token}`,
             }
         };
@@ -42,20 +45,26 @@ function ProfileForm(props) {
             })
         }
   };
+  const handleChange = event => {
 
-  if (token) {
-    return <Navigate to="/" />;
-  }
+    const value = event.target.value ;
+    setStateProfile({
+        ...stateProfile,
+        [event.target.name]: value,
+    })
+    
+};
+
+//   if (token) {
+//     return <Navigate to="/" />;
+//   }
 
   return (
     <form onSubmit={handleSubmit}>
-      { error ? <div dangerouslySetInnerHTML={{__html: error}} /> : null }
-      <input required name="username" type="text" onChange={e => setUsername(e.target.value)} value={username} placeholder="username" />
-      <input required name="firstname" type="text" onChange={e => setFirstname(e.target.value)} value={firstname} placeholder="firstname" />
-      <input required name="lastname" type="text" onChange={e => setLastname(e.target.value)} value={lastname} placeholder="lastname" />
-      <input required name="email" type="email" onChange={e => setEmail(e.target.value)} value={email} placeholder="email" />
-      <input required name="password" type="password" onChange={e => setPassword(e.target.value)} value={password} placeholder="password" />
-      <button>Signup</button>
+      <input required name="city" type="text" onChange={handleChange} value={stateProfile.city} placeholder="city" />
+      <input required name="state" type="text" onChange={handleChange} value={stateProfile.state} placeholder="state" />
+      <input required name="role" type="text" onChange={handleChange} value={stateProfile.role} placeholder="role" />
+      <button>Create</button>
     </form>
   )
 }

@@ -17,7 +17,7 @@ function Signup(props) {
   };
 
   if (token) {
-    return <Navigate to="/" />;
+    return <Navigate to="profile/new" />;
   }
 
   return (

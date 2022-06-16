@@ -48,6 +48,9 @@ function Nav(props) {
                 <NavLink className="dropdown-item" to="/logout" role="button">
                   Logout {user.username}
                 </NavLink>
+                <NavLink className="dropdown-item" to="profile/new" role="button">
+                  Profile Form
+                </NavLink>
               </>
             ) : (
               <>
