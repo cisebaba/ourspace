@@ -21,7 +21,7 @@ class AccountsQueries:
                 )
                 for user in cur.fetchall():
                     if user[1] == username:
-                        return {
+                        user_dict = {
                             "id": user[0],
                             "username": user[1],
                             "email": user[2],
@@ -29,6 +29,8 @@ class AccountsQueries:
                             "lastname": user[4],
                             "password": user[5]
                         }
+                        print(user_dict)
+                        return user_dict
 
     def create_user(self, username: str, firstname: str, lastname: str, hashed_password: str, email: str = None):
         # TODO: Replace the body of this method with real SQL

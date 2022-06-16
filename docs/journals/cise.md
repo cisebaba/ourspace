@@ -1,4 +1,9 @@
 
+## Jun 15,2022
+I worked on the Profile again and jump around user & profile that helps me more fluent on authorization part. Finally I finished backend getting the current profile details and the creating the profile part. The weather polling is working and attached with the profile information. 
+I feel like my debugging skills are improved since we started to this project from scratch. That make me feel good. When we were pair programming with Mitch today, I felt so good the moment that I know where to look about in any issue. 
+
+
 ## Jun 13,2022
 Users are going to add their location so why don't we show the weather on their profile page. Like we did on the conference-go app out external weather api was unlimited. I've set some things up on the account directory. I think that will be a good thing to show people how the weather is in their location. It is not working yet but shouldn't be that hard. 
 After meeting with Curtis I feel more clear on the attaching tables in the same schema. I used Inner Join to join tables via userid . That was great practice to work on the databases. 
