@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+//import { AiFillStar } from 'react-icons/fa';
+
 
 function ReviewsList() {
   const [reviews, setReviews] = useState([]);
@@ -6,8 +8,9 @@ function ReviewsList() {
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
     return (
-      <div className="star-rating">
-        {[...Array(5)].map((star, index) => {
+      
+      <div className="star-rating"> 
+        {[...Array(8)].map((star, index) => {
           index += 1;
           return (
             <button
@@ -63,7 +66,15 @@ function ReviewsList() {
               {/* figure out the logic for rating!! */}
               {/* <h5 className="card-text">Overall Average Rating: {review.rating}{Star}</h5> */}
               <div></div>
-              <h5 className="card-text">Average Salary: {review.salary_average}</h5>
+              <h5 className="card-text">Average Salary: 
+                {[...Array(review.salary_average)].map((star, index) => {
+                    return
+                   <span className="star">&#9733;</span>
+                })}
+              
+
+
+              </h5>
               <div></div>
               <p className="card-text">Diversity: {review.diversity_average}{Star}</p>
               <div></div>
