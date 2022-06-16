@@ -24,8 +24,8 @@ class Post(BaseModel):
     title: str
     text: str
     created_on: datetime
-    # upvotes
-    # author 
+    author: str
+    upvote_count: int
 
 class PostIn(BaseModel):
     title: str
@@ -51,7 +51,8 @@ def posts_list(bearer_token: str = Depends(oauth2_scheme),):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT post_id, title, text, created_on
+                SELECT post_id, title, text, created_on, author,
+                (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count
                 FROM post
                 """,
             )
@@ -62,7 +63,9 @@ def posts_list(bearer_token: str = Depends(oauth2_scheme),):
                     "post_id":row[0],
                     "title":row[1],
                     "text":row[2],
-                    "created_on":row[3]
+                    "created_on":row[3],
+                    "author": str(row[4]), 
+                    "upvote_count": row[5]
                 }
 
                 ds.append(d)
@@ -84,7 +87,8 @@ def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT post_id, title, text, created_on
+                SELECT post_id, title, text, created_on, author, 
+                (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count
                 FROM post
                 WHERE post_id = %s
             """,
@@ -98,7 +102,9 @@ def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2
                 "post_id":row[0],
                 "title":row[1],
                 "text":row[2],
-                "created_on":row[3]
+                "created_on":row[3], 
+                "author": str(row[4]), 
+                "upvote_count": row[5]
             }
             return detail
 
@@ -107,22 +113,22 @@ def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2
 
 @router.post("/api/posts/", response_model = Post)
 def new_post(Post: PostIn, bearer_token: str = Depends(oauth2_scheme)):
-    print(bearer_token)
+    print("bearer token",bearer_token)
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
-    print(username)
+    print("USERNAME", username)
     with psycopg.connect("dbname=forum user=ourspace") as conn:
         with conn.cursor() as cur:
             
             cur.execute(
                 """
-                INSERT INTO post (post_id, title, text, created_on)
-                VALUES (DEFAULT, %s, %s, CURRENT_TIMESTAMP)
-                RETURNING post_id, title, text, created_on
+                INSERT INTO post (post_id, title, text, created_on, author)
+                VALUES (DEFAULT, %s, %s, CURRENT_TIMESTAMP, %s)
+                RETURNING post_id, title, text, created_on, author
                 """, 
-                [Post.title, Post.text]
+                [Post.title, Post.text, username],
             )
 
             conn.commit()
@@ -133,5 +139,7 @@ def new_post(Post: PostIn, bearer_token: str = Depends(oauth2_scheme)):
                 "post_id": new_post[0],
 		        "title": new_post[1],
 		        "text": new_post[2],
-		        "created_on": new_post[3]
+		        "created_on": new_post[3],
+                "author": new_post[4],
+                "upvote_count": 0
             }

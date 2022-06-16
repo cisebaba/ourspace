@@ -35,7 +35,6 @@ CREATE TABLE profile (
 ALTER TABLE users OWNER TO ourspace;
 ALTER TABLE profile OWNER TO ourspace;
 
-
 \connect forum
 
 CREATE TABLE post (
@@ -44,7 +43,6 @@ CREATE TABLE post (
     text TEXT,
     created_on TIMESTAMP,
     author VARCHAR(100)
-    --upvotes --foreign key to upvotes
 );
 
 CREATE TABLE comment (
@@ -53,11 +51,24 @@ CREATE TABLE comment (
     text VARCHAR(5000),
     created_on TIMESTAMP,
     commenter VARCHAR(100)
-    --upvotes -- foreign key to upvotes
+);
+
+CREATE TABLE post_upvote (
+    post_upvote_id SERIAL PRIMARY KEY, 
+    post_id int references post(post_id),
+    upvoter VARCHAR(100)
+);
+
+CREATE TABLE comment_upvote (
+    comment_upvote_id SERIAL PRIMARY KEY,
+    comment_id int references comment(comment_id),
+    upvoter VARCHAR (100)
 );
 
 ALTER TABLE post OWNER TO ourspace;
 ALTER TABLE comment OWNER TO ourspace;
+ALTER TABLE post_upvote OWNER TO ourspace;
+ALTER TABLE comment_upvote OWNER TO ourspace;
 
 \connect mentorship
 

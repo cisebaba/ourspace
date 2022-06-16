@@ -1,3 +1,8 @@
+## June 15, 2022
+
+Today was filled with a good amount progress since I last touched this project 5 days ago! I was able to get the form for reviews working, it submits and refreshes the form when you submit. I added the users authentication to the back-end and front-end. I left it commented out for now so I don't need to worry about authenticating while testing and developing still. The reviews list is accurately calculating and displaying the average ratings and salaries! 
+
+
 ## June 10, 2022
 
 Okay change of plans. Starr talked with Chris yesterday and he told us that it was best practice for us to handle our calculations of the ratings in the back-end instead of the front-end depending on the size of the database.

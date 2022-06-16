@@ -19,6 +19,7 @@ const PostListBody = ({ post }) => {
         <NavLink to={"/posts/" + post.post_id}>
           <button>Comments</button>
         </NavLink>
+        <button>{post.upvote_count} upvotes</button>
       </div>
     </div>
   );

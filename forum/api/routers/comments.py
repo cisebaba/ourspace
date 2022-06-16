@@ -23,7 +23,7 @@ class Comment(BaseModel):
     text: str
     created_on: datetime
     post_id: int
-    #add created_on later
+    commenter: str
 
 class CommentIn(BaseModel):
     text: str
@@ -44,7 +44,7 @@ def get_comments(post_id: int, bearer_token: str = Depends(oauth2_scheme),):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT comment.comment_id, comment.text, comment.created_on, post.post_id
+                SELECT comment.comment_id, comment.text, comment.created_on, post.post_id, comment.commenter
                 FROM post
                 INNER JOIN comment
                 ON (comment.post_id = post.post_id)
@@ -60,6 +60,7 @@ def get_comments(post_id: int, bearer_token: str = Depends(oauth2_scheme),):
                     "text":row[1],
                     "created_on":row[2],
                     "post_id":row[3],
+                    "commenter": str(row[4])
                 }
 
                 ds.append(d)
@@ -71,16 +72,16 @@ def new_comment(post_id: int, Comment: CommentIn, bearer_token: str = Depends(oa
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
-    print(username)
+    print("COMMENT USERNAME", username)
     with psycopg.connect("dbname=forum user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                INSERT INTO comment (comment_id, text, created_on, post_id)
-                VALUES (DEFAULT, %s, CURRENT_TIMESTAMP, %s)
-                RETURNING comment_id, text, created_on, post_id
+                INSERT INTO comment (comment_id, text, created_on, post_id, commenter)
+                VALUES (DEFAULT, %s, CURRENT_TIMESTAMP, %s, %s)
+                RETURNING comment_id, text, created_on, post_id, commenter
                 """,
-                [Comment.text, post_id]
+                [Comment.text, post_id, username]
             )
             conn.commit()
 
@@ -90,6 +91,7 @@ def new_comment(post_id: int, Comment: CommentIn, bearer_token: str = Depends(oa
                 "comment_id": new_comment[0],
                 "text": new_comment[1],
                 "created_on": new_comment[2],
-                "post_id": new_comment[3]
+                "post_id": new_comment[3],
+                "commenter": new_comment[4]
             }
             

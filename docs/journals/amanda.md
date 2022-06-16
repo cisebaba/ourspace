@@ -1,3 +1,11 @@
+# June 15, 2022
+Today I worked on:
+* Mitch helped me de-bug an issue with the PUT request in the mentorship service. I also got the frontend React portion working for showing the list of available mentorship opportunities. 
+
+With help from Mitch, I was able to figure out a few issues with my pydantic base models. First, I learned that these do not need to reflect every column in the database! I also learned how to import and use Union from the typing module so a value can be returned with either a string or a value of None. Thanks, Mitch! I was also pleased with how easy it was for me to create the React functional component for the list of mentorships. Now I just need to get the button working for this and we'll be golden. 
+
+My aha today was definitely in bolstering my understanding of how to properly use pydantic base models. I won't lie, I kind of miss using Django!
+
 # June 10, 2022
 Today I worked on:
 * Me and Rachael walked each other through the updates we've made over the last few days in the forum microservice and the mentorship microservice, and worked on getting the forum microservice hooked in with the account authorization piece. 
