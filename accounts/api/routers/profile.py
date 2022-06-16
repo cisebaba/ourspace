@@ -3,9 +3,9 @@ from fastapi import APIRouter, Response, status, Depends,HTTPException
 import psycopg
 from pydantic import BaseModel
 from typing import List
-from .users import User
+# from .users import User
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-# from .api import get_weather
+from .api import get_weather
 import os
 from jose import jwt
 
@@ -21,20 +21,20 @@ credentials_exception = HTTPException(
     )
 
 class ProfileIn(BaseModel):
-    firstname: str
-    lastname: str
     city: str
     state:str
     role: str
 
 class ProfileOut(BaseModel):
     id: int
-    firstname: str
-    lastname: str
     city: str
     state:str
     role: str
-    userid: User
+    userid: int
+    firstname:str | None
+    lastname:str | None
+    username: str
+    weather:dict
 
 class ErrorMessage(BaseModel):
     message: str
@@ -51,21 +51,22 @@ class Message(BaseModel):
         500: {"model": ErrorMessage},
     },
     )
-def profile_post(profile: ProfileOut,bearer_token: str = Depends(oauth2_scheme)):
+def profile_post(profile: ProfileIn,bearer_token: str = Depends(oauth2_scheme)):
     if bearer_token is None:
          raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
+    user = payload.get("user")
     with psycopg.connect("dbname=accounts user=ourspace") as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute(
                     """
-                    INSERT INTO profile (city, state, role)
-                    VALUES (%s, %s, %s)
-                    RETURNING id, city, state, role
+                    INSERT INTO profile (city, state, role, userid)
+                    VALUES (%s, %s, %s, %s)
+                    RETURNING id, city, state, role, userid
                     """,
-                    [profile.city, profile.state, profile.role],
+                    [profile.city, profile.state, profile.role, user["id"]],
                 )
             except psycopg.errors.UniqueViolation:
                 response.status_code = status.HTTP_409_CONFLICT
@@ -73,7 +74,12 @@ def profile_post(profile: ProfileOut,bearer_token: str = Depends(oauth2_scheme))
                     "message": "Could not create duplicate profile post",
                 }
             row = cur.fetchone()
-            record = {}
+            record = {
+                "firstname": user["firstname"],
+                "lastname":user["lastname"], 
+                "username": username
+                }
+
             for i, column in enumerate(cur.description):
                 record[column.name] = row[i]
             return record
@@ -87,35 +93,44 @@ def profile_post(profile: ProfileOut,bearer_token: str = Depends(oauth2_scheme))
     },
 )
 
-def mentor_list(bearer_token: str = Depends(oauth2_scheme),):
+def profile_list( bearer_token: str = Depends(oauth2_scheme)):
      print(bearer_token)
      if bearer_token is None:
          raise credentials_exception
      payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
      username = payload.get("sub")
-     print(username)
+     user = payload.get("user")
+     print(user)
      with psycopg.connect("dbname=accounts user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                select p.id, p.city, p.state, p.role, users.id
+                select p.id, p.city
+                , p.state
+                , p.role
+                , users.id
+                , users.firstname
+                , users.lastname
+                , users.username
                 from profile p
                 INNER JOIN users ON (users.id = p.userid)
-                WHERE p.id = %s;
-            """
+                WHERE users.id = %s;
+            """, [user["id"]]
             )
-# INNER JOIN categories ON (categories.id = c.category_id)
-#                 WHERE c.id = %s;
-            ds = []
-            for row in cur.fetchall():
-                d = {
-                    "id": row[0],
-                    "job_title":row[1],
-                    "description": row[2],
-                    "availability": row[3],
-                    "booked": row[4],
-                    "userid":row[5]
-                }
-                ds.append(d)
+            
+            row = cur.fetchone()
+            weather = get_weather.get_weather_data(row[1], row[2])
+            print(weather)
+            d = {
+                "id": row[0],
+                "city":row[1],
+                "state": row[2],
+                "role" : row[3],
+                "userid":user["id"],
+                "firstname":user["firstname"],
+                "lastname":user["lastname"],
+                "username":username,
+                "weather": weather
+            }
 
-            return ds
+            return d
