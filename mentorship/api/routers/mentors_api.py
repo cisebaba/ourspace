@@ -23,7 +23,7 @@ class MentorshipIn(BaseModel):
     job_title: str
     description: str
     availability: str
-    booked: bool
+    #booked: bool
 
 
 class MentorshipOut(BaseModel):
@@ -154,7 +154,6 @@ def get_mentorship(mentorship_id: int, bearer_token: str = Depends(oauth2_scheme
                 "mentor_username": str(row[5]),
                 "mentee_username": str(row[6])
             }
-            
             return record
 
 
@@ -163,7 +162,7 @@ def get_mentorship(mentorship_id: int, bearer_token: str = Depends(oauth2_scheme
     response_model=MentorshipOut,
     responses={404: {"model": ErrorMessage}},
 )
-def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, bearer_token: str = Depends(oauth2_scheme)):
+def update_mentorship(mentorship_id: int, bearer_token: str = Depends(oauth2_scheme)):
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -174,12 +173,13 @@ def update_mentorship(mentorship_id: int, mentorship: MentorshipIn, bearer_token
                 cur.execute(
                     """
                     UPDATE mentorship
-                    SET job_title = %s, description = %s, availability = %s, booked = %s, mentee_username = %s
+                    SET mentee_username = %s
                     WHERE id = %s;
                 """,
-                    [mentorship.job_title, mentorship.description, mentorship.availability, mentorship.booked, username, mentorship_id],
+                    [username, mentorship_id],
                 )
             except Exception as e:
+                print("EXCEPTION", e)
                 return e
 
             conn.commit()            
