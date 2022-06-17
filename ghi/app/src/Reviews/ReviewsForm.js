@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function ReviewForm() {
   const [stateReview, setStateReview] = useState({
@@ -17,8 +17,9 @@ function ReviewForm() {
   useEffect(() => {
     const getReviewData = async () => {
       const reviewsResponse = await fetch("http://localhost:8070/api/reviews/");
-      const reviewData = await reviewResponse.json();
-      setStateReview(reviewData.review);
+      const reviewData = await reviewsResponse.json();
+      setStateReview(reviewData[0]);
+      console.log("reviewData", reviewData)
     };
 
     getReviewData();
@@ -63,6 +64,10 @@ function ReviewForm() {
       });
     }
   };
+
+  const handleChange = e => {
+
+  }
 
   return (
     <div className="row">
