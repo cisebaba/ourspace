@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { UpvoteButton } from "../Upvotes/UpvoteButton";
 
-const PostListBody = ({ post }) => {
+const PostListBody = ({ post, setPost, token }) => {
   return (
     <div key={post.post_id} className="card mb-3 shadow">
       <div className="card-body">
@@ -19,14 +20,23 @@ const PostListBody = ({ post }) => {
         <NavLink to={"/posts/" + post.post_id}>
           <button>Comments</button>
         </NavLink>
-        <button>{post.upvote_count} upvotes</button>
+        <UpvoteButton
+          token={token}
+          postId={post.post_id}
+          upvoteCount={post.upvote_count}
+          setPostUpvoteCount={(postUpvoteCount) => {
+            let newPost = { ...post };
+            newPost.upvote_count = postUpvoteCount;
+            setPost(newPost);
+          }}
+        />
       </div>
     </div>
   );
 };
 
-const PostListDetail = ({ post }) => {
-  return <PostListBody post={post} />;
+const PostListDetail = ({ post, setPost, token }) => {
+  return <PostListBody post={post} setPost={setPost} token={token} />;
 };
 
 export default PostListDetail;

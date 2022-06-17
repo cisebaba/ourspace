@@ -9,6 +9,14 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 16, 2022
+
+Today I started working on the front end for the upvote button. It is so much harder than I thought! I had to change some sql statements to return the upvote count, and figuring out setting state for the button to add an upvote was very tough.
+
+For design, I am trying to figure out how to break apart different components and name and organize them in a logical way in react. I feel like the way things are named now is not very readable, but breaking down components is starting to feel better.
+
+My ah-ha! is that I need a lot more react practice!
+
 ## June 15, 2022
 
 Today I added upvoting post and delete api views! I also added a count for the post so you can see how many upvotes there are. Tomorrow I plan to implement the front end for this.

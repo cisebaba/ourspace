@@ -18,15 +18,21 @@ credentials_exception = HTTPException(
         headers={"WWW-Authenticate": "Bearer"},
     )
 
+class UpvoteDelete(BaseModel):
+    upvote_count: int
+
+
 class PostUpvote(BaseModel):
     post_upvote_id: int
     post_id: int
     upvoter: str
+    upvote_count: int 
 
 class CommentUpvote(BaseModel):
     comment_upvote_id: int
     comment_id: int
     upvoter: str
+    upvote_count: int
 
 class ErrorMessage(BaseModel):
     message: str
@@ -60,15 +66,24 @@ def upvote(post_id: int, bearer_token: str = Depends(oauth2_scheme)):
 
             upvote = cur.fetchone()
 
+            cur.execute(
+                """
+                Select count(*) from post_upvote where post_id = %s
+                """,
+                [post_id]
+            )
+            count = cur.fetchone()
+
             return {
                 "post_upvote_id": upvote[0],
                 "post_id": upvote[1],
                 "upvoter": upvote[2],
+                "upvote_count": count[0]
             }
 
 @router.delete(
     "/api/posts/{post_id}/upvote/", 
-    response_model=Message, 
+    response_model = UpvoteDelete, 
     responses={404: {"model": ErrorMessage}},
 )
 def remove_upvote(post_id: int, response: Response, bearer_token: str = Depends(oauth2_scheme)):
@@ -89,9 +104,23 @@ def remove_upvote(post_id: int, response: Response, bearer_token: str = Depends(
                     """,
                     [post_id, username]
                 )
+                # conn.commit()
+
+                cur.execute(
+                """
+                SELECT count(*) 
+                FROM post_upvote
+                WHERE post_upvote.post_id = %s
+                """,
+                [post_id],
+                )
+
+                count = cur.fetchone()
+
                 return {
-                        "message": "Success",
+                    "upvote_count": count[0]
                 }
+
             except psycopg.errors.ForeignKeyViolation:
                 response.status_code = status.HTTP_400_BAD_REQUEST
                 return {
