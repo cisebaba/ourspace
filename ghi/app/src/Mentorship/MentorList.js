@@ -17,6 +17,21 @@ function MentorList(props){
         getList();
     }, []);
 
+    const signUpClick = async (mentorshipId)=> {
+      console.log(mentorshipId)
+      const updateUrl = "http://localhost:8050/api/mentorship/"+mentorshipId;
+      const fetchConfigEvent = {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await fetch(updateUrl, fetchConfigEvent);
+      console.log(await response.json())
+    };
+
     return(
     <div className="col">
       {mentorships.map(mentorship => {
@@ -30,7 +45,7 @@ function MentorList(props){
               <p className="card-text">
                 Mentor Qualifications: {mentorship.job_title}
               </p>
-              <a href="#" className="btn btn-primary">Sign me up!</a>
+              <button onClick={signUpClick.bind(this, mentorship.id)} className="btn btn-primary">Sign me up!</button>
             </div>
             <div className="card-footer">
               Mentor: {mentorship.mentor_username}
