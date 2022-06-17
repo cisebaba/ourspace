@@ -1,4 +1,8 @@
 
+## Jun 16,2022
+Getting familiar with the errors! Today, I learned if I have 500 server error on the backend that could be cause an CORS error on the frontend. I am proud that I had that error! Today I worked on the Profile form on the frontend. It was smoother than I thought. After a long time with backend, I thought I forgot about React. Hello my old friend React! Good to see you again. I am planing to poll the data from Mentorship microsevice to Profile page and implement the data on the frontend tomorrow. 
+
+
 ## Jun 15,2022
 I worked on the Profile again and jump around user & profile that helps me more fluent on authorization part. Finally I finished backend getting the current profile details and the creating the profile part. The weather polling is working and attached with the profile information. 
 I feel like my debugging skills are improved since we started to this project from scratch. That make me feel good. When we were pair programming with Mitch today, I felt so good the moment that I know where to look about in any issue. 
