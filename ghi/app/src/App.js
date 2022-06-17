@@ -18,6 +18,7 @@ import ReviewsForm from "./Reviews/ReviewsForm";
 import ReviewsList from "./Reviews/ReviewsList";
 import MentorForm from "./Mentorship/MentorForm";
 import MentorList from "./Mentorship/MentorList";
+import ProfileForm from "./Auth/Profile/ProfileForm";
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -34,6 +35,8 @@ function App() {
             path="signup"
             element={<Signup token={token} signup={signup} />}
           />
+          {/* PROFILE  */}
+          <Route path="/profile/new" element={<ProfileForm token={token} />} />
           {/* EVENTS  */}
           <Route path="events" index element={<EventsList />} />
           <Route path="events/new" element={<EventForm token={token} />} />
@@ -41,6 +44,7 @@ function App() {
           <Route path="jobs" element={<JobsList />} />
           {/* MENTORSHIP */}
           <Route path="mentorship" element={<MentorList token={token} />} />
+          <Route path="mentorship/new" element={<MentorForm token={token} />} />
           {/* FORUM */}
           <Route path="forum" element={<ForumApp token={token} />} />
           <Route path="posts/:post_id" element={<PostDetail token={token} />} />

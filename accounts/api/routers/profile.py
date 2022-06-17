@@ -34,6 +34,9 @@ class ProfileOut(BaseModel):
     firstname:str | None
     lastname:str | None
     username: str
+
+
+class ProfileWithWeatherOut(ProfileOut):
     weather:dict
 
 class ErrorMessage(BaseModel):
@@ -87,7 +90,7 @@ def profile_post(profile: ProfileIn,bearer_token: str = Depends(oauth2_scheme)):
 
 @router.get(
     "/api/profile/",
-    response_model=ProfileOut,
+    response_model=ProfileWithWeatherOut,
     responses={
         404: {"model": ErrorMessage},
     },

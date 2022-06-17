@@ -1,3 +1,11 @@
+# June 16, 2022
+Today I worked on:
+* I finished the create form in React for the mentorship microservice. I also worked on the button functionality in the mentorship listings, to give the user the ability to sign up for an available offering. 
+
+The create a new mentorship form was fairly easy to implement and went a lot quicker than I expected! However, updating a mentorship instance when someone clicks the "Sign up" button ended up being a lot harder to implement than I thought. Mitch again helped me with debugging this part and with fixing some additional issues with how I was using the pydantic base model within the PUT request. 
+
+My aha today was realizing that anchor tag href links default to being a GET request. I needed to change the anchor tag on my mentor list page into a button, and then needed to create a function to use with "onClick" that handles the PUT request upon clicking the button. Whenever I think I'm getting more comfortable with pydantic, FastAPI, and React, I end up learning that there is still so much more that I have to learn about these. 
+
 # June 15, 2022
 Today I worked on:
 * Mitch helped me de-bug an issue with the PUT request in the mentorship service. I also got the frontend React portion working for showing the list of available mentorship opportunities. 
