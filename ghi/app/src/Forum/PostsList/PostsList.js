@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PostListDetail from "./ListBody";
-import DeleteUpvote from "../Upvotes/DeleteUpvote";
+import PostListDetail from "../Components/ListBody";
 
 //pass in current user id
 function PostsList(props) {
@@ -19,6 +18,7 @@ function PostsList(props) {
     };
     getPostsData();
   }, []);
+
   // above [] is blank cause you only want useeffect to happen once
 
   return (

@@ -20,6 +20,7 @@ credentials_exception = HTTPException(
 
 class UpvoteDelete(BaseModel):
     upvote_count: int
+    user_upvoted: int 
 
 
 class PostUpvote(BaseModel):
@@ -27,6 +28,7 @@ class PostUpvote(BaseModel):
     post_id: int
     upvoter: str
     upvote_count: int 
+    user_upvoted: int
 
 class CommentUpvote(BaseModel):
     comment_upvote_id: int
@@ -72,13 +74,26 @@ def upvote(post_id: int, bearer_token: str = Depends(oauth2_scheme)):
                 """,
                 [post_id]
             )
+
+            total = cur.fetchone()
+
+            cur.execute(
+                """
+                SELECT count(*) 
+                FROM post_upvote
+                WHERE post_upvote.post_id = %s and upvoter = %s
+                """,
+                [post_id, username],
+                )
+
             count = cur.fetchone()
 
             return {
                 "post_upvote_id": upvote[0],
                 "post_id": upvote[1],
                 "upvoter": upvote[2],
-                "upvote_count": count[0]
+                "upvote_count": total[0],
+                "user_upvoted": count[0]
             }
 
 @router.delete(
@@ -108,17 +123,26 @@ def remove_upvote(post_id: int, response: Response, bearer_token: str = Depends(
 
                 cur.execute(
                 """
-                SELECT count(*) 
-                FROM post_upvote
-                WHERE post_upvote.post_id = %s
+                Select count(*) from post_upvote where post_id = %s
                 """,
                 [post_id],
+                )
+
+                total = cur.fetchone()
+
+                cur.execute(
+                """
+                Select count(*) FROM post_upvote
+                WHERE post_upvote.post_id = %s and upvoter = %s
+                """,
+                [post_id, username],
                 )
 
                 count = cur.fetchone()
 
                 return {
-                    "upvote_count": count[0]
+                    "upvote_count": total[0], 
+                    "user_upvoted": count[0]
                 }
 
             except psycopg.errors.ForeignKeyViolation:

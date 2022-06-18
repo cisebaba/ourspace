@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import CommentList from "./CommentList";
+import { UpvoteButton } from "./Components/UpvoteButton";
 
 //DON"T PUT COMMENTS WITHIN COMPONENT BELOW HERE
 
-const PostDetailBody = ({ post }) => {
+const PostDetailBody = ({ post, setPost, token }) => {
   return (
     <div key={post.post_id} className="card mb-3 shadow">
       <div className="card-body">
@@ -15,6 +16,18 @@ const PostDetailBody = ({ post }) => {
           &nbsp; at {new Date(post.created_on).toLocaleTimeString()}
         </h6>
         <p className="card-text">{post.text}</p>
+        {/* <UpvoteButton
+          token={token}
+          postId={post.post_id}
+          upvoteCount={post.upvote_count}
+          userPostUpvoteCount={post.user_upvoted}
+          setPostUpvoteCount={(postUpvoteCount, userPostUpvoteCount) => {
+            let newPost = { ...post };
+            newPost.upvote_count = postUpvoteCount;
+            newPost.user_upvoted = userPostUpvoteCount;
+            setPost(newPost);
+          }} */}
+        />
       </div>
     </div>
   );
@@ -46,7 +59,7 @@ const PostDetail = (props) => {
 
   return (
     <>
-      <PostDetailBody post={postDetail} />
+      <PostDetailBody post={postDetail} token={token} />
       <CommentList token={token} />
     </>
   );

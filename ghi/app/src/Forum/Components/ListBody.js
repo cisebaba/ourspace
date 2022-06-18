@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { UpvoteButton } from "../Upvotes/UpvoteButton";
+import { UpvoteButton } from "./UpvoteButton";
 
 const PostListBody = ({ post, setPost, token }) => {
   return (
@@ -24,9 +24,11 @@ const PostListBody = ({ post, setPost, token }) => {
           token={token}
           postId={post.post_id}
           upvoteCount={post.upvote_count}
-          setPostUpvoteCount={(postUpvoteCount) => {
+          userPostUpvoteCount={post.user_upvoted}
+          setPostUpvoteCount={(postUpvoteCount, userPostUpvoteCount) => {
             let newPost = { ...post };
             newPost.upvote_count = postUpvoteCount;
+            newPost.user_upvoted = userPostUpvoteCount;
             setPost(newPost);
           }}
         />

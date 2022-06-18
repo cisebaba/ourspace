@@ -26,6 +26,8 @@ class Post(BaseModel):
     created_on: datetime
     author: str
     upvote_count: int
+    user_upvoted: int
+
 
 class PostIn(BaseModel):
     title: str
@@ -52,9 +54,12 @@ def posts_list(bearer_token: str = Depends(oauth2_scheme),):
             cur.execute(
                 """
                 SELECT post_id, title, text, created_on, author,
-                (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count
+                (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count,
+                (select count(*) from post_upvote where post_upvote.post_id = post.post_id and upvoter = %s)
+
                 FROM post
                 """,
+                [username],
             )
 
             ds = []
@@ -65,7 +70,8 @@ def posts_list(bearer_token: str = Depends(oauth2_scheme),):
                     "text":row[2],
                     "created_on":row[3],
                     "author": str(row[4]), 
-                    "upvote_count": row[5]
+                    "upvote_count": row[5], 
+                    "user_upvoted": row[6],
                 }
 
                 ds.append(d)
@@ -88,13 +94,15 @@ def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2
             cur.execute(
                 """
                 SELECT post_id, title, text, created_on, author, 
-                (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count
+                (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count, 
+                (select count(*) from post_upvote where post_upvote.post_id = post.post_id and upvoter = %s)
                 FROM post
                 WHERE post_id = %s
             """,
-                [post_id],
+                [username, post_id],
             )
             row = cur.fetchone()
+            print(row, "THIS IS CHECKING COUNT FOR UPVOTES")
             if row is None:
                 response.status_code = status.HTTP_404_NOT_FOUND
                 return {"message": "Category not found"}
@@ -104,7 +112,8 @@ def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2
                 "text":row[2],
                 "created_on":row[3], 
                 "author": str(row[4]), 
-                "upvote_count": row[5]
+                "upvote_count": row[5],
+                "user_upvoted": row[6]
             }
             return detail
 
@@ -141,5 +150,6 @@ def new_post(Post: PostIn, bearer_token: str = Depends(oauth2_scheme)):
 		        "text": new_post[2],
 		        "created_on": new_post[3],
                 "author": new_post[4],
-                "upvote_count": 0
+                "upvote_count": 0, 
+                "user_upvoted": 0
             }
