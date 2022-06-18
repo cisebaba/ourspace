@@ -1,4 +1,18 @@
 
+## Jun 16,2022
+Getting familiar with the errors! Today, I learned if I have 500 server error on the backend that could be cause an CORS error on the frontend. I am proud that I had that error! Today I worked on the Profile form on the frontend. It was smoother than I thought. After a long time with backend, I thought I forgot about React. Hello my old friend React! Good to see you again. I am planing to poll the data from Mentorship microsevice to Profile page and implement the data on the frontend tomorrow. 
+
+
+## Jun 15,2022
+I worked on the Profile again and jump around user & profile that helps me more fluent on authorization part. Finally I finished backend getting the current profile details and the creating the profile part. The weather polling is working and attached with the profile information. 
+I feel like my debugging skills are improved since we started to this project from scratch. That make me feel good. When we were pair programming with Mitch today, I felt so good the moment that I know where to look about in any issue. 
+
+
+## Jun 13,2022
+Users are going to add their location so why don't we show the weather on their profile page. Like we did on the conference-go app out external weather api was unlimited. I've set some things up on the account directory. I think that will be a good thing to show people how the weather is in their location. It is not working yet but shouldn't be that hard. 
+After meeting with Curtis I feel more clear on the attaching tables in the same schema. I used Inner Join to join tables via userid . That was great practice to work on the databases. 
+
+
 ## Jun 10,2022
 Today, I've started to work o Profile backend alone. My first goal was adding firstname and lastname on the signup page. After a log demonstration with Curtis the other was helped me to understand the concept of authorization so it didn't take long time to figure it out. Our project time was limited so couldn't finish and test the profile backend but it is ready to test drive. 
 While I was working on the Profile, some questions appeared in my mind. We decided to keep sign-up page simple and make the profile in a different table. The profile table has the references from userid, firstname, lastname. The other microservices are planing to filter the data by the user's role or location. Since the authentication set up helped the microservices to get the username without polling, I feel like we should keep it one single table on the users information form and get rid off the unnecessary polling step. 

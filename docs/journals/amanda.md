@@ -1,3 +1,19 @@
+# June 16, 2022
+Today I worked on:
+* I finished the create form in React for the mentorship microservice. I also worked on the button functionality in the mentorship listings, to give the user the ability to sign up for an available offering. 
+
+The create a new mentorship form was fairly easy to implement and went a lot quicker than I expected! However, updating a mentorship instance when someone clicks the "Sign up" button ended up being a lot harder to implement than I thought. Mitch again helped me with debugging this part and with fixing some additional issues with how I was using the pydantic base model within the PUT request. 
+
+My aha today was realizing that anchor tag href links default to being a GET request. I needed to change the anchor tag on my mentor list page into a button, and then needed to create a function to use with "onClick" that handles the PUT request upon clicking the button. Whenever I think I'm getting more comfortable with pydantic, FastAPI, and React, I end up learning that there is still so much more that I have to learn about these. 
+
+# June 15, 2022
+Today I worked on:
+* Mitch helped me de-bug an issue with the PUT request in the mentorship service. I also got the frontend React portion working for showing the list of available mentorship opportunities. 
+
+With help from Mitch, I was able to figure out a few issues with my pydantic base models. First, I learned that these do not need to reflect every column in the database! I also learned how to import and use Union from the typing module so a value can be returned with either a string or a value of None. Thanks, Mitch! I was also pleased with how easy it was for me to create the React functional component for the list of mentorships. Now I just need to get the button working for this and we'll be golden. 
+
+My aha today was definitely in bolstering my understanding of how to properly use pydantic base models. I won't lie, I kind of miss using Django!
+
 # June 10, 2022
 Today I worked on:
 * Me and Rachael walked each other through the updates we've made over the last few days in the forum microservice and the mentorship microservice, and worked on getting the forum microservice hooked in with the account authorization piece. 

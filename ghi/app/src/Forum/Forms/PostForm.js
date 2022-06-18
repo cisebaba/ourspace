@@ -13,7 +13,7 @@ function PostForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = statePost;
-    console.log("dataforpost", data);
+
     const new_post = {
       post_id: data.post_id,
       title: data.title,
@@ -21,8 +21,6 @@ function PostForm(props) {
       created_on: data.created_on,
       author: data.author,
     };
-
-    console.log(new_post);
 
     const postsUrl = "http://localhost:8090/api/posts/";
     const fetchConfigEvent = {
