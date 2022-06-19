@@ -16,7 +16,7 @@ const PostDetailBody = ({ post, setPost, token }) => {
           &nbsp; at {new Date(post.created_on).toLocaleTimeString()}
         </h6>
         <p className="card-text">{post.text}</p>
-        {/* <UpvoteButton
+        <UpvoteButton
           token={token}
           postId={post.post_id}
           upvoteCount={post.upvote_count}
@@ -26,7 +26,7 @@ const PostDetailBody = ({ post, setPost, token }) => {
             newPost.upvote_count = postUpvoteCount;
             newPost.user_upvoted = userPostUpvoteCount;
             setPost(newPost);
-          }} */}
+          }}
         />
       </div>
     </div>
@@ -59,7 +59,7 @@ const PostDetail = (props) => {
 
   return (
     <>
-      <PostDetailBody post={postDetail} token={token} />
+      <PostDetailBody post={postDetail} token={token} setPost={setPostDetail} />
       <CommentList token={token} />
     </>
   );
