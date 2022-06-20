@@ -9,6 +9,14 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 17, 2022
+
+Today I got the upvote working in react in the detail view and list view! Yay!
+
+For design, I am going to try to reorginize the file structure of my react components and try to break some down into smaller pieces.
+
+My ah-ha is that react is SO HARD. I don't have a great understanding of how different components render other components yet, but I am getting there. I also have been reminded that I can return a lot of information from a sql query but not need to put that info in the table.
+
 ## June 16, 2022
 
 Today I started working on the front end for the upvote button. It is so much harder than I thought! I had to change some sql statements to return the upvote count, and figuring out setting state for the button to add an upvote was very tough.

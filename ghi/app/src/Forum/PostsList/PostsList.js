@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import PostListDetail from "./ListBody";
-import DeleteUpvote from "../Upvotes/DeleteUpvote";
+import PostListDetail from "../Components/ListBody";
+import { getPosts } from "../Api/GetPostsData";
 
 //pass in current user id
 function PostsList(props) {
@@ -8,18 +8,12 @@ function PostsList(props) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const getPostsData = async () => {
-      const postsResponse = await fetch("http://localhost:8090/api/posts/", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      const postsData = await postsResponse.json();
-      setPosts(postsData);
-    };
-    getPostsData();
+    async function initializePosts() {
+      let posts = await getPosts({ token: token });
+      setPosts(posts);
+    }
+    initializePosts();
   }, []);
-  // above [] is blank cause you only want useeffect to happen once
 
   return (
     <div className="col">
