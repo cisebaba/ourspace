@@ -58,6 +58,7 @@ class AverageOut(BaseModel):
     flexibility_average: int
 
 
+
 class ReviewList(BaseModel):
     __root__: List[AverageOut]
 

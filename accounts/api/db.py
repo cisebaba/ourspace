@@ -20,6 +20,7 @@ class AccountsQueries:
                 """
                 )
                 for user in cur.fetchall():
+    
                     if user[1] == username:
                         user_dict = {
                             "id": user[0],
@@ -42,11 +43,11 @@ class AccountsQueries:
                 try:
                     cur.execute(
                         """
-                        INSERT INTO users (username, firstname,lastname,password, email)
+                        INSERT INTO users (username, password, email, firstname, lastname)
                         VALUES (%s, %s, %s, %s, %s)
-                        RETURNING username,firstname,lastname, password, email
+                        RETURNING username, password, email, firstname, lastname
                         """,
-                        [username, firstname, lastname, hashed_password, email],
+                        [username, hashed_password, email, firstname, lastname],
                     )
                 except psycopg.errors.UniqueViolation:
                     raise DuplicateAccount()               

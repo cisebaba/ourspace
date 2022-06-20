@@ -85,9 +85,6 @@ function Nav(props) {
             <NavLink className="dropdown-item" to="mentorship" role="button">
               Mentorship
             </NavLink>
-            <NavLink className="dropdown-item" to="mentorship/new" role="button">
-              New Mentorship
-            </NavLink>
           </ul>
         </div>
       </div>
