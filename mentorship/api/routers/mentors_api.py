@@ -100,9 +100,10 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme)):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                select m.id, m.job_title, m.description, m.availability, m.booked, 
+                SELECT m.id, m.job_title, m.description, m.availability, m.booked, 
                     m.mentor_username, m.mentee_username
-                from mentorship m
+                FROM mentorship m
+                WHERE m.mentee_username IS null
             """
             )
 
@@ -114,8 +115,8 @@ def mentor_list(bearer_token: str = Depends(oauth2_scheme)):
                     "description": row[2],
                     "availability": row[3],
                     "booked": row[4],
-                    "mentor_username": str(row[5]),
-                    "mentee_username": str(row[6])
+                    "mentor_username": row[5],
+                    "mentee_username": row[6]
                 }
                 ds.append(d)
 
