@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
 
 function PostForm(props) {
   const token = props.token;

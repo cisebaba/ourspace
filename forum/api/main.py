@@ -22,4 +22,3 @@ app.add_middleware(
 app.include_router(posts.router)
 app.include_router(comments.router)
 app.include_router(upvotes.router)
-app.include_router(test_posts.router)

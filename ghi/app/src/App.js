@@ -9,7 +9,7 @@ import Signup from "./Auth/Signup";
 import Logout from "./Auth/Logout";
 import { useToken } from "./authApi";
 import JobsList from "./Jobs/JobsList";
-// import PostsList from "./Forum/Components/PostsList";
+import PostsList from "./Forum/Components/PostsList";
 import PostForm from "./Forum/Api/Forms/PostForm";
 import ListView from "./Forum/Views/ListView";
 import DetailView from "./Forum/Views/DetailView";
@@ -52,7 +52,7 @@ function App() {
             path="posts/:post_id/comment/form"
             element={<CommentForm token={token} />}
           />
-          {/* <Route path="posts" element={<PostsList token={token} />} /> */}
+          <Route path="posts" element={<PostsList token={token} />} />
           <Route path="posts/new" element={<PostForm token={token} />} />
           REVIEWS
           <Route path="reviews/new" element={<ReviewsForm token={token} />} />
