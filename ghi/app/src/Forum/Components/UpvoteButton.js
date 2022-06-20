@@ -59,7 +59,7 @@ export function UpvoteButton({
       onClick={userPostUpvoteCount <= 0 ? AddUpvote : DeleteUpvote}
     >
       {" "}
-      {upvoteCount} votes
+      {upvoteCount} upvotes
     </button>
   );
 }

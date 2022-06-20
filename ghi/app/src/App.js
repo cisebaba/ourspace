@@ -9,10 +9,10 @@ import Signup from "./Auth/Signup";
 import Logout from "./Auth/Logout";
 import { useToken } from "./authApi";
 import JobsList from "./Jobs/JobsList";
-import PostsList from "./Forum/PostsList/PostsList";
+// import PostsList from "./Forum/Components/PostsList";
 import PostForm from "./Forum/Api/Forms/PostForm";
-import ForumApp from "./Forum/ForumApp";
-import PostDetail from "./Forum/PostDetail";
+import ListView from "./Forum/Views/ListView";
+import DetailView from "./Forum/Views/DetailView";
 import CommentForm from "./Forum/Api/Forms/CommentForm";
 import ReviewsForm from "./Reviews/ReviewsForm";
 import ReviewsList from "./Reviews/ReviewsList";
@@ -46,13 +46,13 @@ function App() {
           <Route path="mentorship" element={<MentorList token={token} />} />
           <Route path="mentorship/new" element={<MentorForm token={token} />} />
           {/* FORUM */}
-          <Route path="forum" element={<ForumApp token={token} />} />
-          <Route path="posts/:post_id" element={<PostDetail token={token} />} />
+          <Route path="forum" element={<ListView token={token} />} />
+          <Route path="posts/:post_id" element={<DetailView token={token} />} />
           <Route
             path="posts/:post_id/comment/form"
             element={<CommentForm token={token} />}
           />
-          <Route path="posts" element={<PostsList token={token} />} />
+          {/* <Route path="posts" element={<PostsList token={token} />} /> */}
           <Route path="posts/new" element={<PostForm token={token} />} />
           REVIEWS
           <Route path="reviews/new" element={<ReviewsForm token={token} />} />
