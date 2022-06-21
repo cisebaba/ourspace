@@ -32,6 +32,16 @@ CREATE TABLE profile (
     userid INT REFERENCES users(id)
 );
 
+CREATE TABLE mentorshipVO(
+    id SERIAL NOT NULL PRIMARY KEY,
+    job_title VARCHAR(200) NOT NULL,
+    description TEXT NOT NULL,
+    availability VARCHAR(500) NOT NULL,
+    mentor_username VARCHAR(100),
+    mentee_username VARCHAR(100) 
+);
+
+ALTER TABLE mentorshipVO OWNER TO ourspace;
 ALTER TABLE users OWNER TO ourspace;
 ALTER TABLE profile OWNER TO ourspace;
 

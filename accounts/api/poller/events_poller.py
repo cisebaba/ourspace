@@ -10,20 +10,20 @@
 
 # from profile import MentorshipVo
 
-# def get_mentorship():
-#     response = requests.get("http://mentorship:8000/api/mentorship/")
+# def get_events():
+#     response = requests.get("http://events:8000/api/events/")
 #     content = json.loads(response.content)
 #     print(content)
-#     for mentor in content["mentorship"]:
-#         MentorshipVo.objects.update_or_create(
-#             import_href=mentor["href"],
+#     for event in content["events"]:
+#         EventsVo.objects.update_or_create(
+#             import_href=event["href"],
 #             defaults={
-#                 "job_title":mentor["job_title"],
-#                 "description": mentor["description"],
-#                 "availability": mentor["availability"],
-#                 "booked": mentor["booked"],
-#                 "mentor_username": mentor["mentor_username"],
-#                 "mentee_username": mentor["mentee_username"]
+#               "name": "OurSpace",
+                # "starts": event["starts"],
+                # "ends": event["ends"],
+                # "description": event["description"],
+                # "location": {
+                #     "state": location["state"],
 #             },
 #         )
 
@@ -32,7 +32,7 @@
 #         print('Service poller polling for data')
 #         try:
 #             # Write your polling logic, here
-#             get_mentorship()
+#             get_events()
 #             # pass
 #         except Exception as e:
 #             print(e, file=sys.stderr)

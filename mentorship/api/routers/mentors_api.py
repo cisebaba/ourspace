@@ -145,3 +145,54 @@ def remove_mentorship(mentorship_id: int, response: Response):
                 return {
                     "message": "Cannot delete mentorship",
                 }
+
+
+@router.get(
+    "/api/mentorship/",
+    response_model=MentorshipList,
+    responses={
+        404: {"model": ErrorMessage},
+    },
+)
+def mentor_list(query=Depends(MentorshipQueries), bearer_token: str = Depends(oauth2_scheme)):
+    if bearer_token is None:
+         raise credentials_exception
+    rows = query.get_all_mentorships()
+    return rows
+
+
+@router.get(
+    "/api/mentorship_poller/",
+    response_model=MentorshipOut,
+    responses={404: {"model": ErrorMessage}},
+)
+def get_mentorship_poller():
+    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT m.id, m.job_title, m.description, m.availability,
+                        m.mentor_username, m.mentee_username
+                    FROM mentorship m
+                """
+                )
+
+                # if row is None:
+                #     Response.status_code = status.HTTP_404_NOT_FOUND
+                #     return {"message": "Mentorship not found"}
+
+                ds = []
+                for row in cur.fetchall():
+                    d = {
+                        "id": row[0],
+                        "job_title":row[1],
+                        "description": row[2],
+                        "availability": row[3],
+                        "mentor_username": row[4],
+                        "mentee_username": row[5]
+                    }
+                    ds.append(d)
+
+                return ds
+
+    

@@ -5,8 +5,7 @@ from pydantic import BaseModel
 from typing import List, Union
 # from .users import User
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from .api import get_weather
-# , mentorship_poller
+from poller import get_weather
 import os
 from jose import jwt
 
@@ -20,13 +19,22 @@ credentials_exception = HTTPException(
         detail="Invalid authentication credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-class MentorshipVo(BaseModel):
+
+
+class MentorshipVO(BaseModel):
     job_title: str
     description: str
     availability: str
     booked: bool
     mentor_username: str
     mentee_username: Union[str, None]
+
+class EventsVo(BaseModel):
+    name: str
+    starts: int
+    ends: int
+    description:str
+    location: dict
 
 class ProfileIn(BaseModel):
     city: str
@@ -105,13 +113,13 @@ def profile_post(profile: ProfileIn,bearer_token: str = Depends(oauth2_scheme)):
 )
 
 def profile_list( bearer_token: str = Depends(oauth2_scheme)):
-     print("bearer =>",bearer_token)
+    #  print("bearer =>",bearer_token)
      if bearer_token is None:
          raise credentials_exception
      payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
      username = payload.get("sub")
      user = payload.get("user")
-     print(user)
+    #  print(user)
      with psycopg.connect("dbname=accounts user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
@@ -131,7 +139,7 @@ def profile_list( bearer_token: str = Depends(oauth2_scheme)):
             
             row = cur.fetchone()
             weather = get_weather.get_weather_data(row[1], row[2])
-            print("WEATHER",weather)
+            # print("WEATHER",weather)
             d = {
                 "id": row[0],
                 "city":row[1],
@@ -143,45 +151,42 @@ def profile_list( bearer_token: str = Depends(oauth2_scheme)):
                 "username":username,
                 "weather": weather
             }
-            print(d)
+            # print(d)
 
             return d
 
 
 
-# @router.get(
-#     "/api/mentorship/",
-#     response_model=MentorshipVo,
-#     responses={
-#         404: {"model": ErrorMessage},
-#     },
-# )
+@router.get(
+    "/profile/mentorship/",
+    response_model=list[MentorshipVO],
+    responses={
+        404: {"model": ErrorMessage},
+    },
+)
+def mentor_list():
+     with psycopg.connect("dbname=accounts user=ourspace") as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT m.id, m.job_title, m.description, m.availability, 
+                    m.mentor_username, m.mentee_username
+                FROM mentorshipVO m
+            """
+            )
 
-# def mentor_list(bearer_token: str = Depends(oauth2_scheme)):
-#      if bearer_token is None:
-#          raise credentials_exception
+            ds = []
+            for row in cur.fetchall():
+                d = {
+                    "job_title":row[1],
+                    "description": row[2],
+                    "availability": row[3],
+                    "mentor_username": row[4],
+                    "mentee_username": row[5]
+                }
+                ds.append(d)
+                print(ds)
 
-#      with psycopg.connect(get_mentorship()) as conn:
-#         with conn.cursor() as cur:
-#             cur.execute(
-#                 """
-#                 SELECT m.id, m.job_title, m.description, m.availability, m.booked, 
-#                     m.mentor_username, m.mentee_username
-#                 FROM mentorship m
-#                 WHERE m.mentee_username IS null
-#             """
-#             )
+            return ds
 
-#             ds = []
-#             for row in cur.fetchall():
-#                 d = {
-#                     "job_title":row[1],
-#                     "description": row[2],
-#                     "availability": row[3],
-#                     "booked": row[4],
-#                     "mentor_username": row[5],
-#                     "mentee_username": row[6]
-#                 }
-#                 ds.append(d)
 
-#             return ds

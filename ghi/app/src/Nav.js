@@ -13,11 +13,9 @@ function Nav(props) {
         const user = await response.json();
         setUser(user);
       }
-    };
-    if(token){
-      getMe();
     }
-},[token]);
+    getMe()
+},[]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">

@@ -5,6 +5,7 @@ import MentorForm from "./MentorForm";
 
 function MentorList(props){
     const token = props.token;
+    console.log("props",props)
     const [mentorships, setMentorships] = useState([]);
     const [successMessage, setSuccessMessage] = useState();
 
