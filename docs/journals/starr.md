@@ -5,6 +5,100 @@
 * A reflection on any design conversations that you had
 * At least one ah-ha! moment that you had during your coding, however small
 
+# June 17, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        I worked on the events user authentication on the backend today. I originally expected this to be a relatively simple task since we have already implemented the user authentication into the other features but unfortunately I ran into some road blocks. We used Django to build the backend of the events and I am not sure what I need to do to get the authentication to work. I rewatched previous videos we have over the user auth but I wasn't able to get anywhere with that. 
+        </li> 
+    </ul> 
+    <br></br>
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        I am currently thinking the auth needs to go into the models.py or maybe the admin but I'm also curious to if it need to be implemented into the project level instead of the application because I want the scope of auth to expand over the entire application. 
+        </li> 
+    </ul>
+    <br></br>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        No real ah-ha moments today, mostly just frustrated with the authentication. I guess that could be an ah-ha moment, the realization that I still have so much to learn. 
+        </li>
+    </ul>
+</ul>
+
+# June 16, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        </li> 
+    </ul> 
+    <br></br>
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+    <br></br>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
+
+
+# June 15, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        </li> 
+    </ul> 
+    <br></br>
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+    <br></br>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
+
+
+
+# June 11, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        </li> 
+    </ul> 
+    <br></br>
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+    <br></br>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
+
+
 # June 10, 2022
 <ul>
 <li> Features/Issues Worked On : </li>
