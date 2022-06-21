@@ -46,7 +46,7 @@ function App() {
           <Route path="mentorship" element={<MentorList token={token} />} />
           <Route path="mentorship/new" element={<MentorForm token={token} />} />
           {/* FORUM */}
-          <Route path="forum" element={<ForumApp token={token} />} />
+          {/* <Route path="forum" element={<ForumApp token={token} />} /> */}
           <Route path="posts/:post_id" element={<PostDetail token={token} />} />
           <Route
             path="posts/:post_id/comment/form"
