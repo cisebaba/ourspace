@@ -45,8 +45,8 @@ function App() {
           {/* JOBS */}
           <Route path="jobs" element={<JobsList />} />
           {/* MENTORSHIP */}
-          <Route path="mentorship" element={<MentorList token={token} />} />
-          <Route path="mentorship/new" element={<MentorForm token={token} />} />
+          {/* <Route path="mentorship" element={<MentorList token={token} />} />
+          <Route path="mentorship/new" element={<MentorForm token={token} />} /> */}
           {/* FORUM */}
           <Route path="forum" element={<ListView token={token} />} />
           <Route path="posts/:post_id" element={<DetailView token={token} />} />
