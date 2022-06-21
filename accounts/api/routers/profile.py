@@ -37,7 +37,7 @@ class ProfileOut(BaseModel):
 
 
 class ProfileWithWeatherOut(ProfileOut):
-    weather:dict
+    weather:dict|None
 
 class ErrorMessage(BaseModel):
     message: str
@@ -97,7 +97,7 @@ def profile_post(profile: ProfileIn,bearer_token: str = Depends(oauth2_scheme)):
 )
 
 def profile_list( bearer_token: str = Depends(oauth2_scheme)):
-     print(bearer_token)
+     print("bearer =>",bearer_token)
      if bearer_token is None:
          raise credentials_exception
      payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -135,5 +135,6 @@ def profile_list( bearer_token: str = Depends(oauth2_scheme)):
                 "username":username,
                 "weather": weather
             }
+            print(d)
 
             return d

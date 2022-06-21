@@ -2,13 +2,22 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { UpvoteButton } from "./UpvoteButton";
 
-const PostListBody = ({ post, setPost, token }) => {
+const PostBody = ({ post, setPost, token, showNavLinks }) => {
   return (
     <div key={post.post_id} className="card mb-3 shadow">
       <div className="card-body">
         <h5 className="card-title">
           {" "}
-          <NavLink to={"/posts/" + post.post_id}>{post.title}</NavLink>
+          {showNavLinks ? (
+            <NavLink to={"/posts/" + post.post_id}>{post.title}</NavLink>
+          ) : (
+            <>
+              <div className="card-title">
+                <NavLink to={"/posts/new/"}>Create new post</NavLink>
+              </div>
+              <h2 className="card-header">{post.title}</h2>
+            </>
+          )}
         </h5>
         <h6 className="card-subtitle mb-2 text-muted">
           Created on:&nbsp;
@@ -17,9 +26,11 @@ const PostListBody = ({ post, setPost, token }) => {
         <p className="card-text">{post.text}</p>
       </div>
       <div className="card-footer">
-        <NavLink to={"/posts/" + post.post_id}>
-          <button>Comments</button>
-        </NavLink>
+        {showNavLinks ? (
+          <NavLink to={"/posts/" + post.post_id}>Comments</NavLink>
+        ) : (
+          ""
+        )}
         <UpvoteButton
           token={token}
           postId={post.post_id}
@@ -37,8 +48,4 @@ const PostListBody = ({ post, setPost, token }) => {
   );
 };
 
-const PostListDetail = ({ post, setPost, token }) => {
-  return <PostListBody post={post} setPost={setPost} token={token} />;
-};
-
-export default PostListDetail;
+export default PostBody;

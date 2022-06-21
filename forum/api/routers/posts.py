@@ -40,6 +40,36 @@ class PostList(BaseModel):
 class Message(BaseModel):
     message:str
 
+class PostQueries():
+    def get_post(self, username, post_id):
+        with psycopg.connect() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT post_id, title, text, created_on, author, 
+                    (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count, 
+                    (select count(*) from post_upvote where post_upvote.post_id = post.post_id and upvoter = %s)
+                    FROM post
+                    WHERE post_id = %s
+                """,
+                    [username, post_id],
+                )
+                row = cur.fetchone()
+                print(row, "THIS IS CHECKING COUNT FOR UPVOTES")
+                if row is None:
+                    return None
+                detail = {
+                    "post_id":row[0],
+                    "title":row[1],
+                    "text":row[2],
+                    "created_on":row[3], 
+                    "author": str(row[4]), 
+                    "upvote_count": row[5],
+                    "user_upvoted": row[6]
+                }
+                return detail
+
+
 
 @router.get("/api/posts/", response_model = PostList)
 def posts_list(bearer_token: str = Depends(oauth2_scheme),):
@@ -79,43 +109,22 @@ def posts_list(bearer_token: str = Depends(oauth2_scheme),):
 
 @router.get(
     "/api/posts/{post_id}", 
-    response_model=Post,
+    response_model=Post | Message,
     responses={404: {"model": Message}},
 )
-def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2_scheme)):
+def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2_scheme), queries: PostQueries=Depends()):
     print(bearer_token)
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
-    print(username)
-    with psycopg.connect() as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                """
-                SELECT post_id, title, text, created_on, author, 
-                (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count, 
-                (select count(*) from post_upvote where post_upvote.post_id = post.post_id and upvoter = %s)
-                FROM post
-                WHERE post_id = %s
-            """,
-                [username, post_id],
-            )
-            row = cur.fetchone()
-            print(row, "THIS IS CHECKING COUNT FOR UPVOTES")
-            if row is None:
-                response.status_code = status.HTTP_404_NOT_FOUND
-                return {"message": "Category not found"}
-            detail = {
-                "post_id":row[0],
-                "title":row[1],
-                "text":row[2],
-                "created_on":row[3], 
-                "author": str(row[4]), 
-                "upvote_count": row[5],
-                "user_upvoted": row[6]
-            }
-            return detail
+    post = queries.get_post(username, post_id)
+    if post is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "Category not found"}
+    else:
+        return post
+            
 
 
 

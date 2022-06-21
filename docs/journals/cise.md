@@ -1,4 +1,8 @@
 
+## Jun 17,2022
+Today I worked on the Profile Page. After figuring out the token issue with Curtis. I was able to implement current weather data related with users location. It was such a proud moment for me. I am working on to create if else statements on the weather conditions to make it more personalized profile page. 
+I am trying to improve my frontend skills with adding different features on Profile Page. I am gonna challenge myself with selecting avatar image and changing the weather icon according to weather description. It will be a long weekend! Let's go!
+
 ## Jun 16,2022
 Getting familiar with the errors! Today, I learned if I have 500 server error on the backend that could be cause an CORS error on the frontend. I am proud that I had that error! Today I worked on the Profile form on the frontend. It was smoother than I thought. After a long time with backend, I thought I forgot about React. Hello my old friend React! Good to see you again. I am planing to poll the data from Mentorship microsevice to Profile page and implement the data on the frontend tomorrow. 
 

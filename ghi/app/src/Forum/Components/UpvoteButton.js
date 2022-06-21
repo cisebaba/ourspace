@@ -40,12 +40,12 @@ export function UpvoteButton({
     let responseJson = await response.json();
 
     //debugger;
-    console.log(responseJson);
+
     if (response.ok) {
       setPostUpvoteCount(responseJson.upvote_count, responseJson.user_upvoted);
     }
   }
-  console.log(userPostUpvoteCount);
+
   if (postId == 1) {
     //debugger;
   }
@@ -59,7 +59,7 @@ export function UpvoteButton({
       onClick={userPostUpvoteCount <= 0 ? AddUpvote : DeleteUpvote}
     >
       {" "}
-      {upvoteCount} votes
+      {upvoteCount} upvotes
     </button>
   );
 }
