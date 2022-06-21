@@ -8,7 +8,6 @@ function MentorForm(props) {
     description: "",
     job_title: "",
     availability: "",
-    booked: "",
     mentor_username: "",
   });
 
@@ -19,7 +18,6 @@ function MentorForm(props) {
         description: data.description,
         job_title: data.job_title,
         availability: data.availability,
-        booked: data.booked,
         mentor_username: data.mentor_username,
     };
 
@@ -40,7 +38,6 @@ function MentorForm(props) {
         description: "",
         job_title: "",
         availability: "",
-        booked: "",
         mentor_username: "",
       });
       setSuccessMessage(true);
@@ -101,7 +98,7 @@ function MentorForm(props) {
               />
               <label htmlFor="availability">Mentor's Availability</label>
             </div>
-            <button className="btn btn-primary">Create</button>
+            <button className="btn btn-primary">Signup as a Mentor</button>
             {(successMessage === true) ? <SuccessMessage /> : <></>}
           </form>
         </div>
