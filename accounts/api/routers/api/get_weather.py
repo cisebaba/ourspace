@@ -33,6 +33,7 @@ def get_weather_data(city, state):
 
     try:
         return {
+            "main":content["weather"][0]["main"],
             "description": content["weather"][0]["description"],
             "temp": content["main"]["temp"],
         }

@@ -2,10 +2,10 @@
 from fastapi import APIRouter, Response, status, Depends,HTTPException
 import psycopg
 from pydantic import BaseModel
-from typing import List
+from typing import List, Union
 # from .users import User
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from .api import get_weather
+from .api import get_weather, mentorship_poller
 import os
 from jose import jwt
 
@@ -19,6 +19,13 @@ credentials_exception = HTTPException(
         detail="Invalid authentication credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+class MentorshipVo(BaseModel):
+    job_title: str
+    description: str
+    availability: str
+    booked: bool
+    mentor_username: str
+    mentee_username: Union[str, None]
 
 class ProfileIn(BaseModel):
     city: str
@@ -123,7 +130,7 @@ def profile_list( bearer_token: str = Depends(oauth2_scheme)):
             
             row = cur.fetchone()
             weather = get_weather.get_weather_data(row[1], row[2])
-            print(weather)
+            print("WEATHER",weather)
             d = {
                 "id": row[0],
                 "city":row[1],
@@ -138,3 +145,42 @@ def profile_list( bearer_token: str = Depends(oauth2_scheme)):
             print(d)
 
             return d
+
+
+
+@router.get(
+    "/api/mentorship/",
+    response_model=MentorshipVo,
+    responses={
+        404: {"model": ErrorMessage},
+    },
+)
+
+def mentor_list(bearer_token: str = Depends(oauth2_scheme)):
+     if bearer_token is None:
+         raise credentials_exception
+
+     with psycopg.connect(get_mentorship()) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT m.id, m.job_title, m.description, m.availability, m.booked, 
+                    m.mentor_username, m.mentee_username
+                FROM mentorship m
+                WHERE m.mentee_username IS null
+            """
+            )
+
+            ds = []
+            for row in cur.fetchall():
+                d = {
+                    "job_title":row[1],
+                    "description": row[2],
+                    "availability": row[3],
+                    "booked": row[4],
+                    "mentor_username": row[5],
+                    "mentee_username": row[6]
+                }
+                ds.append(d)
+
+            return ds
