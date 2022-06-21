@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from routers import posts, comments, upvotes
-from tests import test_posts
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
