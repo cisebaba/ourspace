@@ -5,7 +5,8 @@ from pydantic import BaseModel
 from typing import List, Union
 # from .users import User
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from .api import get_weather, mentorship_poller
+from .api import get_weather
+# , mentorship_poller
 import os
 from jose import jwt
 
@@ -148,39 +149,39 @@ def profile_list( bearer_token: str = Depends(oauth2_scheme)):
 
 
 
-@router.get(
-    "/api/mentorship/",
-    response_model=MentorshipVo,
-    responses={
-        404: {"model": ErrorMessage},
-    },
-)
+# @router.get(
+#     "/api/mentorship/",
+#     response_model=MentorshipVo,
+#     responses={
+#         404: {"model": ErrorMessage},
+#     },
+# )
 
-def mentor_list(bearer_token: str = Depends(oauth2_scheme)):
-     if bearer_token is None:
-         raise credentials_exception
+# def mentor_list(bearer_token: str = Depends(oauth2_scheme)):
+#      if bearer_token is None:
+#          raise credentials_exception
 
-     with psycopg.connect(get_mentorship()) as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                """
-                SELECT m.id, m.job_title, m.description, m.availability, m.booked, 
-                    m.mentor_username, m.mentee_username
-                FROM mentorship m
-                WHERE m.mentee_username IS null
-            """
-            )
+#      with psycopg.connect(get_mentorship()) as conn:
+#         with conn.cursor() as cur:
+#             cur.execute(
+#                 """
+#                 SELECT m.id, m.job_title, m.description, m.availability, m.booked, 
+#                     m.mentor_username, m.mentee_username
+#                 FROM mentorship m
+#                 WHERE m.mentee_username IS null
+#             """
+#             )
 
-            ds = []
-            for row in cur.fetchall():
-                d = {
-                    "job_title":row[1],
-                    "description": row[2],
-                    "availability": row[3],
-                    "booked": row[4],
-                    "mentor_username": row[5],
-                    "mentee_username": row[6]
-                }
-                ds.append(d)
+#             ds = []
+#             for row in cur.fetchall():
+#                 d = {
+#                     "job_title":row[1],
+#                     "description": row[2],
+#                     "availability": row[3],
+#                     "booked": row[4],
+#                     "mentor_username": row[5],
+#                     "mentee_username": row[6]
+#                 }
+#                 ds.append(d)
 
-            return ds
+#             return ds

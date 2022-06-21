@@ -3,11 +3,10 @@ import React, {useState, useEffect, useSyncExternalStore, useReducer} from "reac
 function ProfilePage(props){
     const token = props.token;
     const [profile, setProfile]= useState([]);
-    const [mentorships, setMentorships] = useState([]);
 
     useEffect(()=>{
         const getProfile = async ()=>{
-            const listResponse = await fetch("http://localhost:9000/api/profile/",{
+            const listResponse = await fetch("`{process.env.REACT_APP_ACCOUNTS_HOST}/api/profile/",{
                 headers: {
                     authorization:`Bearer ${token}`,
                 }
