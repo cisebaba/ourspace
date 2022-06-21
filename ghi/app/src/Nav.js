@@ -14,8 +14,8 @@ function Nav(props) {
         setUser(user);
       }
     }
-    getMe();
-  },[user.id]);
+    getMe()
+},[]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
