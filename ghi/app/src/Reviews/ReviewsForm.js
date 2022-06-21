@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-=======
 import StarRating from "./StarRatingForm";
->>>>>>> main
 
 function ReviewsForm(props) {
   const token = props.token;
@@ -19,11 +16,6 @@ function ReviewsForm(props) {
   useEffect(() => {
     const getReviewData = async () => {
       const reviewsResponse = await fetch("http://localhost:8070/api/reviews/");
-<<<<<<< HEAD
-      const reviewData = await reviewsResponse.json();
-      setStateReview(reviewData[0]);
-      console.log("reviewData", reviewData)
-=======
       console.log(reviewsResponse)
       const reviewsData = await reviewsResponse.json();
       console.log(reviewsData)
@@ -34,7 +26,6 @@ function ReviewsForm(props) {
       setBalance(reviewsData.balance);
       setParentalLeave(reviewsData.parental_leave);
       setFlexibility(reviewsData.flexibility);
->>>>>>> main
     };
 
     getReviewData();
@@ -101,12 +92,6 @@ function ReviewsForm(props) {
 
     // }
   };
-
-<<<<<<< HEAD
-  const handleChange = e => {
-
-  }
-=======
   //
  
   // const handleRating = event => {
@@ -118,8 +103,6 @@ function ReviewsForm(props) {
   //   });
     
   // };
-  
->>>>>>> main
 
   return (
     <div className="row">

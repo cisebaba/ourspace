@@ -74,30 +74,7 @@
 </ul>
 
 
-
-
-# June 11, 2022
-<ul>
-<li> Features/Issues Worked On : </li>
-    <ul>
-        <li>  
-        </li> 
-    </ul> 
-    <br></br>
-<li> Reflection : </li>
-    <ul>
-        <li> 
-        </li> 
-    </ul>
-    <br></br>
-<li> Ah-Ha Moment : </li>
-    <ul>
-        <li>
-        </li>
-    </ul>
-</ul>
-
-
+ 
 
 # June 10, 2022
 <ul>
