@@ -9,14 +9,17 @@ import Signup from "./Auth/Signup";
 import Logout from "./Auth/Logout";
 import { useToken } from "./authApi";
 import JobsList from "./Jobs/JobsList";
-import PostsList from "./Forum/ListPosts/ListPosts";
-import PostForm from "./Forum/Forms/CreatePostForm";
-import ForumApp from "./Forum/ForumApp";
-import PostDetail from "./Forum/PostDetail";
-import CommentForm from "./Forum/Forms/CommentForm";
-// import ReviewsForm from "./Reviews/ReviewsForm";
+import PostsList from "./Forum/Components/PostsList";
+import PostForm from "./Forum/Api/Forms/PostForm";
+import ListView from "./Forum/Views/ListView";
+import DetailView from "./Forum/Views/DetailView";
+import CommentForm from "./Forum/Api/Forms/CommentForm";
+import ReviewsForm from "./Reviews/ReviewsForm";
 import ReviewsList from "./Reviews/ReviewsList";
 import MentorForm from "./Mentorship/MentorForm";
+import MentorList from "./Mentorship/MentorList";
+import ProfileForm from "./Auth/Profile/ProfileForm";
+import ProfilePage from "./Auth/Profile/ProfilePage";
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -33,26 +36,33 @@ function App() {
             path="signup"
             element={<Signup token={token} signup={signup} />}
           />
+          {/* PROFILE  */}
+          <Route path="/profile/new" element={<ProfileForm token={token} />} />
+          <Route path="/profile" element={<ProfilePage token={token} />} />
           {/* EVENTS  */}
           <Route path="events" index element={<EventsList />} />
           <Route path="events/new" element={<EventForm token={token} />} />
           {/* JOBS */}
           <Route path="jobs" element={<JobsList />} />
           {/* MENTORSHIP */}
-          <Route path="mentorship/new" element={<MentorForm token={token} />} />
+          {/* <Route path="mentorship" element={<MentorList token={token} />} />
+          <Route path="mentorship/new" element={<MentorForm token={token} />} /> */}
           {/* FORUM */}
-          <Route path="forum" element={<ForumApp />} />
-          <Route path="posts/:post_id" element={<PostDetail />} />
-          <Route path="posts/:post_id/comment/form" element={<CommentForm />} />
-          <Route path="posts" element={<PostsList />} />
-          <Route path="posts/new" element={<PostForm />} />
-          {/* REVIEWS */}
-          {/* <Route path="reviews/new" element={<ReviewsForm />} /> */}
-          <Route path="reviews" element={<ReviewsList />} /> 
+          <Route path="forum" element={<ListView token={token} />} />
+          <Route path="posts/:post_id" element={<DetailView token={token} />} />
+          <Route
+            path="posts/:post_id/comment/form"
+            element={<CommentForm token={token} />}
+          />
+          <Route path="posts" element={<PostsList token={token} />} />
+          <Route path="posts/new" element={<PostForm token={token} />} />
+          REVIEWS
+          <Route path="reviews/new" element={<ReviewsForm token={token} />} />
+          <Route path="reviews" element={<ReviewsList token={token} />} />
         </Routes>
       </BrowserRouter>
     </>
   );
 }
 
-export default App
+export default App;

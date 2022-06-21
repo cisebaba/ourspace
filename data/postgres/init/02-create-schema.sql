@@ -35,29 +35,40 @@ CREATE TABLE profile (
 ALTER TABLE users OWNER TO ourspace;
 ALTER TABLE profile OWNER TO ourspace;
 
-
 \connect forum
 
 CREATE TABLE post (
     post_id SERIAL PRIMARY KEY,
     title VARCHAR, 
     text TEXT,
-    created_on TIMESTAMP
-    --upvotes --foreign key to upvotes
-    --author -- foreign key to userid
+    created_on TIMESTAMP,
+    author VARCHAR(100)
 );
 
 CREATE TABLE comment (
     comment_id SERIAL PRIMARY KEY,
     post_id int references post(post_id), --foreign key
     text VARCHAR(5000),
-    created_on TIMESTAMP
-    --commenter -- foreign key to userid
-    --upvotes -- foreign key to upvotes
+    created_on TIMESTAMP,
+    commenter VARCHAR(100)
+);
+
+CREATE TABLE post_upvote (
+    post_upvote_id SERIAL PRIMARY KEY, 
+    post_id int references post(post_id),
+    upvoter VARCHAR(100)
+);
+
+CREATE TABLE comment_upvote (
+    comment_upvote_id SERIAL PRIMARY KEY,
+    comment_id int references comment(comment_id),
+    upvoter VARCHAR (100)
 );
 
 ALTER TABLE post OWNER TO ourspace;
 ALTER TABLE comment OWNER TO ourspace;
+ALTER TABLE post_upvote OWNER TO ourspace;
+ALTER TABLE comment_upvote OWNER TO ourspace;
 
 \connect mentorship
 
@@ -66,7 +77,6 @@ CREATE TABLE mentorship(
     job_title VARCHAR(200) NOT NULL,
     description TEXT NOT NULL,
     availability VARCHAR(500) NOT NULL,
-    booked BOOLEAN,
     mentor_username VARCHAR(100),
     mentee_username VARCHAR(100) 
 );

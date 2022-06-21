@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 
-function PostForm() {
+function PostForm(props) {
+  const token = props.token;
   const [statePost, setStatePost] = useState({
     post_id: "",
     title: "",
     text: "",
     created_on: "",
+    author: "",
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = statePost;
-    console.log("dataforpost", data);
+
     const new_post = {
       post_id: data.post_id,
       title: data.title,
       text: data.text,
       created_on: data.created_on,
+      author: data.author,
     };
-
-    console.log(new_post);
 
     const postsUrl = "http://localhost:8090/api/posts/";
     const fetchConfigEvent = {
@@ -28,6 +29,7 @@ function PostForm() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
     };
     const response = await fetch(postsUrl, fetchConfigEvent);
@@ -38,6 +40,7 @@ function PostForm() {
         title: "",
         text: "",
         created_on: "",
+        author: "",
       });
     }
   };

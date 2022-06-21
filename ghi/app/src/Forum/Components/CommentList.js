@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, NavLink } from "react-router-dom";
+import { getComments } from "../Api/GetCommentsData";
 
 const CommentListBody = ({ comments }) => {
   return (
@@ -23,24 +24,31 @@ const CommentListBody = ({ comments }) => {
   );
 };
 
-const CommentList = () => {
+const CommentList = (props) => {
+  const token = props.token;
+  const [comments, setComments] = useState([]);
   const params = useParams();
-  const [commentList, setCommentList] = useState(null);
 
   useEffect(() => {
-    const getCommentsData = async () => {
-      const commentsResponse = await fetch(
-        `http://localhost:8090/api/posts/${params.post_id}/comment/`
-      );
-      const commentsData = await commentsResponse.json();
-      setCommentList(commentsData);
-    };
-    getCommentsData();
+    async function initializeComments() {
+      let commentsData = await getComments({
+        token: token,
+        post_id: params.post_id,
+      });
+      setComments(commentsData || []);
+    }
+    initializeComments();
   }, []);
-  if (commentList === null) {
-    return "loading";
-  }
-  return <CommentListBody comments={commentList} />;
+
+  //   if (comments === null) {
+  //     return "loading";
+  //   }
+
+  return (
+    <div>
+      <CommentListBody comments={comments} />
+    </div>
+  );
 };
 
 export default CommentList;

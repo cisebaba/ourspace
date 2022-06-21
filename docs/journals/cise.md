@@ -1,6 +1,33 @@
 
+## Jun 17,2022
+Today I worked on the Profile Page. After figuring out the token issue with Curtis. I was able to implement current weather data related with users location. It was such a proud moment for me. I am working on to create if else statements on the weather conditions to make it more personalized profile page. 
+I am trying to improve my frontend skills with adding different features on Profile Page. I am gonna challenge myself with selecting avatar image and changing the weather icon according to weather description. It will be a long weekend! Let's go!
+
+## Jun 16,2022
+Getting familiar with the errors! Today, I learned if I have 500 server error on the backend that could be cause an CORS error on the frontend. I am proud that I had that error! Today I worked on the Profile form on the frontend. It was smoother than I thought. After a long time with backend, I thought I forgot about React. Hello my old friend React! Good to see you again. I am planing to poll the data from Mentorship microsevice to Profile page and implement the data on the frontend tomorrow. 
+
+
+## Jun 15,2022
+I worked on the Profile again and jump around user & profile that helps me more fluent on authorization part. Finally I finished backend getting the current profile details and the creating the profile part. The weather polling is working and attached with the profile information. 
+I feel like my debugging skills are improved since we started to this project from scratch. That make me feel good. When we were pair programming with Mitch today, I felt so good the moment that I know where to look about in any issue. 
+
+
+## Jun 13,2022
+Users are going to add their location so why don't we show the weather on their profile page. Like we did on the conference-go app out external weather api was unlimited. I've set some things up on the account directory. I think that will be a good thing to show people how the weather is in their location. It is not working yet but shouldn't be that hard. 
+After meeting with Curtis I feel more clear on the attaching tables in the same schema. I used Inner Join to join tables via userid . That was great practice to work on the databases. 
+
+
+## Jun 10,2022
+Today, I've started to work o Profile backend alone. My first goal was adding firstname and lastname on the signup page. After a log demonstration with Curtis the other was helped me to understand the concept of authorization so it didn't take long time to figure it out. Our project time was limited so couldn't finish and test the profile backend but it is ready to test drive. 
+While I was working on the Profile, some questions appeared in my mind. We decided to keep sign-up page simple and make the profile in a different table. The profile table has the references from userid, firstname, lastname. The other microservices are planing to filter the data by the user's role or location. Since the authentication set up helped the microservices to get the username without polling, I feel like we should keep it one single table on the users information form and get rid off the unnecessary polling step. 
+I'll keep working on that after groups decision.
+
+## Jun 9,2022
+Our fist goal was as soon as finishing mentorhip backend jumping into frontend. Amanda did some delete and put endpoints prep from the other night but couldn't made it run. We looked over it together and solved the problem! my approach was comparing the delete and put with FastApi docs and trivia-game-clues file. I am happy that we didn't have spend hours on these. 
+I knew that it is not gonna be easy to implement the user authorization to the microservices since we didn't know how to handle it without polling user information. (Thanks god we have Curtis!) After a demonstration of handling it on the frontend and backend. I had my couple AHA on the mentorship. It is much more make sense if why we don't have to poll the user data since we are not letting people to reach the features for "users only" part. I feel more comfortable with JWT and cookies. 
+
 ## Jun 8,2022
-We started to the accounts part with my team. We made a plan about how to implement with the other microservices. We created our table but looked like instead of creating different microservices we added all the databases in the same table and ended up creating monolith accidently. Thanks Curtis! he helped give us a walk through for separating tables. 
+We started to the accounts part with my team. We made a plan about how to implement user & authorization with the other microservices. We created our table but looked like instead of creating different microservices we added all the databases in the same table and ended up creating monolith accidently. Thanks Curtis! he helped give us a walk through for separating tables. 
 We skimmed through the FASTApi's on the accounts microservice and tried to understand how we are gonna handle the authorization. After that we worked on the GET & POST request on new user database. 
 After the class I jumped into Create Event and fixed the errors on (after submission refreshing the states and it was not creating location if it was exist.)
 Today was my AHA moment day! again(Thanks Curtis!)When we were fixing things on database all the steps lightened me and understand why we could use foreign key on the other tables. 

@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: rgb(19, 19, 19);
+}
+.off {
+  color: #ccc;
+}
+

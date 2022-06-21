@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
-function CommentForm() {
+function CommentForm(props) {
+  const token = props.token;
   const [stateComment, setStateComment] = useState({
     comment_id: "",
     text: "",
     created_on: "",
     post_id: "",
+    commenter: "",
   });
 
   const params = useParams();
@@ -21,6 +23,7 @@ function CommentForm() {
       text: data.text,
       created_on: data.created_on,
       post_id: data.post_id,
+      commenter: data.commenter,
     };
 
     const commentsUrl = `http://localhost:8090/api/posts/${params.post_id}/comment/`;
@@ -31,6 +34,7 @@ function CommentForm() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
     };
     const response = await fetch(commentsUrl, fetchConfigEvent);
@@ -41,6 +45,7 @@ function CommentForm() {
         title: "",
         text: "",
         created_on: "",
+        commenter: "",
       });
     }
   };

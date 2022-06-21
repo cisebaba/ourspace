@@ -9,6 +9,40 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 17, 2022
+
+Today I got the upvote working in react in the detail view and list view! Yay!
+
+For design, I am going to try to reorginize the file structure of my react components and try to break some down into smaller pieces.
+
+My ah-ha is that react is SO HARD. I don't have a great understanding of how different components render other components yet, but I am getting there. I also have been reminded that I can return a lot of information from a sql query but not need to put that info in the table.
+
+## June 16, 2022
+
+Today I started working on the front end for the upvote button. It is so much harder than I thought! I had to change some sql statements to return the upvote count, and figuring out setting state for the button to add an upvote was very tough.
+
+For design, I am trying to figure out how to break apart different components and name and organize them in a logical way in react. I feel like the way things are named now is not very readable, but breaking down components is starting to feel better.
+
+My ah-ha! is that I need a lot more react practice!
+
+## June 15, 2022
+
+Today I added upvoting post and delete api views! I also added a count for the post so you can see how many upvotes there are. Tomorrow I plan to implement the front end for this.
+
+I decided to just display the sql query count of upvotes rather than store that data since it will be changing a lot. If for a stretch goal, we want to keep better track of exactly who upvoted on those posts when, I'll adjust this.
+
+I really like working on this very small functionality. It's complicated even though it's so little!!
+
+## June 13, 2022
+
+Was able to add author/commentor fields to posts and comments and can now track the current user! Yay!
+
+## June 11, 2022
+
+Spent a bit connecting auth stuff to forum posts and comments. Ran into a lot of issues because of incomplete understanding of what needed to be included on the front end, but eventually got there. Insomnia post still being weird but works in react so oh well?
+
+My ah-ha! is that when you make a change in react - sometimes exiting the browser and reloading helps make the change!!
+
 ## June 10, 2022
 
 Today I worked on fixing the comment form- it's all set! It still needs a redirect though. Then Amanda kindly showed me what she learned about user auth stuff and how to add auth stuff to our api endpoints. We started adding that to forum and mentorship.

@@ -45,11 +45,12 @@ class User(BaseModel):
 
 class UserSignUp(BaseModel):
     username: str
+    password: str
     email: str | None = None
     firstname: str | None = None
     lastname: str | None = None
     disabled: bool | None = None
-    password: str
+
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -75,7 +76,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({
-        "exp": expire,
+        #"exp": expire,
         "iat": datetime.utcnow(),
         "iss": "our-space",
         "jti": str(uuid.uuid4()),
@@ -162,7 +163,7 @@ async def get_token(request: Request):
 async def signup(user: UserSignUp, response: Response, repo: AccountsQueries = Depends()):
     hashed_password = pwd_context.hash(user.password)
     try:
-        repo.create_user(user.username, hashed_password, user.email)
+        repo.create_user(user.username,user.firstname, user.lastname, hashed_password, user.email)
         return user
     except DuplicateAccount:
         response.status_code = status.HTTP_409_CONFLICT

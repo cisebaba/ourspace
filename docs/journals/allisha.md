@@ -1,3 +1,16 @@
+## June 17, 2022
+
+I thought I wasn't making progress today but I officially turned the star rating values into input values on the reviews form!! I couldn't have done it without Mitch, he taught me so much to be able to do all of that. First, we moved the rating function out of the StarRating component. Then, we broke up each field to be its own function to be referenced. I had to reformat the data into new data like we did for events. And then he taught me that instead of having a handleChange for all the functions, how to create a function inside each of the functions' onChange in the "HTML" part. I've seen it before but I've never actually done it myself. He also helped me with using props. I learned so much today, I wouldn't have been able to do all of that myself. Now, I'm working on having the stars stay colored when clicked on because it's not working currently, but I'm just so happy the star values are able to be turned into values in the back-end. It's definitely much harder than I thought it would be!!! I also made a new file for the StarRating component to be imported into the form because I think that's best practice.
+
+## June 16, 2022
+
+I didn't make much progress today. I worked on the star rating functionality and I think I'm really close to getting it figured out and working but I'm not quite there yet! The good news is that once I get that working, reviews will be officially done!
+
+## June 15, 2022
+
+Today was filled with a good amount progress since I last touched this project 5 days ago! I was able to get the form for reviews working, it submits and refreshes the form when you submit. I added the users authentication to the back-end and front-end. I left it commented out for now so I don't need to worry about authenticating while testing and developing still. The reviews list is accurately calculating and displaying the average ratings and salaries! 
+
+
 ## June 10, 2022
 
 Okay change of plans. Starr talked with Chris yesterday and he told us that it was best practice for us to handle our calculations of the ratings in the back-end instead of the front-end depending on the size of the database.

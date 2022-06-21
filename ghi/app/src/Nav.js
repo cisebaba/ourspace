@@ -13,9 +13,11 @@ function Nav(props) {
         const user = await response.json();
         setUser(user);
       }
+    };
+    if(token){
+      getMe();
     }
-    getMe();
-  },[user.id]);
+},[token]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -48,6 +50,12 @@ function Nav(props) {
                 <NavLink className="dropdown-item" to="/logout" role="button">
                   Logout {user.username}
                 </NavLink>
+                {/* <NavLink className="dropdown-item" to="/profile/new" role="button">
+                  Profile Form
+                </NavLink> */}
+                <NavLink className="dropdown-item" to="/profile" role="button">
+                  Profile Page
+                </NavLink>
               </>
             ) : (
               <>
@@ -76,7 +84,7 @@ function Nav(props) {
             <NavLink className="dropdown-item" to="reviews" role="button">
               Reviews
               </NavLink>
-            <NavLink className="dropdown-item" to="mentorship/new" role="button">
+            <NavLink className="dropdown-item" to="mentorship" role="button">
               Mentorship
             </NavLink>
           </ul>

@@ -4,6 +4,16 @@ import psycopg
 from pydantic import BaseModel
 from typing import List
 
+# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
+# router = APIRouter()
+# SECRET_KEY = os.environ["SECRET_KEY"]
+# ALGORITHM = "HS256"
+
+# credentials_exception = HTTPException(
+#         status_code=status.HTTP_401_UNAUTHORIZED,
+#         detail="Invalid authentication credentials",
+#         headers={"WWW-Authenticate": "Bearer"},
+#     )
 
 router = APIRouter()
 
@@ -48,6 +58,7 @@ class AverageOut(BaseModel):
     flexibility_average: int
 
 
+
 class ReviewList(BaseModel):
     __root__: List[AverageOut]
 
@@ -57,7 +68,13 @@ router = APIRouter()
 
 
 @router.post("/api/reviews/", response_model = Review)
-def new_review(Review: ReviewIn):
+def new_review(Review: ReviewIn
+# , bearer_token: str = Depends(oauth2_scheme)
+):
+    # if bearer_token is None:
+    #     raise credentials_exception
+    # payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
+    # username = payload.get("sub")
     with psycopg.connect("dbname=reviews user=ourspace") as conn:
         with conn.cursor() as cur:
             
@@ -70,7 +87,9 @@ def new_review(Review: ReviewIn):
                     balance, parental_leave, flexibility
                 """, 
                 [Review.company_name,
-                Review.rating, Review.salary,Review.diversity, Review.balance, Review.parental_leave, Review.flexibility]
+                Review.rating, Review.salary,Review.diversity, Review.balance, Review.parental_leave, Review.flexibility
+                # , username
+                ]
             )
 
             conn.commit()

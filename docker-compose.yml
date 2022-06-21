@@ -33,6 +33,7 @@ services:
       PGUSER: ourspace
       PGPASSWORD: ourspace
       SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
+      OPEN_WEATHER_API_KEY: ${OPEN_WEATHER_API_KEY}
       #host is the name of the service running pgsequal
   reviews:
     build:
@@ -63,7 +64,6 @@ services:
       PGUSER: ourspace
       PGPASSWORD: ourspace
       SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
-
   jobs:
     build:
       context: ./jobs/api
@@ -80,7 +80,6 @@ services:
       ADZUNA_API_KEY: ${ADZUNA_API_KEY}
       ADZUNA_APP_ID: ${ADZUNA_APP_ID}
       SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
-
   mentorship:
     build:
       context: ./mentorship/api
