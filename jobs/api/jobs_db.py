@@ -18,7 +18,7 @@ print("I AM THE JOBS_DB FILE!")
 #will automate to call once a day later
 
 def get_and_save_jobs():
-    response = requests.get(f"https://api.adzuna.com/v1/api/jobs/us/search/1?app_id={ADZUNA_APP_ID}&app_key={ADZUNA_API_KEY}&results_per_page=25&what=software%2C%20technology%2C%20engineer&max_days_old=30")
+    response = requests.get(f"https://api.adzuna.com/v1/api/jobs/us/search/1?app_id={ADZUNA_APP_ID}&app_key={ADZUNA_API_KEY}&results_per_page=25&what=software%20developer&max_days_old=30")
     content = json.loads(response.content)
 
 
