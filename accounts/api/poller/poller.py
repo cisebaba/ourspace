@@ -31,13 +31,9 @@ def get_mentorship():
 
 
 def get_events():
-    print("blah2")
     response = requests.get("http://events:8000/api/events/")
-    print(response,"response")
     content = json.loads(response.content)
-    print(content,"events")
     for event in content["events"]:
-        print(event,"single")
         with psycopg.connect("dbname=accounts user=ourspace") as conn:
             with conn.cursor() as cur:
                 cur.execute(

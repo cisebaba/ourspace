@@ -1,13 +1,15 @@
 import psycopg
-from psycopg_pool import ConnectionPool
-from psycopg.errors import UniqueViolation
+from poller import get_weather
+from jose import jwt
+# from psycopg_pool import ConnectionPool
+# from psycopg.errors import UniqueViolation
 
-pool = ConnectionPool()
+# pool = ConnectionPool()
 
 
 class ProfileQueries:
-    def get_profile(self):
-#       with psycopg.connect("dbname=accounts user=ourspace") as conn:
+    def get_profile(self,id):
+      with psycopg.connect("dbname=accounts user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
@@ -21,7 +23,7 @@ class ProfileQueries:
                 from profile p
                 INNER JOIN users ON (users.id = p.userid)
                 WHERE users.id = %s;
-            """, [user["id"]]
+            """, [id]
             )
             
             row = cur.fetchone()
@@ -32,14 +34,12 @@ class ProfileQueries:
                 "city":row[1],
                 "state": row[2],
                 "role" : row[3],
-                "userid":user["id"],
-                "firstname":user["firstname"],
-                "lastname":user["lastname"],
-                "username":username,
+                "userid":row[4],
+                "firstname":row[5],
+                "lastname":row[6],
+                "username":row[7],
                 "weather": weather
             }
-            # print(d)
 
             return d
-
 
