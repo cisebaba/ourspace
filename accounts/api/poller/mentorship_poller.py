@@ -3,7 +3,7 @@ import sys
 import time
 import json
 import requests
-import psycopg2
+import psycopg
 
 # sys.path.append("")
 # os.environ.setdefault("DJANGO_SETTINGS_MODULE", "service_project.settings")
@@ -11,8 +11,10 @@ import psycopg2
 
 
 def get_mentorship():
+    print("blah")
     response = requests.get("http://mentorship:8000/api/mentorship_poller/")
     content = json.loads(response.content)
+    print(content["mentorship"], "mentor")
     for mentor in content["mentorship"]:
         with psycopg.connect("dbname=accounts user=ourspace") as conn:
             with conn.cursor() as cur:

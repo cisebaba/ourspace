@@ -29,6 +29,9 @@ class MentorshipVO(BaseModel):
     mentor_username: str
     mentee_username: Union[str, None]
 
+class MentorshipList(BaseModel):
+    __root__: List[MentorshipVO]
+
 class EventsVo(BaseModel):
     name: str
     starts: int
@@ -159,7 +162,7 @@ def profile_list( bearer_token: str = Depends(oauth2_scheme)):
 
 @router.get(
     "/profile/mentorship/",
-    response_model=list[MentorshipVO],
+    response_model=MentorshipList,
     responses={
         404: {"model": ErrorMessage},
     },
@@ -185,7 +188,7 @@ def mentor_list():
                     "mentee_username": row[5]
                 }
                 ds.append(d)
-
+            print(ds)
             return ds
 
 @router.get(
