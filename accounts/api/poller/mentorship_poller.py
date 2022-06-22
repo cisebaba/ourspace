@@ -12,9 +12,7 @@ import psycopg
 def get_mentorship():
     response = requests.get("http://mentorship:8000/api/mentorship_poller/")
     content = json.loads(response.content)
-    print(content)
     for mentor in content["mentorship"]:
-        print(mentor)
         with psycopg.connect("dbname=accounts user=ourspace") as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -33,7 +31,7 @@ def get_mentorship():
 
 def poll():
     while True:
-        print('Service poller polling for data')
+        print('Mentorship poller polling for data')
         try:
             # Write your polling logic, here
             get_mentorship()

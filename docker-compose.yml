@@ -99,9 +99,9 @@ services:
       context: ./accounts/api/poller
       dockerfile: ./Dockerfile.dev
     volumes:
-      - ./accounts/api.poller:/app
+      - ./accounts/api/poller:/app
     depends_on:
-      - database
+      - db
       - accounts
     environment:
       PGHOST: db
