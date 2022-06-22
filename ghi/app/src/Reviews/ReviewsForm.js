@@ -99,7 +99,6 @@ function ReviewsForm(props) {
 
     // }
   };
-
   //
  
   // const handleRating = event => {

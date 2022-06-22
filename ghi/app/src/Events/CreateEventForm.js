@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react' ;
+import { Navigate } from 'react-router-dom';
 
-function EventForm() {
+function EventForm(props) {
     const [stateEvent, setStateEvent ] = useState({
         name : "",
         starts : "",
@@ -11,6 +12,7 @@ function EventForm() {
         location_city:"",
         location_state:"",
     })
+    const token = props.token
   
     const [stateStates, setStateStates] = useState([])
     //const [successfulSubmit, setSuccessfulSubmit] = useState(false);
@@ -57,6 +59,7 @@ function EventForm() {
             credentials:"include",
             headers : {
                 "Content-Type" : "application/json",
+                "authorization" : `Bearer ${token}`
             }
         };
         const response = await fetch(eventsUrl, fetchConfigEvent );
@@ -95,6 +98,10 @@ function EventForm() {
     //     alertClasses = "alert alert-success mb-3";
     //     alertContainerClasses = "";
     //   }
+    
+    if(!token){
+        return <Navigate to = '/login'></Navigate>
+    }
 
     return (
         <div className="row">
