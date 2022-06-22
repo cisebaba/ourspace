@@ -46,9 +46,6 @@ export function UpvoteButton({
     }
   }
 
-  if (postId == 1) {
-    //debugger;
-  }
   return (
     <button
       style={

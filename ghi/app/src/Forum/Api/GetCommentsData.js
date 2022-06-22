@@ -1,5 +1,6 @@
 export async function getComments(props) {
   const token = props.token;
+  // console.log("token from Get Comments", token);
 
   try {
     const commentsResponse = await fetch(
