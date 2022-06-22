@@ -163,7 +163,7 @@ def mentor_list(query=Depends(MentorshipQueries), bearer_token: str = Depends(oa
 
 @router.get(
     "/api/mentorship_poller/",
-    response_model=MentorshipOut,
+    response_model=MentorshipList,
     responses={404: {"model": ErrorMessage}},
 )
 def get_mentorship_poller():

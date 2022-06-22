@@ -1,3 +1,7 @@
+## Jun 21,2022
+I had able to implement the weather api on the profile page for some reason I had the same issue with someone on the other team. Refreshing page is breaking everything up on the frontend. I forgot the shape of the weather is dictionary and as Curtis said if we add only bracket in the useState it will try to iterate only a list. That is the part that I am missing. 
+I worked on polling the mentor data on the weekend and tried to do it as like we did on the project-beta. After spending hours I gave up. The interesting part is couldn't even find any endpoint version of polling data. Today we tried with Jeff in the morning, I think we were missing the point that we had handle it with SQL. I thought every version of the polling. At the first place I thought we could do only polling the data like we did on the external APIs but the problem is we want to let people cancel the mentorship appointment on the list so that was not an option. 
+Thank you Curtis, he showed me the point of poller function and how it handle it with Fast Api. I've realized that I confused at the point of if we are creating a new table for it. The weather should affect me a lot today.
 
 ## Jun 17,2022
 Today I worked on the Profile Page. After figuring out the token issue with Curtis. I was able to implement current weather data related with users location. It was such a proud moment for me. I am working on to create if else statements on the weather conditions to make it more personalized profile page. 
