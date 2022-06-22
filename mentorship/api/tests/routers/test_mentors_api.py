@@ -5,7 +5,7 @@ from mentor_db import MentorshipQueries
 
 client = TestClient(app)
 
-bearer_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMSIsInVzZXIiOnsiaWQiOjEsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZmlyc3RuYW1lIjoiZmlyc3QiLCJsYXN0bmFtZSI6Imxhc3QifSwiaWF0IjoxNjU1ODMzNjI5LCJpc3MiOiJvdXItc3BhY2UiLCJqdGkiOiJmODc1Y2MyNi1kZGY4LTRiZDYtODkyMC03NDhlNDc5OTdkMWMifQ.bLKxkInMtQKmqy4kxWkr_XeGY9ikxbpCNsN4_xjXzP0"
+bearer_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMSIsInVzZXIiOnsiaWQiOjEsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZmlyc3RuYW1lIjoiZmlyc3QiLCJsYXN0bmFtZSI6Imxhc3QifSwiaWF0IjoxNjU1ODQ1OTU1LCJpc3MiOiJvdXItc3BhY2UiLCJqdGkiOiIxZGMwMTMwMi1lZjViLTRjOGItYjBmNC04OWJiMmE1YjcxYmYifQ.Bi_H7RH1rPHt4YU6g5x31yKRnprVLIHYQObRL0Ueyns"
 
 class EmptyMentorshipQueries:
     def get_one_mentorship(self, id):
@@ -14,7 +14,14 @@ class EmptyMentorshipQueries:
 
 class NormalMentorshipQueries:
     def get_one_mentorship(self, id):
-        return [id, "JOB TITLE", "DESCRIPTION", "AVAILABILITY", "MENTOR", "MENTEE"]
+        return {
+            "id": 8, 
+            "job_title": "JOB TITLE", 
+            "description": "DESCRIPTION", 
+            "availability": "AVAILABILITY", 
+            "mentor_username": "MENTOR", 
+            "mentee_username": "MENTEE"
+        }
 
 
 class NormalMentorshipsQueries:
@@ -23,7 +30,11 @@ class NormalMentorshipsQueries:
          {2, "JOB TITLE TWO", "DESCRIPTION TWO", "AVAILABILITY TWO", "MENTOR_TWO", "MENTEE_TWO"}]
 
 
-def test_get_mentorship_returns_404():
+def test_mentorshipin_exists():
+    from mentor_models import MentorshipIn
+
+
+def test_get_one_mentorship_returns_404():
     #Arrange
     #Use the fake db
     app.dependency_overrides[MentorshipQueries] = EmptyMentorshipQueries
@@ -42,17 +53,19 @@ def test_get_mentorship_returns_404():
     app.dependency_overrides = {}
 
 
-def test_get_mentorship_returns_200():
+def test_get_one_mentorship_returns_200():
     #Arrange
     app.dependency_overrides[MentorshipQueries] = NormalMentorshipQueries
+    
 
     #Act
-    response = client.get("/api/mentorship/1")
+    headers = {"authorization": f"Bearer {bearer_token}"}
+    response = client.get("/api/mentorship/8", headers=headers)
     d = response.json()
 
     #Assert
     assert response.status_code == 200
-    assert d["id"] == 1
+    assert d["id"] == 8
     assert d["job_title"] == "JOB TITLE"
     assert d["description"] == "DESCRIPTION"
     assert d["availability"] == "AVAILABILITY"

@@ -102,7 +102,7 @@ services:
       - ./accounts/api/poller:/app
     depends_on:
       - db
-      - mentorship
+      - accounts
     environment:
       PGHOST: db
       PGDATABASE: accounts

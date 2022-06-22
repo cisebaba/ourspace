@@ -185,7 +185,6 @@ def mentor_list():
                     "mentee_username": row[5]
                 }
                 ds.append(d)
-                print(ds)
 
             return ds
 

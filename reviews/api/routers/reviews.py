@@ -1,19 +1,22 @@
 from datetime import datetime
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter, Response, status, Depends, HTTPException
 import psycopg
 from pydantic import BaseModel
 from typing import List
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+import os
+from jose import jwt
 
-# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
-# router = APIRouter()
-# SECRET_KEY = os.environ["SECRET_KEY"]
-# ALGORITHM = "HS256"
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
+router = APIRouter()
+SECRET_KEY = os.environ["SECRET_KEY"]
+ALGORITHM = "HS256"
 
-# credentials_exception = HTTPException(
-#         status_code=status.HTTP_401_UNAUTHORIZED,
-#         detail="Invalid authentication credentials",
-#         headers={"WWW-Authenticate": "Bearer"},
-#     )
+credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid authentication credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
 
 router = APIRouter()
 
@@ -62,19 +65,51 @@ class AverageOut(BaseModel):
 class ReviewList(BaseModel):
     __root__: List[AverageOut]
 
+class ReviewQueries():
+    def reviews_list():
+        with psycopg.connect("dbname=reviews user=ourspace") as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT r.company_name
+                        , ROUND(AVG(r.rating), 0) average_rating
+                        , ROUND(AVG(r.salary), 0) salary_average
+                        , ROUND(AVG(r.diversity), 0) diversity_average
+                        , ROUND(AVG(r.balance), 0) balance_average
+                        , ROUND(AVG(r.parental_leave), 0) parental_leave_average
+                        , ROUND(AVG(r.flexibility), 0) flexibility_average
+                    FROM reviews as r 
+                    GROUP BY r.company_name
+                    """
+                )
 
+                ds = []
+                for row in cur.fetchall():
+                    d = {
+                        #"id": row[0],
+                        "company_name": row[0],
+                        "average_rating": row[1], ### average for overall rating for company
+                        "salary_average": row[2], ### average rating for salary (?? about database)
+                        "diversity_average": row[3], ### average for diversity 
+                        "balance_average" : row[4],
+                        "parental_leave_average": row[5],
+                        "flexibility_average": row[6],
+                        
+                    }
 
-router = APIRouter()
+                    ds.append(d)
+                return ds
+
 
 
 @router.post("/api/reviews/", response_model = Review)
 def new_review(Review: ReviewIn
-# , bearer_token: str = Depends(oauth2_scheme)
+, bearer_token: str = Depends(oauth2_scheme)
 ):
-    # if bearer_token is None:
-    #     raise credentials_exception
-    # payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
-    # username = payload.get("sub")
+    if bearer_token is None:
+        raise credentials_exception
+    payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
+    username = payload.get("sub")
     with psycopg.connect("dbname=reviews user=ourspace") as conn:
         with conn.cursor() as cur:
             
@@ -88,7 +123,7 @@ def new_review(Review: ReviewIn
                 """, 
                 [Review.company_name,
                 Review.rating, Review.salary,Review.diversity, Review.balance, Review.parental_leave, Review.flexibility
-                # , username
+                , username
                 ]
             )
 
@@ -109,36 +144,8 @@ def new_review(Review: ReviewIn
 
 
 @router.get("/api/reviews/", response_model = ReviewList)
-def reviews_list():
-    with psycopg.connect("dbname=reviews user=ourspace") as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                """
-                SELECT r.company_name
-                    , ROUND(AVG(r.rating), 0) average_rating
-                    , ROUND(AVG(r.salary), 0) salary_average
-                    , ROUND(AVG(r.diversity), 0) diversity_average
-                    , ROUND(AVG(r.balance), 0) balance_average
-                    , ROUND(AVG(r.parental_leave), 0) parental_leave_average
-                    , ROUND(AVG(r.flexibility), 0) flexibility_average
-                FROM reviews as r 
-                GROUP BY r.company_name
-                """
-            )
+def reviews_list(queries: ReviewQueries=Depends()):
+    review = queries.reviews_list()
 
-            ds = []
-            for row in cur.fetchall():
-                d = {
-                    #"id": row[0],
-                    "company_name": row[0],
-		            "average_rating": row[1], ### average for overall rating for company
-		            "salary_average": row[2], ### average rating for salary (?? about database)
-		            "diversity_average": row[3], ### average for diversity 
-                    "balance_average" : row[4],
-                    "parental_leave_average": row[5],
-                    "flexibility_average": row[6],
-                    
-                }
-
-                ds.append(d)
-            return ds
+    if review is None:
+        return None

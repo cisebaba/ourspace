@@ -1,3 +1,11 @@
+# June 21, 2022
+Today I worked on:
+* Refactoring the mentorship backend, creating unit tests, and debugging the account/mentorship poller.
+
+Refactoring the mentorship backend to help make things more appropriate for unit testing ended up being a lot more difficult and time consuming than I had imagined. I split out the code that queries the database to be in a separate file from the API endpoints. This made the unit tests easier to write, although they were difficult to get working, especially with the APIs being behind an authentication layer. Later in the day, our group came together to discuss some of the frontend design decisions to be made. Last, I worked on debugging the poller file that polls mentorship data into the accounts microservice. For this, I made some changes to the YAML file, the API endpoint that was being called, and added pyscopg to the requirements file in the account service. This part ended up not being too bad to figure out. 
+
+My aha today was learning a lot more about the arrange, act, and assert process for constructing unit tests. I felt a little silly to realize that one of my tests was returning a set of data, rather than a true dictionary with key-value pairs that was expected. 
+
 # June 17, 2022
 Today I worked on:
 * I added a success message that displays when a user signs up for a mentorship. I also worked on putting the list and form components onto the same page. 
