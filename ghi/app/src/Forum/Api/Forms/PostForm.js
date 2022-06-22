@@ -22,7 +22,7 @@ function PostForm(props) {
       author: data.author,
     };
 
-    const postsUrl = "http://localhost:8090/api/posts/";
+    const postsUrl = `${process.env.REACT_APP_FORUM_HOST}/api/posts/`;
     const fetchConfigEvent = {
       method: "POST",
       body: JSON.stringify(new_post),

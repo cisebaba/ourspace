@@ -49,7 +49,7 @@ class EventDetailEncoder(ModelEncoder):
 def api_list_events(request):
     if request.method=="GET":
         events = Event.objects.all()
-        print(Event)
+        # print(Event)
         return JsonResponse(
             {"events": events},
             encoder=EventDetailEncoder,

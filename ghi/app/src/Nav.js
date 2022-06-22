@@ -13,11 +13,11 @@ function Nav(props) {
         const user = await response.json();
         setUser(user);
       }
-    };
-    if(token){
+    }
+    if (token) {
       getMe();
     }
-},[token]);
+  }, [token]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -83,7 +83,7 @@ function Nav(props) {
             </NavLink>
             <NavLink className="dropdown-item" to="reviews" role="button">
               Reviews
-              </NavLink>
+            </NavLink>
             <NavLink className="dropdown-item" to="mentorship" role="button">
               Mentorship
             </NavLink>

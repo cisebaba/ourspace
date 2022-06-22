@@ -3,11 +3,14 @@ import React from "react";
 export async function getPosts(props) {
   const token = props.token;
   try {
-    const postsResponse = await fetch("http://localhost:8090/api/posts/", {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
+    const postsResponse = await fetch(
+      `${process.env.REACT_APP_FORUM_HOST}/api/posts/`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return await postsResponse.json();
   } catch (error) {
     return [];

@@ -12,12 +12,11 @@ function CommentForm(props) {
   });
 
   const params = useParams();
-  console.log("params", params);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = stateComment;
-    console.log("data", data);
+
     const new_comment = {
       comment_id: data.comment_id,
       text: data.text,
@@ -26,8 +25,8 @@ function CommentForm(props) {
       commenter: data.commenter,
     };
 
-    const commentsUrl = `http://localhost:8090/api/posts/${params.post_id}/comment/`;
-    console.log("commentsUrl", commentsUrl);
+    const commentsUrl = `${process.env.REACT_APP_FORUM_HOST}/api/posts/${params.post_id}/comment/`;
+
     const fetchConfigEvent = {
       method: "POST",
       body: JSON.stringify(new_comment),

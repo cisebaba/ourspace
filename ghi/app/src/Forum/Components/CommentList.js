@@ -26,6 +26,7 @@ const CommentListBody = ({ comments }) => {
 
 const CommentList = (props) => {
   const token = props.token;
+  // console.log("token from commentlist", token);
   const [comments, setComments] = useState([]);
   const params = useParams();
 

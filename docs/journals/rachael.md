@@ -9,6 +9,14 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 21, 2022
+
+Today, with a lot of help from Curtis, we got unit tests working and learned how to get around auth while doing them. It was really exciting to finally write soem tests and see them pass!
+
+Cise is working on the profile page, which has a lot of complicated polling. We chatted about polling and saving to a database vs. handling things in the front end.
+
+My ah-ha of the day is to try to be more patient when reading error messages. They really do tell you a ton of information if you can keep a cool head and take it one step at a time.
+
 ## June 17, 2022
 
 Today I got the upvote working in react in the detail view and list view! Yay!

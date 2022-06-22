@@ -33,32 +33,21 @@ credentials_exception = HTTPException(
         500: {"model": ErrorMessage},
     },
     )
-def mentorship_post(mentorship: MentorshipIn, bearer_token: str = Depends(oauth2_scheme)):
+def mentorship_post(mentorship: MentorshipIn, query=Depends(MentorshipQueries), bearer_token: str = Depends(oauth2_scheme)):
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
-    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
-        with conn.cursor() as cur:
-            try:
-                cur.execute(
-                    """
-                    INSERT INTO mentorship (job_title, description, availability, mentor_username, mentee_username)
-                    VALUES (%s, %s, %s, %s, null)
-                    RETURNING id, job_title, description, availability, mentor_username, mentee_username
-                    """,
-                    [mentorship.job_title, mentorship.description, mentorship.availability, username],
-                )
-            except psycopg.errors.UniqueViolation:
-                response.status_code = status.HTTP_409_CONFLICT
-                return {
-                    "message": "Could not create duplicate mentorship post",
-                }
-            row = cur.fetchone()
-            record = {}
-            for i, column in enumerate(cur.description):
-                record[column.name] = row[i]
-            return record
+    row = query.insert_mentorship(
+        mentorship.job_title,
+        mentorship.description,
+        mentorship.availability,
+        username
+    )
+    if row == None:
+        Response.status_code = status.HTTP_409_CONFLICT
+        return {"message": "Could not create duplicate mentorship post"}
+    return row
 
 
 # Refactor Done
@@ -70,6 +59,7 @@ def mentorship_post(mentorship: MentorshipIn, bearer_token: str = Depends(oauth2
     },
 )
 def mentor_list(query=Depends(MentorshipQueries), bearer_token: str = Depends(oauth2_scheme)):
+    print("Hows it hitting this?")
     if bearer_token is None:
          raise credentials_exception
     rows = query.get_all_mentorships()
@@ -79,15 +69,18 @@ def mentor_list(query=Depends(MentorshipQueries), bearer_token: str = Depends(oa
 # Refactor done
 @router.get(
     "/api/mentorship/{mentorship_id}",
-    response_model=MentorshipOut,
-    responses={404: {"model": ErrorMessage}},
+    response_model=MentorshipOut | Message,
+    responses={
+        200: {"model": MentorshipOut},
+        404: {"model": ErrorMessage},
+    },
 )
-def get_mentorship(mentorship_id: int, query=Depends(MentorshipQueries), bearer_token: str = Depends(oauth2_scheme)):
+def get_mentorship(mentorship_id: int, response: Response, query=Depends(MentorshipQueries), bearer_token: str = Depends(oauth2_scheme)):
     if bearer_token is None:
         raise credentials_exception
     row = query.get_one_mentorship(mentorship_id)
     if row is None:
-        Response.status_code = status.HTTP_404_NOT_FOUND
+        response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Mentorship not found"}
     return row
 
@@ -97,28 +90,13 @@ def get_mentorship(mentorship_id: int, query=Depends(MentorshipQueries), bearer_
     response_model=MentorshipOut,
     responses={404: {"model": ErrorMessage}},
 )
-def update_mentorship(mentorship_id: int, bearer_token: str = Depends(oauth2_scheme)):
+def update_mentorship(mentorship_id: int, query=Depends(MentorshipQueries), bearer_token: str = Depends(oauth2_scheme)):
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
-    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
-        with conn.cursor() as cur:
-            try:
-                cur.execute(
-                    """
-                    UPDATE mentorship
-                    SET mentee_username = %s
-                    WHERE id = %s;
-                """,
-                    [username, mentorship_id],
-                )
-            except Exception as e:
-                print("EXCEPTION", e)
-                return e
-
-            conn.commit()            
-            return get_mentorship(mentorship_id)
+    row = query.update_mentorship(username, mentorship_id)
+    return row
 
 
 @router.delete(
@@ -145,3 +123,54 @@ def remove_mentorship(mentorship_id: int, response: Response):
                 return {
                     "message": "Cannot delete mentorship",
                 }
+
+
+@router.get(
+    "/api/mentorship/",
+    response_model=MentorshipList,
+    responses={
+        404: {"model": ErrorMessage},
+    },
+)
+def mentor_list(query=Depends(MentorshipQueries), bearer_token: str = Depends(oauth2_scheme)):
+    if bearer_token is None:
+         raise credentials_exception
+    rows = query.get_all_mentorships()
+    return rows
+
+
+@router.get(
+    "/api/mentorship_poller/",
+    response_model=MentorshipList,
+    responses={404: {"model": ErrorMessage}},
+)
+def get_mentorship_poller():
+    with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT m.id, m.job_title, m.description, m.availability,
+                        m.mentor_username, m.mentee_username
+                    FROM mentorship m
+                """
+                )
+
+                # if row is None:
+                #     Response.status_code = status.HTTP_404_NOT_FOUND
+                #     return {"message": "Mentorship not found"}
+
+                ds = []
+                for row in cur.fetchall():
+                    d = {
+                        "id": row[0],
+                        "job_title":row[1],
+                        "description": row[2],
+                        "availability": row[3],
+                        "mentor_username": row[4],
+                        "mentee_username": row[5]
+                    }
+                    ds.append(d)
+
+                return ds
+
+    
