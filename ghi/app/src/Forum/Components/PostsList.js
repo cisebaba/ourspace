@@ -20,7 +20,7 @@ function PostsList(props) {
             setPost={(newPost) => {
               let tempPosts = [...posts];
               tempPosts.forEach((tempPost, index) => {
-                if (tempPost.post_id == newPost.post_id) {
+                if (tempPost.post_id === newPost.post_id) {
                   tempPosts[index] = newPost;
                 }
               });

@@ -69,6 +69,37 @@ class PostQueries():
                 }
                 return detail
 
+    # def posts_list(self, username):
+    #     with psycopg.connect("dbname=forum user=ourspace") as conn:
+    #         with conn.cursor() as cur:
+    #             cur.execute(
+    #                 """
+    #                 SELECT post_id, title, text, created_on, author,
+    #                 (select count(*) from post_upvote where post_upvote.post_id = post.post_id) upvote_count,
+    #                 (select count(*) from post_upvote where post_upvote.post_id = post.post_id and upvoter = %s)
+
+    #                 FROM post
+    #                 """,
+    #                 [username],
+    #             )
+
+    #             ds = []
+    #             for row in cur.fetchall():
+    #                 d = {
+    #                     "post_id":row[0],
+    #                     "title":row[1],
+    #                     "text":row[2],
+    #                     "created_on":row[3],
+    #                     "author": str(row[4]), 
+    #                     "upvote_count": row[5], 
+    #                     "user_upvoted": row[6],
+    #                 }
+
+    #                 ds.append(d)
+    #             return ds
+
+
+
 
 
 @router.get("/api/posts/", response_model = PostList)
@@ -107,13 +138,16 @@ def posts_list(bearer_token: str = Depends(oauth2_scheme),):
                 ds.append(d)
             return ds
 
+  
+    
+
+
 @router.get(
     "/api/posts/{post_id}", 
     response_model=Post | Message,
-    responses={404: {"model": Message}},
+    responses={404: {"model": Message}}, 
 )
 def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2_scheme), queries: PostQueries=Depends()):
-    print(bearer_token)
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -131,12 +165,11 @@ def get_post(post_id: int, response:Response, bearer_token: str = Depends(oauth2
 
 @router.post("/api/posts/", response_model = Post)
 def new_post(Post: PostIn, bearer_token: str = Depends(oauth2_scheme)):
-    print("bearer token",bearer_token)
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
-    print("USERNAME", username)
+    
     with psycopg.connect("dbname=forum user=ourspace") as conn:
         with conn.cursor() as cur:
             
