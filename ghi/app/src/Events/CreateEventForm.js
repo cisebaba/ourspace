@@ -28,7 +28,6 @@ function EventForm(props) {
                 `${process.env.REACT_APP_EVENTS_HOST}/api/states/`
             );
             const statesData = await statesResponse.json();
-            //console.log(statesData.states)
             setStateStates(statesData.states)
         };
 
@@ -63,7 +62,6 @@ function EventForm(props) {
             }
         };
         const response = await fetch(eventsUrl, fetchConfigEvent );
-        // console.log(response)
 
         if (response.ok){
             setStateEvent({
