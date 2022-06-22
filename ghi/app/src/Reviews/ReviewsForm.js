@@ -110,8 +110,6 @@ function ReviewsForm(props) {
   //   });
     
   // };
-<<<<<<< HEAD
-=======
   let messageClasses = 'alert alert-success d-none mb-0';
   let formClasses = '';
   if (setReview.ok) {
@@ -119,7 +117,6 @@ function ReviewsForm(props) {
     formClasses = 'd-none';
   }
 
->>>>>>> main
 
   return (
     <div className="row">

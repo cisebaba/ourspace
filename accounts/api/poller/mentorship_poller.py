@@ -26,7 +26,7 @@ def get_mentorship():
                         availability=excluded.availability,
                         mentor_username=excluded.mentor_username,
                         mentee_username=excluded.mentee_username;
-                    """, [mentor["id"], mentor["job_title"],mentor["description"],mentor["availability"],mentor["mentor_username"],mentor["mentee_username"]]
+                    """, [1, "job_title", "description", "availability", "mentor_username", "mentee_username"]
                     )
 
 

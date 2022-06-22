@@ -21,7 +21,7 @@ function MentorForm(props) {
         mentor_username: data.mentor_username,
     };
 
-    const mentorshipUrl = "http://localhost:8050/api/mentorship/";
+    const mentorshipUrl = `${process.env.REACT_APP_MENTORSHIP_HOST}/api/mentorship/`;
     const fetchConfigEvent = {
       method: "POST",
       body: JSON.stringify(newMentorship),
