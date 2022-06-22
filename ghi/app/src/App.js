@@ -40,7 +40,7 @@ function App() {
           <Route path="/profile/new" element={<ProfileForm token={token} />} />
           <Route path="/profile" element={<ProfilePage token={token} />} />
           {/* EVENTS  */}
-          <Route path="events" index element={<EventsList />} />
+          <Route path="events" index element={<EventsList token={token}/>} />
           <Route path="events/new" element={<EventForm token={token} />} />
           {/* JOBS */}
           <Route path="jobs" element={<JobsList />} />

@@ -78,7 +78,7 @@ def createNewEvent(request):
     
     location = Location.objects.create(**content["location"])
     content["location"] = location
-    content['user_id'] = request.payload['user']['id']
+    # content['user_id'] = request.payload['user']['id']
     print(content , " after location")
     event = Event.objects.create(**content)
     return JsonResponse(

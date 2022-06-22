@@ -18,19 +18,28 @@ def test_average_exists():
 
 
 class NormalReviewQueries:
-    def reviews_list(self):
-        return {
+    def get_reviews_list(self):
+        return [{
             "company_name": "google",
-            "rating": 1,
-            "salary": 100000,
-            "diversity": 3,
-            "balance": 4,
-            "parental_leave": 2,
-            "flexibility": 1,
-        }
+            "average_rating": 1,
+            "salary_average": 100000,
+            "diversity_average": 1,
+            "balance_average": 2,
+            "parental_leave_average": 2,
+            "flexibility_average": 2
+        },
+        {
+            "company_name": "facebook",
+            "average_rating": 2,
+            "salary_average": 300000,
+            "diversity_average": 4,
+            "balance_average": 5,
+            "parental_leave_average": 1,
+            "flexibility_average": 3
+        }]
 
 class EmptyReviewQueries:
-    def reviews_list(self):
+    def get_reviews_list(self):
         return None
 
 
@@ -46,70 +55,27 @@ def test_reviews_list_returns_200():
 
     # ASSERT
     assert response.status_code == 200
-    assert d["company_name"] == "COMPANY NAME"
-    assert d["rating"] == "RATING"
-    assert d["salary"] == "SALARY"
-    assert d["diversity"] == "DVIERSITY"
-    assert d["balance"] == "BALANCE"
-    assert d["parental_leave"] == "PARENTAL"
-    assert d["flexibility"] == "FLEX"
-    assert d["average_rating"] == "AVG"
+    assert d[0]
+    assert d[1]
 
     # CLEAN UP
     app.dependency_overrides = {}
 
 
-# def test_reviews_list_returns_404():
-#     # ARRANGE
-#     # Use our fake database
-#     app.dependency_overrides[ReviewQueries] = EmptyReviewQueries
+def test_reviews_list_returns_404():
+    # ARRANGE
+    # Use our fake database
+    app.dependency_overrides[ReviewQueries] = EmptyReviewQueries
 
-#     # ACT
-#     # Make the request
-#     response = client.get("/api/reviews/")
+    # ACT
+    # Make the request
+    response = client.get("/api/reviews/")
 
-#     # ASSERT
-#     # Assert that we got a 404
-#     assert response.status_code == 404
+    # ASSERT
+    # Assert that we got a 404
+    assert response.status_code == 404
 
-#     # CLEAN UP
-#     # Clear out the dependencies
-#     app.dependency_overrides = {}
+    # CLEAN UP
+    # Clear out the dependencies
+    app.dependency_overrides = {}
 
-# class EmptyMentorshipQueries:
-#     def get_one_mentorship(self, id):
-#         return None
-
-
-# class NormalMentorshipQueries:
-#     def get_one_mentorship(self, id):
-#         return {
-#             "id": 8, 
-#             "job_title": "JOB TITLE", 
-#             "description": "DESCRIPTION", 
-#             "availability": "AVAILABILITY", 
-#             "mentor_username": "MENTOR", 
-#             "mentee_username": "MENTEE"
-#         }
-
-# def test_get_one_mentorship_returns_200():
-#     #Arrange
-#     app.dependency_overrides[MentorshipQueries] = NormalMentorshipQueries
-    
-
-#     #Act
-#     headers = {"authorization": f"Bearer {bearer_token}"}
-#     response = client.get("/api/mentorship/8", headers=headers)
-#     d = response.json()
-
-#     #Assert
-#     assert response.status_code == 200
-#     assert d["id"] == 8
-#     assert d["job_title"] == "JOB TITLE"
-#     assert d["description"] == "DESCRIPTION"
-#     assert d["availability"] == "AVAILABILITY"
-#     assert d["mentor_username"] == "MENTOR"
-#     assert d["mentee_username"] == "MENTEE"
-
-#     #Clean up
-#     app.dependency_overrides = {}

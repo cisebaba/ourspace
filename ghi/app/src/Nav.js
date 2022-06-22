@@ -38,12 +38,6 @@ function Nav(props) {
         </button>
         <div>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <NavLink className="dropdown-item" to="events/new" role="button">
-              Events Form
-            </NavLink>
-            <NavLink className="dropdown-item" end to="events" role="button">
-              Events
-            </NavLink>
             {token ? (
               <>
                 {/* Whatever you want to show when people are logged in */}
@@ -69,6 +63,9 @@ function Nav(props) {
             )}
           </ul>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <NavLink className="dropdown-item" to="events" role="button">
+              Events
+            </NavLink>
             <NavLink className="dropdown-item" to="jobs" role="button">
               Jobs
             </NavLink>

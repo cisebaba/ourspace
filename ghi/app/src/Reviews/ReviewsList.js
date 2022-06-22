@@ -23,7 +23,7 @@ function ReviewsList() {
 
   useEffect(() => {
     const getReviewsData = async () => {
-      const reviewsResponse = await fetch("http://localhost:8070/api/reviews/");
+      const reviewsResponse = await fetch(`${process.env.REACT_APP_REVIEWS_HOST}/api/reviews/`);
       const reviewsData = await reviewsResponse.json();
       setReviews(reviewsData);
     };
@@ -58,7 +58,7 @@ function ReviewsList() {
               {/* figure out the logic for rating!! */}
               {/* <h5 className="card-text">Overall Average Rating: {review.rating}{Star}</h5> */}
               <div></div>
-              <h5 className="card-text">Average Salary: 
+              <h5 className="card-text">Average Salary: {review.salary_average}
               </h5>
               <div></div>
               <p className="card-text">Diversity: {review.diversity_average} <StarRating number = {review.diversity_average}/></p>
