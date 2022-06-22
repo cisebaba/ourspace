@@ -4,7 +4,7 @@ export async function getPosts(props) {
   const token = props.token;
   try {
     const postsResponse = await fetch(
-      `${process.env.REACT_APP_ACCOUNTS_HOST}/api/posts/`,
+      `${process.env.REACT_APP_FORUM_HOST}/api/posts/`,
       {
         headers: {
           authorization: `Bearer ${token}`,
