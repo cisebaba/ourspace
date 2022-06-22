@@ -25,7 +25,7 @@ function CommentForm(props) {
       commenter: data.commenter,
     };
 
-    const commentsUrl = `http://localhost:8090/api/posts/${params.post_id}/comment/`;
+    const commentsUrl = `${process.env.REACT_APP_FORUM_HOST}/api/posts/${params.post_id}/comment/`;
 
     const fetchConfigEvent = {
       method: "POST",

@@ -54,31 +54,38 @@ def api_list_events(request):
             {"events": events},
             encoder=EventDetailEncoder,
         )
-    else:
-        content = json.loads(request.body)
-        print(content["location"])
-        # try:
-            # location = Location.objects.get(name=content["location"]["name"])
-            # content["location"] = location
-        # except Location.DoesNotExist:
-        try:
-            state = State.objects.get(abbreviation=content["location"]["state"])
-            content["location"]["state"] = state
-        except State.DoesNotExist:
-            return JsonResponse(
-                {"message": "Invalid state abbreviation"},
-                status=400,
-            )
+    else: 
+        return createNewEvent(request)
+
         
-        location = Location.objects.create(**content["location"])
-        content["location"] = location
-        print(content , " after location")
-        event = Event.objects.create(**content)
+@auth.jwt_login_required
+def createNewEvent(request): 
+    content = json.loads(request.body)
+    print(content["location"])
+    print("PAYLOAD:", request.payload)
+    # try:
+        # location = Location.objects.get(name=content["location"]["name"])
+        # content["location"] = location
+    # except Location.DoesNotExist:
+    try:
+        state = State.objects.get(abbreviation=content["location"]["state"])
+        content["location"]["state"] = state
+    except State.DoesNotExist:
         return JsonResponse(
-            event,
-            encoder=EventDetailEncoder,
-            safe=False,
+            {"message": "Invalid state abbreviation"},
+            status=400,
         )
+    
+    location = Location.objects.create(**content["location"])
+    content["location"] = location
+    content['user_id'] = request.payload['user']['id']
+    print(content , " after location")
+    event = Event.objects.create(**content)
+    return JsonResponse(
+        event,
+        encoder=EventDetailEncoder,
+        safe=False,
+    )
 # @require_http_methods(["GET","POST"])
 # def api_list_events(request):
 #     if request.method=="GET":
