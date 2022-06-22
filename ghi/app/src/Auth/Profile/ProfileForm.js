@@ -26,7 +26,7 @@ function ProfileForm(props) {
     e.preventDefault();
     const data = stateProfile;
     console.log(data)
-    const profileUrl = "http://localhost:9000/api/profile/new/" ;
+    const profileUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/profile/new` ;
         const fetchConfigProfile = {
             method: "POST", 
             body: JSON.stringify(data), 

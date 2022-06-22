@@ -6,14 +6,14 @@ import requests
 import psycopg
 
 # sys.path.append("")
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "service_project.settings")
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "events.settings")
 # django.setup()
 
 
 def get_mentorship():
     response = requests.get("http://mentorship:8000/api/mentorship_poller/")
     content = json.loads(response.content)
-    for mentor in content["mentorship"]:
+    for mentor in content:
         with psycopg.connect("dbname=accounts user=ourspace") as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -26,7 +26,27 @@ def get_mentorship():
                         availability=excluded.availability,
                         mentor_username=excluded.mentor_username,
                         mentee_username=excluded.mentee_username;
-                    """, [mentor["id"], mentor["job_title"],mentor["description"],mentor["availability"],mentor["mentor_username"],mentor["mentee_username"]]
+                    """, [1, "job_title", "description", "availability", "mentor_username", "mentee_username"]
+                    )
+
+
+def get_events():
+    response = requests.get("http://events:8000/api/events/")
+    content = json.loads(response.content)
+    for event in content["events"]:
+        with psycopg.connect("dbname=accounts user=ourspace") as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO eventsVO ( href, name,starts ,ends ,description ,location) 
+                    VALUES (%s,%s,%s,%s,%s,%s)
+                    ON CONFLICT (href) DO UPDATE 
+                    SET name = excluded.name, 
+                        starts = excluded.starts,
+                        ends=excluded.ends,
+                        description=excluded.description,
+                        location=excluded.location;
+                    """, [event["href"], event["name"],event["starts"],event["ends"],event["description"],event["location"]["state"]]
                     )
 
 
@@ -36,9 +56,12 @@ def poll():
         try:
             # Write your polling logic, here
             get_mentorship()
+            get_events()
             # pass
         except Exception as e:
+            import traceback
             print(e, file=sys.stderr)
+            traceback.print_exc()
         time.sleep(60)
 
 

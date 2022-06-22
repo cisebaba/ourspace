@@ -1,4 +1,4 @@
-# from datetime import datetime
+from datetime import datetime
 from fastapi import APIRouter, Response, status, Depends,HTTPException
 import psycopg
 from pydantic import BaseModel
@@ -8,6 +8,18 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from poller import get_weather
 import os
 from jose import jwt
+from profile_models import (
+    MentorshipVO, 
+    MentorshipList, 
+    EventsVo,
+    EventsList, 
+    ProfileIn,
+    ProfileOut,
+    ProfileWithWeatherOut,
+    ErrorMessage,
+    Message
+    )
+from profile_db import ProfileQueries
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
 router = APIRouter()
@@ -20,46 +32,6 @@ credentials_exception = HTTPException(
         headers={"WWW-Authenticate": "Bearer"},
     )
 
-
-class MentorshipVO(BaseModel):
-    job_title: str
-    description: str
-    availability: str
-    booked: bool
-    mentor_username: str
-    mentee_username: Union[str, None]
-
-class EventsVo(BaseModel):
-    name: str
-    starts: int
-    ends: int
-    description:str
-    location: dict
-
-class ProfileIn(BaseModel):
-    city: str
-    state:str
-    role: str
-
-class ProfileOut(BaseModel):
-    id: int
-    city: str
-    state:str
-    role: str
-    userid: int
-    firstname:str | None
-    lastname:str | None
-    username: str
-
-
-class ProfileWithWeatherOut(ProfileOut):
-    weather:dict|None
-
-class ErrorMessage(BaseModel):
-    message: str
-
-class Message(BaseModel):
-    message: str
 
 
 
@@ -106,60 +78,32 @@ def profile_post(profile: ProfileIn,bearer_token: str = Depends(oauth2_scheme)):
 
 @router.get(
     "/api/profile/",
-    response_model=ProfileWithWeatherOut,
+    response_model=ProfileWithWeatherOut | Message,
     responses={
+        200: {"model": ProfileWithWeatherOut},
         404: {"model": ErrorMessage},
     },
 )
 
-def profile_list( bearer_token: str = Depends(oauth2_scheme)):
-    #  print("bearer =>",bearer_token)
+def profile_list(response:Response, query=Depends(ProfileQueries), bearer_token: str = Depends(oauth2_scheme)):
      if bearer_token is None:
          raise credentials_exception
      payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
      username = payload.get("sub")
      user = payload.get("user")
-    #  print(user)
-     with psycopg.connect("dbname=accounts user=ourspace") as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                """
-                select p.id, p.city
-                , p.state
-                , p.role
-                , users.id
-                , users.firstname
-                , users.lastname
-                , users.username
-                from profile p
-                INNER JOIN users ON (users.id = p.userid)
-                WHERE users.id = %s;
-            """, [user["id"]]
-            )
-            
-            row = cur.fetchone()
-            weather = get_weather.get_weather_data(row[1], row[2])
-            # print("WEATHER",weather)
-            d = {
-                "id": row[0],
-                "city":row[1],
-                "state": row[2],
-                "role" : row[3],
-                "userid":user["id"],
-                "firstname":user["firstname"],
-                "lastname":user["lastname"],
-                "username":username,
-                "weather": weather
-            }
-            # print(d)
-
-            return d
+     id = user["id"]
+     row = query.get_profile(id)
+     if row is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "Profile weather not found"}
+     print(row, "row")
+     return row
 
 
 
 @router.get(
     "/profile/mentorship/",
-    response_model=list[MentorshipVO],
+    response_model=MentorshipList,
     responses={
         404: {"model": ErrorMessage},
     },
@@ -177,6 +121,7 @@ def mentor_list():
 
             ds = []
             for row in cur.fetchall():
+                print(row)
                 d = {
                     "job_title":row[1],
                     "description": row[2],
@@ -185,30 +130,30 @@ def mentor_list():
                     "mentee_username": row[5]
                 }
                 ds.append(d)
-
             return ds
 
 @router.get(
     "/profile/events/",
-    response_model=list[EventsVo],
+    response_model=EventsList,
     responses={
         404: {"model": ErrorMessage},
     },
 )
-def mentor_list():
+def events_list():
      with psycopg.connect("dbname=accounts user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT e.id, e.name, e.starts, e.ends, 
+                SELECT e.href, e.name, e.starts, e.ends, 
                     e.description, e.location
-                FROM events e
+                FROM eventsVO e
             """
             )
 
             ds = []
             for row in cur.fetchall():
                 d = {
+                    "href":row[0],
                     "name":row[1],
                     "starts": row[2],
                     "ends": row[3],
@@ -216,7 +161,6 @@ def mentor_list():
                     "location": row[5]
                 }
                 ds.append(d)
-                print(ds)
 
             return ds
 
