@@ -25,7 +25,6 @@ function ProfileForm(props) {
   const handleSubmit = async e => {
     e.preventDefault();
     const data = stateProfile;
-    console.log(data)
     const profileUrl = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/profile/new` ;
         const fetchConfigProfile = {
             method: "POST", 

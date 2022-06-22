@@ -1,17 +1,14 @@
 import React, {useState, useEffect, useSyncExternalStore, useReducer} from "react";
 
 function ProfilePage(props){
-    console.log(props,"props")
 
     const token = props.token;
     const [profile, setProfile]= useState({
         weather:{}
     });
-    console.log(`${process.env.REACT_APP_ACCOUNTS_HOST}/api/profile/`,"url")
 
     useEffect(()=>{
         const getProfile = async ()=>{
-            console.log("getProfile")
             const listResponse = await fetch(`${process.env.REACT_APP_ACCOUNTS_HOST}/api/profile/`,{
                 headers: {
                     authorization:`Bearer ${token}`,
@@ -24,7 +21,6 @@ function ProfilePage(props){
             //     }
             // });
             const profileData = await listResponse.json();
-            console.log("profile",profile)
             setProfile(profileData)
            
         };
@@ -32,7 +28,6 @@ function ProfilePage(props){
             getProfile();
         }
     },[token]);
-    console.log(profile)
     return(
         <div>
         <h1>Hello {profile.firstname} {profile.lastname} or {profile.username}</h1>

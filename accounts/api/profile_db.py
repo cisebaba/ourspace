@@ -28,7 +28,6 @@ class ProfileQueries:
             
             row = cur.fetchone()
             weather = get_weather.get_weather_data(row[1], row[2])
-            # print("WEATHER",weather)
             d = {
                 "id": row[0],
                 "city":row[1],
