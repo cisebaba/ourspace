@@ -4,6 +4,9 @@ import StarRating from "./StarRatingForm";
 function ReviewsForm(props) {
   const token = props.token;
   // const [rating, setRating] = useState(0);
+  const [review, setReview] = useState({
+    review: false
+  })
   const [overall_rating, setOverallRating] = useState(0);
   const [company_name, setCompanyName] = useState();
   const [salary, setSalary] = useState();
@@ -13,12 +16,12 @@ function ReviewsForm(props) {
   const [flexibility, setFlexibility] = useState(0);
 
 
+
+
   useEffect(() => {
     const getReviewData = async () => {
       const reviewsResponse = await fetch("http://localhost:8070/api/reviews/");
-      console.log(reviewsResponse)
       const reviewsData = await reviewsResponse.json();
-      console.log(reviewsData)
       setCompanyName(reviewsData.company_name);
       setOverallRating(reviewsData.rating);
       setSalary(reviewsData.salary);
@@ -51,7 +54,6 @@ function ReviewsForm(props) {
       flexibility: dataFlexibility,
 
     };
-    console.log(new_data)
 
     const reviewsUrl = "http://localhost:8070/api/reviews/";
     const fetchConfigReview = {
@@ -64,7 +66,12 @@ function ReviewsForm(props) {
       },
     };
     const response = await fetch(reviewsUrl, fetchConfigReview);
-    console.log(response)
+    
+    if (response.ok) {
+      setReview({
+        review: true
+      })
+    }
 
     // if (response.ok) {
     //   setCompanyName({
@@ -104,7 +111,13 @@ function ReviewsForm(props) {
   //   });
     
   // };
-  
+  let messageClasses = 'alert alert-success d-none mb-0';
+  let formClasses = '';
+  if (setReview.ok) {
+    messageClasses = 'alert alert-success mb-0';
+    formClasses = 'd-none';
+  }
+
 
   return (
     <div className="row">
@@ -113,7 +126,7 @@ function ReviewsForm(props) {
           <h1>Review a Company!</h1>
           
 
-          <form onSubmit={handleSubmit} id="create-form">
+          <form className={formClasses} onSubmit={handleSubmit} id="create-form">
             <div className="form-floating mb-3">
               <input onChange={(e) => setCompanyName(e.target.value)}
               value={company_name}
@@ -134,8 +147,9 @@ function ReviewsForm(props) {
               className="form-control" />
               <label htmlFor="name"> Salary</label>
             </div>
+              <label htmlFor="name"> Rating </label>
             <div className="form-floating mb-3">
-              <StarRating onChange={(e) => setOverallRating(e.target.value)}
+              <StarRating
               value={overall_rating}
               setRating={setOverallRating}
               placeholder="rating"
@@ -143,10 +157,10 @@ function ReviewsForm(props) {
               name="rating"
               id="rating"
               className="form-control" />
-              <label htmlFor="name"> Rating </label>
             </div>
+              <label htmlFor="name"> Diversity</label>
             <div className="form-floating mb-3">
-              <StarRating onChange={(e) => setDiversity(e.target.value)}
+              <StarRating
               value={diversity}
               setRating={setDiversity}
               placeholder="diversity"
@@ -154,10 +168,10 @@ function ReviewsForm(props) {
               name="diversity"
               id="diversity"
               className="form-control" />
-              <label htmlFor="name"> diversity</label>
             </div>
+              <label htmlFor="name"> Balance</label>
             <div className="form-floating mb-3">
-              <StarRating onChange={(e) => setBalance(e.target.value)}
+              <StarRating
               value={balance}
               setRating={setBalance}
               placeholder="balance"
@@ -165,10 +179,10 @@ function ReviewsForm(props) {
               name="balance"
               id="balance"
               className="form-control" />
-              <label htmlFor="name"> balance</label>
             </div>
+              <label htmlFor="name"> Parental Leave</label>
             <div className="form-floating mb-3">
-              <StarRating onChange={(e) => setParentalLeave(e.target.value)}
+              <StarRating
               value={parental_leave}
               setRating={setParentalLeave}
               placeholder="parental_leave"
@@ -176,10 +190,10 @@ function ReviewsForm(props) {
               name="parental_leave"
               id="parental_leave"
               className="form-control" />
-              <label htmlFor="name"> parental_leave</label>
             </div>
+              <label htmlFor="name"> Flexibility</label>
             <div className="form-floating mb-3">
-              <StarRating onChange={(e) => setFlexibility(e.target.value)}
+              <StarRating
               value={flexibility}
               setRating={setFlexibility}
               placeholder="flexibility"
@@ -187,16 +201,18 @@ function ReviewsForm(props) {
               name="flexibility"
               id="flexibility"
               className="form-control" />
-              <label htmlFor="name"> flexibility</label>
             </div>
             <button className="btn btn-primary">Add</button>
           </form>
+          <div className={messageClasses} id="success-message">
+          Congratulations! You're all signed up!
+
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
 
 
 export default ReviewsForm;

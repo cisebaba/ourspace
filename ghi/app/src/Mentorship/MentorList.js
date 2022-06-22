@@ -5,6 +5,7 @@ import MentorForm from "./MentorForm";
 
 function MentorList(props){
     const token = props.token;
+    console.log("props",props)
     const [mentorships, setMentorships] = useState([]);
     const [successMessage, setSuccessMessage] = useState();
 
@@ -57,7 +58,7 @@ function MentorList(props){
                 <p className="card-text">
                   Mentor Qualifications: {mentorship.job_title}
                 </p>
-                <button onClick={signUpClick.bind(this, mentorship.id)} className="btn btn-primary">Sign me up!</button>
+                <button onClick={signUpClick.bind(this, mentorship.id)} className="btn btn-primary">Book this mentor!</button>
                 {(successMessage === mentorship.id) ? <SuccessMessage /> : <></>}
               </div>
               <div className="card-footer">
