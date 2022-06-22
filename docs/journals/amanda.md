@@ -1,3 +1,11 @@
+# June 17, 2022
+Today I worked on:
+* I added a success message that displays when a user signs up for a mentorship. I also worked on putting the list and form components onto the same page. 
+
+I think the mentor page is starting to come together. The page now shows both the form and the list on one page, which helps de-clutter the navigation a little bit. I also added a success message alert that shows when a mentee signs up for a mentorship. This was super exciting to get working! I also modified the SQL statement for my GET endpoint, so now only the available mentorships that don't yet have a mentee display on the page. 
+
+My aha today was getting the success alert to display properly by utilizing state with the success message component. I also learned more about using the ternary operator to show or hide a component based on its state.
+
 # June 16, 2022
 Today I worked on:
 * I finished the create form in React for the mentorship microservice. I also worked on the button functionality in the mentorship listings, to give the user the ability to sign up for an available offering. 

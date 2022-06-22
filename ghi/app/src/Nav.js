@@ -14,8 +14,8 @@ function Nav(props) {
         setUser(user);
       }
     }
-    getMe();
-  },[user.id]);
+    getMe()
+},[]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -48,8 +48,11 @@ function Nav(props) {
                 <NavLink className="dropdown-item" to="/logout" role="button">
                   Logout {user.username}
                 </NavLink>
-                <NavLink className="dropdown-item" to="profile/new" role="button">
+                {/* <NavLink className="dropdown-item" to="/profile/new" role="button">
                   Profile Form
+                </NavLink> */}
+                <NavLink className="dropdown-item" to="/profile" role="button">
+                  Profile Page
                 </NavLink>
               </>
             ) : (
@@ -81,9 +84,6 @@ function Nav(props) {
               </NavLink>
             <NavLink className="dropdown-item" to="mentorship" role="button">
               Mentorship
-            </NavLink>
-            <NavLink className="dropdown-item" to="mentorship/new" role="button">
-              New Mentorship
             </NavLink>
           </ul>
         </div>

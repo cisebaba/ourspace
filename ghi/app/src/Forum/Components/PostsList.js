@@ -1,35 +1,22 @@
-import React, { useState, useEffect } from "react";
-import PostListDetail from "./ListBody";
-import DeleteUpvote from "../Upvotes/DeleteUpvote";
+import React from "react";
+import PostBody from "./PostBody";
 
 //pass in current user id
 function PostsList(props) {
   const token = props.token;
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    const getPostsData = async () => {
-      const postsResponse = await fetch("http://localhost:8090/api/posts/", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-      const postsData = await postsResponse.json();
-      setPosts(postsData);
-    };
-    getPostsData();
-  }, []);
-  // above [] is blank cause you only want useeffect to happen once
+  const posts = props.posts;
+  const setPosts = props.setPosts;
 
   return (
     <div className="col">
       <h3>Posts</h3>
       {posts.map((post) => {
         return (
-          <PostListDetail
+          <PostBody
             key={post.post_id}
             post={post}
             token={token}
+            showNavLinks={true}
             setPost={(newPost) => {
               let tempPosts = [...posts];
               tempPosts.forEach((tempPost, index) => {

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import SuccessMessage from "./SuccessMessage";
 
 function MentorForm(props) {
   const token = props.token;
+  const [successMessage, setSuccessMessage] = useState(false);
   const [stateMentorship, setStateMentorship] = useState({
     description: "",
     job_title: "",
     availability: "",
-    booked: "",
     mentor_username: "",
   });
 
@@ -17,12 +18,10 @@ function MentorForm(props) {
         description: data.description,
         job_title: data.job_title,
         availability: data.availability,
-        booked: data.booked,
         mentor_username: data.mentor_username,
     };
 
-
-    const mentorshipUrl = "http://localhost:8050/api/mentorship";
+    const mentorshipUrl = "http://localhost:8050/api/mentorship/";
     const fetchConfigEvent = {
       method: "POST",
       body: JSON.stringify(newMentorship),
@@ -39,9 +38,10 @@ function MentorForm(props) {
         description: "",
         job_title: "",
         availability: "",
-        booked: "",
         mentor_username: "",
       });
+      setSuccessMessage(true);
+
     }
   };
 
@@ -83,7 +83,7 @@ function MentorForm(props) {
                 id="job_title"
                 className="form-control"
               />
-              <label htmlFor="job_title">Job Title</label>
+              <label htmlFor="job_title">Job Title or Qualifications</label>
             </div>
             <div className="form-floating mb-3">
               <input
@@ -98,7 +98,8 @@ function MentorForm(props) {
               />
               <label htmlFor="availability">Mentor's Availability</label>
             </div>
-            <button className="btn btn-primary">Create</button>
+            <button className="btn btn-primary">Signup as a Mentor</button>
+            {(successMessage === true) ? <SuccessMessage /> : <></>}
           </form>
         </div>
       </div>

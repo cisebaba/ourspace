@@ -94,7 +94,20 @@ services:
       PGUSER: ourspace
       PGPASSWORD: ourspace
       SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
-
+  accounts-poller:
+    build:
+      context: ./accounts/api/poller
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - ./accounts/api.poller:/app
+    depends_on:
+      - database
+      - accounts
+    environment:
+      PGHOST: db
+      PGDATABASE: accounts
+      PGUSER: ourspace
+      PGPASSWORD: ourspace
   events:
     build:
       context: ./events/api
