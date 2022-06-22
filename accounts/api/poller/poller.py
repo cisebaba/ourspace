@@ -6,17 +6,14 @@ import requests
 import psycopg
 
 # sys.path.append("")
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "service_project.settings")
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "events.settings")
 # django.setup()
 
 
 def get_mentorship():
-    print("blah")
     response = requests.get("http://mentorship:8000/api/mentorship_poller/")
-    print(response,"response")
     content = json.loads(response.content)
-    print(content["mentorship"], "mentor")
-    for mentor in content["mentorship"]:
+    for mentor in content:
         with psycopg.connect("dbname=accounts user=ourspace") as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -36,22 +33,24 @@ def get_mentorship():
 def get_events():
     print("blah2")
     response = requests.get("http://events:8000/api/events/")
+    print(response,"response")
     content = json.loads(response.content)
     print(content,"events")
     for event in content["events"]:
+        print(event,"single")
         with psycopg.connect("dbname=accounts user=ourspace") as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    INSERT INTO mentorshipVO (id, name,starts ,ends ,description ,location ,) 
+                    INSERT INTO eventsVO ( href, name,starts ,ends ,description ,location) 
                     VALUES (%s,%s,%s,%s,%s,%s)
-                    ON CONFLICT (id) DO UPDATE 
+                    ON CONFLICT (href) DO UPDATE 
                     SET name = excluded.name, 
                         starts = excluded.starts,
                         ends=excluded.ends,
                         description=excluded.description,
                         location=excluded.location;
-                    """, [event["id"], event["name"],event["starts"],event["ends"],event["description"],event["location"]["state"]]
+                    """, [event["href"], event["name"],event["starts"],event["ends"],event["description"],event["location"]["state"]]
                     )
 
 
@@ -64,7 +63,9 @@ def poll():
             get_events()
             # pass
         except Exception as e:
+            import traceback
             print(e, file=sys.stderr)
+            traceback.print_exc()
         time.sleep(60)
 
 

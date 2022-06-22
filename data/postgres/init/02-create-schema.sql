@@ -41,7 +41,7 @@ CREATE TABLE mentorshipVO(
     mentee_username VARCHAR(100) 
 );
 CREATE TABLE eventsVO(
-    id SERIAL NOT NULL PRIMARY KEY, 
+    href VARCHAR(200) NOT NULL PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
     starts TIMESTAMP,
     ends TIMESTAMP,

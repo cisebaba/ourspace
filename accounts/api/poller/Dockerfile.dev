@@ -6,4 +6,4 @@ RUN chmod +x /wait
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 # CMD /wait 
-CMD uvicorn main:app --reload --host 0.0.0.0 & python poller.py
+CMD python poller.py

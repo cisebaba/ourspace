@@ -170,6 +170,7 @@ def get_mentorship_poller():
                         "mentee_username": row[5]
                     }
                     ds.append(d)
+                print(ds)
 
                 return ds
 

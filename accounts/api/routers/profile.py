@@ -1,4 +1,4 @@
-# from datetime import datetime
+from datetime import datetime
 from fastapi import APIRouter, Response, status, Depends,HTTPException
 import psycopg
 from pydantic import BaseModel
@@ -25,19 +25,22 @@ class MentorshipVO(BaseModel):
     job_title: str
     description: str
     availability: str
-    booked: bool
     mentor_username: str
     mentee_username: Union[str, None]
 
 class MentorshipList(BaseModel):
     __root__: List[MentorshipVO]
 
+# class LocationVO(BaseModel):
+#     state:str
+
 class EventsVo(BaseModel):
+    href:str
     name: str
-    starts: int
-    ends: int
+    starts: datetime
+    ends: datetime
     description:str
-    location: dict
+    location: str
 
 class EventsList(BaseModel):
     __root__: List[EventsVo]
@@ -207,7 +210,7 @@ def events_list():
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT e.id, e.name, e.starts, e.ends, 
+                SELECT e.href, e.name, e.starts, e.ends, 
                     e.description, e.location
                 FROM eventsVO e
             """
@@ -216,6 +219,7 @@ def events_list():
             ds = []
             for row in cur.fetchall():
                 d = {
+                    "href":row[0],
                     "name":row[1],
                     "starts": row[2],
                     "ends": row[3],
