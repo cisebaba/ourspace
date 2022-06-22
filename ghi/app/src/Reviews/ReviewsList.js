@@ -16,14 +16,18 @@ const StarRating = (props) => {
   );
 };
 
-function ReviewsList() {
+function ReviewsList(props) {
+  const token = props.token;
   const [reviews, setReviews] = useState([]);
 
 
 
   useEffect(() => {
     const getReviewsData = async () => {
-      const reviewsResponse = await fetch(`${process.env.REACT_APP_REVIEWS_HOST}/api/reviews/`);
+      const reviewsResponse = await fetch(`${process.env.REACT_APP_REVIEWS_HOST}/api/reviews/`,
+      {headers: {
+        authorization:`Bearer ${token}`,
+    }});
       const reviewsData = await reviewsResponse.json();
       setReviews(reviewsData);
     };
@@ -44,7 +48,7 @@ function ReviewsList() {
 
   return (
     <div className="col">
-      <ReviewsForm />
+      <ReviewsForm token={props.token}/>
       {reviews.map((review) => {
         return (
           <div key={review.id} className="card mb-3 shadow">
