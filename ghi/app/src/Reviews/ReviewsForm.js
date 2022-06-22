@@ -21,9 +21,7 @@ function ReviewsForm(props) {
   useEffect(() => {
     const getReviewData = async () => {
       const reviewsResponse = await fetch("http://localhost:8070/api/reviews/");
-      console.log(reviewsResponse)
       const reviewsData = await reviewsResponse.json();
-      console.log(reviewsData)
       setCompanyName(reviewsData.company_name);
       setOverallRating(reviewsData.rating);
       setSalary(reviewsData.salary);
@@ -56,7 +54,6 @@ function ReviewsForm(props) {
       flexibility: dataFlexibility,
 
     };
-    console.log(new_data)
 
     const reviewsUrl = "http://localhost:8070/api/reviews/";
     const fetchConfigReview = {
@@ -69,7 +66,6 @@ function ReviewsForm(props) {
       },
     };
     const response = await fetch(reviewsUrl, fetchConfigReview);
-    console.log(response)
     
     if (response.ok) {
       setReview({
@@ -115,13 +111,13 @@ function ReviewsForm(props) {
   //   });
     
   // };
+  let messageClasses = 'alert alert-success d-none mb-0';
+  let formClasses = '';
+  if (setReview.ok) {
+    messageClasses = 'alert alert-success mb-0';
+    formClasses = 'd-none';
+  }
 
-    let messageClasses = 'alert alert-success d-none mb-0';
-    let formClasses = '';
-    if (setReview == true) {
-      messageClasses = 'alert alert-success mb-0';
-      formClasses = 'd-none';
-    }
 
   return (
     <div className="row">
@@ -162,7 +158,7 @@ function ReviewsForm(props) {
               id="rating"
               className="form-control" />
             </div>
-              <label htmlFor="name"> diversity</label>
+              <label htmlFor="name"> Diversity</label>
             <div className="form-floating mb-3">
               <StarRating
               value={diversity}
@@ -173,7 +169,7 @@ function ReviewsForm(props) {
               id="diversity"
               className="form-control" />
             </div>
-              <label htmlFor="name"> balance</label>
+              <label htmlFor="name"> Balance</label>
             <div className="form-floating mb-3">
               <StarRating
               value={balance}
@@ -184,7 +180,7 @@ function ReviewsForm(props) {
               id="balance"
               className="form-control" />
             </div>
-              <label htmlFor="name"> parental_leave</label>
+              <label htmlFor="name"> Parental Leave</label>
             <div className="form-floating mb-3">
               <StarRating
               value={parental_leave}
@@ -195,7 +191,7 @@ function ReviewsForm(props) {
               id="parental_leave"
               className="form-control" />
             </div>
-              <label htmlFor="name"> flexibility</label>
+              <label htmlFor="name"> Flexibility</label>
             <div className="form-floating mb-3">
               <StarRating
               value={flexibility}
