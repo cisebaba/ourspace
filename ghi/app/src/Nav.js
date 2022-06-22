@@ -75,9 +75,6 @@ function Nav(props) {
             <NavLink className="dropdown-item" to="posts/new" role="button">
               New Post
             </NavLink>
-            <NavLink className="dropdown-item" to="reviews/new" role="button">
-              Reviews Form
-            </NavLink>
             <NavLink className="dropdown-item" to="reviews" role="button">
               Reviews
             </NavLink>

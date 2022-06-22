@@ -60,7 +60,11 @@ class AverageOut(BaseModel):
     parental_leave_average: int
     flexibility_average: int
 
+class ErrorMessage(BaseModel):
+    message: str
 
+class Message(BaseModel):
+    message: str
 
 class ReviewList(BaseModel):
     __root__: List[AverageOut]
@@ -143,11 +147,23 @@ def new_review(Review: ReviewIn
             }
 
 
-@router.get("/api/reviews/", response_model = ReviewList)
-def reviews_list(queries: ReviewQueries=Depends(ReviewQueries)):
+@router.get(
+    "/api/reviews/",
+    response_model = ReviewList | Message,
+    responses = {
+        200: {
+            "model": AverageOut
+        },
+        404: {
+            "model": ErrorMessage
+        }
+    },
+)
+def reviews_list(response: Response, queries: ReviewQueries=Depends(ReviewQueries)):
     reviews = queries.get_reviews_list()
     if reviews is None:
-        return None
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "not found"}
     else:
         return reviews
 
