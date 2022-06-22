@@ -39,6 +39,9 @@ class EventsVo(BaseModel):
     description:str
     location: dict
 
+class EventsList(BaseModel):
+    __root__: List[EventsVo]
+
 class ProfileIn(BaseModel):
     city: str
     state:str
@@ -180,6 +183,7 @@ def mentor_list():
 
             ds = []
             for row in cur.fetchall():
+                print(row)
                 d = {
                     "job_title":row[1],
                     "description": row[2],
@@ -188,24 +192,24 @@ def mentor_list():
                     "mentee_username": row[5]
                 }
                 ds.append(d)
-            print(ds)
+            print(ds,"ds")
             return ds
 
 @router.get(
     "/profile/events/",
-    response_model=list[EventsVo],
+    response_model=EventsList,
     responses={
         404: {"model": ErrorMessage},
     },
 )
-def mentor_list():
+def events_list():
      with psycopg.connect("dbname=accounts user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
                 SELECT e.id, e.name, e.starts, e.ends, 
                     e.description, e.location
-                FROM events e
+                FROM eventsVO e
             """
             )
 

@@ -13,6 +13,7 @@ import psycopg
 def get_mentorship():
     print("blah")
     response = requests.get("http://mentorship:8000/api/mentorship_poller/")
+    print(response,"response")
     content = json.loads(response.content)
     print(content["mentorship"], "mentor")
     for mentor in content["mentorship"]:
@@ -32,12 +33,35 @@ def get_mentorship():
                     )
 
 
+def get_events():
+    print("blah2")
+    response = requests.get("http://events:8000/api/events/")
+    content = json.loads(response.content)
+    print(content,"events")
+    for event in content["events"]:
+        with psycopg.connect("dbname=accounts user=ourspace") as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO mentorshipVO (id, name,starts ,ends ,description ,location ,) 
+                    VALUES (%s,%s,%s,%s,%s,%s)
+                    ON CONFLICT (id) DO UPDATE 
+                    SET name = excluded.name, 
+                        starts = excluded.starts,
+                        ends=excluded.ends,
+                        description=excluded.description,
+                        location=excluded.location;
+                    """, [event["id"], event["name"],event["starts"],event["ends"],event["description"],event["location"]["state"]]
+                    )
+
+
 def poll():
     while True:
         print('Mentorship poller polling for data')
         try:
             # Write your polling logic, here
             get_mentorship()
+            get_events()
             # pass
         except Exception as e:
             print(e, file=sys.stderr)
