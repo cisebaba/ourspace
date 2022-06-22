@@ -40,7 +40,16 @@ CREATE TABLE mentorshipVO(
     mentor_username VARCHAR(100),
     mentee_username VARCHAR(100) 
 );
+CREATE TABLE eventsVO(
+    id SERIAL NOT NULL PRIMARY KEY, 
+    name VARCHAR(200) NOT NULL,
+    starts TIMESTAMP,
+    ends TIMESTAMP,
+    description TEXT NOT NULL,
+    location TEXT NOT NULL
+);
 
+ALTER TABLE eventsVO OWNER TO ourspace;
 ALTER TABLE mentorshipVO OWNER TO ourspace;
 ALTER TABLE users OWNER TO ourspace;
 ALTER TABLE profile OWNER TO ourspace;

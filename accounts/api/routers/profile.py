@@ -185,6 +185,37 @@ def mentor_list():
                     "mentee_username": row[5]
                 }
                 ds.append(d)
+
+            return ds
+
+@router.get(
+    "/profile/events/",
+    response_model=list[EventsVo],
+    responses={
+        404: {"model": ErrorMessage},
+    },
+)
+def mentor_list():
+     with psycopg.connect("dbname=accounts user=ourspace") as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT e.id, e.name, e.starts, e.ends, 
+                    e.description, e.location
+                FROM events e
+            """
+            )
+
+            ds = []
+            for row in cur.fetchall():
+                d = {
+                    "name":row[1],
+                    "starts": row[2],
+                    "ends": row[3],
+                    "description": row[4],
+                    "location": row[5]
+                }
+                ds.append(d)
                 print(ds)
 
             return ds

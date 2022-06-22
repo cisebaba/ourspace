@@ -59,6 +59,7 @@ def mentorship_post(mentorship: MentorshipIn, query=Depends(MentorshipQueries), 
     },
 )
 def mentor_list(query=Depends(MentorshipQueries), bearer_token: str = Depends(oauth2_scheme)):
+    print("Hows it hitting this?")
     if bearer_token is None:
          raise credentials_exception
     rows = query.get_all_mentorships()
@@ -140,7 +141,7 @@ def mentor_list(query=Depends(MentorshipQueries), bearer_token: str = Depends(oa
 
 @router.get(
     "/api/mentorship_poller/",
-    response_model=MentorshipOut,
+    response_model=MentorshipList,
     responses={404: {"model": ErrorMessage}},
 )
 def get_mentorship_poller():
