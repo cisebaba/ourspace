@@ -96,7 +96,6 @@ def profile_list(response:Response, query=Depends(ProfileQueries), bearer_token:
      if row is None:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Profile weather not found"}
-     print(row, "row")
      return row
 
 
@@ -121,7 +120,6 @@ def mentor_list():
 
             ds = []
             for row in cur.fetchall():
-                print(row)
                 d = {
                     "job_title":row[1],
                     "description": row[2],
@@ -130,6 +128,7 @@ def mentor_list():
                     "mentee_username": row[5]
                 }
                 ds.append(d)
+            print(d)
             return ds
 
 @router.get(
