@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import PostsList from "../Components/PostsList";
 import { getPosts } from "../Api/GetPostsData";
+import { heart } from "../styling/styling";
 
 const ListView = (props) => {
   console.log(props, "props!");
@@ -18,7 +19,8 @@ const ListView = (props) => {
 
   return (
     <div>
-      <h1>OurForum</h1>
+      <h1>OurForum &#9825;</h1>
+
       <h6>
         <NavLink to={"/posts/new/"}>Create new post</NavLink>
       </h6>
