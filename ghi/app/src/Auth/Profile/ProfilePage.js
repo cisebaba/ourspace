@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useSyncExternalStore, useReducer} from "react";
+import MentorshipProfile from "./ProfileMentorship";
+import ProfileEvents from "./ProfileEvents";
 
 function ProfilePage(props){
-
     const token = props.token;
     const [profile, setProfile]= useState({
         weather:{}
@@ -35,6 +36,8 @@ function ProfilePage(props){
                 
             <h2>{profile.city} is {profile.weather.temp}°F, </h2>
             </div>
+            <MentorshipProfile token={token} username={profile.username} />
+            <ProfileEvents token={token} state={profile.state} />
         </div>
     );
 }
