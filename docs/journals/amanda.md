@@ -1,3 +1,11 @@
+# June 22, 2022
+Today I worked on:
+* Actually getting the profile pollers to work, profile unit tests, and profile React components for the frontend.
+
+We realized this morning that the profile pollers were in fact not actually working correctly. I definitely should have tested more robustly last night. But, the power of teamwork prevailed! Cise, Rachael, and I got the event and mentorship pollers working to pull data into the accounts microservice to use in the user profile. We also worked through getting some unit tests to work in the accounts service. Last, we were able to build React components that show the polled data on the user's profile page. It's not the prettiest page, but it's exciting that it does all work!
+
+My aha moment today was learning more about the different ways we can use conditional statements within React components. Although things can work with more verbose for/of JavaScript logic with loops, it was amazing to learn that we were able to achieve the same result by using filter and map on one line. 
+
 # June 21, 2022
 Today I worked on:
 * Refactoring the mentorship backend, creating unit tests, and debugging the account/mentorship poller.

@@ -16,14 +16,18 @@ const StarRating = (props) => {
   );
 };
 
-function ReviewsList() {
+function ReviewsList(props) {
+  const token = props.token;
   const [reviews, setReviews] = useState([]);
 
 
 
   useEffect(() => {
     const getReviewsData = async () => {
-      const reviewsResponse = await fetch("http://localhost:8070/api/reviews/");
+      const reviewsResponse = await fetch(`${process.env.REACT_APP_REVIEWS_HOST}/api/reviews/`,
+      {headers: {
+        authorization:`Bearer ${token}`,
+    }});
       const reviewsData = await reviewsResponse.json();
       setReviews(reviewsData);
     };
@@ -44,7 +48,7 @@ function ReviewsList() {
 
   return (
     <div className="col">
-      <ReviewsForm />
+      <ReviewsForm token={props.token}/>
       {reviews.map((review) => {
         return (
           <div key={review.id} className="card mb-3 shadow">
@@ -58,7 +62,7 @@ function ReviewsList() {
               {/* figure out the logic for rating!! */}
               {/* <h5 className="card-text">Overall Average Rating: {review.rating}{Star}</h5> */}
               <div></div>
-              <h5 className="card-text">Average Salary: 
+              <h5 className="card-text">Average Salary: {review.salary_average}
               </h5>
               <div></div>
               <p className="card-text">Diversity: {review.diversity_average} <StarRating number = {review.diversity_average}/></p>

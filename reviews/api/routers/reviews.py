@@ -60,13 +60,17 @@ class AverageOut(BaseModel):
     parental_leave_average: int
     flexibility_average: int
 
+class ErrorMessage(BaseModel):
+    message: str
 
+class Message(BaseModel):
+    message: str
 
 class ReviewList(BaseModel):
     __root__: List[AverageOut]
 
-class ReviewQueries():
-    def reviews_list():
+class ReviewQueries:
+    def get_reviews_list(self):
         with psycopg.connect("dbname=reviews user=ourspace") as conn:
             with conn.cursor() as cur:
                 cur.execute(
@@ -109,7 +113,7 @@ def new_review(Review: ReviewIn
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
-    username = payload.get("sub")
+    # username = payload.get("sub")
     with psycopg.connect("dbname=reviews user=ourspace") as conn:
         with conn.cursor() as cur:
             
@@ -123,7 +127,7 @@ def new_review(Review: ReviewIn
                 """, 
                 [Review.company_name,
                 Review.rating, Review.salary,Review.diversity, Review.balance, Review.parental_leave, Review.flexibility
-                , username
+                # , username
                 ]
             )
 
@@ -143,9 +147,23 @@ def new_review(Review: ReviewIn
             }
 
 
-@router.get("/api/reviews/", response_model = ReviewList)
-def reviews_list(queries: ReviewQueries=Depends()):
-    review = queries.reviews_list()
+@router.get(
+    "/api/reviews/",
+    response_model = ReviewList | Message,
+    responses = {
+        200: {
+            "model": AverageOut
+        },
+        404: {
+            "model": ErrorMessage
+        }
+    },
+)
+def reviews_list(response: Response, queries: ReviewQueries=Depends(ReviewQueries)):
+    reviews = queries.get_reviews_list()
+    if reviews is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": "not found"}
+    else:
+        return reviews
 
-    if review is None:
-        return None

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react' ;
 import { Navigate } from 'react-router-dom';
 
 function EventForm(props) {
+    const token = props.token
     const [stateEvent, setStateEvent ] = useState({
         name : "",
         starts : "",
@@ -12,7 +13,6 @@ function EventForm(props) {
         location_city:"",
         location_state:"",
     })
-    const token = props.token
   
     const [stateStates, setStateStates] = useState([])
     //const [successfulSubmit, setSuccessfulSubmit] = useState(false);
@@ -25,10 +25,9 @@ function EventForm(props) {
     useEffect(() => {
         const getStatesData = async () => {
             const statesResponse = await fetch(
-                "http://localhost:8000/api/states/"
+                `${process.env.REACT_APP_EVENTS_HOST}/api/states/`
             );
             const statesData = await statesResponse.json();
-            //console.log(statesData.states)
             setStateStates(statesData.states)
         };
 
@@ -52,7 +51,7 @@ function EventForm(props) {
         console.log(new_data)
         // const dataLoc = stateLoc;
 
-        const eventsUrl = "http://localhost:8000/api/events/" ;
+        const eventsUrl = `${process.env.REACT_APP_EVENTS_HOST}/api/events/`;
         const fetchConfigEvent = {
             method: "POST", 
             body: JSON.stringify(new_data), 
@@ -63,7 +62,6 @@ function EventForm(props) {
             }
         };
         const response = await fetch(eventsUrl, fetchConfigEvent );
-        // console.log(response)
 
         if (response.ok){
             setStateEvent({
@@ -99,9 +97,9 @@ function EventForm(props) {
     //     alertContainerClasses = "";
     //   }
     
-    if(!token){
-        return <Navigate to = '/login'></Navigate>
-    }
+    // if(!token){
+    //     return <Navigate to = '/login'></Navigate>
+    // }
 
     return (
         <div className="row">
@@ -188,6 +186,7 @@ function EventForm(props) {
                     </div> */}
                     <button className="btn btn-primary">Add</button>
                 </form>
+
             </div>
             </div>
         </div>

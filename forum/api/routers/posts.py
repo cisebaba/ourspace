@@ -101,7 +101,6 @@ class PostQueries():
 
 
 
-
 @router.get("/api/posts/", response_model = PostList)
 def posts_list(bearer_token: str = Depends(oauth2_scheme),):
     print(bearer_token)
@@ -195,3 +194,28 @@ def new_post(Post: PostIn, bearer_token: str = Depends(oauth2_scheme)):
                 "upvote_count": 0, 
                 "user_upvoted": 0
             }
+
+@router.delete(
+    "/api/posts/{post_id}/", 
+    response_model=Message, 
+    responses={404: {"model": Message}},
+)
+def remove_post(post_id: int, response: Response):
+    with psycopg.connect("dbname=forum user=ourspace") as conn:
+        with conn.cursor() as cur:
+            try:
+                cur.execute(
+                    """
+                    DELETE FROM post
+                    WHERE post_id = %s;
+                    """,
+                    [post_id],
+                )
+                return {
+                    "message": "Success",
+                }
+            except psycopg.errors.ForeignKeyViolation:
+                response.status_code = status.HTTP_400_BAD_REQUEST
+                return {
+                    "message": "Cannot delete post",
+                }

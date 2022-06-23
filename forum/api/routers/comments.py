@@ -31,6 +31,9 @@ class CommentIn(BaseModel):
 class CommentList(BaseModel):
     __root__: List[Comment]
 
+class Message(BaseModel):
+    message:str
+
 router = APIRouter()
 
 @router.get("/api/posts/{post_id}/comment/", response_model = CommentList)
@@ -94,4 +97,29 @@ def new_comment(post_id: int, Comment: CommentIn, bearer_token: str = Depends(oa
                 "post_id": new_comment[3],
                 "commenter": new_comment[4]
             }
+
+# @router.delete(
+#     "/api/posts/{post_id}/comment/", 
+#     response_model=Message, 
+#     responses={404: {"model": Message}},
+# )
+# def remove_comment(comment_id: int, response: Response):
+#     with psycopg.connect("dbname=forum user=ourspace") as conn:
+#         with conn.cursor() as cur:
+#             try:
+#                 cur.execute(
+#                     """
+#                     DELETE FROM comment
+#                     WHERE comment_id = %s;
+#                     """,
+#                     [comment_id],
+#                 )
+#                 return {
+#                     "message": "Success",
+#                 }
+#             except psycopg.errors.ForeignKeyViolation:
+#                 response.status_code = status.HTTP_400_BAD_REQUEST
+#                 return {
+#                     "message": "Cannot delete mentorship",
+#                 }
             

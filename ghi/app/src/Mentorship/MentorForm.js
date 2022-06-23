@@ -3,6 +3,7 @@ import SuccessMessage from "./SuccessMessage";
 
 function MentorForm(props) {
   const token = props.token;
+  const setShouldLoadList = props.setShouldLoadList;
   const [successMessage, setSuccessMessage] = useState(false);
   const [stateMentorship, setStateMentorship] = useState({
     description: "",
@@ -21,7 +22,7 @@ function MentorForm(props) {
         mentor_username: data.mentor_username,
     };
 
-    const mentorshipUrl = "http://localhost:8050/api/mentorship/";
+    const mentorshipUrl = `${process.env.REACT_APP_MENTORSHIP_HOST}/api/mentorship/`;
     const fetchConfigEvent = {
       method: "POST",
       body: JSON.stringify(newMentorship),
@@ -34,6 +35,8 @@ function MentorForm(props) {
     const response = await fetch(mentorshipUrl, fetchConfigEvent);
 
     if (response.ok) {
+      const record = await response.json();
+      setShouldLoadList(record.id)
       setStateMentorship({
         description: "",
         job_title: "",

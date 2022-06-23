@@ -1,4 +1,12 @@
-## Jun 21,2022
+## Jun 22,2022 
+Last night I worked on the poller which I thought I finished but not polling the the data well. There was no hope and left it.
+I jumped into writing test for profile for get profile. I am glad I did TEST is COOL! I looked at the trivia-game and Amanda's test files. In the morning after handling the events and mentorship poller  thanks Curtis helped us when we were checking with group. 
+<li>Today I learned when you creating the docker dev file uvicorn on poller is unnecessary we were not running the fastapi on the poller container. </li>
+<li>I learned when I testing a file I have to check if the input types are well defined!</li>
+<li>I learned it is very important have good pairs can support you whenever you feel down! </li>
+<li>I am glad we are done with the big part of the project! Amanda, Rachael and I work on the Profile frontend and will make it work until tomorrow morning! </li>
+
+## Jun 21,2022 
 I had able to implement the weather api on the profile page for some reason I had the same issue with someone on the other team. Refreshing page is breaking everything up on the frontend. I forgot the shape of the weather is dictionary and as Curtis said if we add only bracket in the useState it will try to iterate only a list. That is the part that I am missing. 
 I worked on polling the mentor data on the weekend and tried to do it as like we did on the project-beta. After spending hours I gave up. The interesting part is couldn't even find any endpoint version of polling data. Today we tried with Jeff in the morning, I think we were missing the point that we had handle it with SQL. I thought every version of the polling. At the first place I thought we could do only polling the data like we did on the external APIs but the problem is we want to let people cancel the mentorship appointment on the list so that was not an option. 
 Thank you Curtis, he showed me the point of poller function and how it handle it with Fast Api. I've realized that I confused at the point of if we are creating a new table for it. The weather should affect me a lot today.

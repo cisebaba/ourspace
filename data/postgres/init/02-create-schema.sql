@@ -41,7 +41,7 @@ CREATE TABLE mentorshipVO(
     mentee_username VARCHAR(100) 
 );
 CREATE TABLE eventsVO(
-    id SERIAL NOT NULL PRIMARY KEY, 
+    href VARCHAR(200) NOT NULL PRIMARY KEY,
     name VARCHAR(200) NOT NULL,
     starts TIMESTAMP,
     ends TIMESTAMP,
@@ -66,7 +66,7 @@ CREATE TABLE post (
 
 CREATE TABLE comment (
     comment_id SERIAL PRIMARY KEY,
-    post_id int references post(post_id), --foreign key
+    post_id int references post(post_id) ON DELETE CASCADE,
     text VARCHAR(5000),
     created_on TIMESTAMP,
     commenter VARCHAR(100)
@@ -74,20 +74,15 @@ CREATE TABLE comment (
 
 CREATE TABLE post_upvote (
     post_upvote_id SERIAL PRIMARY KEY, 
-    post_id int references post(post_id),
+    post_id int references post(post_id) ON DELETE CASCADE,
     upvoter VARCHAR(100)
 );
 
-CREATE TABLE comment_upvote (
-    comment_upvote_id SERIAL PRIMARY KEY,
-    comment_id int references comment(comment_id),
-    upvoter VARCHAR (100)
-);
+
 
 ALTER TABLE post OWNER TO ourspace;
 ALTER TABLE comment OWNER TO ourspace;
 ALTER TABLE post_upvote OWNER TO ourspace;
-ALTER TABLE comment_upvote OWNER TO ourspace;
 
 \connect mentorship
 

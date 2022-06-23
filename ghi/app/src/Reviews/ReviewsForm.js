@@ -20,7 +20,7 @@ function ReviewsForm(props) {
 
   useEffect(() => {
     const getReviewData = async () => {
-      const reviewsResponse = await fetch("http://localhost:8070/api/reviews/");
+      const reviewsResponse = await fetch(`${process.env.REACT_APP_REVIEWS_HOST}/api/reviews/`);
       const reviewsData = await reviewsResponse.json();
       setCompanyName(reviewsData.company_name);
       setOverallRating(reviewsData.rating);
@@ -55,7 +55,7 @@ function ReviewsForm(props) {
 
     };
 
-    const reviewsUrl = "http://localhost:8070/api/reviews/";
+    const reviewsUrl = `${process.env.REACT_APP_REVIEWS_HOST}/api/reviews/`;
     const fetchConfigReview = {
       method: "POST",
       body: JSON.stringify(new_data),
