@@ -88,22 +88,23 @@ function Signup(props) {
       </TopContainer>
       <InnerContainer>
       <Input 
+    
       required name="username" 
       type="text" onChange={e => setUsername(e.target.value)} 
       value={username} placeholder="username" />
           
       <Input 
       required name="firstname" 
-      type="text" onChange={e => setFirstname(e.target.value)} value={firstname} placeholder="firstname" />
+      type="text" 
+      onChange={e => setFirstname(e.target.value)} value={firstname} placeholder="firstname" />
           
       <Input required name="lastname" type="text" onChange={e => setLastname(e.target.value)} value={lastname} placeholder="lastname" />
       <Input required name="email" type="email" onChange={e => setEmail(e.target.value)} value={email} placeholder="email" />
       <Input required name="password" type="password" onChange={e => setPassword(e.target.value)} value={password} placeholder="password" />
           <Marginer direction="vertical" margin={20} />
           <CardButton
-            onClick={() => signup(username, email, password)}
+            onClick={() => signup(username, firstname, lastname, email, password)}
             type="submit"
-
           >Signup
           </CardButton>
           <Marginer direction="vertical" margin={10} />
