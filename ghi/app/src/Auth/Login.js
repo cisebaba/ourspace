@@ -9,8 +9,9 @@ import styled from "styled-components";
 /////
 import React, { useContext } from "react";
 import { Marginer } from "./marginer";
-//import { AccountContext } from "./accountContext";
+import { AccountContext } from "./accountContext";
 import { motion } from "framer-motion";
+import { Signup } from "./Signup";
 
 /////
 import {
@@ -24,17 +25,44 @@ import {
   CardButton,
   InnerContainer,
   BoldLink,
-  MutedLink
+  MutedLink,
+  backdropVariants,
+  expandingTransition
 } from "./index";
 
-
+ 
 
 
 function Login(props) {
+  const [isExpanded, setExpanded] = useState(false)
+  const [active, setActive] = useState("login");
   const { token, login } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const playExpandingAnimation = () => {
+    setExpanded(true);
+    setTimeout(() => {
+      setExpanded(false);
+    },  expandingTransition.duration * 1000 - 1500);
+  };
+
+  const switchToSignup = () => {
+    playExpandingAnimation();
+    setTimeout(() => {
+      setActive("signup");
+    }, 400);
+  };
+
+  const switchToLogin = () => {
+    playExpandingAnimation();
+    setTimeout(() => {
+      setActive("login");
+    }, 400);
+  };
+
+  const contextValue = { switchToSignup, switchToLogin };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -47,11 +75,16 @@ function Login(props) {
   }
 
   return (
+    <AccountContext.Provider value={contextValue}>
     <div className="container mt-5 py-5">
       <div className="App">
         <CardWrapper>
           <TopContainer>
           <BackDrop 
+          initial={false}
+          animate={isExpanded? "expanded" : "collapsed"}
+          variants={backdropVariants}
+          transition={expandingTransition}
            
           />
             <HeaderContainer>
@@ -82,15 +115,17 @@ function Login(props) {
                 Sign In
               </CardButton>
               <Marginer direction="vertical" margin={10} />
-              <MutedLink href="#">Don't have an account?{" "}
+              <MutedLink href="signup">Don't have an account?{" "}
               <BoldLink href="signup">Signup</BoldLink>
               </MutedLink>
               
+              <p onClick={playExpandingAnimation}>Click</p>
           </InnerContainer>
           </CardWrapper>
           
       </div>
     </div>
+    </AccountContext.Provider>
   );
 }
 
