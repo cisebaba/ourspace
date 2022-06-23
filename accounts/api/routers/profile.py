@@ -121,6 +121,7 @@ def mentor_list():
             ds = []
             for row in cur.fetchall():
                 d = {
+                    "id":row[0],
                     "job_title":row[1],
                     "description": row[2],
                     "availability": row[3],

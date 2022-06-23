@@ -68,7 +68,7 @@ def poll():
             import traceback
             print(e, file=sys.stderr)
             traceback.print_exc()
-        time.sleep(60)
+        time.sleep(10)
 
 
 if __name__ == "__main__":
