@@ -50,3 +50,6 @@ button {
   color: #ccc;
 }
 
+.collapse {
+  toggle: true;
+}
