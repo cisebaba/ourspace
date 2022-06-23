@@ -13,9 +13,15 @@ import psycopg
 def get_mentorship():
     response = requests.get("http://mentorship:8000/api/mentorship_poller/")
     content = json.loads(response.content)
-    for mentor in content:
-        with psycopg.connect("dbname=accounts user=ourspace") as conn:
-            with conn.cursor() as cur:
+    with psycopg.connect("dbname=accounts user=ourspace") as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                DELETE FROM mentorshipVO
+                """
+            )
+            for mentor in content:
+
                 cur.execute(
                     """
                     INSERT INTO mentorshipVO (id, job_title, description, availability, mentor_username, mentee_username) 
@@ -26,16 +32,16 @@ def get_mentorship():
                         availability=excluded.availability,
                         mentor_username=excluded.mentor_username,
                         mentee_username=excluded.mentee_username;
-                    """, [1, "job_title", "description", "availability", "mentor_username", "mentee_username"]
-                    )
+                    """, [mentor["id"], mentor["job_title"],mentor["description"],mentor["availability"],mentor["mentor_username"],mentor["mentee_username"]]
+                )
 
 
 def get_events():
     response = requests.get("http://events:8000/api/events/")
     content = json.loads(response.content)
-    for event in content["events"]:
-        with psycopg.connect("dbname=accounts user=ourspace") as conn:
-            with conn.cursor() as cur:
+    with psycopg.connect("dbname=accounts user=ourspace") as conn:
+        with conn.cursor() as cur:
+            for event in content["events"]:
                 cur.execute(
                     """
                     INSERT INTO eventsVO ( href, name,starts ,ends ,description ,location) 
@@ -62,7 +68,7 @@ def poll():
             import traceback
             print(e, file=sys.stderr)
             traceback.print_exc()
-        time.sleep(60)
+        time.sleep(10)
 
 
 if __name__ == "__main__":

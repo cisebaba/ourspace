@@ -96,7 +96,6 @@ def profile_list(response:Response, query=Depends(ProfileQueries), bearer_token:
      if row is None:
         response.status_code = status.HTTP_404_NOT_FOUND
         return {"message": "Profile weather not found"}
-     print(row, "row")
      return row
 
 
@@ -121,8 +120,8 @@ def mentor_list():
 
             ds = []
             for row in cur.fetchall():
-                print(row)
                 d = {
+                    "id":row[0],
                     "job_title":row[1],
                     "description": row[2],
                     "availability": row[3],
@@ -130,7 +129,35 @@ def mentor_list():
                     "mentee_username": row[5]
                 }
                 ds.append(d)
+            print(d)
             return ds
+
+
+# @router.delete(
+#     "/profile/mentorship/{mentorship_id}",
+#     response_model=Message,
+#     responses={404: {"model": ErrorMessage}},
+# )
+# def remove_mentorship(mentorship_id: int, response: Response):
+#     with psycopg.connect("dbname=accounts user=ourspace") as conn:
+#         with conn.cursor() as cur:
+#             try:
+#                 cur.execute(
+#                     """
+#                     DELETE FROM mentorshipVO
+#                     WHERE id = %s;
+#                 """,
+#                     [mentorship_id],
+#                 )
+#                 return {
+#                     "message": "Success",
+#                 }
+#             except psycopg.errors.ForeignKeyViolation:
+#                 response.status_code = status.HTTP_400_BAD_REQUEST
+#                 return {
+#                     "message": "Cannot delete mentorship",
+#                 }
+
 
 @router.get(
     "/profile/events/",

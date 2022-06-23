@@ -8,7 +8,7 @@ export function UpvoteButton({
   token,
 }) {
   async function AddUpvote() {
-    const upvoteUrl = `http://localhost:8090/api/posts/${postId}/upvote/`;
+    const upvoteUrl = `${process.env.REACT_APP_FORUM_HOST}/api/posts/${postId}/upvote/`;
     const fetchConfigEvent = {
       method: "POST",
       credentials: "include",
@@ -27,7 +27,7 @@ export function UpvoteButton({
   }
 
   async function DeleteUpvote() {
-    const deleteUpvoteUrl = `http://localhost:8090/api/posts/${postId}/upvote/`;
+    const deleteUpvoteUrl = `${process.env.REACT_APP_FORUM_HOST}/api/posts/${postId}/upvote/`;
     const fetchConfigEvent = {
       method: "DELETE",
       credentials: "include",

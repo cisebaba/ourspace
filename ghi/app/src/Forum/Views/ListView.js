@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 import PostsList from "../Components/PostsList";
 import { getPosts } from "../Api/GetPostsData";
 
-//pass in currentuserid at some point??
 const ListView = (props) => {
+  console.log(props, "props!");
   const token = props.token;
   const [posts, setPosts] = useState([]);
 
@@ -28,12 +28,3 @@ const ListView = (props) => {
 };
 
 export default ListView;
-
-// function ForumApp() {
-//     const [forum, setForum] = useState([PostsList]);
-
-// }
-
-//if state is postdetailid, render detail
-//if not render postlist
-//on click- render detail view
