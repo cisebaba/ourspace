@@ -13,7 +13,6 @@ ADZUNA_APP_ID = os.environ["ADZUNA_APP_ID"]
 print("I AM THE JOBS_DB FILE!")
 
 
-
 #manual call to the adzuna external api in the command line. 
 #will automate to call once a day later
 

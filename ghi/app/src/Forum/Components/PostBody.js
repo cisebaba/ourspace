@@ -1,8 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { UpvoteButton } from "./UpvoteButton";
+import DeletePostButton from "./DeletePostButton";
 
-const PostBody = ({ post, setPost, token, showNavLinks }) => {
+const PostBody = ({
+  post,
+  currentUsername,
+  setPost,
+  token,
+  showNavLinks,
+  hideDeleteButton,
+}) => {
   return (
     <div key={post.post_id} className="card mb-3 shadow">
       <div className="card-body">
@@ -15,7 +23,14 @@ const PostBody = ({ post, setPost, token, showNavLinks }) => {
               <div className="card-title">
                 <NavLink to={"/posts/new/"}>Create new post</NavLink>
               </div>
-              <h2 className="card-header">{post.title}</h2>
+              <h2 className="card-header">
+                {post.title}{" "}
+                {hideDeleteButton ? (
+                  <></>
+                ) : (
+                  <DeletePostButton token={token} postId={post.post_id} />
+                )}
+              </h2>
             </>
           )}
         </h5>
@@ -43,6 +58,9 @@ const PostBody = ({ post, setPost, token, showNavLinks }) => {
             setPost(newPost);
           }}
         />
+        {/* <div>
+          {showDeleteButton ? <DeletePostButton token={token} /> : <></>}
+        </div> */}
       </div>
     </div>
   );
