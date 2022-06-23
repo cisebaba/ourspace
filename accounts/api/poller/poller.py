@@ -13,9 +13,15 @@ import psycopg
 def get_mentorship():
     response = requests.get("http://mentorship:8000/api/mentorship_poller/")
     content = json.loads(response.content)
-    for mentor in content:
-        with psycopg.connect("dbname=accounts user=ourspace") as conn:
-            with conn.cursor() as cur:
+    with psycopg.connect("dbname=accounts user=ourspace") as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                DELETE FROM mentorshipVO
+                """
+            )
+            for mentor in content:
+
                 cur.execute(
                     """
                     INSERT INTO mentorshipVO (id, job_title, description, availability, mentor_username, mentee_username) 
@@ -33,9 +39,9 @@ def get_mentorship():
 def get_events():
     response = requests.get("http://events:8000/api/events/")
     content = json.loads(response.content)
-    for event in content["events"]:
-        with psycopg.connect("dbname=accounts user=ourspace") as conn:
-            with conn.cursor() as cur:
+    with psycopg.connect("dbname=accounts user=ourspace") as conn:
+        with conn.cursor() as cur:
+            for event in content["events"]:
                 cur.execute(
                     """
                     INSERT INTO eventsVO ( href, name,starts ,ends ,description ,location) 
