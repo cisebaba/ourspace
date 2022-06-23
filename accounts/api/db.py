@@ -30,7 +30,6 @@ class AccountsQueries:
                             "lastname": user[4],
                             "password": user[5]
                         }
-                        print(user_dict)
                         return user_dict
 
     def create_user(self, username: str, firstname: str, lastname: str, hashed_password: str, email: str = None):

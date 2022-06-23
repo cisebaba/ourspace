@@ -14,7 +14,6 @@ function ProfileEvents(props){
             });
 
             const eventsData = await listResponse.json();
-            console.log(eventsData)
             setEvents(eventsData);  
         
         };
@@ -23,40 +22,47 @@ function ProfileEvents(props){
         }
     },[token]);
 
-    
+   
+
     return(
-        // <p>
-        //     Hello {mentorships[0]["job_title"]}
-        // </p>
-        <div className="all-mentorships">
-          <div className="col">
-          <h1>
-            Events Near Me!
-          </h1>
+        <div className="accordion" id="accordionExample">
+        <div className="card">
+          <div className="card-header" id="headingOne">
+            <h5 className="mb-0">
+              <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Events Near Me!
+              </button>
+            </h5>
+          </div>
+
+          <div id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div className="card-body">
             {events.filter(e => e.location === location).map(event => {
-              return (
-                <div key={event.href} className="card mb-3 shadow">
-                  <div className="card-body">
-                    <h5 className="card-title">{event.name}</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">
-                      Start: {event.starts}
-                    </h6>
-                    <p className="card-text">
-                      Event description: {event.description}
-                    </p>
-                    {/* <button onClick={signUpClick.bind(this, mentorship.id)} className="btn btn-primary">Book this mentor!</button>
-                    {(successMessage === mentorship.id) ? <SuccessMessage /> : <></>} */}
-                  </div>
-                  <div className="card-footer">
-                    Event start: {new Date(event.starts).toLocaleDateString()}
-                    <br></br>
-                    Event end: {new Date(event.ends).toLocaleDateString()}
-                  </div>
-                </div>
-            );
-          })}
+                    return (
+                  <div className="card mb-5 mt-5 mx-auto">
+                      <div key={event.href} className="col-sm-6 shadow">
+                        <div className="card-body">
+                          <h5 className="card-title">{event.name}</h5>
+                          <h6 className="card-subtitle mb-2 text-muted">
+                            Start: {event.starts}
+                          </h6>
+                          <p className="card-text">
+                            Event description: {event.description}
+                          </p>
+                        </div>
+                        <div className="card-footer">
+                          Event start: {new Date(event.starts).toLocaleDateString()}
+                          <br></br>
+                          Event end: {new Date(event.ends).toLocaleDateString()}
+                        </div>
+                      </div>
+                      </div>
+                  );
+                })}
+            </div>
           </div>
         </div>
+      </div>
       );
 }
 

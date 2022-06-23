@@ -32,14 +32,14 @@ ALLOWED_HOSTS = ["localhost", "http://localhost:3000", "http://localhost:9000", 
 
 INSTALLED_APPS = [
     'events_app.apps.EventsAppConfig',
-    'corsheaders',
-    'djwto',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djwto',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
