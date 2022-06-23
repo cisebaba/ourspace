@@ -129,14 +129,14 @@ export const CardButton = styled.button`
 
 export const MutedLink = styled.a`
   font-size: 11px;
-  color: rgba(200, 200, 200, 0.8);
+  color: black;
   font-weight: 500;
   text-decoration: none;
 `;
 
 export const BoldLink = styled.a`
   font-size: 11px;
-  color: rgb(241, 196, 15);
+  color: blue;
   font-weight: 500;
   text-decoration: none;
   margin: 0 4px;

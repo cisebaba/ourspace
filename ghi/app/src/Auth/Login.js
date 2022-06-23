@@ -23,6 +23,8 @@ import {
   Input,
   CardButton,
   InnerContainer,
+  BoldLink,
+  MutedLink
 } from "./index";
 
 
@@ -79,6 +81,10 @@ function Login(props) {
               >
                 Sign In
               </CardButton>
+              <Marginer direction="vertical" margin={10} />
+              <MutedLink href="#">Don't have an account?{" "}
+              <BoldLink href="signup">Signup</BoldLink>
+              </MutedLink>
               
           </InnerContainer>
           </CardWrapper>

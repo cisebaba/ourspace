@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 function Nav(props) {
   const { token } = props;
   const [user, setUser] = useState({});
+  const location = useLocation();
 
   useEffect(() => {
     async function getMe() {
@@ -19,6 +20,9 @@ function Nav(props) {
     }
   }, [token]);
 
+  if(["login", "signup"].some(path => location.pathname.includes(path))){
+    return null
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
       <div className="container-fluid">
