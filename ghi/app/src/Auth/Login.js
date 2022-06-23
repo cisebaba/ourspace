@@ -55,7 +55,7 @@ function Login(props) {
       console.log("Time: 3 sec")
       //setActive("signup");
       navigate("../signup", {replace : true})
-     }, 400);
+     }, 800);
   };
 
  const switchToLogin = () => {
@@ -63,7 +63,7 @@ function Login(props) {
     setTimeout(() => {
      //setActive("login");
       navigate("../login", {replace : true})
-    }, 400);
+    }, 800);
   };
 
   const contextValue = { switchToSignup, switchToLogin }
