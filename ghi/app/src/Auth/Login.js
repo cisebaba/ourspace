@@ -118,7 +118,7 @@ function Login(props) {
                 onClick={() => login(username, password)}
                 type="button"
               >
-                Sign In
+                Login
               </CardButton>
               <Marginer direction="vertical" margin={10} />
               <MutedLink>Don't have an account?{" "}

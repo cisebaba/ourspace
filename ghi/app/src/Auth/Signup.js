@@ -82,8 +82,8 @@ function Signup(props) {
        
       />
         <HeaderContainer>
-        <HeaderText>Welcome!</HeaderText>
-        <SmallText>Please Sign in</SmallText>
+        <HeaderText>Sign Up</HeaderText>
+        <SmallText>Welcome to OurSpace!</SmallText>
         </HeaderContainer>
       </TopContainer>
       <InnerContainer>
