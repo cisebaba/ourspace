@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 //import { Login } from "./login";
 import { motion } from "framer-motion";
 import { AccountContext } from "./accountContext";
-//import { Signup } from "./Signup.js";
+//import { Signup } from "./Signup";
 
 
 
