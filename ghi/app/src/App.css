@@ -50,6 +50,10 @@ button {
   color: #ccc;
 }
 
+<<<<<<< HEAD
+.collapse {
+  toggle: true;
+=======
   
 .reviews-overlay {
   position:absolute;
@@ -87,4 +91,5 @@ button {
 
 .solid {
   border-top: 3px;
+>>>>>>> main
 }
