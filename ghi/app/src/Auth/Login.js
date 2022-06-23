@@ -1,6 +1,36 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
+///
+
+import styled from "styled-components";
+
+
+/////
+import React, { useContext } from "react";
+//import { Marginer } from "../marginer";
+//import { AccountContext } from "./accountContext";
+import { motion } from "framer-motion";
+
+/////
+import {
+  CardWrapper,
+  TopContainer,
+  HeaderContainer,
+  BackDrop,
+  HeaderText,
+  SmallText,
+  CardInput,
+  CardButton,
+  InnerContainer,
+  
+  
+
+} from "./index";
+
+
+
+
 function Login(props) {
   const { token, login } = props;
   const [username, setUsername] = useState('');
@@ -18,14 +48,47 @@ function Login(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      { error ? <div dangerouslySetInnerHTML={{__html: error}} /> : null }
-      <input required name="username" type="text" onChange={e => setUsername(e.target.value)} value={username} placeholder="username" />
-      <input required name="password" type="password" onChange={e => setPassword(e.target.value)} value={password} placeholder="password" />
-      <button>Login</button>
-    </form>
-  )
+    <div className="container mt-5 py-5">
+      <div className="App">
+        <CardWrapper>
+          <TopContainer>
+          <BackDrop 
+           
+          />
+            <HeaderContainer>
+            <HeaderText>Welcome!</HeaderText>
+            <SmallText>Please Sign in</SmallText>
+            </HeaderContainer>
+          </TopContainer>
+          <InnerContainer>
+          <CardInput
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+                placeholder="Username"
+                type="text"
+                required
+              />
+              <CardInput
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                placeholder="Password"
+                type="password"
+                required
+              />
+        
+              <CardButton
+                onClick={() => login(username, password)}
+                type="button"
+              >
+                Sign In
+              </CardButton>
+              
+          </InnerContainer>
+          </CardWrapper>
+          
+      </div>
+    </div>
+  );
 }
-
 
 export default Login;

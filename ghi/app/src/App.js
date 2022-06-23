@@ -20,6 +20,7 @@ import MentorForm from "./Mentorship/MentorForm";
 import MentorList from "./Mentorship/MentorList";
 import ProfileForm from "./Auth/Profile/ProfileForm";
 import ProfilePage from "./Auth/Profile/ProfilePage";
+import { AccountBox } from "./Auth";
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -32,9 +33,7 @@ function App() {
           {/* LOGIN */}
           <Route path="logout" element={<Logout logout={logout} />} />
           <Route path="login" element={<Login token={token} login={login} />} />
-          <Route
-            path="signup"
-            element={<Signup token={token} signup={signup} />}
+          <Route path="signup" element={<Signup token={token} signup={signup} />}
           />
           {/* PROFILE  */}
           <Route path="/profile/new" element={<ProfileForm token={token} />} />
