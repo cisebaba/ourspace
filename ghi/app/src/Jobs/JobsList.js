@@ -46,20 +46,20 @@ function JobsList() {
   }, []) ;
   
   return (
-    <div className="col">
+    <div className="col job-card">
       {jobs.map(job => {
         return (
           <div key={job.id} className="card mb-3 shadow">
             {/* <img src={conference.location.picture_url} className="card-img-top" /> */}
             <div className="card-body">
-              <h5 className="card-title">{job.title}</h5>
-              <h6 className="card-subtitle mb-2 text-muted">
+              <h5 className="card-title text-center">{job.title}</h5>
+              <h6 className="card-subtitle mb-2 text-muted text-center">
                 {job.company}
               </h6>
               <p className="card-text">
                 {job.description}
               </p>
-              <p className="card-text">
+              <p className="card-text text-center">
                 <a href={job.redirect_url} target="_blank">Click to Learn More</a>
               </p>
             </div>

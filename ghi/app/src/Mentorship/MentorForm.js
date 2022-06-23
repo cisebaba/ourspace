@@ -3,6 +3,7 @@ import SuccessMessage from "./SuccessMessage";
 
 function MentorForm(props) {
   const token = props.token;
+  const setShouldLoadList = props.setShouldLoadList;
   const [successMessage, setSuccessMessage] = useState(false);
   const [stateMentorship, setStateMentorship] = useState({
     description: "",
@@ -34,6 +35,8 @@ function MentorForm(props) {
     const response = await fetch(mentorshipUrl, fetchConfigEvent);
 
     if (response.ok) {
+      const record = await response.json();
+      setShouldLoadList(record.id)
       setStateMentorship({
         description: "",
         job_title: "",
