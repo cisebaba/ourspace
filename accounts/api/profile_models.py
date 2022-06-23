@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import List, Union
 
 class MentorshipVO(BaseModel):
+    id: int
     job_title: str
     description: str
     availability: str

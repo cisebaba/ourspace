@@ -17,11 +17,21 @@ function MentorshipProfile(props){
             setMentorships(mentorshipData);  
 
         };
+       
         if(token){
             getMentorships();
         }
     },[token]);
-
+    
+    const deleteMentor = async id => {
+      await fetch(`${process.env.REACT_APP_MENTORSHIP_HOST}/api/mentorship/${id}/`, {
+        method: "DELETE",
+        headers: {
+          authorization:`Bearer ${token}`,
+        },
+        credentials: "include",
+      });
+    }
     
     return(
         // <p>
@@ -32,9 +42,9 @@ function MentorshipProfile(props){
           <h1>
             Mentorships as Mentor
           </h1>
-            {mentorships.filter(m => m.mentor_username === username).map((mentorship, index) => {
+            {mentorships.filter(m => m.mentor_username === username).map((mentorship) => {
               return (
-                <div key={index} className="card mb-3 shadow">
+                <div key={mentorship.id} className="card mb-3 shadow">
                   <div className="card-body">
                     <h5 className="card-title">{mentorship.description}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">
@@ -49,6 +59,7 @@ function MentorshipProfile(props){
                   <div className="card-footer">
                     Mentor: {mentorship.mentor_username}
                   </div>
+                  <button onClick={()=>deleteMentor(mentorship.id)}>Cancel</button>
                 </div>
             );
           })}
@@ -75,6 +86,7 @@ function MentorshipProfile(props){
                   <div className="card-footer">
                     Mentor: {mentorship.mentor_username}
                   </div>
+                  <button onClick={deleteMentor}>Cancel</button>
                 </div>
             );
           })}

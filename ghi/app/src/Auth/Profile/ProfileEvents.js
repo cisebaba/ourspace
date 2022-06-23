@@ -16,7 +16,7 @@ function ProfileEvents(props){
             const eventsData = await listResponse.json();
             console.log(eventsData)
             setEvents(eventsData);  
-
+        
         };
         if(token){
             getEvents();
