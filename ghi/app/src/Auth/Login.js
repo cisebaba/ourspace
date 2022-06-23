@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 /////
 import React, { useContext } from "react";
-//import { Marginer } from "../marginer";
+import { Marginer } from "./marginer";
 //import { AccountContext } from "./accountContext";
 import { motion } from "framer-motion";
 
@@ -20,12 +20,9 @@ import {
   BackDrop,
   HeaderText,
   SmallText,
-  CardInput,
+  Input,
   CardButton,
   InnerContainer,
-  
-  
-
 } from "./index";
 
 
@@ -61,21 +58,21 @@ function Login(props) {
             </HeaderContainer>
           </TopContainer>
           <InnerContainer>
-          <CardInput
+          <Input
                 onChange={(e) => setUsername(e.target.value)}
                 value={username}
                 placeholder="Username"
                 type="text"
                 required
               />
-              <CardInput
+              <Input
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 placeholder="Password"
                 type="password"
                 required
               />
-        
+              <Marginer direction="vertical" margin={20} />
               <CardButton
                 onClick={() => login(username, password)}
                 type="button"

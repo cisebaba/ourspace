@@ -81,7 +81,7 @@ export const BackDrop = styled(motion.div)` // this is the swoop
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 
-export const CardInput = styled.input`
+export const Input = styled.input`
   padding: 7px 0;
   width: 100%;
   font-family: inherit;
