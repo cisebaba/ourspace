@@ -4,6 +4,7 @@ import ReviewsSuccessMessage from "./SuccessMessage";
 
 function ReviewsForm(props) {
   const token = props.token;
+  const setLoadList = props.setLoadList;
   const [successMessage, setSuccessMessage] = useState(false);
   const [overall_rating, setOverallRating] = useState(0);
   const [company_name, setCompanyName] = useState();
@@ -12,9 +13,6 @@ function ReviewsForm(props) {
   const [balance, setBalance] = useState(0);
   const [parental_leave, setParentalLeave] = useState(0);
   const [flexibility, setFlexibility] = useState(0);
-
-
-
 
   useEffect(() => {
     const getReviewData = async () => {
@@ -50,7 +48,6 @@ function ReviewsForm(props) {
       balance: dataBalance,
       parental_leave: dataParentalLeave,
       flexibility: dataFlexibility,
-
     };
 
     const reviewsUrl = `${process.env.REACT_APP_REVIEWS_HOST}/api/reviews/`;
@@ -66,6 +63,8 @@ function ReviewsForm(props) {
     const response = await fetch(reviewsUrl, fetchConfigReview);
 
     if (response.ok) {
+      const record = await response.json();
+      setLoadList(record.id);
       setOverallRating();
       setCompanyName("");
       setBalance();

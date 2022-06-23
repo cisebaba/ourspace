@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import ReviewsForm from "./ReviewsForm"
 import { NavLink } from "react-router-dom";
 
-
 const StarRating = (props) => {
   return (
-    
     <div className="star-rating"> 
       {[...Array(props.number)].map((star) => {
-        //index += 1;
         return (
             <span className="star">&#9733;</span>
         );
@@ -20,8 +17,7 @@ const StarRating = (props) => {
 function ReviewsList(props) {
   const token = props.token;
   const [reviews, setReviews] = useState([]);
-
-
+  const [loadList, setLoadList] = useState();
 
   useEffect(() => {
     const getReviewsData = async () => {
@@ -33,14 +29,13 @@ function ReviewsList(props) {
       setReviews(reviewsData);
     };
     getReviewsData();
-  }, []);
+  }, [loadList]);
 
-
-
-
+  
   return (
-  <>
-    { token ? <ReviewsForm token={props.token} /> : null}
+    <>
+    <h1 align="center"><u>Company Reviews</u></h1>
+    { token ? <ReviewsForm token={props.token} setLoadList={setLoadList} /> : null}
     <div className="container" align="center">
       {reviews.map((review) => {
         return (

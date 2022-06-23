@@ -3,24 +3,17 @@ import { Navigate } from 'react-router-dom';
 
 function EventForm(props) {
     const token = props.token
+    const setLoadList = props.setLoadList;
     const [stateEvent, setStateEvent ] = useState({
         name : "",
         starts : "",
         ends : "",
         description: "",
-        // location:"",
         location_name:"",
         location_city:"",
         location_state:"",
     })
-  
     const [stateStates, setStateStates] = useState([])
-    //const [successfulSubmit, setSuccessfulSubmit] = useState(false);
-
-    // if the submission was successful, a message appears
-    // let formClasses = "";
-    // let alertClasses = "alert alert-success d-none mb-3";
-    // let alertContainerClasses = "d-none";
 
     useEffect(() => {
         const getStatesData = async () => {
@@ -28,7 +21,6 @@ function EventForm(props) {
                 `${process.env.REACT_APP_EVENTS_HOST}/api/states/`
             );
             const statesData = await statesResponse.json();
-            //console.log(statesData.states)
             setStateStates(statesData.states)
         };
 
@@ -49,8 +41,6 @@ function EventForm(props) {
                 state: data.location_state,
             }
         }
-        console.log(new_data)
-        // const dataLoc = stateLoc;
 
         const eventsUrl = `${process.env.REACT_APP_EVENTS_HOST}/api/events/`;
         const fetchConfigEvent = {
@@ -63,28 +53,23 @@ function EventForm(props) {
             }
         };
         const response = await fetch(eventsUrl, fetchConfigEvent );
-        // console.log(response)
 
         if (response.ok){
+            const record = await response.json();
+            setLoadList(record.href);
             setStateEvent({
                 name : "",
                 starts : "",
                 ends : "",
                 description: "",
-                // location:"",
                 location_name:"",
                 location_city:"",
                 location_state:"",
             });
-        // setSuccessfulSubmit(true);
         }
-        
-    } ;
-
-
+    };
 
     const handleChange = event => {
-
         const value = event.target.value ;
         setStateEvent({
             ...stateEvent,
@@ -92,16 +77,6 @@ function EventForm(props) {
         })
         
     };
-   
-    // if (successfulSubmit) {
-    //     formClasses = "d-none";
-    //     alertClasses = "alert alert-success mb-3";
-    //     alertContainerClasses = "";
-    //   }
-    
-    // if(!token){
-    //     return <Navigate to = '/login'></Navigate>
-    // }
 
     return (
         <div className="row">
@@ -182,13 +157,8 @@ function EventForm(props) {
                          })}
                         </select>
                     </div>
-                    {/* <div className="form-floating mb-3">
-                        <input onChange={handleChangeReason} value={state.reason} placeholder="reason" required type="text" name="reason" id="reason" className="form-control" />
-                        <label htmlFor="reason">Purpose of Visit</label>
-                    </div> */}
                     <button className="btn btn-primary">Add</button>
                 </form>
-
             </div>
             </div>
         </div>
