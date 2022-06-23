@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PostForm(props) {
   const token = props.token;
+  const navigate = useNavigate();
   const [statePost, setStatePost] = useState({
     post_id: "",
     title: "",
@@ -35,13 +37,14 @@ function PostForm(props) {
     const response = await fetch(postsUrl, fetchConfigEvent);
 
     if (response.ok) {
-      setStatePost({
-        post_id: "",
-        title: "",
-        text: "",
-        created_on: "",
-        author: "",
-      });
+      // setStatePost({
+      //   post_id: "",
+      //   title: "",
+      //   text: "",
+      //   created_on: "",
+      //   author: "",
+      // });
+      navigate("/forum/");
     }
   };
 

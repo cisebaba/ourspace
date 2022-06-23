@@ -43,8 +43,6 @@ class EmptyReviewQueries:
         return None
 
 
-
-
 def test_reviews_list_returns_200():
     # ARRANGE
     app.dependency_overrides[ReviewQueries] = NormalReviewQueries

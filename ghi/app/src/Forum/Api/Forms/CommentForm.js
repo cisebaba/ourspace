@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function CommentForm(props) {
   const token = props.token;
+  const navigate = useNavigate();
   const [stateComment, setStateComment] = useState({
     comment_id: "",
     text: "",
@@ -39,13 +40,7 @@ function CommentForm(props) {
     const response = await fetch(commentsUrl, fetchConfigEvent);
 
     if (response.ok) {
-      setStateComment({
-        comment_id: "",
-        title: "",
-        text: "",
-        created_on: "",
-        commenter: "",
-      });
+      navigate(-1);
     }
   };
 

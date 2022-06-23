@@ -3,7 +3,6 @@ from fastapi import APIRouter, Response, status, Depends,HTTPException
 import psycopg
 from pydantic import BaseModel
 from typing import List, Union
-# from .users import User
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from poller import get_weather
 import os
@@ -129,34 +128,7 @@ def mentor_list():
                     "mentee_username": row[5]
                 }
                 ds.append(d)
-            print(d)
             return ds
-
-
-# @router.delete(
-#     "/profile/mentorship/{mentorship_id}",
-#     response_model=Message,
-#     responses={404: {"model": ErrorMessage}},
-# )
-# def remove_mentorship(mentorship_id: int, response: Response):
-#     with psycopg.connect("dbname=accounts user=ourspace") as conn:
-#         with conn.cursor() as cur:
-#             try:
-#                 cur.execute(
-#                     """
-#                     DELETE FROM mentorshipVO
-#                     WHERE id = %s;
-#                 """,
-#                     [mentorship_id],
-#                 )
-#                 return {
-#                     "message": "Success",
-#                 }
-#             except psycopg.errors.ForeignKeyViolation:
-#                 response.status_code = status.HTTP_400_BAD_REQUEST
-#                 return {
-#                     "message": "Cannot delete mentorship",
-#                 }
 
 
 @router.get(

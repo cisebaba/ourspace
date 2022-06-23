@@ -113,7 +113,6 @@ def new_review(Review: ReviewIn
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
-    # username = payload.get("sub")
     with psycopg.connect("dbname=reviews user=ourspace") as conn:
         with conn.cursor() as cur:
             
@@ -127,7 +126,6 @@ def new_review(Review: ReviewIn
                 """, 
                 [Review.company_name,
                 Review.rating, Review.salary,Review.diversity, Review.balance, Review.parental_leave, Review.flexibility
-                # , username
                 ]
             )
 
