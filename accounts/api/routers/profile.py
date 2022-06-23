@@ -131,6 +131,33 @@ def mentor_list():
             print(d)
             return ds
 
+
+# @router.delete(
+#     "/profile/mentorship/{mentorship_id}",
+#     response_model=Message,
+#     responses={404: {"model": ErrorMessage}},
+# )
+# def remove_mentorship(mentorship_id: int, response: Response):
+#     with psycopg.connect("dbname=accounts user=ourspace") as conn:
+#         with conn.cursor() as cur:
+#             try:
+#                 cur.execute(
+#                     """
+#                     DELETE FROM mentorshipVO
+#                     WHERE id = %s;
+#                 """,
+#                     [mentorship_id],
+#                 )
+#                 return {
+#                     "message": "Success",
+#                 }
+#             except psycopg.errors.ForeignKeyViolation:
+#                 response.status_code = status.HTTP_400_BAD_REQUEST
+#                 return {
+#                     "message": "Cannot delete mentorship",
+#                 }
+
+
 @router.get(
     "/profile/events/",
     response_model=EventsList,
