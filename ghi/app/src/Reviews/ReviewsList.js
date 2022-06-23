@@ -49,7 +49,7 @@ function ReviewsList(props) {
             </h2>
             </div>
             <div>
-            <div className={!token ? "overlay" : null} >
+            <div className={!token ? "reviews-overlay" : null} >
             </div>
             <div className="card-body">
               <h1 className="card-title">{review.company_name}</h1>
