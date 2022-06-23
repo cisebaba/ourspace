@@ -68,16 +68,16 @@ export const BackDrop = styled(motion.div)` // this is the swoop
   transform: rotate(60deg);
   top: -290px;
   left: -70px;
-  background: #8360c3; /* fallback for old browsers */
+  background: #EFB7B7; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
-    #2ebf91,
-    #8360c3
+    #EFB7B7,
+    #8A1253
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to right,
-    #2ebf91,
-    #8360c3
+    #EFB7B7,
+    #8A1253
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 `;
 
@@ -116,8 +116,8 @@ export const CardButton = styled.button`
   background: white;
   background: linear-gradient(
     to right,
-    #2ebf91,
-    #8360c3
+    #EFB7B7,
+    #8A1253
   );
   &:hover {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);

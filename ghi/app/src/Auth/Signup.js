@@ -107,7 +107,7 @@ function Signup(props) {
           >Signup
           </CardButton>
           <Marginer direction="vertical" margin={10} />
-          <MutedLink href="Login">Already Have an Account?{" "}
+          <MutedLink>Already Have an Account?{" "}
           <BoldLink onClick={switchToLogin}>Login</BoldLink>
           </MutedLink>
           

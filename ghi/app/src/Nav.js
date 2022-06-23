@@ -20,7 +20,7 @@ function Nav(props) {
     }
   }, [token]);
 
-  if(["login", "signup"].some(path => location.pathname.includes(path))){
+  if(["login", "signup", "Login", "Signup"].some(path => location.pathname.includes(path))){
     return null
   }
   return (
