@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 import { Marginer } from "./marginer";
@@ -16,7 +16,8 @@ import {
   CardButton,
   InnerContainer,
   BoldLink,
-  MutedLink
+  MutedLink,
+  expandingTransition
 } from "./index";
 
 
@@ -24,6 +25,7 @@ import {
 
 
 function Signup(props) {
+  const [isExpanded, setExpanded] = useState(false)
   const { token, signup } = props;
   const [username, setUsername] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -31,12 +33,41 @@ function Signup(props) {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
+  let navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
     const error = await signup(username,firstname,lastname, email, password);
     setError(error);
   };
+
+  
+
+  const playExpandingAnimation = () => {
+     setExpanded(true);
+     setTimeout(() => {
+       setExpanded(false);
+     },  expandingTransition.duration * 1000 - 1500);
+   };
+ 
+   const switchToSignup = () => {
+      playExpandingAnimation();
+      setTimeout(() => {
+       console.log("Time: 3 sec")
+       //setActive("signup");
+       navigate("../signup", {replace : true})
+      }, 400);
+   };
+ 
+  const switchToLogin = () => {
+     playExpandingAnimation();
+     setTimeout(() => {
+      //setActive("login");
+       navigate("../login", {replace : true})
+     }, 400);
+   };
+ 
+   const contextValue = { switchToSignup, switchToLogin }
 
   if (token) {
     return <Navigate to="/profile/new" />;
@@ -76,8 +107,8 @@ function Signup(props) {
           >Signup
           </CardButton>
           <Marginer direction="vertical" margin={10} />
-          <MutedLink href="signin">Already Have an Account?{" "}
-          <BoldLink href="signin">Signin</BoldLink>
+          <MutedLink href="Login">Already Have an Account?{" "}
+          <BoldLink onClick={switchToLogin}>Login</BoldLink>
           </MutedLink>
           
       </InnerContainer>

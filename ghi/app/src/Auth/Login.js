@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 ///
 
@@ -40,8 +40,9 @@ function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  let navigate = useNavigate();
 
-  const playExpandingAnimation = () => {
+ const playExpandingAnimation = () => {
     setExpanded(true);
     setTimeout(() => {
       setExpanded(false);
@@ -49,20 +50,23 @@ function Login(props) {
   };
 
   const switchToSignup = () => {
+     playExpandingAnimation();
+     setTimeout(() => {
+      console.log("Time: 3 sec")
+      //setActive("signup");
+      navigate("../signup", {replace : true})
+     }, 400);
+  };
+
+ const switchToLogin = () => {
     playExpandingAnimation();
     setTimeout(() => {
-      setActive("signup");
+     //setActive("login");
+      navigate("../login", {replace : true})
     }, 400);
   };
 
-  const switchToLogin = () => {
-    playExpandingAnimation();
-    setTimeout(() => {
-      setActive("login");
-    }, 400);
-  };
-
-  const contextValue = { switchToSignup, switchToLogin };
+  const contextValue = { switchToSignup, switchToLogin }
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -73,11 +77,13 @@ function Login(props) {
   if (token) {
     return <Navigate to="/" />;
   }
+  if (active === "login"){
 
+  }
   return (
     <AccountContext.Provider value={contextValue}>
     <div className="container mt-5 py-5">
-      <div className="App">
+      <div className="App" >
         <CardWrapper>
           <TopContainer>
           <BackDrop 
@@ -115,8 +121,8 @@ function Login(props) {
                 Sign In
               </CardButton>
               <Marginer direction="vertical" margin={10} />
-              <MutedLink href="signup">Don't have an account?{" "}
-              <BoldLink href="signup">Signup</BoldLink>
+              <MutedLink>Don't have an account?{" "}
+              <BoldLink onClick={switchToSignup}>Signup</BoldLink>
               </MutedLink>
               
               <p onClick={playExpandingAnimation}>Click</p>
