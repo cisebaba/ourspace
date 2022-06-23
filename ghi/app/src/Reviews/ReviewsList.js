@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReviewsForm from "./ReviewsForm"
-//import { AiFillStar } from 'react-icons/fa';
+import { NavLink } from "react-router-dom";
+
 
 const StarRating = (props) => {
   return (
@@ -34,50 +35,44 @@ function ReviewsList(props) {
     getReviewsData();
   }, []);
 
-  // FIGURING OUT THE LOGIC FOR RATINGS
-  // rating variable needs to == average of
-  // diversity, balance, parental_leave, flexibility
 
-  // get the numbers of diversity, balance,
-  // parental_leave, flexibility for EACH REVIEW
-  // calculate the average of those numbers
-  // those numbers will equal rating variable
 
-  // also need to get average of all reviews(avg rating)
-  // for EACH COMPANY
 
   return (
-    <div className="col">
-      <ReviewsForm token={props.token}/>
+  <>
+    { token ? <ReviewsForm token={props.token} /> : null}
+    <div className="container" align="center">
       {reviews.map((review) => {
         return (
-          <div key={review.id} className="card mb-3 shadow">
+          <div key={review.company_name} className="container mb-3 shadow">
+            <div className={!token ? "text-block" : null}>
+            <h2 align="center ">
+            { !token ?
+            <NavLink to={"/signup"}>Sign up</NavLink> 
+            : null }
+            { !token ? <span> to see company reviews! </span> : null }
+            </h2>
+            </div>
             <div>
-              <h2></h2>
-              <h1>{review.company_name}</h1>
+            <div className={!token ? "overlay" : null} >
             </div>
             <div className="card-body">
-              <h5 className="card-title"></h5>
-              <h6 className="card-subtitle mb-2 text-muted"></h6>
-              {/* figure out the logic for rating!! */}
-              {/* <h5 className="card-text">Overall Average Rating: {review.rating}{Star}</h5> */}
-              <div></div>
-              <h5 className="card-text">Average Salary: {review.salary_average}
-              </h5>
-              <div></div>
-              <p className="card-text">Diversity: {review.diversity_average} <StarRating number = {review.diversity_average}/></p>
-              <div></div>
-              <p className="card-text">Balance: {review.balance_average}<StarRating number = {review.balance_average}/></p>
-              <div></div>
-              <p className="card-text">Parental Leave: {review.parental_leave_average}<StarRating number = {review.parental_leave_average}/></p>
-              <div></div>
-              <p className="card-text">Flexibility: {review.flexibility_average}<StarRating number = {review.flexibility_average}/></p>
+              <h1 className="card-title">{review.company_name}</h1>
+              <br></br>
+              <h5 className="card-text">Average Salary: ${review.salary_average}</h5>
+              <br></br>
+              <h6 className="card-text">Diversity: {review.diversity_average}<StarRating number = {review.diversity_average}/></h6>
+              <h6 className="card-text">Balance: {review.balance_average}<StarRating number = {review.balance_average}/></h6>
+              <h6 className="card-text">Parental Leave: {review.parental_leave_average}<StarRating number = {review.parental_leave_average}/></h6>
+              <h6 className="card-text">Flexibility: {review.flexibility_average}<StarRating number = {review.flexibility_average}/></h6>
             </div>
-            <div className="card-footer"></div>
-          </div>
+            <h6 className="card-footer"> Overall Rating: {review.average_rating}<StarRating number = {review.average_rating}/></h6>
+            </div>
+            </div>
         );
       })}
     </div>
+    </>
   );
 }
 
