@@ -1,48 +1,53 @@
 from fastapi.testclient import TestClient
 from main import app
-from routers.reviews import Review, ReviewQueries, ReviewIn, ReviewOut, AverageOut
+from routers.reviews import ReviewQueries
 
 client = TestClient(app)
 
+
 def test_review_exists():
-    from routers.reviews import Review
+    from routers.reviews import Review  # noqa
+
 
 def test_review_in_exists():
-    from routers.reviews import ReviewIn
+    from routers.reviews import ReviewIn  # noqa
+
 
 def test_review_out_exists():
-    from routers.reviews import ReviewOut
+    from routers.reviews import ReviewOut  # noqa
+
 
 def test_average_exists():
-    from routers.reviews import AverageOut
+    from routers.reviews import AverageOut  # noqa
 
 
 class NormalReviewQueries:
     def get_reviews_list(self):
-        return [{
-            "company_name": "google",
-            "average_rating": 1,
-            "salary_average": 100000,
-            "diversity_average": 1,
-            "balance_average": 2,
-            "parental_leave_average": 2,
-            "flexibility_average": 2
-        },
-        {
-            "company_name": "facebook",
-            "average_rating": 2,
-            "salary_average": 300000,
-            "diversity_average": 4,
-            "balance_average": 5,
-            "parental_leave_average": 1,
-            "flexibility_average": 3
-        }]
+        return [
+            {
+                "company_name": "google",
+                "average_rating": 1,
+                "salary_average": 100000,
+                "diversity_average": 1,
+                "balance_average": 2,
+                "parental_leave_average": 2,
+                "flexibility_average": 2,
+            },
+            {
+                "company_name": "facebook",
+                "average_rating": 2,
+                "salary_average": 300000,
+                "diversity_average": 4,
+                "balance_average": 5,
+                "parental_leave_average": 1,
+                "flexibility_average": 3,
+            },
+        ]
+
 
 class EmptyReviewQueries:
     def get_reviews_list(self):
         return None
-
-
 
 
 def test_reviews_list_returns_200():
@@ -60,8 +65,6 @@ def test_reviews_list_returns_200():
 
     # CLEAN UP
     app.dependency_overrides = {}
-
-
 
 
 def test_reviews_list_returns_404():

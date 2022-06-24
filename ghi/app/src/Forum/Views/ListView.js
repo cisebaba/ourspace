@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import PostsList from "../Components/PostsList";
 import { getPosts } from "../Api/GetPostsData";
+import { TitleContainer, PostWrapper } from "../styling/styling";
 
 const CardContainer = styled.div`
   display: flex;
@@ -27,6 +28,7 @@ const ListView = (props) => {
       setPosts(posts);
     }
     initializePosts();
+<<<<<<< HEAD
   }, []);
   
 
@@ -42,6 +44,21 @@ const ListView = (props) => {
       <PostsList token={token} posts={posts} setPosts={setPosts} />
     </div>
     </CardContainer>
+=======
+  }, [token]);
+
+  return (
+    <PostWrapper>
+      <div>
+        <TitleContainer>OurForum &#9825;</TitleContainer>
+        {/* <Heart isClick={isClick} onClick={() => setClick(!isClick)} /> */}
+        <h6>
+          <NavLink to={"/posts/new/"}>Create new post</NavLink>
+        </h6>
+        <PostsList token={token} posts={posts} setPosts={setPosts} />
+      </div>
+    </PostWrapper>
+>>>>>>> main
   );
 };
 

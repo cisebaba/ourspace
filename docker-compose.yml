@@ -22,6 +22,7 @@ services:
       REACT_APP_API_HOST: http://localhost:8000
       REACT_APP_REVIEWS_HOST: http://localhost:8070
       REACT_APP_MENTORSHIP_HOST: http://localhost:8050
+      REACT_APP_JOBS_HOST: http://localhost:8080
 
   accounts:
     build:
@@ -32,10 +33,7 @@ services:
     volumes:
       - ./accounts/api:/app
     environment:
-      PGHOST: db #server that rdbms is running on- same for all
-      PGDATABASE: accounts
-      PGUSER: ourspace
-      PGPASSWORD: ourspace
+      DATABASE_URL: postgresql://ourspace:ourspace@db/accounts
       SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
       OPEN_WEATHER_API_KEY: ${OPEN_WEATHER_API_KEY}
       #host is the name of the service running pgsequal
@@ -48,10 +46,7 @@ services:
     volumes:
       - ./reviews/api:/app
     environment:
-      PGHOST: db
-      PGDATABASE: reviews
-      PGUSER: ourspace
-      PGPASSWORD: ourspace
+      DATABASE_URL: postgresql://ourspace:ourspace@db/reviews
       SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
 
   forum:
@@ -63,10 +58,7 @@ services:
     volumes:
       - ./forum/api:/app
     environment:
-      PGHOST: db
-      PGDATABASE: forum
-      PGUSER: ourspace
-      PGPASSWORD: ourspace
+      DATABASE_URL: postgresql://ourspace:ourspace@db/forum
       SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
   jobs:
     build:
@@ -77,10 +69,7 @@ services:
     volumes:
       - ./jobs/api:/app
     environment:
-      PGHOST: db
-      PGDATABASE: jobs
-      PGUSER: ourspace
-      PGPASSWORD: ourspace
+      DATABASE_URL: postgresql://ourspace:ourspace@db/jobs
       ADZUNA_API_KEY: ${ADZUNA_API_KEY}
       ADZUNA_APP_ID: ${ADZUNA_APP_ID}
       SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
@@ -93,10 +82,7 @@ services:
     volumes:
       - ./mentorship/api:/app
     environment:
-      PGHOST: db
-      PGDATABASE: mentorship
-      PGUSER: ourspace
-      PGPASSWORD: ourspace
+      DATABASE_URL: postgresql://ourspace:ourspace@db/mentorship
       SECRET_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
   accounts-poller:
     build:
@@ -108,10 +94,9 @@ services:
       - db
       - accounts
     environment:
-      PGHOST: db
-      PGDATABASE: accounts
-      PGUSER: ourspace
-      PGPASSWORD: ourspace
+      DATABASE_URL: postgresql://ourspace:ourspace@db/accounts
+      MENTORSHIP_API: http://mentorship:8000
+      EVENTS_API: http://events:8000
   events:
     build:
       context: ./events/api
@@ -122,10 +107,7 @@ services:
       - ./events/api:/app
     environment:
       #host is the name of the service running pgsequal
-      PGHOST: db
-      PGDATABASE: events
-      PGUSER: ourspace
-      PGPASSWORD: ourspace
+      DATABASE_URL: postgresql://ourspace:ourspace@db/events
       DJWTO_SIGNING_KEY: 1435e80f9a1c4c54a59f27d42743e016356036c4a0d955e0cd56318af53be578
   db:
     image: postgres:14.2-bullseye

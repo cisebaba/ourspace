@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+div, header, body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -12,6 +17,10 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+/* div, body, header {
+  font-family: 'Radio Canada', sans-serif;
+}  */
 
 .App-header {
   background-color: #282c34;
@@ -44,9 +53,91 @@ button {
   cursor: pointer;
 }
 .on {
-  color: rgb(19, 19, 19);
+  color: #c51350;
 }
 .off {
   color: #ccc;
 }
 
+/* .reviews-btn {
+  color: #C51350;
+} */
+
+.reviews-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  z-index: 1;
+  color: rgb(0, 0, 0);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.container {
+  position: relative;
+}
+
+.text-block {
+  position: fixed;
+  bottom: 200px;
+  right: 110px;
+  top: 300px;
+  left: 110px;
+  background-color: #fadadd;
+  color: black;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 60px;
+  z-index: 2;
+  text-align: center;
+
+  border-style: double;
+  border-width: 5px;
+}
+
+.jobs-text-block {
+  position: fixed;
+  bottom: 150px;
+  right: 90px;
+  top: 300px;
+  left: 90px;
+  background-color: #fadadd;
+  color: black;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 100px;
+  /* padding-bottom: 50px; */
+  z-index: 2;
+  text-align: center;
+  border-style: double;
+  border-width: 5px;
+}
+
+/* .shadow {
+  background-color: #fadadd;
+} */
+
+.solid {
+  border-top: 3px;
+}
+/* 
+.profile-container{
+  display: grid;
+  grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 50px [five] 40px [end];
+  grid-template-rows: [row1-start] 25% [row1-end] 100px [third-line] auto [last-line];
+} */
+.profile-info {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* .shadow {
+  background-color: lightseagreen !important;
+  
+} */
+
+/* #mentor-header {
+  color: #4A808C;
+} */

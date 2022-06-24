@@ -4,6 +4,7 @@ import PostBody from "../Components/PostBody";
 import CommentList from "../Components/CommentList";
 import { getPost } from "../Api/GetPostData";
 import { getCurrentUser } from "../Api/GetCurrentUser";
+import { PostWrapper } from "../styling/styling";
 
 const DetailView = (props) => {
   const token = props.token;
@@ -22,21 +23,23 @@ const DetailView = (props) => {
     }
     initializePost();
     initializeUser();
-  }, []);
+  }, [params.post_id, token]);
 
   return (
-    <div>
-      <>
-        <PostBody
-          post={post}
-          token={token}
-          setPost={setPost}
-          showNavLinks={false}
-          hideDeleteButton={!user.username || user.username !== post.author}
-        />
-        <CommentList token={token} />
-      </>
-    </div>
+    <PostWrapper>
+      <div>
+        <>
+          <PostBody
+            post={post}
+            token={token}
+            setPost={setPost}
+            showNavLinks={false}
+            hideDeleteButton={!user.username || user.username !== post.author}
+          />
+          <CommentList token={token} />
+        </>
+      </div>
+    </PostWrapper>
   );
 };
 

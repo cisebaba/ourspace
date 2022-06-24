@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import StarRating from "./StarRatingForm";
+import ReviewsSuccessMessage from "./SuccessMessage";
 
 function ReviewsForm(props) {
   const token = props.token;
-  // const [rating, setRating] = useState(0);
-  const [review, setReview] = useState({
-    review: false
-  })
+  const setLoadList = props.setLoadList;
+  const [successMessage, setSuccessMessage] = useState(false);
   const [overall_rating, setOverallRating] = useState(0);
   const [company_name, setCompanyName] = useState();
   const [salary, setSalary] = useState();
@@ -14,9 +13,6 @@ function ReviewsForm(props) {
   const [balance, setBalance] = useState(0);
   const [parental_leave, setParentalLeave] = useState(0);
   const [flexibility, setFlexibility] = useState(0);
-
-
-
 
   useEffect(() => {
     const getReviewData = async () => {
@@ -52,7 +48,6 @@ function ReviewsForm(props) {
       balance: dataBalance,
       parental_leave: dataParentalLeave,
       flexibility: dataFlexibility,
-
     };
 
     const reviewsUrl = `${process.env.REACT_APP_REVIEWS_HOST}/api/reviews/`;
@@ -66,69 +61,32 @@ function ReviewsForm(props) {
       },
     };
     const response = await fetch(reviewsUrl, fetchConfigReview);
-    
+
     if (response.ok) {
-      setReview({
-        review: true
-      })
+      const record = await response.json();
+      setLoadList(record.id);
+      setOverallRating();
+      setCompanyName("");
+      setBalance();
+      setDiversity();
+      setFlexibility();
+      setParentalLeave();
+      setSalary("");
+      setSuccessMessage(true);
+
     }
-
-    // if (response.ok) {
-    //   setCompanyName({
-    //     company_name: "",
-    //   });
-    //   setSalary({
-    //     salary: "",
-    //   });
-    //   setOverallRating({
-    //     overall_rating: setOverallRating,
-    //   });
-    //   setDiversity({
-    //     diversity: dataDiversity,
-    //   });
-    //   setBalance({
-    //     balance: dataBalance,
-    //   });
-    //   setParentalLeave({
-    //     parental_leave: dataParentalLeave,
-    //   });
-    //   setFlexibility({
-    //     flexibility: dataFlexibility,
-    //   });
-
-
-    // }
   };
-  //
- 
-  // const handleRating = event => {
-
-  //   const value = event.target.value ;
-  //   setRating({
-  //       ...rating,
-  //       [event.target.name]: value,
-  //   });
-    
-  // };
-  let messageClasses = 'alert alert-success d-none mb-0';
-  let formClasses = '';
-  if (setReview.ok) {
-    messageClasses = 'alert alert-success mb-0';
-    formClasses = 'd-none';
-  }
 
 
   return (
-    <div className="row">
+    <div className="row" align="center">
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
           <h1>Review a Company!</h1>
-          
-
-          <form className={formClasses} onSubmit={handleSubmit} id="create-form">
+          <form onSubmit={handleSubmit} id="create-form">
             <div className="form-floating mb-3">
               <input onChange={(e) => setCompanyName(e.target.value)}
-              value={company_name}
+              value={company_name || ""}
               placeholder="company_name"
               required type="text"
               name="company_name"
@@ -138,15 +96,15 @@ function ReviewsForm(props) {
             </div>
             <div className="form-floating mb-3">
               <input onChange={(e) => setSalary(e.target.value)}
-              value={salary}
+              value={salary || ""}
               placeholder="salary"
               required type="text"
               name="salary"
               id="salary"
               className="form-control" />
-              <label htmlFor="name"> Salary</label>
+              <label htmlFor="name">Salary</label>
             </div>
-              <label htmlFor="name"> Rating </label>
+              <label htmlFor="name"> Average Rating </label>
             <div className="form-floating mb-3">
               <StarRating
               value={overall_rating}
@@ -201,15 +159,12 @@ function ReviewsForm(props) {
               id="flexibility"
               className="form-control" />
             </div>
-            <button className="btn btn-primary">Add</button>
+            <button className="btn btn-primary">Rate!</button>
+            {(successMessage === true) ? <ReviewsSuccessMessage /> : <></>}
           </form>
-          <div className={messageClasses} id="success-message">
-          Congratulations! You're all signed up!
-
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

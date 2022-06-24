@@ -1,4 +1,4 @@
-# Women in Tech Social!
+# OurSpace
 
 ## Design
 
@@ -6,6 +6,7 @@
 * [Data model](docs/data-model.md)
 * [GHI](docs/ghi.md)
 * [Integrations](docs/integrations.md)
+* [Wireframes](docs/wireframes/OurSpace_Wireframes.png)
 
 ## Architecture
 ![Image](WiTSocial_DDD.png)
@@ -17,7 +18,7 @@ Team Members:
 * Rachael Schlosberg
 * Cise Babatasi
 
-The social media application for women interested in tech to connect and share ideas.
+The social media application for women and underrepresented individuals interested in tech to connect and share ideas.
 
 ## Intended market
 
@@ -26,7 +27,7 @@ women/girls and gender expansive individuals who are involved or interested in t
 These may include (but are not limited to):
 
 * Companies looking to hire
-* Tech conference, meet-up or event organisers or participants
+* Tech conference, meet-up or event organizers or participants
 * Job seekers
 * Tech industry influencers
 * Tech mentors/mentees
@@ -35,20 +36,19 @@ These may include (but are not limited to):
 ## Functionality
 
 ## Must Have Features:
-* User accounts (profile, signup, log-in), messaging, followers - personal or business account
+
+* User accounts (profile, signup, log-in)
 * Company info and reviews
-* Job board - query data from Indeed/Glassdoor or other source
-* Conference/meetup/event section - query from event API
+* Job board - query data from external job board API
+* Conference/meetup/event section - users can create and view events
 * Forum for users to post and comment
-* Mentorship / sponsorship / scholarship section
+* Mentorship - users can sign up as a mentor or mentee
 
 * (To come later) Personalized Live Feed (homepage) 
 
 ## Nice to Haves: 
+
 * Site search
+* Direct messaging, user friends list
 * Newsletter
 * Following/follower capability
-
-
-
-

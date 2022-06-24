@@ -1,3 +1,10 @@
+## Jun 23,2022 
+Last night after working working on the Profile Page with Amanda and Rachael. We implemented the events and mentorship on the frontend. 
+I did some late night work and made the cancel button wor for mentorship and Amanda joined me too it was a quick thing because I made that on Project Beta before. 
+In the morning we met with Rachael and figured the dependency for post to CASCADE on delete. It was easier than I expected. I used references on profile from user table but never tried foreign key, putted in my pocket:). 
+After that I worked on collapsable or expendable item on the page. I thought, it is super important for user experience. People can hide the events or mentorship list on their profile page. (Thank you bootstrap, we love you). 
+I did some cleaning on the files tried to make ready for deployment. Working on css right now but I feel super behind on it. I hope I can catch with my teammates because they are killing it!
+
 ## Jun 22,2022 
 Last night I worked on the poller which I thought I finished but not polling the the data well. There was no hope and left it.
 I jumped into writing test for profile for get profile. I am glad I did TEST is COOL! I looked at the trivia-game and Amanda's test files. In the morning after handling the events and mentorship poller  thanks Curtis helped us when we were checking with group. 

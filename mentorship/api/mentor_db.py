@@ -1,13 +1,13 @@
-import psycopg
+import os
 from psycopg_pool import ConnectionPool
-from psycopg.errors import UniqueViolation
 
-pool = ConnectionPool()
+conninfo = os.environ["DATABASE_URL"]
+pool = ConnectionPool(conninfo=conninfo)
 
 
 class MentorshipQueries:
     def get_all_mentorships(self):
-        with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
@@ -22,19 +22,18 @@ class MentorshipQueries:
                 for row in cur.fetchall():
                     d = {
                         "id": row[0],
-                        "job_title":row[1],
+                        "job_title": row[1],
                         "description": row[2],
                         "availability": row[3],
                         "mentor_username": row[4],
-                        "mentee_username": row[5]
+                        "mentee_username": row[5],
                     }
                     ds.append(d)
 
                 return ds
 
-
     def get_one_mentorship(self, mentorship_id):
-        with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     f"""
@@ -50,17 +49,18 @@ class MentorshipQueries:
                     return {"message": "Mentorship not found"}
                 record = {
                     "id": row[0],
-                    "job_title":row[1],
+                    "job_title": row[1],
                     "description": row[2],
                     "availability": row[3],
                     "mentor_username": str(row[4]),
-                    "mentee_username": str(row[5])
+                    "mentee_username": str(row[5]),
                 }
                 return record
 
-
-    def insert_mentorship(self, job_title, description, availability, username):
-        with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+    def insert_mentorship(
+        self, job_title, description, availability, username
+    ):
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 try:
                     cur.execute(
@@ -79,9 +79,8 @@ class MentorshipQueries:
                     record[column.name] = row[i]
                 return record
 
-        
     def update_mentorship(self, username, mentorship_id):
-        with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 try:
                     cur.execute(
@@ -96,7 +95,7 @@ class MentorshipQueries:
                 except Exception as e:
                     return e
 
-                conn.commit()            
+                conn.commit()
                 row = cur.fetchone()
                 record = {}
                 for i, column in enumerate(cur.description):
