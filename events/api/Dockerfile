@@ -14,4 +14,4 @@ COPY common common
 
 RUN pip install -r requirements.txt
 RUN python manage.py collectstatic --no-input
-CMD python manage.py migrate && gunicorn events_project.wsgi --bind 0.0.0.0:$PORT --log-file -
+CMD python manage.py migrate && gunicorn events.wsgi --bind 0.0.0.0:$PORT --log-file -
