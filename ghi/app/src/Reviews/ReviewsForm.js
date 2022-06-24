@@ -159,7 +159,7 @@ function ReviewsForm(props) {
               id="flexibility"
               className="form-control" />
             </div>
-            <button className="btn btn-primary">Add</button>
+            <button className="btn btn-primary">Rate!</button>
             {(successMessage === true) ? <ReviewsSuccessMessage /> : <></>}
           </form>
           </div>
