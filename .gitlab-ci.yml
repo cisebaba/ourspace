@@ -189,7 +189,7 @@ build-reviews-api-job:
     - docker push ${CI_REGISTRY_IMAGE}/reviews_api:$CI_JOB_ID
     - docker push ${CI_REGISTRY_IMAGE}/reviews_api:latest
 
-deploy-back-end-job-heroku:
+deploy-accounts-image-heroku:
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
   stage: deploy
@@ -199,38 +199,99 @@ deploy-back-end-job-heroku:
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-
     - docker pull ${CI_REGISTRY_IMAGE}/accounts_api:latest
     - docker tag ${CI_REGISTRY_IMAGE}/accounts_api:latest registry.heroku.com/$HEROKU_ACCOUNTS_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_ACCOUNTS_APP/web:latest
 
+deploy-accounts-poller-image-heroku:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: deploy
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
     - docker pull ${CI_REGISTRY_IMAGE}/accounts_poller:latest
     - docker tag ${CI_REGISTRY_IMAGE}/accounts_poller:latest registry.heroku.com/$HEROKU_ACCOUNTS_POLLER/web:latest
     - docker push registry.heroku.com/$HEROKU_ACCOUNTS_POLLER/web:latest
 
+deploy-events-image-heroku:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: deploy
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
     - docker pull ${CI_REGISTRY_IMAGE}/events_api:latest
     - docker tag ${CI_REGISTRY_IMAGE}/events_api:latest registry.heroku.com/$HEROKU_EVENTS_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_EVENTS_APP/web:latest
 
+deploy-forum-image-heroku:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: deploy
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
     - docker pull ${CI_REGISTRY_IMAGE}/forum_api:latest
     - docker tag ${CI_REGISTRY_IMAGE}/forum_api:latest registry.heroku.com/$HEROKU_FORUM_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_FORUM_APP/web:latest
 
+deploy-jobs-image-heroku:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: deploy
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
     - docker pull ${CI_REGISTRY_IMAGE}/jobs_api:latest
     - docker tag ${CI_REGISTRY_IMAGE}/jobs_api:latest registry.heroku.com/$HEROKU_JOBS_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_JOBS_APP/web:latest
 
+deploy-mentorship-image-heroku:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: deploy
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
     - docker pull ${CI_REGISTRY_IMAGE}/mentorship_api:latest
     - docker tag ${CI_REGISTRY_IMAGE}/mentorship_api:latest registry.heroku.com/$HEROKU_MENTORSHIP_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_MENTORSHIP_APP/web:latest
 
+deploy-reviews-image-heroku:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: deploy
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
     - docker pull ${CI_REGISTRY_IMAGE}/reviews_api:latest
     - docker tag ${CI_REGISTRY_IMAGE}/reviews_api:latest registry.heroku.com/$HEROKU_REVIEWS_APP/web:latest
     - docker push registry.heroku.com/$HEROKU_REVIEWS_APP/web:latest
 
-heroku-release:
+heroku-accounts-release:
   stage: deploy
   image: node:10.17-alpine
+  needs:
+    - build-accounts-api-job
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
   needs:
@@ -240,15 +301,107 @@ heroku-release:
     - curl https://cli-assets.heroku.com/install.sh | sh
   script:
     - heroku container:release web --app $HEROKU_ACCOUNTS_APP
+
+heroku-accounts-poller-release:
+  stage: deploy
+  image: node:10.17-alpine
+  needs:
+    - build-accounts-poller-job
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  needs:
+    - deploy-back-end-job-heroku
+  before_script:
+    - apk add curl bash
+    - curl https://cli-assets.heroku.com/install.sh | sh
+  script:
     - heroku container:release web --app $HEROKU_ACCOUNTS_POLLER
+
+heroku-events-release:
+  stage: deploy
+  image: node:10.17-alpine
+  needs:
+    - build-events-api-job
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  needs:
+    - deploy-back-end-job-heroku
+  before_script:
+    - apk add curl bash
+    - curl https://cli-assets.heroku.com/install.sh | sh
+  script:
     - heroku container:release web --app $HEROKU_EVENTS_APP
+
+heroku-forum-release:
+  stage: deploy
+  image: node:10.17-alpine
+  needs:
+    - build-forum-api-job
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  needs:
+    - deploy-back-end-job-heroku
+  before_script:
+    - apk add curl bash
+    - curl https://cli-assets.heroku.com/install.sh | sh
+  script:
     - heroku container:release web --app $HEROKU_FORUM_APP
+
+heroku-jobs-release:
+  stage: deploy
+  image: node:10.17-alpine
+  needs:
+    - build-jobs-api-job
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  needs:
+    - deploy-back-end-job-heroku
+  before_script:
+    - apk add curl bash
+    - curl https://cli-assets.heroku.com/install.sh | sh
+  script:
     - heroku container:release web --app $HEROKU_JOBS_APP
+
+heroku-mentorship-release:
+  stage: deploy
+  image: node:10.17-alpine
+  needs:
+    - build-mentorship-api-job
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  needs:
+    - deploy-back-end-job-heroku
+  before_script:
+    - apk add curl bash
+    - curl https://cli-assets.heroku.com/install.sh | sh
+  script:
     - heroku container:release web --app $HEROKU_MENTORSHIP_APP
+
+heroku-reviews-release:
+  stage: deploy
+  image: node:10.17-alpine
+  needs:
+    - build-reviews-api-job
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  needs:
+    - deploy-back-end-job-heroku
+  before_script:
+    - apk add curl bash
+    - curl https://cli-assets.heroku.com/install.sh | sh
+  script:
     - heroku container:release web --app $HEROKU_REVIEWS_APP
 
 pages:
   stage: deploy
+  needs:
+    - heroku-accounts-release
+    - heroku-accounts-poller-release
+    - heroku-events-release
+    - heroku-forum-release
+    - heroku-jobs-release
+    - heroku-mentorship-release
+    - heroku-reviews-release
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
   dependencies:
