@@ -3,6 +3,13 @@ stages:
   - build  # Run build after tests
   - deploy # Run deploy after build
 
+services:
+  - postgres:14.2-bullseye
+
+variables:
+  POSTGRES_PASSWORD: test
+  DATABASE_URL: postgresql://postgres:test@postgres:5432/postgres
+
 test-accounts-api:
   image: python:3-bullseye
   stage: test
@@ -56,7 +63,7 @@ lint-test-job:
   stage: test
   script:
     - pip install flake8
-    - flake8 api
+    - flake8 accounts events forum jobs mentorship reviews
 
 build-front-end-job:
   rules:
