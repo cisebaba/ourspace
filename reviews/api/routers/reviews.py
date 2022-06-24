@@ -96,15 +96,10 @@ class ReviewQueries:
                 ds = []
                 for row in cur.fetchall():
                     d = {
-                        # "id": row[0],
                         "company_name": row[0],
-                        "average_rating": row[
-                            1
-                        ],  ### average for overall rating for company
-                        "salary_average": row[
-                            2
-                        ],  ### average rating for salary (?? about database)
-                        "diversity_average": row[3],  ### average for diversity
+                        "average_rating": row[1],
+                        "salary_average": row[2],
+                        "diversity_average": row[3],
                         "balance_average": row[4],
                         "parental_leave_average": row[5],
                         "flexibility_average": row[6],
