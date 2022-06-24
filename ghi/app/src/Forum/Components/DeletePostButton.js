@@ -1,6 +1,7 @@
 import React from "react";
+import { StyledDeleteButton } from "../styling/styling";
 
-export function DeletePostButton({ token, postId }) {
+function DeletePostButton({ token, postId }) {
   async function DeletePost() {
     const deletePostUrl = `${process.env.REACT_APP_FORUM_HOST}/api/posts/${postId}/`;
     const fetchConfigEvent = {
@@ -16,9 +17,9 @@ export function DeletePostButton({ token, postId }) {
   }
 
   return (
-    <button className="btn btn-outline-danger" onClick={DeletePost}>
+    <StyledDeleteButton style={{ float: "right" }} onClick={DeletePost}>
       Delete Post
-    </button>
+    </StyledDeleteButton>
   );
 }
 

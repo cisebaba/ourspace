@@ -50,13 +50,13 @@ export function UpvoteButton({
     <button
       style={
         userPostUpvoteCount <= 0
-          ? { fontWeight: "normal" }
-          : { fontWeight: "bold" }
+          ? { fontWeight: "normal", float: "right" }
+          : { fontWeight: "bold", color: "#a63a79", float: "right" }
       }
       onClick={userPostUpvoteCount <= 0 ? AddUpvote : DeleteUpvote}
     >
       {" "}
-      {upvoteCount} upvotes
+      &#9825;{upvoteCount}
     </button>
   );
 }

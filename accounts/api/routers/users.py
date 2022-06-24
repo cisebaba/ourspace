@@ -52,7 +52,6 @@ class UserSignUp(BaseModel):
     disabled: bool | None = None
 
 
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -75,12 +74,14 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
         expire = datetime.utcnow() + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
-    to_encode.update({
-        "exp": expire,
-        "iat": datetime.utcnow(),
-        "iss": "our-space",
-        "jti": str(uuid.uuid4()),
-    })
+    to_encode.update(
+        {
+            "exp": expire,
+            "iat": datetime.utcnow(),
+            "iss": "our-space",
+            "jti": str(uuid.uuid4()),
+        }
+    )
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
@@ -118,7 +119,12 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
 
 
 @router.post("/token")
-async def login_for_access_token(response: Response, request: Request, form_data: OAuth2PasswordRequestForm = Depends(), repo: AccountsQueries = Depends()):
+async def login_for_access_token(
+    response: Response,
+    request: Request,
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    repo: AccountsQueries = Depends(),
+):
     user = authenticate_user(repo, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -130,9 +136,9 @@ async def login_for_access_token(response: Response, request: Request, form_data
     access_token = create_access_token(
         data={
             "sub": user["username"],
-            "user": {k: v
-                     for k, v in user.items()
-                     if k != "username" and not "password" in k}
+            "user": {
+                k: v for k, v in user.items() if k != "username" and not "password" in k
+            },
         },
         expires_delta=access_token_expires,
     )
@@ -160,17 +166,29 @@ async def get_token(request: Request):
 
 
 @router.post("/api/users")
-async def signup(user: UserSignUp, response: Response, repo: AccountsQueries = Depends()):
+async def signup(
+    user: UserSignUp, response: Response, repo: AccountsQueries = Depends()
+):
     hashed_password = pwd_context.hash(user.password)
     try:
-        repo.create_user(user.username,user.firstname, user.lastname, hashed_password, user.email)
+        repo.create_user(
+            user.username, user.firstname, user.lastname, hashed_password, user.email
+        )
         return user
     except DuplicateAccount:
         response.status_code = status.HTTP_409_CONFLICT
         return {"detail": "Can't have a duplicate account"}
 
 
-@router.get("/users/me", response_model=User, responses={200: {"model": User}, 400: {"model": HttpError}, 401: {"model": HttpError}})
+@router.get(
+    "/users/me",
+    response_model=User,
+    responses={
+        200: {"model": User},
+        400: {"model": HttpError},
+        401: {"model": HttpError},
+    },
+)
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
 
