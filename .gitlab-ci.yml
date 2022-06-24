@@ -76,12 +76,12 @@ build-front-end-job:
   stage: build
   image: node:lts-bullseye
   script:
-    - cd ghi
+    - cd ghi/app
     - npm install
     - npm run build
   artifacts:
     paths:
-      - ghi/build/ 
+      - ghi/app/build/ 
 
 build-accounts-api-job:
   rules:
@@ -91,7 +91,7 @@ build-accounts-api-job:
   services:
     - docker:20.10.16-dind
   script:
-    - cd accounts
+    - cd accounts/api
     - docker build -t ${CI_REGISTRY_IMAGE}/accounts_api:latest .
     - docker tag ${CI_REGISTRY_IMAGE}/accounts_api:latest ${CI_REGISTRY_IMAGE}/accounts_api:$CI_JOB_ID
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
@@ -106,7 +106,7 @@ build-accounts-poller-job:
   services:
     - docker:20.10.16-dind
   script:
-    - cd accounts/poller
+    - cd accounts/api/poller
     - docker build -t ${CI_REGISTRY_IMAGE}/accounts_poller:latest .
     - docker tag ${CI_REGISTRY_IMAGE}/accounts_poller:latest ${CI_REGISTRY_IMAGE}/accounts_poller:$CI_JOB_ID
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
@@ -256,7 +256,7 @@ pages:
   needs:
     - build-front-end-job
   script:
-    - mv ghi/build public
+    - mv ghi/app/build public
   artifacts:
     paths:
       - public

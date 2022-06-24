@@ -8,7 +8,7 @@ COPY manage.py manage.py
 COPY __init__.py __init__.py
 
 # Copy the Django project and all Django apps
-COPY events_project events_project
+COPY events events
 COPY events_app events_app
 COPY common common
 
