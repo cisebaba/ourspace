@@ -39,7 +39,7 @@ function Login(props) {
   const { token, login } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [/*error*/, setError] = useState('');
+  // const [error, setError] = useState('');
   let navigate = useNavigate();
 
  const playExpandingAnimation = () => {
