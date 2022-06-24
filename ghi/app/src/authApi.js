@@ -80,7 +80,7 @@ export function useToken() {
   }
 
   async function signup(username, firstname, lastname, email, password) {
-    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/users/`;
+    const url = `${process.env.REACT_APP_ACCOUNTS_HOST}/api/users`;
     const response = await fetch(url, {
       credentials: 'include',
       method: 'post',
