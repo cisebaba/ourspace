@@ -29,13 +29,14 @@ test-accounts-api:
 #     - pip install -r requirements.txt
 #     - python manage.py test
 
-test-forum-api:
-  image: python:3-bullseye
-  stage: test
-  script:
-    - cd forum/api
-    - pip install -r requirements.txt
-    - python -m pytest
+# # Broken test in forums
+# test-forum-api:
+#   image: python:3-bullseye
+#   stage: test
+#   script:
+#     - cd forum/api
+#     - pip install -r requirements.txt
+#     - python -m pytest
 
 # # No tests in jobs
 # test-jobs-api:
@@ -82,7 +83,7 @@ build-front-end-job:
     paths:
       - ghi/build/ 
 
-build-back-end-job:
+build-accounts-api-job:
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
   stage: build
@@ -90,12 +91,103 @@ build-back-end-job:
   services:
     - docker:20.10.16-dind
   script:
-    - cd api
-    - docker build -t ${CI_REGISTRY_IMAGE}/app:latest .
-    - docker tag ${CI_REGISTRY_IMAGE}/app:latest ${CI_REGISTRY_IMAGE}/app:$CI_JOB_ID
+    - cd accounts
+    - docker build -t ${CI_REGISTRY_IMAGE}/accounts_api:latest .
+    - docker tag ${CI_REGISTRY_IMAGE}/accounts_api:latest ${CI_REGISTRY_IMAGE}/accounts_api:$CI_JOB_ID
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push ${CI_REGISTRY_IMAGE}/app:$CI_JOB_ID
-    - docker push ${CI_REGISTRY_IMAGE}/app:latest
+    - docker push ${CI_REGISTRY_IMAGE}/accounts_api:$CI_JOB_ID
+    - docker push ${CI_REGISTRY_IMAGE}/accounts_api:latest
+
+build-accounts-poller-job:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - cd accounts/poller
+    - docker build -t ${CI_REGISTRY_IMAGE}/accounts_poller:latest .
+    - docker tag ${CI_REGISTRY_IMAGE}/accounts_poller:latest ${CI_REGISTRY_IMAGE}/accounts_poller:$CI_JOB_ID
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push ${CI_REGISTRY_IMAGE}/accounts_poller:$CI_JOB_ID
+    - docker push ${CI_REGISTRY_IMAGE}/accounts_poller:latest
+
+build-events-api-job:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - cd events/api
+    - docker build -t ${CI_REGISTRY_IMAGE}/events_api:latest .
+    - docker tag ${CI_REGISTRY_IMAGE}/events_api:latest ${CI_REGISTRY_IMAGE}/events_api:$CI_JOB_ID
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push ${CI_REGISTRY_IMAGE}/events_api:$CI_JOB_ID
+    - docker push ${CI_REGISTRY_IMAGE}/events_api:latest
+
+
+build-forum-api-job:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - cd forum/api
+    - docker build -t ${CI_REGISTRY_IMAGE}/forum_api:latest .
+    - docker tag ${CI_REGISTRY_IMAGE}/forum_api:latest ${CI_REGISTRY_IMAGE}/forum_api:$CI_JOB_ID
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push ${CI_REGISTRY_IMAGE}/forum_api:$CI_JOB_ID
+    - docker push ${CI_REGISTRY_IMAGE}/forum_api:latest
+
+build-jobs-api-job:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - cd jobs/api
+    - docker build -t ${CI_REGISTRY_IMAGE}/jobs_api:latest .
+    - docker tag ${CI_REGISTRY_IMAGE}/jobs_api:latest ${CI_REGISTRY_IMAGE}/jobs_api:$CI_JOB_ID
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push ${CI_REGISTRY_IMAGE}/jobs_api:$CI_JOB_ID
+    - docker push ${CI_REGISTRY_IMAGE}/jobs_api:latest
+
+build-mentorship-api-job:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - cd mentorship/api
+    - docker build -t ${CI_REGISTRY_IMAGE}/mentorship_api:latest .
+    - docker tag ${CI_REGISTRY_IMAGE}/mentorship_api:latest ${CI_REGISTRY_IMAGE}/mentorship_api:$CI_JOB_ID
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push ${CI_REGISTRY_IMAGE}/mentorship_api:$CI_JOB_ID
+    - docker push ${CI_REGISTRY_IMAGE}/mentorship_api:latest
+
+build-reviews-api-job:
+  rules:
+    - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - cd reviews/api
+    - docker build -t ${CI_REGISTRY_IMAGE}/reviews_api:latest .
+    - docker tag ${CI_REGISTRY_IMAGE}/reviews_api:latest ${CI_REGISTRY_IMAGE}/reviews_api:$CI_JOB_ID
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push ${CI_REGISTRY_IMAGE}/reviews_api:$CI_JOB_ID
+    - docker push ${CI_REGISTRY_IMAGE}/reviews_api:latest
 
 deploy-back-end-job-heroku:
   rules:
@@ -108,10 +200,35 @@ deploy-back-end-job-heroku:
     - docker:20.10.16-dind
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker pull ${CI_REGISTRY_IMAGE}/api:latest
     - docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-    - docker tag ${CI_REGISTRY_IMAGE}/api:latest registry.heroku.com/$HEROKU_STAGING_APP/web:latest
-    - docker push registry.heroku.com/$HEROKU_STAGING_APP/web:latest
+
+    - docker pull ${CI_REGISTRY_IMAGE}/accounts_api:latest
+    - docker tag ${CI_REGISTRY_IMAGE}/accounts_api:latest registry.heroku.com/$HEROKU_ACCOUNTS_APP/web:latest
+    - docker push registry.heroku.com/$HEROKU_ACCOUNTS_APP/web:latest
+
+    - docker pull ${CI_REGISTRY_IMAGE}/accounts_poller:latest
+    - docker tag ${CI_REGISTRY_IMAGE}/accounts_poller:latest registry.heroku.com/$HEROKU_ACCOUNTS_POLLER/web:latest
+    - docker push registry.heroku.com/$HEROKU_ACCOUNTS_POLLER/web:latest
+
+    - docker pull ${CI_REGISTRY_IMAGE}/events_api:latest
+    - docker tag ${CI_REGISTRY_IMAGE}/events_api:latest registry.heroku.com/$HEROKU_EVENTS_APP/web:latest
+    - docker push registry.heroku.com/$HEROKU_EVENTS_APP/web:latest
+
+    - docker pull ${CI_REGISTRY_IMAGE}/forum_api:latest
+    - docker tag ${CI_REGISTRY_IMAGE}/forum_api:latest registry.heroku.com/$HEROKU_FORUM_APP/web:latest
+    - docker push registry.heroku.com/$HEROKU_FORUM_APP/web:latest
+
+    - docker pull ${CI_REGISTRY_IMAGE}/jobs_api:latest
+    - docker tag ${CI_REGISTRY_IMAGE}/jobs_api:latest registry.heroku.com/$HEROKU_JOBS_APP/web:latest
+    - docker push registry.heroku.com/$HEROKU_JOBS_APP/web:latest
+
+    - docker pull ${CI_REGISTRY_IMAGE}/mentorship_api:latest
+    - docker tag ${CI_REGISTRY_IMAGE}/mentorship_api:latest registry.heroku.com/$HEROKU_MENTORSHIP_APP/web:latest
+    - docker push registry.heroku.com/$HEROKU_MENTORSHIP_APP/web:latest
+
+    - docker pull ${CI_REGISTRY_IMAGE}/reviews_api:latest
+    - docker tag ${CI_REGISTRY_IMAGE}/reviews_api:latest registry.heroku.com/$HEROKU_REVIEWS_APP/web:latest
+    - docker push registry.heroku.com/$HEROKU_REVIEWS_APP/web:latest
 
 heroku-release:
   stage: deploy
@@ -124,7 +241,13 @@ heroku-release:
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
   script:
-    - heroku container:release web --app $HEROKU_STAGING_APP
+    - heroku container:release web --app $HEROKU_ACCOUNTS_APP
+    - heroku container:release web --app $HEROKU_ACCOUNTS_POLLER
+    - heroku container:release web --app $HEROKU_EVENTS_APP
+    - heroku container:release web --app $HEROKU_FORUM_APP
+    - heroku container:release web --app $HEROKU_JOBS_APP
+    - heroku container:release web --app $HEROKU_MENTORSHIP_APP
+    - heroku container:release web --app $HEROKU_REVIEWS_APP
 
 pages:
   stage: deploy

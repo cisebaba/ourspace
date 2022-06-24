@@ -94,6 +94,8 @@ services:
       - accounts
     environment:
       DATABASE_URL: postgresql://ourspace:ourspace@db/accounts
+      MENTORSHIP_API: http://mentorship:8000
+      EVENTS_API: http://events:8000
   events:
     build:
       context: ./events/api

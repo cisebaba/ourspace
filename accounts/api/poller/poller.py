@@ -5,12 +5,14 @@ import sys
 import os
 from psycopg_pool import ConnectionPool
 
+MENTORSHIP_API = os.environ["MENTORSHIP_API"]
+EVENTS_API = os.environ["EVENTS_API"]
 conninfo = os.environ["DATABASE_URL"]
 pool = ConnectionPool(conninfo=conninfo)
 
 
 def get_mentorship():
-    response = requests.get("http://mentorship:8000/api/mentorship_poller/")
+    response = requests.get(f"{MENTORSHIP_API}/api/mentorship_poller/")
     content = json.loads(response.content)
     with pool.connection() as conn:
         with conn.cursor() as cur:
@@ -50,7 +52,7 @@ def get_mentorship():
 
 
 def get_events():
-    response = requests.get("http://events:8000/api/events/")
+    response = requests.get(f"{EVENTS_API}/api/events/")
     content = json.loads(response.content)
     with pool.connection() as conn:
         with conn.cursor() as cur:
