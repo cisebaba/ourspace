@@ -42,7 +42,7 @@ function App() {
           <Route path="events" index element={<EventsList token={token}/>} />
           <Route path="events/new" element={<EventForm token={token} />} />
           {/* JOBS */}
-          <Route path="jobs" element={<JobsList />} />
+          <Route path="jobs" element={<JobsList token={token}/>} />
           {/* MENTORSHIP */}
           <Route path="mentorship" element={<MentorList token={token} />} />
           <Route path="mentorship/new" element={<MentorForm token={token} />} />
