@@ -44,22 +44,25 @@ button {
   cursor: pointer;
 }
 .on {
-  color: rgb(255, 153, 207);
+  color: #c51350;
 }
 .off {
   color: #ccc;
 }
 
-  
-.overlay {
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  background-color:rgba(255, 255, 255, 0.85);
-  z-index:2;
-  color:rgb(0, 0, 0);
+/* .reviews-btn {
+  color: #C51350;
+} */
+
+.reviews-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  z-index: 1;
+  color: rgb(0, 0, 0);
   backdrop-filter: blur(3px);
   -webkit-backdrop-filter: blur(5px);
 }
@@ -78,9 +81,10 @@ button {
   color: black;
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 55px;
-  z-index: 9999;
+  padding-top: 53px;
+  z-index: 2;
   text-align: center;
+
   border-style: double;
   border-width: 5px;
 }
@@ -94,6 +98,6 @@ button {
   grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 50px [five] 40px [end];
   grid-template-rows: [row1-start] 25% [row1-end] 100px [third-line] auto [last-line];
 } */
-.profile-info{
+.profile-info {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

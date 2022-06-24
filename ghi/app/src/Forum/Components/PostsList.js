@@ -1,5 +1,6 @@
 import React from "react";
 import PostBody from "./PostBody";
+import { PostWrapper } from "../styling/styling";
 
 //pass in current user id
 function PostsList(props) {
@@ -9,7 +10,6 @@ function PostsList(props) {
 
   return (
     <div className="col">
-      <h3>Posts</h3>
       {posts.map((post) => {
         return (
           <PostBody

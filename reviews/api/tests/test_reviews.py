@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 from main import app
-from routers.reviews import Review, ReviewQueries, ReviewIn, ReviewOut, AverageOut
+from routers.reviews import ReviewQueries
 
 client = TestClient(app)
 

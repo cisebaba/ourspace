@@ -1,9 +1,8 @@
-from datetime import datetime
 from fastapi import APIRouter, Response, status, Depends, HTTPException
 import psycopg
 from pydantic import BaseModel
 from typing import List
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 import os
 from jose import jwt
 
@@ -88,7 +87,7 @@ class ReviewQueries:
                         , ROUND(AVG(r.balance), 0) balance_average
                         , ROUND(AVG(r.parental_leave), 0) parental_leave_average
                         , ROUND(AVG(r.flexibility), 0) flexibility_average
-                    FROM reviews as r 
+                    FROM reviews as r
                     GROUP BY r.company_name
                     """
                 )
@@ -119,10 +118,10 @@ def new_review(Review: ReviewIn, bearer_token: str = Depends(oauth2_scheme)):
 
             cur.execute(
                 """
-                INSERT INTO reviews (company_name, rating, salary, diversity, 
+                INSERT INTO reviews (company_name, rating, salary, diversity,
                     balance, parental_leave, flexibility)
                 VALUES (%s, %s, %s, %s, %s, %s, %s)
-                RETURNING id, company_name, rating, salary, diversity, 
+                RETURNING id, company_name, rating, salary, diversity,
                     balance, parental_leave, flexibility
                 """,
                 [
