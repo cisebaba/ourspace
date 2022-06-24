@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { StyledDeleteButton } from "../styling/styling";
 
 function DeletePostButton({ token, postId }) {
@@ -12,6 +13,7 @@ function DeletePostButton({ token, postId }) {
         authorization: `Bearer ${token}`,
       },
     };
+    const navigate = useNavigate();
     const response = await fetch(deletePostUrl, fetchConfigEvent);
     let responseJson = await response.json();
   }

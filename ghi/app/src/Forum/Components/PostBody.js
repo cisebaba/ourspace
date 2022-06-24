@@ -2,7 +2,11 @@ import React from "react";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { UpvoteButton } from "./UpvoteButton";
 import DeletePostButton from "./DeletePostButton";
-import { CommentButton } from "../styling/styling";
+import {
+  CommentButton,
+  CommentTitleContainer,
+  TitleContainer,
+} from "../styling/styling";
 
 const PostBody = ({
   post,
@@ -27,29 +31,31 @@ const PostBody = ({
             </CommentButton>
           ) : (
             <>
-              <div className="card-title">
-                <NavLink to={"/posts/new/"}>Create new post</NavLink>
-              </div>
-              <h2 className="card-header">
+              <TitleContainer className="card-header">
                 {post.title}{" "}
                 {hideDeleteButton ? (
                   <></>
                 ) : (
                   <DeletePostButton token={token} postId={post.post_id} />
                 )}
-              </h2>
+              </TitleContainer>
             </>
           )}
         </h5>
+        <p className="card-text">{post.text}</p>
         <h6 className="card-subtitle mb-2 text-muted">
           Created on:&nbsp;
           {new Date(post.created_on).toLocaleDateString()}
         </h6>
-        <p className="card-text">{post.text}</p>
       </div>
       <div className="card-footer">
         {showNavLinks ? (
-          <NavLink to={"/posts/" + post.post_id}>Comments</NavLink>
+          <NavLink
+            to={"/posts/" + post.post_id}
+            style={{ color: "mediumvioletred " }}
+          >
+            View Comments
+          </NavLink>
         ) : (
           ""
         )}

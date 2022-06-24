@@ -28,17 +28,15 @@ const DetailView = (props) => {
   return (
     <PostWrapper>
       <div>
-        <>
-          <PostBody
-            post={post}
-            token={token}
-            setPost={setPost}
-            showNavLinks={false}
-            hideDeleteButton={!user.username || user.username !== post.author}
-          />
-          <CommentList token={token} />
-        </>
-      </div>
+        <PostBody
+          post={post}
+          token={token}
+          setPost={setPost}
+          showNavLinks={false}
+          hideDeleteButton={!user.username || user.username !== post.author}
+        />
+        <CommentList token={token} />
+      </div>{" "}
     </PostWrapper>
   );
 };
