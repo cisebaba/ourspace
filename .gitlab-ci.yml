@@ -20,14 +20,14 @@ test-accounts-api:
     - pip install -r requirements.txt
     - python -m pytest
 
-# # Broken test in events
-# test-events-api:
-#   image: python:3-bullseye
-#   stage: test
-#   script:
-#     - cd events/api
-#     - pip install -r requirements.txt
-#     - python manage.py test
+# Broken test in events
+test-events-api:
+  image: python:3-bullseye
+  stage: test
+  script:
+    - cd events/api
+    - pip install -r requirements.txt
+    - python manage.py test
 
 # # Broken test in forums
 # test-forum-api:
