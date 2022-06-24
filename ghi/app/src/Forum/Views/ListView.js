@@ -28,23 +28,6 @@ const ListView = (props) => {
       setPosts(posts);
     }
     initializePosts();
-<<<<<<< HEAD
-  }, []);
-  
-
-
-  return (
-    <CardContainer>
-    <div>
-      <h1>OurForum &#9825;</h1>
-      
-      <h6>
-        <NavLink to={"/posts/new/"}>Create new post</NavLink>
-      </h6>
-      <PostsList token={token} posts={posts} setPosts={setPosts} />
-    </div>
-    </CardContainer>
-=======
   }, [token]);
 
   return (
@@ -58,7 +41,6 @@ const ListView = (props) => {
         <PostsList token={token} posts={posts} setPosts={setPosts} />
       </div>
     </PostWrapper>
->>>>>>> main
   );
 };
 
