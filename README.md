@@ -1,4 +1,4 @@
-# Women in Tech Social!
+# OurSpace
 
 ## Design
 
@@ -17,7 +17,7 @@ Team Members:
 * Rachael Schlosberg
 * Cise Babatasi
 
-The social media application for women interested in tech to connect and share ideas.
+The social media application for women and underrepresented individuals interested in tech to connect and share ideas.
 
 ## Intended market
 
@@ -35,20 +35,17 @@ These may include (but are not limited to):
 ## Functionality
 
 ## Must Have Features:
-* User accounts (profile, signup, log-in), messaging, followers - personal or business account
+* User accounts (profile, signup, log-in)
 * Company info and reviews
-* Job board - query data from Indeed/Glassdoor or other source
-* Conference/meetup/event section - query from event API
+* Job board - query data from external job board API
+* Conference/meetup/event section - users can create and view events
 * Forum for users to post and comment
-* Mentorship / sponsorship / scholarship section
+* Mentorship - users can sign up as a mentor or mentee
 
 * (To come later) Personalized Live Feed (homepage) 
 
 ## Nice to Haves: 
 * Site search
+* Direct messaging, followers or friends
 * Newsletter
 * Following/follower capability
-
-
-
-
