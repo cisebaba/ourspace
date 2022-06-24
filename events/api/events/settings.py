@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 import dj_database_url
 
@@ -33,6 +34,7 @@ ALLOWED_HOSTS = [
     "http://localhost:3000",
     "http://localhost:9000",
     "events",
+    os.environ.get("ALLOWED_HOST", "http://localhost:30001"),
 ]
 
 
@@ -69,6 +71,7 @@ CORS_ORIGIN_WHITELIST = "http://localhost:3000"
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    os.environ.get("CORS_HOST", "http://localhost:3001")
 ]
 CORS_ALLOW_CREDENTIALS = True
 DJWTO_CSRF = False

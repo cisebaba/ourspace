@@ -23,9 +23,11 @@ import ProfilePage from "./Auth/Profile/ProfilePage";
 
 function App() {
   const [token, login, logout, signup] = useToken();
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <Nav token={token} />
         <Routes>
           <Route path="/" element={<MainPage />} />
