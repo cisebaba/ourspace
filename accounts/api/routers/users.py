@@ -1,7 +1,15 @@
 from datetime import datetime, timedelta
 from db import DuplicateAccount
 from db import AccountsQueries
-from fastapi import Depends, HTTPException, status, Response, Cookie, APIRouter, Request
+from fastapi import (
+    Depends,
+    HTTPException,
+    status,
+    Response,
+    Cookie,
+    APIRouter,
+    Request,
+)
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt, jws, JWSError
 from passlib.context import CryptContext
@@ -88,7 +96,8 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 async def get_current_user(
     bearer_token: Optional[str] = Depends(oauth2_scheme),
-    cookie_token: Optional[str] | None = Cookie(default=None, alias=COOKIE_NAME),
+    cookie_token: Optional[str]
+    | None = Cookie(default=None, alias=COOKIE_NAME),
     repo: AccountsQueries = Depends(),
 ):
     credentials_exception = HTTPException(
@@ -104,7 +113,7 @@ async def get_current_user(
         username = payload.get("sub")
         if username is None:
             raise credentials_exception
-    except (JWTError, AttributeError, JSONDecodeError) as e:
+    except (JWTError, AttributeError, JSONDecodeError):
         raise credentials_exception
     user = repo.get_user(username)
     if user is None:
@@ -112,7 +121,9 @@ async def get_current_user(
     return user
 
 
-async def get_current_active_user(current_user: User = Depends(get_current_user)):
+async def get_current_active_user(
+    current_user: User = Depends(get_current_user),
+):
     # if current_user.disabled:
     #     raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
@@ -137,7 +148,9 @@ async def login_for_access_token(
         data={
             "sub": user["username"],
             "user": {
-                k: v for k, v in user.items() if k != "username" and not "password" in k
+                k: v
+                for k, v in user.items()
+                if k != "username" and "password" not in k
             },
         },
         expires_delta=access_token_expires,
@@ -146,7 +159,10 @@ async def login_for_access_token(
 
     samesite = "none"
     secure = True
-    if "origin" in request.headers and "localhost" in request.headers["origin"]:
+    if (
+        "origin" in request.headers
+        and "localhost" in request.headers["origin"]
+    ):
         samesite = "lax"
         secure = False
     response.set_cookie(
@@ -172,7 +188,11 @@ async def signup(
     hashed_password = pwd_context.hash(user.password)
     try:
         repo.create_user(
-            user.username, user.firstname, user.lastname, hashed_password, user.email
+            user.username,
+            user.firstname,
+            user.lastname,
+            hashed_password,
+            user.email,
         )
         return user
     except DuplicateAccount:
@@ -206,7 +226,10 @@ async def validate_token(access_token: AccessToken, response: Response):
 async def logout(request: Request, response: Response):
     samesite = "none"
     secure = True
-    if "origin" in request.headers and "localhost" in request.headers["origin"]:
+    if (
+        "origin" in request.headers
+        and "localhost" in request.headers["origin"]
+    ):
         samesite = "lax"
         secure = False
     response.delete_cookie(

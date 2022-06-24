@@ -1,8 +1,12 @@
+import os
 from datetime import datetime
 from fastapi import APIRouter
-import psycopg
 from pydantic import BaseModel
 from typing import List
+from psycopg_pool import ConnectionPool
+
+conninfo = os.environ["DATABASE_URL"]
+pool = ConnectionPool(conninfo=conninfo)
 
 
 router = APIRouter()
@@ -25,7 +29,7 @@ class JobList(BaseModel):
 
 @router.get("/api/jobs/list/", response_model=JobList)
 def jobs_list():
-    with psycopg.connect("dbname=jobs user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
@@ -52,7 +56,7 @@ def jobs_list():
                     "title": row[4],
                     "company": row[5],
                     "description": row[6],
-                    "redirect_url": row[7]
+                    "redirect_url": row[7],
                 }
                 ds.append(d)
             return ds

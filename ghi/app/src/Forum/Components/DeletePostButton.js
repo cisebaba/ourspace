@@ -13,7 +13,7 @@ function DeletePostButton({ token, postId }) {
       },
     };
     const response = await fetch(deletePostUrl, fetchConfigEvent);
-    let responseJson = await response.json();
+    await response.json();
   }
 
   return (

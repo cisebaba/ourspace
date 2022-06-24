@@ -1,9 +1,12 @@
-import psycopg
 import os
 import sys
 import time
 import json
 import requests
+from psycopg_pool import ConnectionPool
+
+conninfo = os.environ["DATABASE_URL"]
+pool = ConnectionPool(conninfo=conninfo)
 
 
 sys.path.append("")
@@ -12,7 +15,9 @@ ADZUNA_APP_ID = os.environ["ADZUNA_APP_ID"]
 
 
 def get_and_save_jobs():
-    response = requests.get(f"https://api.adzuna.com/v1/api/jobs/us/search/1?app_id={ADZUNA_APP_ID}&app_key={ADZUNA_API_KEY}&results_per_page=10&what=developer")
+    response = requests.get(
+        f"https://api.adzuna.com/v1/api/jobs/us/search/1?app_id={ADZUNA_APP_ID}&app_key={ADZUNA_API_KEY}&results_per_page=10&what=developer"
+    )  # noqa
     content = json.loads(response.content)
 
     jobs = content["results"]
@@ -21,7 +26,8 @@ def get_and_save_jobs():
         with conn.cursor() as cur:
             for job in jobs:
                 if len(job["location"]["area"]) >= 3:
-                    cur.execute("""
+                    cur.execute(
+                        """
                         INSERT INTO jobs (id,
                             created,
                             city,
@@ -32,22 +38,25 @@ def get_and_save_jobs():
                             redirect_url)
                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                         ON CONFLICT (id) DO NOTHING;
-                        """, [job["id"],
-                                job["created"],
-                                job["location"]["area"][-1],
-                                job["location"]["area"][1],
-                                job["title"],
-                                job["company"]["display_name"],
-                                job["description"],
-                                job["redirect_url"]
-                                ])
+                        """,
+                        [
+                            job["id"],
+                            job["created"],
+                            job["location"]["area"][-1],
+                            job["location"]["area"][1],
+                            job["title"],
+                            job["company"]["display_name"],
+                            job["description"],
+                            job["redirect_url"],
+                        ],
+                    )
                 cur.execute("SELECT * FROM jobs")
             conn.commit()
 
 
 def poll():
     while True:
-        print('Service poller polling for data')
+        print("Service poller polling for data")
         try:
             get_and_save_jobs()
         except Exception as e:

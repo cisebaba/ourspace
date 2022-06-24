@@ -15,7 +15,7 @@ const ListView = (props) => {
       setPosts(posts);
     }
     initializePosts();
-  }, []);
+  }, [token]);
 
   return (
     <PostWrapper>

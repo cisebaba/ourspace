@@ -14,7 +14,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="State",
             fields=[
-                ("id", models.PositiveIntegerField(primary_key=True, serialize=False)),
+                (
+                    "id",
+                    models.PositiveIntegerField(
+                        primary_key=True, serialize=False
+                    ),
+                ),
                 ("name", models.CharField(max_length=40)),
                 ("abbreviation", models.CharField(max_length=2, unique=True)),
             ],

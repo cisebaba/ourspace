@@ -1,4 +1,9 @@
-import psycopg
+import os
+from psycopg_pool import ConnectionPool
+from psycopg.errors import UniqueViolation
+
+conninfo = os.environ["DATABASE_URL"]
+pool = ConnectionPool(conninfo=conninfo)
 
 
 class DuplicateAccount(RuntimeError):
@@ -7,7 +12,7 @@ class DuplicateAccount(RuntimeError):
 
 class AccountsQueries:
     def get_user(self, username: str):
-        with psycopg.connect("dbname=accounts user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
@@ -41,7 +46,7 @@ class AccountsQueries:
         hashed_password: str,
         email: str = None,
     ):
-        with psycopg.connect("dbname=accounts user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 try:
                     cur.execute(
@@ -50,9 +55,15 @@ class AccountsQueries:
                         VALUES (%s, %s, %s, %s, %s)
                         RETURNING username, password, email, firstname, lastname
                         """,
-                        [username, hashed_password, email, firstname, lastname],
+                        [
+                            username,
+                            hashed_password,
+                            email,
+                            firstname,
+                            lastname,
+                        ],
                     )
-                except psycopg.errors.UniqueViolation:
+                except UniqueViolation:
                     raise DuplicateAccount()
 
                 row = cur.fetchone()

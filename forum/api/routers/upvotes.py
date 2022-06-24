@@ -1,11 +1,10 @@
-from datetime import datetime
 from fastapi import APIRouter, Response, status, Depends, HTTPException
-import psycopg
 from pydantic import BaseModel
-from typing import List
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 import os
 from jose import jwt
+from psycopg.errors import ForeignKeyViolation
+from db import pool
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
 router = APIRouter()
@@ -58,7 +57,7 @@ def upvote(post_id: int, bearer_token: str = Depends(oauth2_scheme)):
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
     print("USERNAME", username)
-    with psycopg.connect("dbname=forum user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
 
             cur.execute(
@@ -84,7 +83,7 @@ def upvote(post_id: int, bearer_token: str = Depends(oauth2_scheme)):
 
             cur.execute(
                 """
-                SELECT count(*) 
+                SELECT count(*)
                 FROM post_upvote
                 WHERE post_upvote.post_id = %s and upvoter = %s
                 """,
@@ -108,7 +107,9 @@ def upvote(post_id: int, bearer_token: str = Depends(oauth2_scheme)):
     responses={404: {"model": ErrorMessage}},
 )
 def remove_upvote(
-    post_id: int, response: Response, bearer_token: str = Depends(oauth2_scheme)
+    post_id: int,
+    response: Response,
+    bearer_token: str = Depends(oauth2_scheme),
 ):
     print("bearer token", bearer_token)
     if bearer_token is None:
@@ -116,14 +117,14 @@ def remove_upvote(
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
     print("USERNAME", username)
-    with psycopg.connect("dbname=forum user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute(
                     """
                     DELETE FROM post_upvote
                     WHERE post_id = %s
-                    AND upvoter = %s;  
+                    AND upvoter = %s;
                     """,
                     [post_id, username],
                 )
@@ -150,7 +151,7 @@ def remove_upvote(
 
                 return {"upvote_count": total[0], "user_upvoted": count[0]}
 
-            except psycopg.errors.ForeignKeyViolation:
+            except ForeignKeyViolation:
                 response.status_code = status.HTTP_400_BAD_REQUEST
                 return {
                     "message": "Cannot delete category because it has clues",

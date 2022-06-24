@@ -1,6 +1,6 @@
 import React from "react";
 import PostBody from "./PostBody";
-import { PostWrapper } from "../styling/styling";
+// import { PostWrapper } from "../styling/styling";
 
 //pass in current user id
 function PostsList(props) {

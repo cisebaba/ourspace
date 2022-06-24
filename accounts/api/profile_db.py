@@ -1,10 +1,10 @@
-import psycopg
 from poller import get_weather
+from db import pool
 
 
 class ProfileQueries:
     def get_profile(self, id):
-        with psycopg.connect("dbname=accounts user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """

@@ -25,21 +25,21 @@ import {
 
 
 function Signup(props) {
-  const [isExpanded, setExpanded] = useState(false)
+  const [/*isExpanded*/, setExpanded] = useState(false)
   const { token, signup } = props;
   const [username, setUsername] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   let navigate = useNavigate();
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const error = await signup(username,firstname,lastname, email, password);
-    setError(error);
-  };
+  // const handleSubmit = async e => {
+  //   e.preventDefault();
+  //   const error = await signup(username,firstname,lastname, email, password);
+  //   setError(error);
+  // };
 
   
 
@@ -50,14 +50,14 @@ function Signup(props) {
      },  expandingTransition.duration * 1000 - 1500);
    };
  
-   const switchToSignup = () => {
-      playExpandingAnimation();
-      setTimeout(() => {
-       console.log("Time: 3 sec")
-       //setActive("signup");
-       navigate("../signup", {replace : true})
-      }, 400);
-   };
+  //  const switchToSignup = () => {
+  //     playExpandingAnimation();
+  //     setTimeout(() => {
+  //      console.log("Time: 3 sec")
+  //      //setActive("signup");
+  //      navigate("../signup", {replace : true})
+  //     }, 400);
+  //  };
  
   const switchToLogin = () => {
      playExpandingAnimation();
@@ -67,7 +67,7 @@ function Signup(props) {
      }, 400);
    };
  
-   const contextValue = { switchToSignup, switchToLogin }
+  //  const contextValue = { switchToSignup, switchToLogin }
 
   if (token) {
     return <Navigate to="/profile/new" />;

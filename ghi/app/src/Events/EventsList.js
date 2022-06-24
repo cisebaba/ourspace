@@ -18,7 +18,7 @@ function EventsList(props) {
             setEvents(eventsData.events)
         };
         getEventsData();
-    }, [loadList]) ;
+    }, [loadList, token]) ;
     
 
     return (
@@ -35,7 +35,7 @@ function EventsList(props) {
               return (
                 <div key={event.href} className="card mb-3 shadow">
                   <div className="card-body">
-                  <img src={event.location.picture_url} className="card-img-top"></img>
+                  <img alt="location" src={event.location.picture_url} className="card-img-top"></img>
                     <h5 className="card-title">{event.name}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">
                       {event.location.name}

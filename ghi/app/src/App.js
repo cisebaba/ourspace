@@ -20,13 +20,14 @@ import MentorForm from "./Mentorship/MentorForm";
 import MentorList from "./Mentorship/MentorList";
 import ProfileForm from "./Auth/Profile/ProfileForm";
 import ProfilePage from "./Auth/Profile/ProfilePage";
-import { AccountBox } from "./Auth";
 
 function App() {
   const [token, login, logout, signup] = useToken();
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, '');
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <Nav token={token} />
         <Routes>
           <Route path="/" element={<MainPage />} />

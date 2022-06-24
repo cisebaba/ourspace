@@ -1,11 +1,12 @@
 from datetime import datetime
-from fastapi import APIRouter, Response, status, Depends, HTTPException
-import psycopg
+from fastapi import APIRouter, status, Depends, HTTPException
 from pydantic import BaseModel
 from typing import List
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 import os
 from jose import jwt
+from db import pool
+
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
 router = APIRouter()
@@ -52,11 +53,12 @@ def get_comments(
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
     print(username)
-    with psycopg.connect("dbname=forum user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT comment.comment_id, comment.text, comment.created_on, post.post_id, comment.commenter
+                SELECT comment.comment_id, comment.text, comment.created_on,
+                       post.post_id, comment.commenter
                 FROM post
                 INNER JOIN comment
                 ON (comment.post_id = post.post_id)
@@ -90,12 +92,14 @@ def new_comment(
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
     print("COMMENT USERNAME", username)
-    with psycopg.connect("dbname=forum user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                INSERT INTO comment (comment_id, text, created_on, post_id, commenter)
-                VALUES (DEFAULT, %s, CURRENT_TIMESTAMP, %s, %s)
+                INSERT INTO comment
+                    (comment_id, text, created_on, post_id, commenter)
+                VALUES
+                    (DEFAULT, %s, CURRENT_TIMESTAMP, %s, %s)
                 RETURNING comment_id, text, created_on, post_id, commenter
                 """,
                 [Comment.text, post_id, username],
@@ -119,7 +123,7 @@ def new_comment(
 #     responses={404: {"model": Message}},
 # )
 # def remove_comment(comment_id: int, response: Response):
-#     with psycopg.connect("dbname=forum user=ourspace") as conn:
+#     with pool.connection() as conn:
 #         with conn.cursor() as cur:
 #             try:
 #                 cur.execute(

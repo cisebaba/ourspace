@@ -25,7 +25,7 @@ function JobsList() {
               </h6>
               <p className="card-text">{job.description}</p>
               <p className="card-text text-center">
-                <a href={job.redirect_url} target="_blank">
+                <a href={job.redirect_url} target="_blank" rel="noreferrer">
                   Click to Learn More
                 </a>
               </p>

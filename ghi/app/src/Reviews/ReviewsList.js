@@ -29,7 +29,7 @@ function ReviewsList(props) {
       setReviews(reviewsData);
     };
     getReviewsData();
-  }, [loadList]);
+  }, [loadList, token]);
 
   
   return (
