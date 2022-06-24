@@ -8,7 +8,7 @@ function JobsList(props) {
 
   useEffect(() => {
     const getJobsData = async () => {
-      const jobsResponse = await fetch("http://localhost:8080/api/jobs/list/");
+      const jobsResponse = await fetch(`${process.env.REACT_APP_JOBS_HOST}/api/jobs/list/`);
       const jobsData = await jobsResponse.json();
       setJobs(jobsData);
     };
@@ -44,7 +44,7 @@ function JobsList(props) {
               </h6>
               <p className="card-text">{job.description}</p>
               <p className="card-text text-center">
-                <a href={job.redirect_url} target="_blank">
+                <a href={job.redirect_url} target="_blank" rel="noreferrer">
                   Click to Learn More
                 </a>
               </p>

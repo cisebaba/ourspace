@@ -1,7 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UpvoteButton } from "./UpvoteButton";
 import DeletePostButton from "./DeletePostButton";
+import { CommentButton } from "../styling/styling";
 
 const PostBody = ({
   post,
@@ -11,13 +12,19 @@ const PostBody = ({
   showNavLinks,
   hideDeleteButton,
 }) => {
+  const navigate = useNavigate();
   return (
     <div key={post.post_id} className="card mb-3 shadow">
       <div className="card-body">
         <h5 className="card-title">
           {" "}
           {showNavLinks ? (
-            <NavLink to={"/posts/" + post.post_id}>{post.title}</NavLink>
+            <CommentButton
+              className="link-dark"
+              onClick={() => navigate("/posts/" + post.post_id)}
+            >
+              {post.title}
+            </CommentButton>
           ) : (
             <>
               <div className="card-title">

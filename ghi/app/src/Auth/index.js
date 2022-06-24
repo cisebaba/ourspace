@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
+// import React, { useState } from "react";
+import styled from "styled-components";
 //import { Login } from "./login";
 import { motion } from "framer-motion";
-import { AccountContext } from "./accountContext";
+// import { AccountContext } from "./accountContext";
 //import { Signup } from "./Signup";
 
 
@@ -164,6 +164,3 @@ export const expandingTransition = {
   duration: 2.3,
   stiffness: 30,
 };
-
-
-

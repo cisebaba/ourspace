@@ -20,7 +20,7 @@ function MentorList(props){
             setMentorships(mentorshipsData)
         };
         getList();
-    }, [shouldLoadList]);
+    }, [shouldLoadList, token]);
 
 
     const signUpClick = async (mentorshipId)=> {

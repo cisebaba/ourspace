@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Response, status, Depends, HTTPException
-import psycopg
 from pydantic import BaseModel
 from typing import List
 from fastapi.security import OAuth2PasswordBearer
 import os
-from jose import jwt
+from psycopg_pool import ConnectionPool
+
+conninfo = os.environ["DATABASE_URL"]
+pool = ConnectionPool(conninfo=conninfo)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
 router = APIRouter()
@@ -76,7 +78,7 @@ class ReviewList(BaseModel):
 
 class ReviewQueries:
     def get_reviews_list(self):
-        with psycopg.connect("dbname=reviews user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
@@ -85,7 +87,8 @@ class ReviewQueries:
                         , ROUND(AVG(r.salary), 0) salary_average
                         , ROUND(AVG(r.diversity), 0) diversity_average
                         , ROUND(AVG(r.balance), 0) balance_average
-                        , ROUND(AVG(r.parental_leave), 0) parental_leave_average
+                        , ROUND(AVG(r.parental_leave), 0)
+                          parental_leave_average
                         , ROUND(AVG(r.flexibility), 0) flexibility_average
                     FROM reviews as r
                     GROUP BY r.company_name
@@ -112,8 +115,7 @@ class ReviewQueries:
 def new_review(Review: ReviewIn, bearer_token: str = Depends(oauth2_scheme)):
     if bearer_token is None:
         raise credentials_exception
-    payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
-    with psycopg.connect("dbname=reviews user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
 
             cur.execute(
@@ -156,7 +158,9 @@ def new_review(Review: ReviewIn, bearer_token: str = Depends(oauth2_scheme)):
     response_model=ReviewList | Message,
     responses={200: {"model": AverageOut}, 404: {"model": ErrorMessage}},
 )
-def reviews_list(response: Response, queries: ReviewQueries = Depends(ReviewQueries)):
+def reviews_list(
+    response: Response, queries: ReviewQueries = Depends(ReviewQueries)
+):
     reviews = queries.get_reviews_list()
     if reviews is None:
         response.status_code = status.HTTP_404_NOT_FOUND
