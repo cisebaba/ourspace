@@ -4,19 +4,11 @@ import { UpvoteButton } from "./UpvoteButton";
 import DeletePostButton from "./DeletePostButton";
 import {
   CommentButton,
-  CommentTitleContainer,
   TitleContainer,
   PostTextContainer,
 } from "../styling/styling";
 
-const PostBody = ({
-  post,
-  currentUsername,
-  setPost,
-  token,
-  showNavLinks,
-  hideDeleteButton,
-}) => {
+const PostBody = ({ post, setPost, token, showNavLinks, hideDeleteButton }) => {
   const navigate = useNavigate();
   return (
     <div key={post.post_id} className="card mb-3 shadow">

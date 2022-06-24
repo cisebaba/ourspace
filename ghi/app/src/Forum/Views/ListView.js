@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PostsList from "../Components/PostsList";
 import { getPosts } from "../Api/GetPostsData";
 import {
@@ -19,7 +19,6 @@ import {
 //   margin: 0.5em;
 //   margin-bottom: 1.3em;
 // `;
-
 
 const ListView = (props) => {
   console.log(props, "props!");
