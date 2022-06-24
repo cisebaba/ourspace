@@ -1,9 +1,13 @@
-import psycopg
+import os
+from psycopg_pool import ConnectionPool
+
+conninfo = os.environ["DATABASE_URL"]
+pool = ConnectionPool(conninfo=conninfo)
 
 
 class MentorshipQueries:
     def get_all_mentorships(self):
-        with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
@@ -22,14 +26,14 @@ class MentorshipQueries:
                         "description": row[2],
                         "availability": row[3],
                         "mentor_username": row[4],
-                        "mentee_username": row[5]
+                        "mentee_username": row[5],
                     }
                     ds.append(d)
 
                 return ds
 
     def get_one_mentorship(self, mentorship_id):
-        with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     f"""
@@ -49,14 +53,14 @@ class MentorshipQueries:
                     "description": row[2],
                     "availability": row[3],
                     "mentor_username": str(row[4]),
-                    "mentee_username": str(row[5])
+                    "mentee_username": str(row[5]),
                 }
                 return record
 
     def insert_mentorship(
         self, job_title, description, availability, username
     ):
-        with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 try:
                     cur.execute(
@@ -76,7 +80,7 @@ class MentorshipQueries:
                 return record
 
     def update_mentorship(self, username, mentorship_id):
-        with psycopg.connect("dbname=mentorship user=ourspace") as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 try:
                     cur.execute(

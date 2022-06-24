@@ -20,7 +20,7 @@ function MentorList(props){
             setMentorships(mentorshipsData)
         };
         getList();
-    }, [shouldLoadList]);
+    }, [shouldLoadList, token]);
 
 
     const signUpClick = async (mentorshipId)=> {
@@ -44,9 +44,9 @@ function MentorList(props){
     <div>
       <MentorForm token={token} setShouldLoadList={setShouldLoadList}/>
       <br></br>
-      <h1>Sign Up for Available Mentorships Below</h1>
+      <h1 className="text-center">Sign Up for Available Mentorships Below</h1>
 
-      <div className="col">
+      <div className="col mentor-card">
         {mentorships.map(mentorship => {
           return (
             <div key={mentorship.id} className="card mb-3 shadow">
@@ -58,10 +58,10 @@ function MentorList(props){
                 <p className="card-text">
                   Mentor Qualifications: {mentorship.job_title}
                 </p>
-                <button onClick={signUpClick.bind(this, mentorship.id)} className="btn btn-primary">Book this mentor!</button>
+                <button onClick={signUpClick.bind(this, mentorship.id)} className="btn btn-secondary">Book this mentor!</button>
                 {(successMessage === mentorship.id) ? <SuccessMessage /> : <></>}
               </div>
-              <div className="card-footer">
+              <div className="card-footer mentor-card-footer">
                 Mentor: {mentorship.mentor_username}
               </div>
             </div>

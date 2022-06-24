@@ -1,11 +1,12 @@
 from datetime import datetime
 from fastapi import APIRouter, Response, status, Depends, HTTPException
-import psycopg
 from pydantic import BaseModel
 from typing import List
 from fastapi.security import OAuth2PasswordBearer
 import os
 from jose import jwt
+from psycopg.errors import ForeignKeyViolation
+from db import pool
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
@@ -45,15 +46,16 @@ class Message(BaseModel):
 
 class PostQueries:
     def get_post(self, username, post_id):
-        with psycopg.connect() as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
                     SELECT post_id, title, text, created_on, author,
                     (select count(*) from post_upvote
-                    where post_upvote.post_id = post.post_id) upvote_count,
+                        where post_upvote.post_id = post.post_id) upvote_count,
                     (select count(*) from post_upvote
-                    where post_upvote.post_id = post.post_id and upvoter = %s)
+                        where post_upvote.post_id = post.post_id
+                        and upvoter = %s)
                     FROM post
                     WHERE post_id = %s
                     """,
@@ -85,15 +87,16 @@ def posts_list(
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
     print(username)
-    with psycopg.connect("dbname=forum user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
                 SELECT post_id, title, text, created_on, author,
                 (select count(*) from post_upvote
-                where post_upvote.post_id = post.post_id) upvote_count,
+                 where post_upvote.post_id = post.post_id) upvote_count,
                 (select count(*) from post_upvote
-                where post_upvote.post_id = post.post_id and upvoter = %s)
+                 where post_upvote.post_id = post.post_id
+                 and upvoter = %s)
 
                 FROM post
                 """,
@@ -146,7 +149,7 @@ def new_post(Post: PostIn, bearer_token: str = Depends(oauth2_scheme)):
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
 
-    with psycopg.connect("dbname=forum user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
 
             cur.execute(
@@ -179,7 +182,7 @@ def new_post(Post: PostIn, bearer_token: str = Depends(oauth2_scheme)):
     responses={404: {"model": Message}},
 )
 def remove_post(post_id: int, response: Response):
-    with psycopg.connect("dbname=forum user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute(
@@ -192,7 +195,7 @@ def remove_post(post_id: int, response: Response):
                 return {
                     "message": "Success",
                 }
-            except psycopg.errors.ForeignKeyViolation:
+            except ForeignKeyViolation:
                 response.status_code = status.HTTP_400_BAD_REQUEST
                 return {
                     "message": "Cannot delete post",

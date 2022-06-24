@@ -5,6 +5,80 @@
 * A reflection on any design conversations that you had
 * At least one ah-ha! moment that you had during your coding, however small
 
+
+
+
+# June 23, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        I worked on styling the login/sign up page. I got a super neat waterfall color effect implemented when you switch from the login to sign up page. I then helped Rachel with styling for the forums. 
+        </li> 
+    </ul> 
+    <br></br>
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        I learned a lot about writing hooks and how to nest different components inside each other in order to style a page. 
+        </li> 
+    </ul>
+    <br></br>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        Figuring out that I could nest the return inside a wrapper and then define different containers inside that wrapper so I could access different areas on the sign/signup form.
+        </li>
+    </ul>
+</ul>
+
+
+# June 22, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        I worked creating some tests for events and on styling the login/sign up page.
+        </li> 
+    </ul> 
+    <br></br>
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        I had to freshen up on how to write django tests, it took me a second to figure out how to set them up since writing test for django is different then writing them for fastapi.
+        </li> 
+    </ul>
+    <br></br>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        This was a weird ah-ha moment that is pretty small, but you have to run the test inside the docker container in order for it work. I got super stuck trying to get them to run locally before I remember I needed to be inside of a docker container. 
+        </li>
+    </ul>
+</ul>
+
+# June 21, 2022
+<ul>
+<li> Features/Issues Worked On : </li>
+    <ul>
+        <li>  
+        I worked on getting the auth figured out and  testing.
+        </li> 
+    </ul> 
+    <br></br>
+<li> Reflection : </li>
+    <ul>
+        <li> 
+        </li> 
+    </ul>
+    <br></br>
+<li> Ah-Ha Moment : </li>
+    <ul>
+        <li>
+        </li>
+    </ul>
+</ul>
+
 # June 17, 2022
 <ul>
 <li> Features/Issues Worked On : </li>

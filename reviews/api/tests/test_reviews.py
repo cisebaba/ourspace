@@ -6,19 +6,19 @@ client = TestClient(app)
 
 
 def test_review_exists():
-    from routers.reviews import Review
+    from routers.reviews import Review  # noqa
 
 
 def test_review_in_exists():
-    from routers.reviews import ReviewIn
+    from routers.reviews import ReviewIn  # noqa
 
 
 def test_review_out_exists():
-    from routers.reviews import ReviewOut
+    from routers.reviews import ReviewOut  # noqa
 
 
 def test_average_exists():
-    from routers.reviews import AverageOut
+    from routers.reviews import AverageOut  # noqa
 
 
 class NormalReviewQueries:

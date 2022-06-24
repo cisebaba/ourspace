@@ -48,7 +48,7 @@ const CommentList = (props) => {
       setComments(commentsData || []);
     }
     initializeComments();
-  }, []);
+  }, [params.post_id, token]);
 
   //   if (comments === null) {
   //     return "loading";

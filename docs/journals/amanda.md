@@ -1,3 +1,11 @@
+# June 23, 2022
+Today I worked on:
+* Frontend styling with HTML/CSS and Bootstrap, getting the React mentor list component to reload when changed, and cleaning up some files with flake8 to prepare for deployment.
+
+Working on the frontend today was a lot of fun. I added a hero image on the main page, the team decided on our main image and colors to use, cleaned up the navigation, and played around with the way the cards display on the jobs page. Curtis helped with getting the mentor list React component to automatically load when new mentorships are made, which was awesome. It was a lot simpler to implement than I thought. Last, I worked on cleaning up the code in some of our files to get things ready to deploy. The whole team did some amazing work on the frontend today! It was really cool to see what everyone did.
+
+My aha moment was learning how to use an additional state component and props to keep track of when a change is detected and cause the page to reload. I was way overthinking how to accomplish that before.
+
 # June 22, 2022
 Today I worked on:
 * Actually getting the profile pollers to work, profile unit tests, and profile React components for the frontend.

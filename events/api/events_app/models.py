@@ -19,7 +19,7 @@ class Location(models.Model):
     city = models.CharField(max_length=200)
 
     picture_url = models.URLField(
-        default="https://media.discordapp.net/attachments/978448643956801637/982062871758401586/unknown.png?width=920&height=920"
+        default="https://media.discordapp.net/attachments/978448643956801637/982062871758401586/unknown.png?width=920&height=920"  # noqa
     )
 
     state = models.ForeignKey(

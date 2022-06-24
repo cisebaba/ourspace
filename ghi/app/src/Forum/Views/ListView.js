@@ -8,6 +8,19 @@ import {
   StyledCreateButton,
 } from "../styling/styling";
 
+// const CardContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   overflow: hidden;
+//   width: 300px;
+//   min-height: 250px;
+//   background-color: #fff;
+//   box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+//   margin: 0.5em;
+//   margin-bottom: 1.3em;
+// `;
+
+
 const ListView = (props) => {
   console.log(props, "props!");
   const token = props.token;
@@ -20,7 +33,7 @@ const ListView = (props) => {
       setPosts(posts);
     }
     initializePosts();
-  }, []);
+  }, [token]);
 
   return (
     <PostWrapper>

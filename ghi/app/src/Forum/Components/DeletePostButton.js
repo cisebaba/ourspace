@@ -15,7 +15,7 @@ function DeletePostButton({ token, postId }) {
     };
     const navigate = useNavigate();
     const response = await fetch(deletePostUrl, fetchConfigEvent);
-    let responseJson = await response.json();
+    await response.json();
   }
 
   return (

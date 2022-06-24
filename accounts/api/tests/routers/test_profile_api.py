@@ -5,7 +5,7 @@ from profile_db import ProfileQueries
 
 client = TestClient(app)
 
-bearer_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjaXNlYmFiYSIsInVzZXIiOnsiaWQiOjEsImVtYWlsIjoiY2lzZUBiYWJhLmNvbSIsImZpcnN0bmFtZSI6IkNpc2UiLCJsYXN0bmFtZSI6IkJhYmF0YXNpIn0sImlhdCI6MTY1NTkzMjQ4NSwiaXNzIjoib3VyLXNwYWNlIiwianRpIjoiYjNiMjQ5YTUtMTQ2Yi00ZTgyLWE5ZTEtNzJkNzkzZmZmODZmIn0.72Z115jlr4ro3BNzNpdtiWtLdwNe6Fzhj7RZGZ4Mbus"
+bearer_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjaXNlYmFiYSIsInVzZXIiOnsiaWQiOjEsImVtYWlsIjoiY2lzZUBiYWJhLmNvbSIsImZpcnN0bmFtZSI6IkNpc2UiLCJsYXN0bmFtZSI6IkJhYmF0YXNpIn0sImlhdCI6MTY1NTkzMjQ4NSwiaXNzIjoib3VyLXNwYWNlIiwianRpIjoiYjNiMjQ5YTUtMTQ2Yi00ZTgyLWE5ZTEtNzJkNzkzZmZmODZmIn0.72Z115jlr4ro3BNzNpdtiWtLdwNe6Fzhj7RZGZ4Mbus"  # noqa
 
 
 class EmptyProfileQueries:
@@ -29,7 +29,7 @@ class NormalProfileQueries:
 
 
 def test_profile_exists():
-    from profile_models import ProfileOut
+    from profile_models import ProfileOut  # noqa
 
 
 def test_get_profile_returns_404():
