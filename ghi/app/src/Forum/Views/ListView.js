@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import PostsList from "../Components/PostsList";
 import { getPosts } from "../Api/GetPostsData";
+import { TitleContainer, PostWrapper } from "../styling/styling";
 
-//pass in currentuserid at some point??
 const ListView = (props) => {
+  console.log(props, "props!");
   const token = props.token;
   const [posts, setPosts] = useState([]);
 
@@ -14,26 +15,20 @@ const ListView = (props) => {
       setPosts(posts);
     }
     initializePosts();
-  }, []);
+  }, [token]);
 
   return (
-    <div>
-      <h1>OurForum</h1>
-      <h6>
-        <NavLink to={"/posts/new/"}>Create new post</NavLink>
-      </h6>
-      <PostsList token={token} posts={posts} setPosts={setPosts} />
-    </div>
+    <PostWrapper>
+      <div>
+        <TitleContainer>OurForum &#9825;</TitleContainer>
+        {/* <Heart isClick={isClick} onClick={() => setClick(!isClick)} /> */}
+        <h6>
+          <NavLink to={"/posts/new/"}>Create new post</NavLink>
+        </h6>
+        <PostsList token={token} posts={posts} setPosts={setPosts} />
+      </div>
+    </PostWrapper>
   );
 };
 
 export default ListView;
-
-// function ForumApp() {
-//     const [forum, setForum] = useState([PostsList]);
-
-// }
-
-//if state is postdetailid, render detail
-//if not render postlist
-//on click- render detail view

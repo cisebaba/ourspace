@@ -4,6 +4,7 @@ import CreateEventForm from './CreateEventForm';
 function EventsList(props) {
     const token = props.token;
     const [events, setEvents] = useState([]) ;
+    const [loadList, setLoadList] = useState();
 
     useEffect(() => {
         const getEventsData = async () => {
@@ -16,50 +17,37 @@ function EventsList(props) {
             const eventsData = await eventsResponse.json();
             setEvents(eventsData.events)
         };
-
         getEventsData();
-    }, []) ;
-    
+    }, [loadList, token]) ;
     
 
     return (
         <>
-
-        { token ? <CreateEventForm token={props.token} /> : null}
-      <br></br>
-        <h1>Events</h1>
-        <div className="row">
-            {events.map(event => {
-              const start_date = new Date(event.starts).toLocaleDateString();
-              const start_time = new Date(event.starts).toLocaleTimeString([], {timeStyle: 'short'});
-              const end_date = new Date(event.ends).toLocaleDateString();
-              const end_time = new Date(event.ends).toLocaleTimeString([], {timeStyle: 'short'});
-
-
+        { token ? <CreateEventForm token={props.token} setLoadList={setLoadList} /> : null}
+        <br></br>
+          <h1 align="center"><u>Events</u></h1>
+          <div className="row row-cols-1 row-cols-md-3 g-4">
+              {events.map(event => {
+                const start_date = new Date(event.starts).toLocaleDateString();
+                const start_time = new Date(event.starts).toLocaleTimeString([], {timeStyle: 'short'});
+                const end_date = new Date(event.ends).toLocaleDateString();
+                const end_time = new Date(event.ends).toLocaleTimeString([], {timeStyle: 'short'});
               return (
                 <div key={event.href} className="card mb-3 shadow">
                   <div className="card-body">
+                  <img alt="location picture" src={event.location.picture_url} className="card-img-top"></img>
                     <h5 className="card-title">{event.name}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">
-                      Location: {event.location.name}
+                      {event.location.name}
                     </h6>
                     <p className="card-text">
-                      Description: {event.description}
+                      {event.description}
                     </p>
-                    {/* <button onClick={signUpClick.bind(this, mentorship.id)} className="btn btn-primary">Book this mentor!</button>
-                    {(successMessage === mentorship.id) ? <SuccessMessage /> : <></>} */}
                   </div>
                   <div className="card-footer">
-                    When: {start_date} {start_time} - {end_date} {end_time}
+                    {start_date} {start_time} - {end_date} {end_time}
                   </div>
               </div>
-                // <tr key={event.href}>
-                //   <td>{event.name}</td>
-                //   <td>{start_date} {start_time}</td>
-                //   <td>{start_date} {start_time}</td>
-                //   <td>{event.description}</td>
-                //   <td>{event.location.name}</td>
-                // </tr>
               );
             })}
             </div>
@@ -68,4 +56,4 @@ function EventsList(props) {
   }
   
 
-export default EventsList
+export default EventsList;

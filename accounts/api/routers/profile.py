@@ -117,7 +117,6 @@ def mentor_list():
                 FROM mentorshipVO m
             """
             )
-
             ds = []
             for row in cur.fetchall():
                 d = {
@@ -129,34 +128,7 @@ def mentor_list():
                     "mentee_username": row[5],
                 }
                 ds.append(d)
-            print(d)
             return ds
-
-
-# @router.delete(
-#     "/profile/mentorship/{mentorship_id}",
-#     response_model=Message,
-#     responses={404: {"model": ErrorMessage}},
-# )
-# def remove_mentorship(mentorship_id: int, response: Response):
-#     with pool.connection() as conn:
-#         with conn.cursor() as cur:
-#             try:
-#                 cur.execute(
-#                     """
-#                     DELETE FROM mentorshipVO
-#                     WHERE id = %s;
-#                 """,
-#                     [mentorship_id],
-#                 )
-#                 return {
-#                     "message": "Success",
-#                 }
-#             except psycopg.errors.ForeignKeyViolation:
-#                 response.status_code = status.HTTP_400_BAD_REQUEST
-#                 return {
-#                     "message": "Cannot delete mentorship",
-#                 }
 
 
 @router.get(
@@ -176,7 +148,6 @@ def events_list():
                 FROM eventsVO e
             """
             )
-
             ds = []
             for row in cur.fetchall():
                 d = {
@@ -188,5 +159,4 @@ def events_list():
                     "location": row[5],
                 }
                 ds.append(d)
-
             return ds

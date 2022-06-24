@@ -39,14 +39,14 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     "events_app.apps.EventsAppConfig",
-    "corsheaders",
-    "djwto",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "djwto",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [

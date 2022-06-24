@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from fastapi.security import OAuth2PasswordBearer
 import os
 from jose import jwt
+from psycopg.errors import ForeignKeyViolation
 from db import pool
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)

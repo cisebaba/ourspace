@@ -1,16 +1,12 @@
-import os
-import sys
 import time
 import json
 import requests
+import sys
+import os
 from psycopg_pool import ConnectionPool
 
 conninfo = os.environ["DATABASE_URL"]
 pool = ConnectionPool(conninfo=conninfo)
-
-# sys.path.append("")
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "events.settings")
-# django.setup()
 
 
 def get_mentorship():
@@ -98,7 +94,6 @@ def poll():
             # pass
         except Exception as e:
             import traceback
-
             print(e, file=sys.stderr)
             traceback.print_exc()
         time.sleep(10)

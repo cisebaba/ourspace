@@ -51,7 +51,23 @@ def mentorship_post(
     return row
 
 
-# Refactor done
+@router.get(
+    "/api/mentorship/",
+    response_model=MentorshipList,
+    responses={
+        404: {"model": ErrorMessage},
+    },
+)
+def mentor_list(
+    query=Depends(MentorshipQueries),
+    bearer_token: str = Depends(oauth2_scheme)
+):
+    if bearer_token is None:
+        raise credentials_exception
+    rows = query.get_all_mentorships()
+    return rows
+
+
 @router.get(
     "/api/mentorship/{mentorship_id}",
     response_model=MentorshipOut | Message,
@@ -117,23 +133,6 @@ def remove_mentorship(mentorship_id: int, response: Response):
                 return {
                     "message": "Cannot delete mentorship",
                 }
-
-
-@router.get(
-    "/api/mentorship/",
-    response_model=MentorshipList,
-    responses={
-        404: {"model": ErrorMessage},
-    },
-)
-def mentor_list(
-    query=Depends(MentorshipQueries),
-    bearer_token: str = Depends(oauth2_scheme),
-):
-    if bearer_token is None:
-        raise credentials_exception
-    rows = query.get_all_mentorships()
-    return rows
 
 
 @router.get(

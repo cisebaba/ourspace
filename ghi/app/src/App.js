@@ -32,9 +32,7 @@ function App() {
           {/* LOGIN */}
           <Route path="logout" element={<Logout logout={logout} />} />
           <Route path="login" element={<Login token={token} login={login} />} />
-          <Route
-            path="signup"
-            element={<Signup token={token} signup={signup} />}
+          <Route path="signup" element={<Signup token={token} signup={signup} />}
           />
           {/* PROFILE  */}
           <Route path="/profile/new" element={<ProfileForm token={token} />} />

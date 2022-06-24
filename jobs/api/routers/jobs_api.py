@@ -33,8 +33,14 @@ def jobs_list():
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT id, created, city, state, title, company,
-                       description, redirect_url
+                SELECT id,
+                    created,
+                    city,
+                    state,
+                    title,
+                    company,
+                    description,
+                    redirect_url
                 FROM jobs
                 LIMIT 100
                 """,
@@ -52,6 +58,5 @@ def jobs_list():
                     "description": row[6],
                     "redirect_url": row[7],
                 }
-
                 ds.append(d)
             return ds

@@ -1,8 +1,6 @@
 from fastapi.testclient import TestClient
 from main import app
-from routers.reviews import (
-    ReviewQueries,
-)
+from routers.reviews import ReviewQueries
 
 client = TestClient(app)
 
@@ -11,12 +9,15 @@ def test_review_exists():
     from routers.reviews import Review  # noqa
 
 
+
 def test_review_in_exists():
     from routers.reviews import ReviewIn  # noqa
 
 
+
 def test_review_out_exists():
     from routers.reviews import ReviewOut  # noqa
+
 
 
 def test_average_exists():

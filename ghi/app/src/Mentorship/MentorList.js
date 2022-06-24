@@ -5,9 +5,9 @@ import MentorForm from "./MentorForm";
 
 function MentorList(props){
     const token = props.token;
-    console.log("props",props)
     const [mentorships, setMentorships] = useState([]);
     const [successMessage, setSuccessMessage] = useState();
+    const [shouldLoadList, setShouldLoadList] = useState();
 
     useEffect(()=>{
         const getList = async ()=> {
@@ -20,7 +20,8 @@ function MentorList(props){
             setMentorships(mentorshipsData)
         };
         getList();
-    }, [token]);
+    }, [shouldLoadList, token]);
+
 
     const signUpClick = async (mentorshipId)=> {
       const updateUrl = `${process.env.REACT_APP_MENTORSHIP_HOST}/api/mentorship/`+mentorshipId;
@@ -36,13 +37,12 @@ function MentorList(props){
       if (response.ok) {
         setSuccessMessage(mentorshipId);
       }
-      
     };
 
     return(
 
     <div>
-      <MentorForm token={token}/>
+      <MentorForm token={token} setShouldLoadList={setShouldLoadList}/>
       <br></br>
       <h1>Sign Up for Available Mentorships Below</h1>
 

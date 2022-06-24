@@ -1,13 +1,22 @@
 function MainPage() {
     return (
-      <div className="px-4 py-5 my-5 text-center">
-        <h1 className="display-5 fw-bold">OurSpace</h1>
-        <div className="col-lg-6 mx-auto">
-          <p className="lead mb-4">
-            This is our space!
-          </p>
-        </div>
-      </div>
+      <>
+        <div className="main-hero-image shadow">
+          <div className="main-overlay">
+            <h1 className="display-5 fw-bold">OurSpace</h1>
+            <p className="lead mb-4">This is our space!</p>
+            <div className="container">
+
+              <p className="mb-4 text-center">
+                OurSpace is an inclusive social networking platform 
+                for women and underrepresented individuals in the tech 
+                industry to connect share experiences.
+              </p>
+            </div>
+          </div>
+        </div>     
+      </>
+
     );
   }
   
