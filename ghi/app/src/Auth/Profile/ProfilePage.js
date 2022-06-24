@@ -30,16 +30,19 @@ function ProfilePage(props){
         }
     },[token]);
     return(
-        <div>
-            <div className="card mt-5 mb-5" style={{ width: '18rem' }}>
+        <div className="profile-container">
+            <div className="profile-info" style={{ width: '18rem' }}>
                 <div className="card-body">
                 <h1 className="card-title">Hello {profile.username}</h1>
                 <h3>{profile.city} is {profile.weather.temp}°F </h3>
                 </div>
+                
+            </div>
+            <div>
+            <ProfileEvents token={token} state={profile.state} />
             </div>
             <div>
                 <MentorshipProfile token={token} username={profile.username} />
-                <ProfileEvents token={token} state={profile.state} />
             </div>
         </div>
     );
