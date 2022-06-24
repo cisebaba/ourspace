@@ -5,7 +5,7 @@ function JobsList() {
 
   useEffect(() => {
     const getJobsData = async () => {
-      const jobsResponse = await fetch("http://localhost:8080/api/jobs/list/");
+      const jobsResponse = await fetch(`${process.env.REACT_APP_JOBS_HOST}/api/jobs/list/`);
       const jobsData = await jobsResponse.json();
       setJobs(jobsData);
     };
@@ -30,7 +30,7 @@ function JobsList() {
                 </a>
               </p>
             </div>
-            <div className="card-footer">
+            <div className="card-footer job-card-footer">
               Created on:&nbsp;
               {new Date(job.created).toLocaleDateString()}
             </div>
