@@ -1,5 +1,5 @@
 from datetime import datetime
-from fastapi import APIRouter, Response, status
+from fastapi import APIRouter
 import psycopg
 from pydantic import BaseModel
 from typing import List
@@ -23,14 +23,20 @@ class JobList(BaseModel):
     __root__: List[Job]
 
 
-
-@router.get("/api/jobs/list/", response_model = JobList)
+@router.get("/api/jobs/list/", response_model=JobList)
 def jobs_list():
     with psycopg.connect("dbname=jobs user=ourspace") as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT id, created, city, state, title, company, description, redirect_url
+                SELECT id,
+                    created,
+                    city,
+                    state,
+                    title,
+                    company,
+                    description,
+                    redirect_url
                 FROM jobs
                 LIMIT 100
                 """,
@@ -39,7 +45,7 @@ def jobs_list():
             ds = []
             for row in cur.fetchall():
                 d = {
-                    "id":row[0],
+                    "id": row[0],
                     "created": row[1],
                     "city": row[2],
                     "state": row[3],
@@ -48,6 +54,5 @@ def jobs_list():
                     "description": row[6],
                     "redirect_url": row[7]
                 }
-                
                 ds.append(d)
             return ds

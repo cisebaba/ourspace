@@ -11,17 +11,20 @@ class State(models.Model):
         return f"{self.abbreviation}"
 
     class Meta:
-        ordering = ("abbreviation",)  
+        ordering = ("abbreviation",)
+
 
 class Location(models.Model):
     name = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
 
-    picture_url = models.URLField(default= "https://media.discordapp.net/attachments/978448643956801637/982062871758401586/unknown.png?width=920&height=920")
+    picture_url = models.URLField(
+        default="https://media.discordapp.net/attachments/978448643956801637/982062871758401586/unknown.png?width=920&height=920"
+    )
 
     state = models.ForeignKey(
         State,
-        related_name="+", 
+        related_name="+",
         on_delete=models.PROTECT,
     )
 
@@ -32,7 +35,8 @@ class Location(models.Model):
         return self.name
 
     class Meta:
-        ordering = ("name",) 
+        ordering = ("name",)
+
 
 class Event(models.Model):
     name = models.CharField(max_length=200)
@@ -55,4 +59,4 @@ class Event(models.Model):
         return self.name
 
     class Meta:
-        ordering = ("starts", "name") 
+        ordering = ("starts", "name")

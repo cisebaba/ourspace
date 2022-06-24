@@ -1,13 +1,7 @@
-import os
-import sys
 import time
 import json
 import requests
 import psycopg
-
-# sys.path.append("")
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "events.settings")
-# django.setup()
 
 
 def get_mentorship():
@@ -32,7 +26,15 @@ def get_mentorship():
                         availability=excluded.availability,
                         mentor_username=excluded.mentor_username,
                         mentee_username=excluded.mentee_username;
-                    """, [mentor["id"], mentor["job_title"],mentor["description"],mentor["availability"],mentor["mentor_username"],mentor["mentee_username"]]
+                    """,
+                    [
+                        mentor["id"],
+                        mentor["job_title"],
+                        mentor["description"],
+                        mentor["availability"],
+                        mentor["mentor_username"],
+                        mentor["mentee_username"],
+                    ],
                 )
 
 
@@ -52,13 +54,21 @@ def get_events():
                         ends=excluded.ends,
                         description=excluded.description,
                         location=excluded.location;
-                    """, [event["href"], event["name"],event["starts"],event["ends"],event["description"],event["location"]["state"]]
-                    )
+                    """,
+                    [
+                        event["href"],
+                        event["name"],
+                        event["starts"],
+                        event["ends"],
+                        event["description"],
+                        event["location"]["state"],
+                    ],
+                )
 
 
 def poll():
     while True:
-        print('Mentorship poller polling for data')
+        print("Mentorship poller polling for data")
         try:
             # Write your polling logic, here
             get_mentorship()
@@ -66,6 +76,7 @@ def poll():
             # pass
         except Exception as e:
             import traceback
+
             traceback.print_exc()
         time.sleep(10)
 

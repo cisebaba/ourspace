@@ -20,5 +20,3 @@ app.add_middleware(
 )
 
 app.include_router(jobs_api.router)
-
-

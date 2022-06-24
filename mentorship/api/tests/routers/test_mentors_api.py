@@ -7,6 +7,7 @@ client = TestClient(app)
 
 bearer_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMSIsInVzZXIiOnsiaWQiOjEsImVtYWlsIjoidXNlcjFAZW1haWwuY29tIiwiZmlyc3RuYW1lIjoiZmlyc3QiLCJsYXN0bmFtZSI6Imxhc3QifSwiaWF0IjoxNjU1ODQ1OTU1LCJpc3MiOiJvdXItc3BhY2UiLCJqdGkiOiIxZGMwMTMwMi1lZjViLTRjOGItYjBmNC04OWJiMmE1YjcxYmYifQ.Bi_H7RH1rPHt4YU6g5x31yKRnprVLIHYQObRL0Ueyns"
 
+
 class EmptyMentorshipQueries:
     def get_one_mentorship(self, id):
         return None
@@ -15,19 +16,13 @@ class EmptyMentorshipQueries:
 class NormalMentorshipQueries:
     def get_one_mentorship(self, id):
         return {
-            "id": 8, 
-            "job_title": "JOB TITLE", 
-            "description": "DESCRIPTION", 
-            "availability": "AVAILABILITY", 
-            "mentor_username": "MENTOR", 
+            "id": 8,
+            "job_title": "JOB TITLE",
+            "description": "DESCRIPTION",
+            "availability": "AVAILABILITY",
+            "mentor_username": "MENTOR",
             "mentee_username": "MENTEE"
         }
-
-
-class NormalMentorshipsQueries:
-    def get_all_mentorships(self):
-        return [{1, "JOB TITLE", "DESCRIPTION", "AVAILABILITY", "MENTOR", "MENTEE"},
-         {2, "JOB TITLE TWO", "DESCRIPTION TWO", "AVAILABILITY TWO", "MENTOR_TWO", "MENTEE_TWO"}]
 
 
 def test_mentorshipin_exists():
