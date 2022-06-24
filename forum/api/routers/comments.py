@@ -1,9 +1,5 @@
 from datetime import datetime
 from fastapi import APIRouter, status, Depends, HTTPException
-<<<<<<< HEAD
-import psycopg
-=======
->>>>>>> main
 from pydantic import BaseModel
 from typing import List
 from fastapi.security import OAuth2PasswordBearer
