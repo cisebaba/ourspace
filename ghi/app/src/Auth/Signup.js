@@ -24,14 +24,9 @@ function Signup(props) {
   const [lastname, setLastname] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  // const [error, setError] = useState('');
   let navigate = useNavigate();
 
-  // const handleSubmit = async e => {
-  //   e.preventDefault();
-  //   const error = await signup(username,firstname,lastname, email, password);
-  //   setError(error);
-  // };
+  
 
   const playExpandingAnimation = () => {
      setExpanded(true);
