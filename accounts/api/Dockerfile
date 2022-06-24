@@ -3,10 +3,11 @@ RUN python -m pip install --upgrade pip
 WORKDIR /app
 
 # Copy the top-level files
-COPY requirements.txt requirements.txt
+COPY db.py db.py
 COPY main.py main.py
 COPY profile_db.py profile_db.py
 COPY profile_models.py profile_models.py
+COPY requirements.txt requirements.txt
 
 # Copy all of the directories that contain your application
 # code
