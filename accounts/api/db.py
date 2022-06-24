@@ -6,7 +6,6 @@ conninfo = os.environ["DATABASE_URL"]
 pool = ConnectionPool(conninfo=conninfo)
 
 
-
 class DuplicateAccount(RuntimeError):
     pass
 

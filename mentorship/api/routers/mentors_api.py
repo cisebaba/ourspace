@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Response, status, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
+from psycopg.errors import ForeignKeyViolation
 import os
 from jose import jwt
 from mentor_models import (
@@ -60,7 +61,7 @@ def mentorship_post(
 )
 def mentor_list(
     query=Depends(MentorshipQueries),
-    bearer_token: str = Depends(oauth2_scheme)
+    bearer_token: str = Depends(oauth2_scheme),
 ):
     if bearer_token is None:
         raise credentials_exception
@@ -128,7 +129,7 @@ def remove_mentorship(mentorship_id: int, response: Response):
                 return {
                     "message": "Success",
                 }
-            except psycopg.errors.ForeignKeyViolation:
+            except ForeignKeyViolation:
                 response.status_code = status.HTTP_400_BAD_REQUEST
                 return {
                     "message": "Cannot delete mentorship",

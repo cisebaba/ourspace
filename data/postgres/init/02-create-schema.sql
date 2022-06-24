@@ -111,7 +111,3 @@ CREATE TABLE reviews(
 );
 
 ALTER TABLE reviews OWNER TO ourspace;
-
-
-
-

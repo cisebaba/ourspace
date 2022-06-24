@@ -1,12 +1,12 @@
 from django.test import TestCase
 from datetime import datetime
 from django.test import Client
-from .models import Event
+from events_app.models import Event
 
 
 class BasicTest(TestCase):
     def test_setUp(self):
-        Event.objects.create(
+        self.event = Event.objects.create(
             name="EventList",
             starts=datetime(2000, 1, 1),
             ends=datetime(2000, 2, 1),
@@ -24,5 +24,5 @@ class BasicTest(TestCase):
         event.description = "Description"
         event.save()
 
-        record = Event.objects.get(pk * 1)
+        record = Event.objects.get(pk=event.id)
         self.assertEqual(record, event)

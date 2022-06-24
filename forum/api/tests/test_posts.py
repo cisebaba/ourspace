@@ -10,10 +10,8 @@ def test_post_exists():
     from routers.posts import Post  # noqa
 
 
-
 def test_post_in_exists():
     from routers.posts import PostIn  # noqa
-
 
 
 def test_post_list_exists():
