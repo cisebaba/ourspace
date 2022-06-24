@@ -17,7 +17,6 @@ function EventsList(props) {
             const eventsData = await eventsResponse.json();
             setEvents(eventsData.events)
         };
-
         getEventsData();
     }, [loadList]) ;
     
@@ -26,7 +25,7 @@ function EventsList(props) {
         <>
         { token ? <CreateEventForm token={props.token} setLoadList={setLoadList} /> : null}
         <br></br>
-          <h1>Events</h1>
+          <h1 align="center"><u>Events</u></h1>
           <div className="row row-cols-1 row-cols-md-3 g-4">
               {events.map(event => {
                 const start_date = new Date(event.starts).toLocaleDateString();

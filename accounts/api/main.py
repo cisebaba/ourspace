@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 
 
-from routers import users,profile
+from routers import users, profile
 
 app = FastAPI()
 

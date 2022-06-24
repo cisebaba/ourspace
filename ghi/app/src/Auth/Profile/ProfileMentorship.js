@@ -35,7 +35,7 @@ function MentorshipProfile(props){
    
     
     return(
-
+      <div className="container-md mb-5 ">
       <div className="accordion" id="accordionExample">
         <div className="card">
           <div className="card-header" id="headingTwo">
@@ -70,6 +70,8 @@ function MentorshipProfile(props){
             </div>
           </div>
         </div>
+        </div>
+        <div className="container-md mb-5 mt-5">
         <div className="accordion" id="accordionExample">
         <div className="card">
           <div className="card-header" id="headingTrio">
@@ -101,6 +103,7 @@ function MentorshipProfile(props){
           })}
             </div>
           </div>
+        </div>
         </div>
         </div>
         </div>
