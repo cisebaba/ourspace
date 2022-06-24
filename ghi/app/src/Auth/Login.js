@@ -3,15 +3,15 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 ///
 
-import styled from "styled-components";
+// import styled from "styled-components";
 
 
 /////
-import React, { useContext } from "react";
+import React from "react";
 import { Marginer } from "./marginer";
 import { AccountContext } from "./accountContext";
-import { motion } from "framer-motion";
-import { Signup } from "./Signup";
+// import { motion } from "framer-motion";
+// import { Signup } from "./Signup";
 
 /////
 import {
@@ -35,11 +35,11 @@ import {
 
 function Login(props) {
   const [isExpanded, setExpanded] = useState(false)
-  const [active, setActive] = useState("login");
+  const [active, /* setActive */] = useState("login");
   const { token, login } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   let navigate = useNavigate();
 
  const playExpandingAnimation = () => {
@@ -68,11 +68,11 @@ function Login(props) {
 
   const contextValue = { switchToSignup, switchToLogin }
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const error = await login(username, password);
-    setError(error);
-  };
+  // const handleSubmit = async e => {
+  //   e.preventDefault();
+  //   const error = await login(username, password);
+  //   setError(error);
+  // };
 
   if (token) {
     return <Navigate to="/" />;

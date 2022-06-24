@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useSyncExternalStore, useReducer} from "react";
+import React, {useState, useEffect} from "react";
 import MentorshipProfile from "./ProfileMentorship";
 import ProfileEvents from "./ProfileEvents";
 
@@ -32,11 +32,15 @@ function ProfilePage(props){
     return(
         <div className="profile-container">
             <div className="profile-info" style={{ width: '18rem' }}>
+                <div className="card">
                 <div className="card-body">
                 <h1 className="card-title">Hello {profile.username}</h1>
-                <h3>{profile.city} is {profile.weather.temp}°F </h3>
+                {profile.weather?
+                <h3>{profile.city} is {profile.weather.temp}°F </h3> :
+                <h3>How's {profile.city} today?</h3>
+                }
                 </div>
-                
+                </div>
             </div>
             <div>
             <ProfileEvents token={token} state={profile.state} />

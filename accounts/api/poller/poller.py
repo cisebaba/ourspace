@@ -1,13 +1,20 @@
 import time
 import json
 import requests
-import psycopg
+import sys
+import os
+from psycopg_pool import ConnectionPool
+
+MENTORSHIP_API = os.environ["MENTORSHIP_API"]
+EVENTS_API = os.environ["EVENTS_API"]
+conninfo = os.environ["DATABASE_URL"]
+pool = ConnectionPool(conninfo=conninfo)
 
 
 def get_mentorship():
-    response = requests.get("http://mentorship:8000/api/mentorship_poller/")
+    response = requests.get(f"{MENTORSHIP_API}/api/mentorship_poller/")
     content = json.loads(response.content)
-    with psycopg.connect("dbname=accounts user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
@@ -18,10 +25,16 @@ def get_mentorship():
 
                 cur.execute(
                     """
-                    INSERT INTO mentorshipVO (id, job_title, description, availability, mentor_username, mentee_username) 
+                    INSERT INTO mentorshipVO
+                        (id,
+                         job_title,
+                         description,
+                         availability,
+                         mentor_username,
+                         mentee_username)
                     VALUES (%s,%s,%s,%s,%s,%s)
-                    ON CONFLICT (id) DO UPDATE 
-                    SET job_title = excluded.job_title, 
+                    ON CONFLICT (id) DO UPDATE
+                    SET job_title = excluded.job_title,
                         description = excluded.description,
                         availability=excluded.availability,
                         mentor_username=excluded.mentor_username,
@@ -39,17 +52,24 @@ def get_mentorship():
 
 
 def get_events():
-    response = requests.get("http://events:8000/api/events/")
+    response = requests.get(f"{EVENTS_API}/api/events/")
     content = json.loads(response.content)
-    with psycopg.connect("dbname=accounts user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             for event in content["events"]:
                 cur.execute(
                     """
-                    INSERT INTO eventsVO ( href, name,starts ,ends ,description ,location) 
+                    INSERT INTO eventsVO (
+                        href,
+                        name,
+                        starts,
+                        ends,
+                        description,
+                        location
+                    )
                     VALUES (%s,%s,%s,%s,%s,%s)
-                    ON CONFLICT (href) DO UPDATE 
-                    SET name = excluded.name, 
+                    ON CONFLICT (href) DO UPDATE
+                    SET name = excluded.name,
                         starts = excluded.starts,
                         ends=excluded.ends,
                         description=excluded.description,
@@ -77,6 +97,7 @@ def poll():
         except Exception as e:
             import traceback
 
+            print(e, file=sys.stderr)
             traceback.print_exc()
         time.sleep(10)
 

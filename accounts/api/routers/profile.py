@@ -1,5 +1,9 @@
 from fastapi import APIRouter, Response, status, Depends, HTTPException
-import psycopg
+from psycopg.errors import UniqueViolation
+
+from db import pool
+
+# from .users import User
 from fastapi.security import OAuth2PasswordBearer
 import os
 from jose import jwt
@@ -33,13 +37,17 @@ credentials_exception = HTTPException(
         500: {"model": ErrorMessage},
     },
 )
-def profile_post(profile: ProfileIn, bearer_token: str = Depends(oauth2_scheme)):
+def profile_post(
+    profile: ProfileIn,
+    response: Response,
+    bearer_token: str = Depends(oauth2_scheme),
+):
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
     username = payload.get("sub")
     user = payload.get("user")
-    with psycopg.connect("dbname=accounts user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             try:
                 cur.execute(
@@ -50,7 +58,7 @@ def profile_post(profile: ProfileIn, bearer_token: str = Depends(oauth2_scheme))
                     """,
                     [profile.city, profile.state, profile.role, user["id"]],
                 )
-            except psycopg.errors.UniqueViolation:
+            except UniqueViolation:
                 response.status_code = status.HTTP_409_CONFLICT
                 return {
                     "message": "Could not create duplicate profile post",
@@ -83,7 +91,6 @@ def profile_list(
     if bearer_token is None:
         raise credentials_exception
     payload = jwt.decode(bearer_token, SECRET_KEY, algorithms=[ALGORITHM])
-    username = payload.get("sub")
     user = payload.get("user")
     id = user["id"]
     row = query.get_profile(id)
@@ -101,11 +108,11 @@ def profile_list(
     },
 )
 def mentor_list():
-    with psycopg.connect("dbname=accounts user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT m.id, m.job_title, m.description, m.availability, 
+                SELECT m.id, m.job_title, m.description, m.availability,
                     m.mentor_username, m.mentee_username
                 FROM mentorshipVO m
             """
@@ -132,11 +139,11 @@ def mentor_list():
     },
 )
 def events_list():
-    with psycopg.connect("dbname=accounts user=ourspace") as conn:
+    with pool.connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT e.href, e.name, e.starts, e.ends, 
+                SELECT e.href, e.name, e.starts, e.ends,
                     e.description, e.location
                 FROM eventsVO e
             """

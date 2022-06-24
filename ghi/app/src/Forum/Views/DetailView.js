@@ -23,7 +23,7 @@ const DetailView = (props) => {
     }
     initializePost();
     initializeUser();
-  }, []);
+  }, [params.post_id, token]);
 
   return (
     <PostWrapper>

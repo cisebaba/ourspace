@@ -29,7 +29,7 @@ function ReviewsList(props) {
       setReviews(reviewsData);
     };
     getReviewsData();
-  }, [loadList]);
+  }, [loadList, token]);
 
   
   return (
@@ -43,7 +43,10 @@ function ReviewsList(props) {
             <div className={!token ? "text-block" : null}>
             <h2 align="center ">
             { !token ?
-            <NavLink to={"/signup"}>Sign up</NavLink> 
+            <NavLink to={"/signup"}>Sign up /</NavLink>
+            : null }
+            { !token ?
+            <NavLink to={"/login"}> Login</NavLink> 
             : null }
             { !token ? <span> to see company reviews! </span> : null }
             </h2>

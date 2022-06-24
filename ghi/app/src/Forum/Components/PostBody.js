@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UpvoteButton } from "./UpvoteButton";
 import DeletePostButton from "./DeletePostButton";
 import { CommentButton } from "../styling/styling";

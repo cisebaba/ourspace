@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-9yifj+8t0(jg60ol2fu+zexysh$w(fj!yx9b&@%%sj3#qpxf&$"
+SECRET_KEY = (
+    "django-insecure-9yifj+8t0(jg60ol2fu+zexysh$w(fj!yx9b&@%%sj3#qpxf&$"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,6 +34,7 @@ ALLOWED_HOSTS = [
     "http://localhost:3000",
     "http://localhost:9000",
     "events",
+    os.environ.get("ALLOWED_HOST", "http://localhost:30001"),
 ]
 
 
@@ -66,6 +71,7 @@ CORS_ORIGIN_WHITELIST = "http://localhost:3000"
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    os.environ.get("CORS_HOST", "http://localhost:3001")
 ]
 CORS_ALLOW_CREDENTIALS = True
 DJWTO_CSRF = False
@@ -96,12 +102,15 @@ WSGI_APPLICATION = "events.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+DATABASES = {}
+DATABASES["default"] = dj_database_url.config()
 
 
 # Password validation
@@ -139,6 +148,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

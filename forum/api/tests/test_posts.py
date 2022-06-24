@@ -1,26 +1,28 @@
-from fastapi import FastAPI, Response
 from fastapi.testclient import TestClient
 from main import app
-from routers.posts import Post, PostQueries
+from routers.posts import PostQueries
 
 
 client = TestClient(app)
 
 
 def test_post_exists():
-    from routers.posts import Post
+    from routers.posts import Post  # noqa
 
 
 def test_post_in_exists():
-    from routers.posts import PostIn
+    from routers.posts import PostIn  # noqa
 
 
 def test_post_list_exists():
-    from routers.posts import PostList
+    from routers.posts import PostList  # noqa
 
 
-bearer_token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkb2RnZSIsInVzZXIiOnsiaWQiOjMsImVtYWlsIjoiZG9kZ2VAZG9nLmNvbSIsImZpcnN0bmFtZSI6ImRvZGdlIiwibGFzdG5hbWUiOiJzY2hsb3MifSwiaWF0IjoxNjU1ODMzMzY1LCJpc3MiOiJvdXItc3BhY2UiLCJqdGkiOiI3ZWFkZDE3OC04MWE0LTRkMWItODZjMi02YTE0OGJiZGM2YzQifQ.qPHQFlmeOpNxYhHVziDevOaIpXym1AEuaCWPr5duozI"
-# made a permanent bearer_token by commenting out the expiration field of create_access_token in users.py
+bearer_token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkb2RnZSIsInVzZXIiOnsiaWQiOjMsImVtYWlsIjoiZG9kZ2VAZG9nLmNvbSIsImZpcnN0bmFtZSI6ImRvZGdlIiwibGFzdG5hbWUiOiJzY2hsb3MifSwiaWF0IjoxNjU1ODMzMzY1LCJpc3MiOiJvdXItc3BhY2UiLCJqdGkiOiI3ZWFkZDE3OC04MWE0LTRkMWItODZjMi02YTE0OGJiZGM2YzQifQ.qPHQFlmeOpNxYhHVziDevOaIpXym1AEuaCWPr5duozI"  # noqa
+
+
+# made a permanent bearer_token by commenting out the expiration field of
+# create_access_token in users.py
 class EmptyPostQueries:
     def get_post(self, username, post_id):
         return None
