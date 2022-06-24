@@ -291,11 +291,9 @@ heroku-accounts-release:
   stage: deploy
   image: node:10.17-alpine
   needs:
-    - build-accounts-api-job
+    - deploy-accounts-image-heroku
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
-  needs:
-    - deploy-back-end-job-heroku
   before_script:
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
@@ -306,11 +304,9 @@ heroku-accounts-poller-release:
   stage: deploy
   image: node:10.17-alpine
   needs:
-    - build-accounts-poller-job
+    - deploy-accounts-poller-image-heroku
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
-  needs:
-    - deploy-back-end-job-heroku
   before_script:
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
@@ -321,11 +317,9 @@ heroku-events-release:
   stage: deploy
   image: node:10.17-alpine
   needs:
-    - build-events-api-job
+    - deploy-events-image-heroku
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
-  needs:
-    - deploy-back-end-job-heroku
   before_script:
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
@@ -336,11 +330,9 @@ heroku-forum-release:
   stage: deploy
   image: node:10.17-alpine
   needs:
-    - build-forum-api-job
+    - deploy-forum-image-heroku
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
-  needs:
-    - deploy-back-end-job-heroku
   before_script:
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
@@ -351,11 +343,9 @@ heroku-jobs-release:
   stage: deploy
   image: node:10.17-alpine
   needs:
-    - build-jobs-api-job
+    - deploy-jobs-image-heroku
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
-  needs:
-    - deploy-back-end-job-heroku
   before_script:
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
@@ -366,11 +356,9 @@ heroku-mentorship-release:
   stage: deploy
   image: node:10.17-alpine
   needs:
-    - build-mentorship-api-job
+    - deploy-mentorship-image-heroku
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
-  needs:
-    - deploy-back-end-job-heroku
   before_script:
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
@@ -381,11 +369,9 @@ heroku-reviews-release:
   stage: deploy
   image: node:10.17-alpine
   needs:
-    - build-reviews-api-job
+    - deploy-reviews-image-heroku
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
-  needs:
-    - deploy-back-end-job-heroku
   before_script:
     - apk add curl bash
     - curl https://cli-assets.heroku.com/install.sh | sh
