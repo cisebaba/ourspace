@@ -1,5 +1,4 @@
 import djwto.authentication as auth
-from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 import json
@@ -10,7 +9,7 @@ from common.json import ModelEncoder
 
 class LocationListEncoder(ModelEncoder):
     model = Location
-    properties = ["name","picture_url", "id"]
+    properties = ["name", "picture_url", "id"]
 
 
 class LocationDetailEncoder(ModelEncoder):
@@ -25,9 +24,11 @@ class LocationDetailEncoder(ModelEncoder):
     def get_extra_data(self, o):
         return {"state": o.state.abbreviation}
 
+
 class EventListEncoder(ModelEncoder):
     model = Event
     properties = ["name"]
+
 
 class EventDetailEncoder(ModelEncoder):
     model = Event
@@ -45,27 +46,29 @@ class EventDetailEncoder(ModelEncoder):
     }
     # def get_extra_data(self, o):
     #     return {"location": o.location.name}
-@require_http_methods(["GET","POST"])
+
+
+@require_http_methods(["GET", "POST"])
 def api_list_events(request):
-    if request.method=="GET":
+    if request.method == "GET":
         events = Event.objects.all()
         # print(Event)
         return JsonResponse(
             {"events": events},
             encoder=EventDetailEncoder,
         )
-    else: 
+    else:
         return createNewEvent(request)
 
-        
+
 @auth.jwt_login_required
-def createNewEvent(request): 
+def createNewEvent(request):
     content = json.loads(request.body)
     print(content["location"])
     print("PAYLOAD:", request.payload)
     # try:
-        # location = Location.objects.get(name=content["location"]["name"])
-        # content["location"] = location
+    # location = Location.objects.get(name=content["location"]["name"])
+    # content["location"] = location
     # except Location.DoesNotExist:
     try:
         state = State.objects.get(abbreviation=content["location"]["state"])
@@ -75,17 +78,19 @@ def createNewEvent(request):
             {"message": "Invalid state abbreviation"},
             status=400,
         )
-    
+
     location = Location.objects.create(**content["location"])
     content["location"] = location
     # content['user_id'] = request.payload['user']['id']
-    print(content , " after location")
+    print(content, " after location")
     event = Event.objects.create(**content)
     return JsonResponse(
         event,
         encoder=EventDetailEncoder,
         safe=False,
     )
+
+
 # @require_http_methods(["GET","POST"])
 # def api_list_events(request):
 #     if request.method=="GET":
@@ -98,7 +103,7 @@ def createNewEvent(request):
 #     else:
 #         content = json.loads(request.body)
 #         print(content["location"])
-        
+
 #         try:
 #             location = Location.objects.get(name=content["location"]["name"])
 #             content["location"] = location
@@ -106,7 +111,9 @@ def createNewEvent(request):
 #                 # content["location"] = json.loads(request.body)
 
 #                 try:
-#                     state = State.objects.get(abbreviation=content["location"]["state"])
+#                     state = State.objects.get(
+#                         abbreviation=content["location"]["state"]
+#                     )
 #                     content["location"]["state"] = state
 #                 except State.DoesNotExist:
 #                     return JsonResponse(
@@ -114,7 +121,9 @@ def createNewEvent(request):
 #                         status=400,
 #                     )
 
-#                 # photo = get_photo(content["city"], content["state"].abbreviation)
+#                 # photo = get_photo(
+#                 #      content["city"], content["state"].abbreviation
+#                 # )
 #                 # content.update(photo)
 #                 location = Location.objects.create(content["location"])
 #                 return JsonResponse(
@@ -122,13 +131,14 @@ def createNewEvent(request):
 #                     encoder=LocationDetailEncoder,
 #                     safe=False,
 #                 )
-        
+
 #         event = Event.objects.create(**content)
 #         return JsonResponse(
-#             event, 
-#             encoder=EventDetailEncoder, 
-#             safe=False, 
+#             event,
+#             encoder=EventDetailEncoder,
+#             safe=False,
 #         )
+
 
 @require_http_methods(["DELETE", "GET", "PUT"])
 def api_show_event(request, pk):
@@ -223,14 +233,15 @@ def api_show_location(request, pk):
             safe=False,
         )
 
+
 @require_http_methods(["GET"])
 def api_list_states(request):
     states = State.objects.all()
     print(states)
-    state_list=[]
+    state_list = []
     for state in states:
-        state={
-            "name":state.name,
+        state = {
+            "name": state.name,
             "abbreviation": state.abbreviation,
         }
         state_list.append(state)
