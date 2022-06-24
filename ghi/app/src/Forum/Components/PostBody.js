@@ -6,6 +6,7 @@ import {
   CommentButton,
   CommentTitleContainer,
   TitleContainer,
+  PostTextContainer,
 } from "../styling/styling";
 
 const PostBody = ({
@@ -42,7 +43,7 @@ const PostBody = ({
             </>
           )}
         </h5>
-        <p className="card-text">{post.text}</p>
+        <PostTextContainer className="card-text">{post.text}</PostTextContainer>
         <h6 className="card-subtitle mb-2 text-muted">
           Created on:&nbsp;
           {new Date(post.created_on).toLocaleDateString()}

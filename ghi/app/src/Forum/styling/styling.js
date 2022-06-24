@@ -38,7 +38,7 @@ export const CommentTitleContainer = styled.header`
   font-size: 20px;
   color: #a63a79;
   font-weight: 500px;
-  background-color: #fadadd;
+  background-color: #f2e9eb;
 `;
 
 export const CommentButton = styled.button`
@@ -91,7 +91,7 @@ export const StyledCreateButton = styled.button`
   padding: 12px 0;
   font-family: inherit;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
   color: white;
   background-color: white;
   border: 0;
@@ -125,9 +125,20 @@ export const ForumSmallText = styled.h5`
   margin-top: 7px;
 `;
 
-export const ForumInnerContainer = styled.div`
+export const PostTextContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 1.8em;
+  padding: 20px;
+  font-size: 20px;
+  font-style: 1em sans-serif;
+  border: 3px;
+`;
+
+export const PostCommentContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-size: 15px;
 `;

@@ -1,9 +1,7 @@
-from datetime import datetime
 from fastapi import APIRouter, Response, status, Depends, HTTPException
 import psycopg
 from pydantic import BaseModel
-from typing import List
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 import os
 from jose import jwt
 
@@ -84,7 +82,7 @@ def upvote(post_id: int, bearer_token: str = Depends(oauth2_scheme)):
 
             cur.execute(
                 """
-                SELECT count(*) 
+                SELECT count(*)
                 FROM post_upvote
                 WHERE post_upvote.post_id = %s and upvoter = %s
                 """,
@@ -108,7 +106,9 @@ def upvote(post_id: int, bearer_token: str = Depends(oauth2_scheme)):
     responses={404: {"model": ErrorMessage}},
 )
 def remove_upvote(
-    post_id: int, response: Response, bearer_token: str = Depends(oauth2_scheme)
+    post_id: int, 
+    response: Response, 
+    bearer_token: str = Depends(oauth2_scheme)
 ):
     print("bearer token", bearer_token)
     if bearer_token is None:
@@ -123,7 +123,7 @@ def remove_upvote(
                     """
                     DELETE FROM post_upvote
                     WHERE post_id = %s
-                    AND upvoter = %s;  
+                    AND upvoter = %s;
                     """,
                     [post_id, username],
                 )

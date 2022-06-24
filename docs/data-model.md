@@ -27,50 +27,33 @@ with personalized information.
 
 ## Post
 
-| Name          | Type            | Unique | Optional |
-| ------------- | --------------- | ------ | -------- |
-| id            | int             | yes    | no       |
-| title         | string          | no     | no       |
-| text          | string          | no     | no       |
-| author        | ref_user        | yes    | no       |
-| timeposted    | int             | no     | no       |
-| upvotes_total | ref_upvote_post | no     | yes      |
+| Name       | Type     | Unique | Optional |
+| ---------- | -------- | ------ | -------- |
+| id         | int      | yes    | no       |
+| title      | string   | no     | no       |
+| text       | string   | no     | no       |
+| author     | ref_user | yes    | no       |
+| timeposted | int      | no     | no       |
 
 ## Comment
 
-| Name          | Type               | Unique | Optional |
-| ------------- | ------------------ | ------ | -------- |
-| comment_id    | int                | yes    | no       |
-| post_id       | ref_post_id        | yes    | no       |
-| text          | string             | no     | no       |
-| commenter     | ref_user           | yes    | no       |
-| upvotes_total | ref_upvote_comment | no     | yes      |
+| Name       | Type        | Unique | Optional |
+| ---------- | ----------- | ------ | -------- |
+| comment_id | int         | yes    | no       |
+| post_id    | ref_post_id | yes    | no       |
+| text       | string      | no     | no       |
+| commenter  | ref_user    | yes    | no       |
+| timeposted | int         | no     | no       |
 
 ## Upvote_post
 
-| Name     | Type     | Unique | Optional |
-| -------- | -------- | ------ | -------- |
-| username | ref_user | no     | yes      |
-| post_id  | ref_post | yes    | no       |
-
-## Upvote_comment
-
-| Name       | Type        | Unique | Optional |
-| ---------- | ----------- | ------ | -------- |
-| username   | ref_user    | no     | yes      |
-| comment_id | ref_comment | yes    | no       |
+| Name       | Type     | Unique | Optional |
+| ---------- | -------- | ------ | -------- |
+| comment_id | int      | yes    | no       |
+| upvoter    | ref_user | no     | yes      |
+| post_id    | ref_post | yes    | no       |
 
 ### EDUCATION
-
-## Scholarship
-
-| Name             | Type   | Unique | Optional |
-| ---------------- | ------ | ------ | -------- |
-| name             | string | no     | no       |
-| location         | string | no     | no       |
-| description      | string | no     | no       |
-| organization_url | string | no     | yes      |
-| organization     | string | no     | no       |
 
 # Mentorship
 

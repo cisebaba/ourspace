@@ -9,6 +9,26 @@ A list of features/issues that you worked on and who you worked with, if applica
 A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
+## June 24, 2022
+
+Today, we followed Curtis's demonstration of CI/CD. As a group, we worked on some CSS stuff and last minute details. We fixed some of the issues Curtis brought up.
+
+## June 23, 2022
+
+Today was all about wrapping up loose ends. I finished one more react component- A button for a current user to delete their own posts. I had to reconfigure the database tables to do On Delete, CASCADE, and Cise helped me figure that out. I observed Amanda implement some awesome css, and then Starr kindly taught me a ton of css for forum. I feel like I understand css way better now, and I was able to explore on my own a bit more because of her help.
+
+We made some decisions about cutting off implementations that we would ideally like to expand on, for the sake of time and trying to make deployment go smoothly tomorrow.
+
+My ah-ha is that css is very fun, but so frustrating! I think I prefer backend stuff, but it is fun to work with a little bit.
+
+## June 22, 2022
+
+Today, Cise, Amanda and I, worked on finishing the poller for profile that polls events and mentorship services. We then finished the react page for the profile. We also helped our team finish tests. It was a long day!
+
+Design-wise, I started to doubt our microservice/polling choices, haha.
+
+My ah-ha today is that I really love pair programming. It was such a fun and productive day.
+
 ## June 21, 2022
 
 Today, with a lot of help from Curtis, we got unit tests working and learned how to get around auth while doing them. It was really exciting to finally write soem tests and see them pass!
