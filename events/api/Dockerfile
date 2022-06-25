@@ -12,7 +12,6 @@ COPY events events
 COPY events_app events_app
 COPY common common
 
-RUN python manage.py loaddata events/city_state_data.json
 RUN pip install -r requirements.txt
 RUN python manage.py collectstatic --no-input
 CMD python manage.py migrate && gunicorn events.wsgi --bind 0.0.0.0:$PORT --log-file -
