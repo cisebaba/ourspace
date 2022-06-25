@@ -11,8 +11,8 @@ COPY __init__.py __init__.py
 COPY events events
 COPY events_app events_app
 COPY common common
-COPY city_state_data.json city_state_data.json
 
+RUN python manage.py loaddata events/city_state_data.json
 RUN pip install -r requirements.txt
 RUN python manage.py collectstatic --no-input
 CMD python manage.py migrate && gunicorn events.wsgi --bind 0.0.0.0:$PORT --log-file -
