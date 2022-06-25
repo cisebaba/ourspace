@@ -22,6 +22,7 @@ services:
       REACT_APP_API_HOST: http://localhost:8000
       REACT_APP_REVIEWS_HOST: http://localhost:8070
       REACT_APP_MENTORSHIP_HOST: http://localhost:8050
+      REACT_APP_JOBS_HOST: http://localhost:8080
 
   accounts:
     build:

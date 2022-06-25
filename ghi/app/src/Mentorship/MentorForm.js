@@ -60,7 +60,7 @@ function MentorForm(props) {
     <div className="row">
       <div className="offset-3 col-6">
         <div className="shadow p-4 mt-4">
-          <h1>Create a New Mentorship</h1>
+          <h1 id="mentor-header">Create a New Mentorship</h1>
           <form onSubmit={handleSubmit} id="create-form">
             <div className="form-floating mb-3">
               <textarea
@@ -101,7 +101,7 @@ function MentorForm(props) {
               />
               <label htmlFor="availability">Mentor's Availability</label>
             </div>
-            <button className="btn btn-primary">Signup as a Mentor</button>
+            <button className="btn btn-secondary">Signup as a Mentor!</button>
             {(successMessage === true) ? <SuccessMessage /> : <></>}
           </form>
         </div>

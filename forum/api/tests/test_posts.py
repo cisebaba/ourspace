@@ -48,7 +48,7 @@ def test_get_post_returns_404():
 
     # set headers for request/bearer token
     headers = {"authorization": bearer_token}
-    response = client.get("/api/posts/8/", headers=headers)
+    response = client.get("/api/posts/1", headers=headers)
 
     # ASSERT
     # Assert that we got a 404

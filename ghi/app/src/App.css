@@ -24,6 +24,10 @@ div, header, body {
   }
 }
 
+/* div, body, header {
+  font-family: 'Radio Canada', sans-serif;
+}  */
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -134,3 +138,12 @@ button {
 .profile-info {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+/* .shadow {
+  background-color: lightseagreen !important;
+  
+} */
+
+/* #mentor-header {
+  color: #4A808C;
+} */

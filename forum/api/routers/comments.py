@@ -57,8 +57,13 @@ def get_comments(
         with conn.cursor() as cur:
             cur.execute(
                 """
+<<<<<<< HEAD
+                SELECT comment.comment_id, comment.text,
+                comment.created_on, post.post_id, comment.commenter
+=======
                 SELECT comment.comment_id, comment.text, comment.created_on,
                        post.post_id, comment.commenter
+>>>>>>> main
                 FROM post
                 INNER JOIN comment
                 ON (comment.post_id = post.post_id)
@@ -115,29 +120,3 @@ def new_comment(
                 "post_id": new_comment[3],
                 "commenter": new_comment[4],
             }
-
-
-# @router.delete(
-#     "/api/posts/{post_id}/comment/",
-#     response_model=Message,
-#     responses={404: {"model": Message}},
-# )
-# def remove_comment(comment_id: int, response: Response):
-#     with pool.connection() as conn:
-#         with conn.cursor() as cur:
-#             try:
-#                 cur.execute(
-#                     """
-#                     DELETE FROM comment
-#                     WHERE comment_id = %s;
-#                     """,
-#                     [comment_id],
-#                 )
-#                 return {
-#                     "message": "Success",
-#                 }
-#             except psycopg.errors.ForeignKeyViolation:
-#                 response.status_code = status.HTTP_400_BAD_REQUEST
-#                 return {
-#                     "message": "Cannot delete mentorship",
-#                 }

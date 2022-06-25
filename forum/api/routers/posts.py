@@ -58,7 +58,7 @@ class PostQueries:
                         and upvoter = %s)
                     FROM post
                     WHERE post_id = %s
-                """,
+                    """,
                     [username, post_id],
                 )
                 row = cur.fetchone()
@@ -75,38 +75,6 @@ class PostQueries:
                     "user_upvoted": row[6],
                 }
                 return detail
-
-    # def posts_list(self, username):
-    #     with pool.connection() as conn:
-    #         with conn.cursor() as cur:
-    #             cur.execute(
-    #                 """
-    #                 SELECT post_id, title, text, created_on, author,
-    #                 (select count(*) from post_upvote
-    #                  where post_upvote.post_id = post.post_id) upvote_count,
-    #                 (select count(*) from post_upvote
-    #                  where post_upvote.post_id = post.post_id
-    #                  and upvoter = %s)
-
-    #                 FROM post
-    #                 """,
-    #                 [username],
-    #             )
-
-    #             ds = []
-    #             for row in cur.fetchall():
-    #                 d = {
-    #                     "post_id":row[0],
-    #                     "title":row[1],
-    #                     "text":row[2],
-    #                     "created_on":row[3],
-    #                     "author": str(row[4]),
-    #                     "upvote_count": row[5],
-    #                     "user_upvoted": row[6],
-    #                 }
-
-    #                 ds.append(d)
-    #             return ds
 
 
 @router.get("/api/posts/", response_model=PostList)
