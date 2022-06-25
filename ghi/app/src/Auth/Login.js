@@ -1,19 +1,9 @@
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-
-///
-
-// import styled from "styled-components";
-
-
-/////
 import React from "react";
 import { Marginer } from "./marginer";
 import { AccountContext } from "./accountContext";
-// import { motion } from "framer-motion";
-// import { Signup } from "./Signup";
 
-/////
 import {
   CardWrapper,
   TopContainer,
@@ -29,6 +19,7 @@ import {
   backdropVariants,
   expandingTransition
 } from "./index";
+import MainPage from '../MainPage';
 
  
 
@@ -68,11 +59,6 @@ function Login(props) {
 
   const contextValue = { switchToSignup, switchToLogin }
 
-  // const handleSubmit = async e => {
-  //   e.preventDefault();
-  //   const error = await login(username, password);
-  //   setError(error);
-  // };
 
   if (token) {
     return <Navigate to="/" />;
@@ -81,6 +67,8 @@ function Login(props) {
 
   }
   return (
+    <>
+    <MainPage />
     <AccountContext.Provider value={contextValue}>
     <div className="container mt-5 py-5">
       <div className="App" >
@@ -132,6 +120,7 @@ function Login(props) {
       </div>
     </div>
     </AccountContext.Provider>
+    </>
   );
 }
 

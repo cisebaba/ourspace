@@ -25,6 +25,7 @@ def get_and_save_jobs():
     with pool.connection() as conn:
         with conn.cursor() as cur:
             for job in jobs:
+                print("JOBSSSS", job)
                 if len(job["location"]["area"]) >= 3:
                     cur.execute(
                         """

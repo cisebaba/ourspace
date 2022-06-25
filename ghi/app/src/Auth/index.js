@@ -1,11 +1,5 @@
-// import React, { useState } from "react";
 import styled from "styled-components";
-//import { Login } from "./login";
 import { motion } from "framer-motion";
-// import { AccountContext } from "./accountContext";
-//import { Signup } from "./Signup";
-
-
 
 export const CardWrapper = styled.div` /// This is making the box
   width: 280px;
@@ -68,7 +62,6 @@ export const BackDrop = styled(motion.div)` // this is the swoop
   transform: rotate(60deg);
   top: -290px;
   left: -70px;
-  background: #EFB7B7; /* fallback for old browsers */
   background: linear-gradient(
     to right,
     #15AEBF,

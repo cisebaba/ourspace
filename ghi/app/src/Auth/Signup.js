@@ -15,6 +15,7 @@ import {
   MutedLink,
   expandingTransition
 } from "./index";
+import MainPage from '../MainPage';
 
 function Signup(props) {
   const [/*isExpanded*/, setExpanded] = useState(false)
@@ -24,14 +25,9 @@ function Signup(props) {
   const [lastname, setLastname] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  // const [error, setError] = useState('');
   let navigate = useNavigate();
 
-  // const handleSubmit = async e => {
-  //   e.preventDefault();
-  //   const error = await signup(username,firstname,lastname, email, password);
-  //   setError(error);
-  // };
+  
 
   const playExpandingAnimation = () => {
      setExpanded(true);
@@ -64,6 +60,8 @@ function Signup(props) {
   }
 
   return (
+    <>
+    <MainPage />
   <div className="container mt-5 py-5">
   <div className="App">
     <CardWrapper>
@@ -117,9 +115,9 @@ function Signup(props) {
           </MutedLink>
       </InnerContainer>
       </CardWrapper>
-      
   </div>
 </div>
+  </>
 );
 }
 
