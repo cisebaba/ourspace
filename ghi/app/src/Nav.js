@@ -4,7 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 function Nav(props) {
   const { token } = props;
   const [user, setUser] = useState({});
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
     async function getMe() {
