@@ -69,27 +69,26 @@ with personalized information.
 
 ## Jobs
 
-| Company Name  | Type   | Unique | Optional |
-| ------------- | ------ | ------ | -------- |
-| company_name  | string | yes    | no       |
-| company_type  | string | yes    | no       |
-| email         | string | no     | no       |
-| location      | string | no     | no       |
-| job_type      | string | no     | no       |
-| salary        | int    | no     | yes      |
-| qualification | string | no     | no       |
-| date Posted   | Int    | no     | yes      |
+| Job          | Type   | Unique | Optional |
+| ------------ | ------ | ------ | -------- |
+| id           | int    | yes    | no       |
+| created      | int    | no     | yes      |
+| city         | string | no     | no       |
+| state        | string | no     | no       |
+| title        | string |        | no       |
+| company      | string | no     | no       |
+| description  | string | no     | no       |
+| redirect_url | string | no     | no       |
 
 ## Events & Conferences
 
 | Name        | Type         | Unique | Optional |
 | ----------- | ------------ | ------ | -------- |
-| name        | string       | yes    | no       |
-| location    | string       | no     | no       |
-| dates       | int          | no     | no       |
+| href        | string       | yes    | no       |
+| name        | string       | no     | no       |
+| starts      | timestamp    | no     | no       |
+| ends        | timestamp    | no     | no       |
 | description | string       | no     | no       |
-| photo_url   | string       | no     | no       |
-| event_url   | string       | yes    | no       |
 | userVO      | reference to | yes    | no       |
 
 The `Events & Conferences` entity contains the data about events, conferences, and meetups.

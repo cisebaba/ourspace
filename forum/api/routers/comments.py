@@ -57,13 +57,8 @@ def get_comments(
         with conn.cursor() as cur:
             cur.execute(
                 """
-<<<<<<< HEAD
-                SELECT comment.comment_id, comment.text,
-                comment.created_on, post.post_id, comment.commenter
-=======
                 SELECT comment.comment_id, comment.text, comment.created_on,
                        post.post_id, comment.commenter
->>>>>>> main
                 FROM post
                 INNER JOIN comment
                 ON (comment.post_id = post.post_id)
