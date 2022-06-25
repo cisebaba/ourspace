@@ -20,9 +20,9 @@ function Nav(props) {
     }
   }, [token]);
 
-  if(["login", "signup", "Login", "Signup"].some(path => location.pathname.includes(path))){
-    return null
-  }
+  // if(["login", "signup", "Login", "Signup"].some(path => location.pathname.includes(path))){
+  //   return null
+  // }
   return (
     <nav className="navbar sticky-top navbar-expand-lg navbar-dark">
       <div className="container-fluid">

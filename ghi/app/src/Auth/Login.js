@@ -29,6 +29,7 @@ import {
   backdropVariants,
   expandingTransition
 } from "./index";
+import MainPage from '../MainPage';
 
  
 
@@ -81,6 +82,8 @@ function Login(props) {
 
   }
   return (
+    <>
+    <MainPage />
     <AccountContext.Provider value={contextValue}>
     <div className="container mt-5 py-5">
       <div className="App" >
@@ -132,6 +135,7 @@ function Login(props) {
       </div>
     </div>
     </AccountContext.Provider>
+    </>
   );
 }
 

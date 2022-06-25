@@ -14,7 +14,7 @@ function MainPage() {
               </p>
             </div>
           </div>
-        </div>     
+        </div>
       </>
 
     );

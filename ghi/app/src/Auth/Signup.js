@@ -19,6 +19,7 @@ import {
   MutedLink,
   expandingTransition
 } from "./index";
+import MainPage from '../MainPage';
 
 
 
@@ -74,6 +75,8 @@ function Signup(props) {
   }
 
   return (
+    <>
+    <MainPage />
   <div className="container mt-5 py-5">
   <div className="App">
     <CardWrapper>
@@ -114,9 +117,9 @@ function Signup(props) {
           
       </InnerContainer>
       </CardWrapper>
-      
   </div>
 </div>
+  </>
 );
 }
 
