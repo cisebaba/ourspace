@@ -11,6 +11,7 @@ COPY __init__.py __init__.py
 COPY events events
 COPY events_app events_app
 COPY common common
+COPY city_state_data city_state_data
 
 RUN pip install -r requirements.txt
 RUN python manage.py collectstatic --no-input
