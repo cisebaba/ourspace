@@ -79,9 +79,10 @@ build-front-end-job:
     - cd ghi/app
     - npm install
     - npm run build
+    - cp build/index.html build/404.html
   artifacts:
     paths:
-      - ghi/app/build/ 
+      - ghi/app/build/
 
 build-accounts-api-job:
   rules:

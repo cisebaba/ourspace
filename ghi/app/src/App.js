@@ -59,6 +59,8 @@ function App() {
           REVIEWS
           <Route path="reviews/new" element={<ReviewsForm token={token} />} />
           <Route path="reviews" element={<ReviewsList token={token} />} />
+
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </>
