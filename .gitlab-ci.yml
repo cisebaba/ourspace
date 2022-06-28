@@ -386,7 +386,7 @@ heroku-jobs-poller-release:
   stage: deploy
   image: node:10.17-alpine
   needs:
-    - deploy-jobs-image-heroku
+    - deploy-jobs-poller-image-heroku
   rules:
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "deploy")
   before_script:
