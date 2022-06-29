@@ -44,6 +44,8 @@ export const CommentButton = styled.button`
   display: block;
   width: 100%;
   padding: 12px 0;
+  margin-left: auto !important;
+  margin-right: 12px !important;
   font-family: inherit;
   font-size: 20px;
   font-weight: 700;
@@ -61,6 +63,8 @@ export const CommentButton = styled.button`
     transform: translate(0, -5px);
   }
 `;
+
+//previous colors : #efb7b7, #8a1253
 
 export const StyledDeleteButton = styled.button`
   display: block;
@@ -99,7 +103,7 @@ export const StyledCreateButton = styled.button`
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
   background: white;
-  background: linear-gradient(to right, #74b49b, #5c8d89);
+  background: linear-gradient(to right, #74b49b, #458c4f);
   &:hover {
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.16);
     transform: translate(0, -5px);
