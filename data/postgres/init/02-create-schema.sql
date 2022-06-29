@@ -11,6 +11,11 @@ CREATE TABLE jobs (
     redirect_url VARCHAR(1000)
 );
 
+CREATE TABLE saved_jobs (
+    id BIGINT REFERENCES jobs(id) NOT NULL PRIMARY KEY,
+    username VARCHAR(100)
+);
+
 ALTER TABLE jobs OWNER TO ourspace;
 
 \connect accounts

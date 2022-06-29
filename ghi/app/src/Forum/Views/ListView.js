@@ -8,7 +8,6 @@ import {
   StyledCreateButton,
 } from "../styling/styling";
 
-
 const ListView = (props) => {
   console.log(props, "props!");
   const token = props.token;
@@ -28,10 +27,7 @@ const ListView = (props) => {
       <div>
         <TitleContainer>
           OurForum &#9825;{" "}
-          <StyledCreateButton
-            style={{ float: "left" }}
-            onClick={() => navigate("/posts/new/")}
-          >
+          <StyledCreateButton onClick={() => navigate("/posts/new/")}>
             Create post
           </StyledCreateButton>
         </TitleContainer>
