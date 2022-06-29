@@ -20,6 +20,7 @@ import MentorForm from "./Mentorship/MentorForm";
 import MentorList from "./Mentorship/MentorList";
 import ProfileForm from "./Auth/Profile/ProfileForm";
 import ProfilePage from "./Auth/Profile/ProfilePage";
+import Footer from "./Footer";
 
 function App() {
   const [token, login, logout, signup] = useToken();

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
+
 function Nav(props) {
   const { token } = props;
   const [user, setUser] = useState({});
@@ -82,6 +83,7 @@ function Nav(props) {
         </div>
       </div>
     </nav>
+    
   );
 }
 
