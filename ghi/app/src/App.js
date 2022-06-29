@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Nav from "./Nav";
 import EventForm from "./Events/CreateEventForm.js";
@@ -44,7 +44,7 @@ function App() {
           <Route path="events" index element={<EventsList token={token}/>} />
           <Route path="events/new" element={<EventForm token={token} />} />
           {/* JOBS */}
-          <Route path="jobs" element={<JobsList />} />
+          <Route path="jobs" element={<JobsList token={token}/>} />
           {/* MENTORSHIP */}
           <Route path="mentorship" element={<MentorList token={token} />} />
           <Route path="mentorship/new" element={<MentorForm token={token} />} />
@@ -60,6 +60,8 @@ function App() {
           REVIEWS
           <Route path="reviews/new" element={<ReviewsForm token={token} />} />
           <Route path="reviews" element={<ReviewsList token={token} />} />
+
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
     </>

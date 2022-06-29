@@ -6,6 +6,7 @@
 * [Data model](docs/data-model.md)
 * [GHI](docs/ghi.md)
 * [Integrations](docs/integrations.md)
+* [Wireframes](docs/wireframes/OurSpace_Wireframes.png)
 
 ## Architecture
 ![Image](WiTSocial_DDD.png)
@@ -26,7 +27,7 @@ women/girls and gender expansive individuals who are involved or interested in t
 These may include (but are not limited to):
 
 * Companies looking to hire
-* Tech conference, meet-up or event organisers or participants
+* Tech conference, meet-up or event organizers or participants
 * Job seekers
 * Tech industry influencers
 * Tech mentors/mentees
@@ -35,6 +36,7 @@ These may include (but are not limited to):
 ## Functionality
 
 ## Must Have Features:
+
 * User accounts (profile, signup, log-in)
 * Company info and reviews
 * Job board - query data from external job board API
@@ -45,7 +47,8 @@ These may include (but are not limited to):
 * (To come later) Personalized Live Feed (homepage) 
 
 ## Nice to Haves: 
+
 * Site search
-* Direct messaging, followers or friends
+* Direct messaging, user friends list
 * Newsletter
 * Following/follower capability

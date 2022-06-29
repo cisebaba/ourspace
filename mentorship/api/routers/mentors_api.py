@@ -152,10 +152,6 @@ def get_mentorship_poller():
                 """
             )
 
-            # if row is None:
-            #     Response.status_code = status.HTTP_404_NOT_FOUND
-            #     return {"message": "Mentorship not found"}
-
             ds = []
             for row in cur.fetchall():
                 d = {
@@ -167,5 +163,4 @@ def get_mentorship_poller():
                     "mentee_username": row[5],
                 }
                 ds.append(d)
-
             return ds

@@ -46,6 +46,8 @@ export function UpvoteButton({
     }
   }
 
+  //maroon heart color: "#a63a79"
+
   return (
     <button
       style={
@@ -56,7 +58,10 @@ export function UpvoteButton({
       onClick={userPostUpvoteCount <= 0 ? AddUpvote : DeleteUpvote}
     >
       {" "}
-      &#9825;{upvoteCount}
+      {userPostUpvoteCount <= 0
+        ? String.fromCharCode(9825)
+        : String.fromCharCode(9829)}
+      {upvoteCount}
     </button>
   );
 }

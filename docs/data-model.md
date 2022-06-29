@@ -27,50 +27,33 @@ with personalized information.
 
 ## Post
 
-| Name          | Type            | Unique | Optional |
-| ------------- | --------------- | ------ | -------- |
-| id            | int             | yes    | no       |
-| title         | string          | no     | no       |
-| text          | string          | no     | no       |
-| author        | ref_user        | yes    | no       |
-| timeposted    | int             | no     | no       |
-| upvotes_total | ref_upvote_post | no     | yes      |
+| Name       | Type     | Unique | Optional |
+| ---------- | -------- | ------ | -------- |
+| id         | int      | yes    | no       |
+| title      | string   | no     | no       |
+| text       | string   | no     | no       |
+| author     | ref_user | yes    | no       |
+| timeposted | int      | no     | no       |
 
 ## Comment
 
-| Name          | Type               | Unique | Optional |
-| ------------- | ------------------ | ------ | -------- |
-| comment_id    | int                | yes    | no       |
-| post_id       | ref_post_id        | yes    | no       |
-| text          | string             | no     | no       |
-| commenter     | ref_user           | yes    | no       |
-| upvotes_total | ref_upvote_comment | no     | yes      |
+| Name       | Type        | Unique | Optional |
+| ---------- | ----------- | ------ | -------- |
+| comment_id | int         | yes    | no       |
+| post_id    | ref_post_id | yes    | no       |
+| text       | string      | no     | no       |
+| commenter  | ref_user    | yes    | no       |
+| timeposted | int         | no     | no       |
 
 ## Upvote_post
 
-| Name     | Type     | Unique | Optional |
-| -------- | -------- | ------ | -------- |
-| username | ref_user | no     | yes      |
-| post_id  | ref_post | yes    | no       |
-
-## Upvote_comment
-
-| Name       | Type        | Unique | Optional |
-| ---------- | ----------- | ------ | -------- |
-| username   | ref_user    | no     | yes      |
-| comment_id | ref_comment | yes    | no       |
+| Name       | Type     | Unique | Optional |
+| ---------- | -------- | ------ | -------- |
+| comment_id | int      | yes    | no       |
+| upvoter    | ref_user | no     | yes      |
+| post_id    | ref_post | yes    | no       |
 
 ### EDUCATION
-
-## Scholarship
-
-| Name             | Type   | Unique | Optional |
-| ---------------- | ------ | ------ | -------- |
-| name             | string | no     | no       |
-| location         | string | no     | no       |
-| description      | string | no     | no       |
-| organization_url | string | no     | yes      |
-| organization     | string | no     | no       |
 
 # Mentorship
 
@@ -86,27 +69,26 @@ with personalized information.
 
 ## Jobs
 
-| Company Name  | Type   | Unique | Optional |
-| ------------- | ------ | ------ | -------- |
-| company_name  | string | yes    | no       |
-| company_type  | string | yes    | no       |
-| email         | string | no     | no       |
-| location      | string | no     | no       |
-| job_type      | string | no     | no       |
-| salary        | int    | no     | yes      |
-| qualification | string | no     | no       |
-| date Posted   | Int    | no     | yes      |
+| Job          | Type   | Unique | Optional |
+| ------------ | ------ | ------ | -------- |
+| id           | int    | yes    | no       |
+| created      | int    | no     | yes      |
+| city         | string | no     | no       |
+| state        | string | no     | no       |
+| title        | string |        | no       |
+| company      | string | no     | no       |
+| description  | string | no     | no       |
+| redirect_url | string | no     | no       |
 
 ## Events & Conferences
 
 | Name        | Type         | Unique | Optional |
 | ----------- | ------------ | ------ | -------- |
-| name        | string       | yes    | no       |
-| location    | string       | no     | no       |
-| dates       | int          | no     | no       |
+| href        | string       | yes    | no       |
+| name        | string       | no     | no       |
+| starts      | timestamp    | no     | no       |
+| ends        | timestamp    | no     | no       |
 | description | string       | no     | no       |
-| photo_url   | string       | no     | no       |
-| event_url   | string       | yes    | no       |
 | userVO      | reference to | yes    | no       |
 
 The `Events & Conferences` entity contains the data about events, conferences, and meetups.
