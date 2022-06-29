@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
+
 function Nav(props) {
   const { token } = props;
   const [user, setUser] = useState({});

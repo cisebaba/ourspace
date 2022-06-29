@@ -7,6 +7,7 @@ div, header, body {
 .dropdown-item {
   font-family: 'Roboto', sans-serif;
   font-weight: bolder;
+  color: white;
 }
 
 .App {
@@ -147,3 +148,4 @@ button {
 /* #mentor-header {
   color: #4A808C;
 } */
+

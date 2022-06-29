@@ -7,17 +7,34 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 8.4rem;
+  overflow: hidden;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
-.navbar {
+.navbar, .footer {
   background-color: #129aa9;
 }
 
-.dropdown-item {
+.footer {
   color: white;
+  position: absolute;
+  font-weight: bold;
+  overflow-x: hidden;
+  bottom: 0;
+  width: 100%;
+  height: 8.4rem;
+}
+
+.sub-footer {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .dropdown-item:focus{
@@ -66,4 +83,30 @@ code {
 
 .mentor-card-footer, .job-card-footer {
   background-color: #f2e9eb;
+}
+
+.main-flex-container {
+  display: flex;
+  flex-direction: row;
+  /* background-color: aliceblue; */
+  align-items: center;
+  justify-content: center;
+}
+
+.main-flex-left {
+  width: 50%;
+  margin: 5px;
+  padding: 2px;
+  padding-left: 4em;
+}
+
+.main-flex-right {
+  width: 50%;
+  margin: 20px;
+  padding: 20px;
+}
+
+.main-paragraph {
+  color: #15AEBF;
+  font-size: larger;
 }

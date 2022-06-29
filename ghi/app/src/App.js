@@ -20,6 +20,8 @@ import MentorForm from "./Mentorship/MentorForm";
 import MentorList from "./Mentorship/MentorList";
 import ProfileForm from "./Auth/Profile/ProfileForm";
 import ProfilePage from "./Auth/Profile/ProfilePage";
+import Footer from "./Footer";
+
 
 function App() {
   const [token, login, logout, signup] = useToken();
@@ -32,8 +34,8 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           {/* LOGIN */}
-          <Route path="logout" element={<Logout logout={logout} />} />
           <Route path="login" element={<Login token={token} login={login} />} />
+          <Route path="logout" element={<Logout logout={logout} />} />
           <Route path="signup" element={<Signup token={token} signup={signup} />}
           />
           {/* PROFILE  */}
@@ -56,12 +58,13 @@ function App() {
           />
           <Route path="posts" element={<PostsList token={token} />} />
           <Route path="posts/new" element={<PostForm token={token} />} />
-          REVIEWS
+          {/* REVIEWS */}
           <Route path="reviews/new" element={<ReviewsForm token={token} />} />
           <Route path="reviews" element={<ReviewsList token={token} />} />
 
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

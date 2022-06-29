@@ -17,6 +17,7 @@ import {
 } from "./index";
 import MainPage from '../MainPage';
 
+
 function Signup(props) {
   const [/*isExpanded*/, setExpanded] = useState(false)
   const { token, signup } = props;
@@ -62,61 +63,80 @@ function Signup(props) {
   return (
     <>
     <MainPage />
-  <div className="container mt-5 py-5">
-  <div className="App">
-    <CardWrapper>
-      <TopContainer>
-      <BackDrop 
-      />
-        <HeaderContainer>
-        <HeaderText>Welcome!</HeaderText>
-        <SmallText>Sign Up</SmallText>
-        </HeaderContainer>
-      </TopContainer>
-      <InnerContainer>
-      <Input 
-    
-      required name="username" 
-      type="text" onChange={e => setUsername(e.target.value)} 
-      value={username} placeholder="username" />
+    <div className="main-flex-container">
+      <div className="main-flex-left">
+        <div className="container mt-5 py-5">
+        <div className="App">
+          <CardWrapper>
+            <TopContainer>
+            <BackDrop 
+            />
+              <HeaderContainer>
+              <HeaderText>Welcome!</HeaderText>
+              <SmallText>Sign Up</SmallText>
+              </HeaderContainer>
+            </TopContainer>
+            <InnerContainer>
+            <Input 
           
-      <Input 
-      required name="firstname" 
-      type="text" 
-      onChange={e => setFirstname(e.target.value)}
-      value={firstname}
-      placeholder="firstname" />
-          
-      <Input 
-      required name="lastname" 
-      type="text" 
-      onChange={e => setLastname(e.target.value)} 
-      value={lastname} placeholder="lastname" />
-      <Input 
-      required name="email" 
-      type="email" 
-      onChange={e => setEmail(e.target.value)} 
-      value={email} placeholder="email" />
-      <Input 
-      required name="password" 
-      type="password" 
-      onChange={e => setPassword(e.target.value)} 
-      value={password} 
-      placeholder="password" />
-          <Marginer direction="vertical" margin={20} />
-          <CardButton
-            onClick={() => signup(username, firstname, lastname, email, password)}
-            type="submit"
-          >Signup
-          </CardButton>
-          <Marginer direction="vertical" margin={10} />
-          <MutedLink>Already Have an Account?{" "}
-          <BoldLink onClick={switchToLogin}>Login</BoldLink>
-          </MutedLink>
-      </InnerContainer>
-      </CardWrapper>
-  </div>
-</div>
+            required name="username" 
+            type="text" onChange={e => setUsername(e.target.value)} 
+            value={username} placeholder="username" />
+                
+            <Input 
+            required name="firstname" 
+            type="text" 
+            onChange={e => setFirstname(e.target.value)}
+            value={firstname}
+            placeholder="firstname" />
+                
+            <Input 
+            required name="lastname" 
+            type="text" 
+            onChange={e => setLastname(e.target.value)} 
+            value={lastname} placeholder="lastname" />
+            <Input 
+            required name="email" 
+            type="email" 
+            onChange={e => setEmail(e.target.value)} 
+            value={email} placeholder="email" />
+            <Input 
+            required name="password" 
+            type="password" 
+            onChange={e => setPassword(e.target.value)} 
+            value={password} 
+            placeholder="password" />
+                <Marginer direction="vertical" margin={20} />
+                <CardButton
+                  onClick={() => signup(username, firstname, lastname, email, password)}
+                  type="submit"
+                >Signup
+                </CardButton>
+                <Marginer direction="vertical" margin={10} />
+                <MutedLink>Already Have an Account?{" "}
+                <BoldLink onClick={switchToLogin}>Login</BoldLink>
+                </MutedLink>
+            </InnerContainer>
+            </CardWrapper>
+        </div>
+      </div>
+      </div>
+      <div className="main-flex-right">
+        <p className="main-paragraph text-center">
+          Welcome to OurSpace!
+        </p>
+        <p className="main-paragraph text-center">
+          OurSpace is an inclusive social networking platform 
+          for women and underrepresented individuals in the tech 
+          industry to connect, network, and share their experiences.
+        </p>
+        <p className="main-paragraph text-center">
+          Sign up for a free account to access the job board,
+          see company reviews from other users, create events,
+          and sign up as a tech mentor or mentee!
+        </p>
+      </div>
+    </div>
   </>
 );
 }

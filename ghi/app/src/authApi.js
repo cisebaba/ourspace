@@ -46,7 +46,6 @@ export function useToken() {
   useEffect(() => {
     async function fetchToken() {
       const token = await getTokenInternal();
-      console.log(token, "auth_api");
       setToken(token);
     }
     if (!token) {
