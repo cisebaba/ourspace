@@ -1,7 +1,7 @@
 # OurSpace
 ```sh
     https://bits-please2.gitlab.io/ourspace/
-    ```
+```
 ## Design
 
 * [API design](docs/apis.md)
